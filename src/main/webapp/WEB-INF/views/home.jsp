@@ -13,9 +13,10 @@
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 
+
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/body-styles.css" rel="stylesheet" />
-    <link href="css/clock.css" rel="stylesheet" />
+    <link href="/css/body-styles.css" rel="stylesheet" />
+    <link href="/css/clock.css" rel="stylesheet" />
 
     <!-- JavaScript Includes -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
