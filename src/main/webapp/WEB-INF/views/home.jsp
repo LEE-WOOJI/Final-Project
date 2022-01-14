@@ -43,9 +43,7 @@
             font-style: normal;
         }
 
-        * {
-            font-family: 'yg-jalnan', verdana, tahoma;
-        }
+
     </style>
 
 
@@ -88,8 +86,8 @@
     <section class="page-section bg-light" id="portfolio">
         <div class="container">
             <div class="text-center">
-                <h1>카테고리</h1>
-                <h5>원하는 종류의 글피 카테고리를 선택해주세요</h5>
+                <h1 style="font-family: 'yg-jalnan', verdana, tahoma;">카테고리</h1>
+                <h5 style="font-family: 'yg-jalnan', verdana, tahoma;">원하는 종류의 글피 카테고리를 선택해주세요</h5>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-sm-6 mb-4">
@@ -103,8 +101,8 @@
                             <img class="img-fluid" src="assets/img/category/001.png" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">건강</div>
-                            <div class="portfolio-caption-subheading text-muted">Health</div>
+                            <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">건강</div>
+                            <div class="portfolio-caption-subheading text-muted" style="font-family: 'yg-jalnan', verdana, tahoma;">Health</div>
                         </div>
                     </div>
                 </div>
@@ -119,8 +117,8 @@
                             <img class="img-fluid" src="assets/img/category/002.png" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">취미</div>
-                            <div class="portfolio-caption-subheading text-muted">Hobby</div>
+                            <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">취미</div>
+                            <div class="portfolio-caption-subheading text-muted" style="font-family: 'yg-jalnan', verdana, tahoma;">Hobby</div>
                         </div>
                     </div>
                 </div>
@@ -135,8 +133,8 @@
                             <img class="img-fluid" src="assets/img/category/003.png" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">금융</div>
-                            <div class="portfolio-caption-subheading text-muted">Finance</div>
+                            <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">금융</div>
+                            <div class="portfolio-caption-subheading text-muted" style="font-family: 'yg-jalnan', verdana, tahoma;">Finance</div>
                         </div>
                     </div>
                 </div>
@@ -151,8 +149,8 @@
                             <img class="img-fluid" src="assets/img/category/004.png" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">공부</div>
-                            <div class="portfolio-caption-subheading text-muted">Study</div>
+                            <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">공부</div>
+                            <div class="portfolio-caption-subheading text-muted" style="font-family: 'yg-jalnan', verdana, tahoma;">Study</div>
                         </div>
                     </div>
                 </div>
@@ -167,8 +165,8 @@
                             <img class="img-fluid" src="assets/img/category/005.png" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">생활</div>
-                            <div class="portfolio-caption-subheading text-muted">Life</div>
+                            <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">생활</div>
+                            <div class="portfolio-caption-subheading text-muted" style="font-family: 'yg-jalnan', verdana, tahoma;">Life</div>
                         </div>
                     </div>
                 </div>
@@ -183,8 +181,8 @@
                             <img class="img-fluid" src="assets/img/category/006.png" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">펫/환경</div>
-                            <div class="portfolio-caption-subheading text-muted">Pet/Environment</div>
+                            <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">펫/환경</div>
+                            <div class="portfolio-caption-subheading text-muted" style="font-family: 'yg-jalnan', verdana, tahoma;">Pet/Environment</div>
                         </div>
                     </div>
                 </div>
@@ -200,8 +198,8 @@
         <div class="row" style="padding-top: 300px; padding-bottom: 300px;">
             <div class="col-12" style="text-align: center;">
                 <img src="assets/img/about/trophy.png" class="img-fluid" style="padding-bottom: 50px;">
-                <h1>'글피' 소개</h1><br><br> 
-                <h4> 글피는 글로리 트로피(Glory Trophy)의 줄임말으로<br><br>
+                <h1 style="font-family: 'yg-jalnan', verdana, tahoma;">'글피' 소개</h1><br><br> 
+                <h4 style="font-family: 'yg-jalnan', verdana, tahoma;"> 글피는 글로리 트로피(Glory Trophy)의 줄임말으로<br><br>
                     습관을 완수한 당신은 영광스러운 트로피를 받을 자격이 있다는 의미입니다.<br><br>
                     작은 습관들이 모여 나의 하루가 되고 인생이 됩니다.<br><br>
                     오늘부터 작은 습관을 쌓아 인생을 바꾸세요!
@@ -212,9 +210,9 @@
         <!--01. 나에게 필요한 글피 선택-->
         <div class="row" style="padding-top: 300px; padding-bottom: 300px; text-align: center;">
             <div class="col-xl-6 col-lg-12" style="padding: 50px">
-                <h1>01</h1>
-                <h1 style="padding: 30px;" > 나에게 필요한 글피 선택</h1>
-                <h4>미라클 모닝,영어공부,운동,취미 등<br><br> 
+                <h1 style="font-family: 'yg-jalnan', verdana, tahoma;">01</h1>
+                <h1 style="padding: 30px; font-family: 'yg-jalnan', verdana, tahoma;" > 나에게 필요한 글피 선택</h1>
+                <h4 style="font-family: 'yg-jalnan', verdana, tahoma;">미라클 모닝,영어공부,운동,취미 등<br><br> 
                     작심삼일을 넘어 글피까지도<br><br> 
                     같은 목표를 가진 사람들과 함께 
                     <br> <br>좋은 습관을 형성합니다.</h4>
@@ -231,8 +229,8 @@
             </div>
             <div class=" col-xl-6 p-5 order-1">
                 <h1>02</h1>
-                <h1 style="padding: 30px;" >인증하기</h1><br>
-                <h4> 매일 실천한 일은 정해진 기준에 따라<br><br> 
+                <h1 style="padding: 30px; font-family: 'yg-jalnan', verdana, tahoma;" >인증하기</h1><br>
+                <h4 style="font-family: 'yg-jalnan', verdana, tahoma;"> 매일 실천한 일은 정해진 기준에 따라<br><br> 
                     인증샷을 찍고 <br><br> 
                     정해진 시간내에 업로드를 합니다.</h4>
             </div>
@@ -242,8 +240,8 @@
         <div class="row" style="padding-top: 300px; padding-bottom: 300px; text-align: center; ">
             <div class="col-xl-6 col-lg-12" style="padding: 50px">
                 <h1 >03</h1>
-                <h1 style="padding: 30px;" >내 의지를 돈으로 건다</h1>
-                <h4>시작 전 참가비 10,000원을 걸고,<br><br>
+                <h1 style="padding: 30px;font-family: 'yg-jalnan', verdana, tahoma;" >내 의지를 돈으로 건다</h1>
+                <h4 style="font-family: 'yg-jalnan', verdana, tahoma;">시작 전 참가비 10,000원을 걸고,<br><br>
                     내가 실천한 만큼 참가비를 환급 받습니다.<br><br>
                     50% 미만 달성시에는 환급받을 수 없으니 주의해주세요 !</h4>
             </div>
@@ -271,7 +269,7 @@
                     <a class="button">시계 테마 변경 </a>
                 </div> -->
 
-                <h4 class="large text-muted">
+                <h4 class="large text-muted" style="font-family: 'yg-jalnan', verdana, tahoma;">
                     미래는 현재 우리가 무엇을 하는가에 달려 있다 - 마하트마 간디<br><br>
                     The future depends on what we do in the present - Mahatma Gandhi 
                 </h4>

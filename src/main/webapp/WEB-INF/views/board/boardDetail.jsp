@@ -23,6 +23,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
 <style>
 body {
 	margin: 0;
@@ -250,8 +251,10 @@ button:hover {
 
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title" style="font-family: 'yg-jalnan', verdana, tahoma;">
-			<img id="title" src="/assets/img/board.jpg">&ensp;<span>자유 게시판</span>
+		<div id="board-title"
+			style="font-family: 'yg-jalnan', verdana, tahoma;">
+			<img id="title" src="/assets/img/board.jpg">&ensp;<span>자유
+				게시판</span>
 		</div>
 		<br>
 
@@ -271,7 +274,8 @@ button:hover {
 									</div>
 									<ul
 										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0" style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
+										<li class="name mt-0"
+											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
 										<li class="label" style="margin: 0; padding: 0">작성일</li>
 									</ul>
 								</div>
@@ -300,7 +304,7 @@ button:hover {
 								<button type="button" class="btn btn-dark"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">수정완료</button>
 								<button type="button" class="btn btn-dark"
-									style="background-color: ; display: none;">취소</button>
+									style="background-color:; display: none;">취소</button>
 							</c:if>
 							<c:if test="${loginID=='admin'}">
 								<button type="button"
@@ -329,7 +333,8 @@ button:hover {
 											</div>
 											<ul
 												class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-												<li class="name mt-0" style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
+												<li class="name mt-0"
+													style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
 												<li class="label" style="margin: 0; padding: 0">작성일</li>
 											</ul>
 										</div>
@@ -338,26 +343,26 @@ button:hover {
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
-									<textarea class="contents" name=""
-										readonly style="height: auto;">제목</textarea>
+									<textarea class="contents" name="" readonly
+										style="height: auto;">제목</textarea>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12" style="text-align: right">
 									<c:if test="${loginID==writer}">
 										<button type="button" class="btn btn-dark"
-											style="background-color: ;">수정</button>
+											style="background-color:;">수정</button>
 										<button class="btn btn-dark"
-											style="background-color: ; display: none;">완료</button>
+											style="background-color:; display: none;">완료</button>
 										<button type="button" class="btn btn-dark"
-											style="background-color: ; display: none;">취소</button>
+											style="background-color:; display: none;">취소</button>
 										<button type="button" class="btn btn-dark"
-											style="background-color: ;">삭제</button>
+											style="background-color:;">삭제</button>
 										<input id=hidden-cseq type=hidden value="">
 									</c:if>
 									<c:if test="${loginID=='admin'}">
 										<button type="button" class="btn btn-dark"
-											style="background-color: ;">삭제</button>
+											style="background-color:;">삭제</button>
 									</c:if>
 								</div>
 							</div>
@@ -381,7 +386,8 @@ button:hover {
 									</div>
 									<ul
 										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0" style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
+										<li class="name mt-0"
+											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
 										<li class="label" style="margin: 0; padding: 0">작성일</li>
 									</ul>
 								</div>
@@ -407,9 +413,9 @@ button:hover {
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script type="text/javascript">
-	$("#boardList").on("click", function() {
-		location.href = "/board/main";
-	});
+		$("#boardList").on("click", function() {
+			location.href = "/board/main";
+		});
 	</script>
 </body>
 </html>
