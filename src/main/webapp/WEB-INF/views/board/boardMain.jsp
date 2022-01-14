@@ -269,7 +269,7 @@ a {
 
 	<script>
 		$("#writeBtn").on("click", function() {
-			location.href = "/board/main";
+			location.href = "/board/write";
 		})
 	</script>
 </body>
