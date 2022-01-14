@@ -22,6 +22,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+
 </head>
 <style>
 body {
@@ -148,82 +149,128 @@ a {
 	text-overflow: ellipsis;
 	max-width: 130px;
 }
+
+#board-title {
+	text-align: center;
+	height: 100px;
+	line-height: 100px;
+	padding: 100px 0;
+}
+
+#title {
+	width: 50px;
+	height: 50px;
+}
+
+@font-face {
+	font-family: 'yg-jalnan';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 </style>
 <body>
-	<!-- 메인 네비바 -->
-
+	<!-- 헤더 -->
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 
 	<div class="container-fluid mt-100">
 
 		<!-- 타이틀  -->
-		<div id="title">
-			<img id="titleImg" src=""> <span>자유 게시판</span><br> <span>자유롭게
-				이야기를 나눠보세요.</span>
+		<div class="container-fluid mt-100">
+			<div id="board-title"
+				style="font-family: 'yg-jalnan', verdana, tahoma;">
+				<img id="title" src="/assets/img/board.jpg">&ensp;<span><b>자유
+						게시판</b></span>
+			</div>
+			<br>
+
+			<!-- 자유게시판 박스 -->
+			<div class="card mb-3 col-10" style="float: none; margin: 0 auto">
+
+				<!-- 분류 -->
+				<div class="card-header pl-0 pr-0">
+					<div class="row no-gutters w-100 align-items-center">
+						<div class="col ml-3"
+							style="font-family: 'yg-jalnan', verdana, tahoma;">번호</div>
+						<div class="col ml-3"
+							style="font-family: 'yg-jalnan', verdana, tahoma;">제목</div>
+						<div class="col-4 text-muted">
+							<div class="row no-gutters align-items-center">
+								<div class="d-none d-md-block col-4"
+									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">닉네임</div>
+								<div class="d-md-none col-12"
+									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">닉네임</div>
+								<div class="d-none d-md-block col-4"
+									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">작성일</div>
+								<div class="d-none d-md-block col-4"
+									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">조회수</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 내용 -->
+				<div class="card-body py-3">
+					<div class="row no-gutters w-100 align-items-center">
+						<div class="col ml-3">번호</div>
+						<div class="col ml-3">
+							<a href="/board/detail" class="text-big" data-abc="true">제목</a>
+						</div>
+						<div class="col-4 text-muted">
+							<div class="row no-gutters align-items-center">
+								<div class="d-none d-md-block col-4">닉네임</div>
+								<div class="d-md-none col-12">닉네임</div>
+								<div class="d-none d-md-block col-4">작성일</div>
+								<div class="d-none d-md-block col-4">조회수</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 버튼 페이징 -->
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">123>
+				</ul>
+			</nav>
+			<div class="col-10"
+				style="float: none; margin: 0 auto; border: 0px; background-color: transparent;">
+				<div class="row">
+					<div class="col">
+						<table class="table-sm mb-0" align=right>
+							<tr>
+								<td><select class="selectpicker" id="select" name="select">
+										<option>제목</option>
+										<option>내용</option>
+										<option>닉네임</option>
+								</select></td>
+								<td><input type="search" class="form-control rounded"
+									placeholder="내용을 입력하세요" id="searchContents"
+									name="searchContents" /></td>
+								<td>
+									<button id="search" name="search">
+										<i class="fas fa-search"></i>
+									</button>
+								</td>
+								<td>
+									<button id="writeBtn" name="writeBtn">글쓰기</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 		<br>
-
-		<!-- 자유게시판 박스 -->
-		<div class="card mb-3">
-
-			<!-- 분류 -->
-			<div class="card-header pl-0 pr-0">
-				<div class="row no-gutters w-100 align-items-center">
-					<div class="col ml-3">번호</div>
-					<div class="col ml-3">제목</div>
-					<div class="col-4 text-muted">
-						<div class="row no-gutters align-items-center">
-							<div class="d-none d-md-block col-4">닉네임</div>
-							<div class="d-md-none col-12">닉네임</div>
-							<div class="d-none d-md-block col-4">작성일</div>
-							<div class="d-none d-md-block col-4">조회수</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- 내용 -->
-			<div class="card-body py-3">
-				<div class="row no-gutters w-100 align-items-center">
-					<div class="col ml-3">번호</div>
-					<div class="col ml-3">
-						<a href="" class="text-big" data-abc="true">제목</a>
-					</div>
-					<div class="col-4 text-muted">
-						<div class="row no-gutters align-items-center">
-							<div class="d-none d-md-block col-4">닉네임</div>
-							<div class="d-md-none col-12">닉네임</div>
-							<div class="d-none d-md-block col-4">작성일</div>
-							<div class="d-none d-md-block col-4">조회수</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 버튼 페이징 -->
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center"></ul>
-		</nav>
-		<table class="table-sm mb-0" align=right>
-			<tr>
-				<td><select class="selectpicker" id="select" name="select">
-						<option>제목</option>
-						<option>내용</option>
-						<option>닉네임</option>
-				</select></td>
-				<td><input type="search" class="form-control rounded"
-					placeholder="내용을 입력하세요" id="searchContents" name="searchContents" /></td>
-				<td>
-					<button id="search" name="search">
-						<i class="fas fa-search"></i>
-					</button>
-				</td>
-				<td>
-					<button id="writeBtn" name="writeBtn">글쓰기</button>
-				</td>
-			</tr>
-		</table>
 	</div>
 	<!-- 풋터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+
+	<script>
+		$("#writeBtn").on("click", function() {
+			location.href = "/board/main";
+		})
+	</script>
 </body>
 </html>

@@ -43,7 +43,7 @@
 			</div>
 			<div class="col-lg-4 my-3 my-lg-0" style="font-size: medium;">
 				<a href="#" style="text-decoration: none; color: black;"><i
-					class="fas fa-trophy"></i>&ensp;<b>글피</b></a>&emsp; <a href="/board/boardMain"
+					class="fas fa-trophy"></i>&ensp;<b>글피</b></a>&emsp; <a href="/board/main"
 					style="text-decoration: none; color: black;"><i
 					class="fas fa-file-alt"></i>&ensp;<b>커뮤니티</b></a>&emsp; <a href="#"
 					style="text-decoration: none; color: black;"><i
@@ -59,7 +59,7 @@
 	</div>
 </footer>
 <div id="bot" class="text-center p-4"
-	style="background-color: grey; color: white">Copyright 2022.
+	style="background-color: #cf3131; color: white">Copyright 2022.
 	&copy; Glply All rights reserved.</div>
 <!-- Copyright -->
 <!-- Bootstrap core JS-->
@@ -71,5 +71,8 @@
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script>
+	
+</script>
 </body>
 </html>
