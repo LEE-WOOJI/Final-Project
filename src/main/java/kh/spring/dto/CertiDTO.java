@@ -1,5 +1,7 @@
 package kh.spring.dto;
 
+import java.sql.Timestamp;
+
 import oracle.sql.TIMESTAMP;
 
 public class CertiDTO {
@@ -7,11 +9,11 @@ public class CertiDTO {
 	private String refNickname;
 	private String certiTitle;
 	private String certiContents;
-	private TIMESTAMP certiDate;
+	private Timestamp certiDate;
 	
 	public CertiDTO() {}
 
-	public CertiDTO(int seq, String refNickname, String certiTitle, String certiContents, TIMESTAMP certiDate) {
+	public CertiDTO(int seq, String refNickname, String certiTitle, String certiContents, Timestamp certiDate) {
 		super();
 		this.seq = seq;
 		this.refNickname = refNickname;
@@ -44,10 +46,10 @@ public class CertiDTO {
 	public void setCertiContents(String certiContents) {
 		this.certiContents = certiContents;
 	}
-	public TIMESTAMP getCertiDate() {
+	public Timestamp getCertiDate() {
 		return certiDate;
 	}
-	public void setCertiDate(TIMESTAMP certiDate) {
+	public void setCertiDate(Timestamp certiDate) {
 		this.certiDate = certiDate;
 	}
 	

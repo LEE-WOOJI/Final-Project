@@ -1,17 +1,18 @@
 package kh.spring.dto;
 
-import oracle.sql.TIMESTAMP;
+import java.sql.Timestamp;
+
 
 public class BoardReplyDTO {
 	private int seq;
 	private int refBoardSeq;
 	private String writerNickname;
-	private TIMESTAMP write_date;
+	private Timestamp write_date;
 	private String repContents;
 	
 	public BoardReplyDTO() {}
 
-	public BoardReplyDTO(int seq, int refBoardSeq, String writerNickname, TIMESTAMP write_date, String repContents) {
+	public BoardReplyDTO(int seq, int refBoardSeq, String writerNickname, Timestamp write_date, String repContents) {
 		super();
 		this.seq = seq;
 		this.refBoardSeq = refBoardSeq;
@@ -38,10 +39,10 @@ public class BoardReplyDTO {
 	public void setWriterNickname(String writerNickname) {
 		this.writerNickname = writerNickname;
 	}
-	public TIMESTAMP getWrite_date() {
+	public Timestamp getWrite_date() {
 		return write_date;
 	}
-	public void setWrite_date(TIMESTAMP write_date) {
+	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
 	public String getRepContents() {

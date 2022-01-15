@@ -15,6 +15,7 @@
       <meta name="author" content="" />
       <link rel="shortcut icon" href="/assets/favicon.ico" type="">
       <title>Glphy</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
       <!-- bootstrap core css -->
       <link href="/css/chalboot.css" rel="stylesheet" />
       <!-- css -->
@@ -32,7 +33,7 @@
 		font-weight: normal;
 		font-style: normal;
 		}
-		#searchBtn, #option, #moreBtn, #title, #chalTitle{font-family: 'yg-jalnan', verdana, tahoma;}
+		#searchBtn, #option, #moreBtn, #title, #chalTitle, #more{font-family: 'yg-jalnan', verdana, tahoma;}
       </style>
       
    </head>
@@ -48,7 +49,7 @@
 		<br>
 		<div class="row" style = "text-align:center">
 			<div class = "col-sm-12 col-md-4 col-lg-2">
-				<select class="form-select btn btn-danger" aria-label="Default select example" name = "option" id = "option">
+				<select class="form-select btn btn-danger" aria-label="Default select example" id = "option">
   					<option selected>검색옵션</option>
   					<option value="keyword">키워드</option>
   					<option value="tag">태그</option>
@@ -72,12 +73,12 @@
                   <hr>
                </h3>
             </div>
-            <div class="row">
-               <c:forEach var = "list" items = "${chalList }">
+            <div class="row" id = "listLine">
+               <c:forEach var = "list" items = "${list }">
                		<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
-		                        <img src="/assets/img/heartOn.png" alt="">
+		                        <img src=${list.oriName} alt="">
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
@@ -85,7 +86,14 @@
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>
-		                     <div class = "tage-box">
+		                     <div class = "category">
+		                        <hr>
+		                        <h6>
+		                           <label>Category : </label>
+		                           ${list.category }
+		                        </h6>
+		                     </div>
+		                     <div class = "tag-box">
 		                        <hr>
 		                        <h6>
 		                           <label>Tag : </label>
@@ -111,11 +119,11 @@
             
             <div class = "row">
             	<div class = "col">
-            		<div class="btn-box" id = "moreBtn">
-               		<a href="" style = "text-decoration : none;">
-               			View More
-              		</a>
-            </div>
+            		<div class="btn-box">
+	               		<div class = "col-sm-12 col-md-4 col-lg-2" style = "margin:0px;">
+							<button type="button" class="btn btn-danger" style = "width:100%;" id = "more">View More</button>
+						</div>
+            		</div>
             	</div>
             </div>
             
@@ -127,6 +135,10 @@
    </body>
    
    <script>
-   		
+   		let morenum = 1;
+		$("#more").on("click",function(){
+			morenum += 10;
+			console.log(morenum);
+		})
    </script>
 </html>
