@@ -42,7 +42,7 @@
 <!-- header -->
 <body id="page-top">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: yellow;">
             <div class="container">
                 <!--로고-->
                 <a class="navbar-brand" href="#page-top"><img src="/assets/img/logo.png" alt="..." id = "toplogo"/></a>
