@@ -4,7 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Board">
+	<!-- 게시글 목록 -->
 	<select id="selectAll" resultType="kh.spring.dto.BoardDTO">
-		select * from board
+		select * from
+		(select
+		board.*,
+		row_number() over(order by seq desc) rn
+		from board) where rn between
+		#{start} and #{end}
 	</select>
+
+	<!-- 검색 시 게시글 목록 -->
+	<select id="selectAllSearch" resultType="kh.spring.dto.BoardDTO">
+		select * from
+		(select
+		board.*,
+		row_number() over(order by seq desc) rn
+		from board where
+		${select} like '%'||#{keyword}||'%') where rn between #{start} and
+		#{end}
+	</select>
+
+	<!-- 게시글 글 수 -->
+	<select id="getRecordCount" resultType="int">
+		select count(*) from
+		board
+	</select>
+
+	<!-- 게시글 검색 시 글 수 -->
+	<select id="getRecordCountSearch" resultType="int">
+		select count(*)
+		from board where ${select} like '%'||#{keyword}||'%'
+	</select>
+	
+	<!-- seq로 작성한 글의 detail 출력 -->
+	<select id="selectBySeq" resultType="kh.spring.dto.BoardDTO">
+		select * from board where seq = #{value}
+	</select>
+	
+	<!-- 조희수 올리기 -->
+	<update id="addViewCount">
+		update board set view_count = view_count+1 where seq = #{seq}
+	</update>
+	
+	<!-- 게시물 수정 -->
+	<update id="modify">
+		update board set title = #{title}, contents = #{contents} where seq = #{seq}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		delete from board where seq = #{value}
+	</delete>
 </mapper>

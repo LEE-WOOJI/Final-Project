@@ -261,7 +261,7 @@ button:hover {
 		<!-- 자유게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 
-			<form action="" method="post">
+			<form action="/board/done" method="post" id="frm">
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
@@ -275,8 +275,8 @@ button:hover {
 									<ul
 										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
 										<li class="name mt-0"
-											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
-										<li class="label" style="margin: 0; padding: 0">작성일</li>
+											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">${bList.nickname }</li>
+										<li class="label" style="margin: 0; padding: 0">${bList.write_date }</li>
 									</ul>
 								</div>
 							</div>
@@ -284,8 +284,8 @@ button:hover {
 					</div>
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
-							<input type=text id=input-title name=title style="width: 100%;"
-								readonly>
+							<input type=text id=input-title name=title value="${bList.title}"
+								style="width: 100%;">
 						</div>
 					</div>
 					<div class="row">
@@ -297,17 +297,17 @@ button:hover {
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
 							<c:if test="${loginID==writer}">
-								<button type="button"
+								<button type="button" id="mod"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
-								<button type="button"
+								<button type="button" id="del"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제하기</button>
-								<button type="button" class="btn btn-dark"
+								<button type="button" id="modDone"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">수정완료</button>
-								<button type="button" class="btn btn-dark"
-									style="background-color:; display: none;">취소</button>
+								<button type="button" id="cancel"
+									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">취소</button>
 							</c:if>
 							<c:if test="${loginID=='admin'}">
-								<button type="button"
+								<button type="button" id="del"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제하기</button>
 							</c:if>
 							<button type="button" id="boardList"
@@ -413,9 +413,58 @@ button:hover {
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script type="text/javascript">
+		// 목록으로 버튼 클릭 시.
 		$("#boardList").on("click", function() {
-			location.href = "/board/main";
+			<c:if test="${select==''}">
+				location.href = "/board/main?cpage=${cpage}&select=${select}&keyword=${keyword}";
+			</c:if>
+			<c:if test="${select!=''}">
+				location.href = "/board/search?cpage=${cpage}&select=${select}&keyword=${keyword}";
+			</c:if>
 		});
+		
+		// texarea에 작성한 내용 보여주기.
+    	$("#contents").text("${bList.contents}");
+    	autosize($("textArea"));
+	</script>
+
+	<script type="text/javascript">
+	// 수정, 삭제, 취소 버튼 클릭 시.
+	let bkTitle = $("#input-title").val();					
+	let bkContents = $("#contents").val();			
+	$("#mod").on("click", function(){
+		$("#del").css("display","none");
+		$("#mod").css("display","none");
+		$("#boardList").css("display","none");
+		$("#modDone").css("display","inline-block");
+		$("#cancel").css("display","inline-block");
+		$("#frm").removeAttr("action");
+		$("#input-title").removeAttr("readonly");
+		$("#contents").removeAttr("readonly");
+		$("#contents").focus();
+		
+		$("#frm").attr("action","/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}");
+		
+	});
+	$("#del").on("click", function(){
+		if(confirm("정말 삭제하시겠습니까?")) {
+			location.href="/board/delete?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}";
+		}
+	});
+	$("#modDone").on("click",function(){
+		$("#frm").submit();
+	})
+	$("#cancel").on("click",function(){
+		$("#input-title").val(bkTitle);
+		$("#contents").val(bkContents);
+		$("#input-title").attr("readonly","");
+		$("#contents").attr("readonly","");
+		$("#mod").css("display","inline-block");
+		$("#del").css("display","inline-block");
+		$("#modDone").css("display","none");
+		$("#cancel").css("display","none");
+		$("#boardList").css("display","inline-block");
+	})
 	</script>
 </body>
 </html>
