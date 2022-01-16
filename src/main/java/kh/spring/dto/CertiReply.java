@@ -1,17 +1,19 @@
 package kh.spring.dto;
 
+import java.sql.Timestamp;
+
 import oracle.sql.TIMESTAMP;
 
 public class CertiReply {
 	private int seq;
 	private int refCertiSeq;
 	private String writerNickname;
-	private TIMESTAMP write_date;
+	private Timestamp write_date;
 	private String repContents;
 	
 	public CertiReply() {}
 
-	public CertiReply(int seq, int refCertiSeq, String writerNickname, TIMESTAMP write_date, String repContents) {
+	public CertiReply(int seq, int refCertiSeq, String writerNickname, Timestamp write_date, String repContents) {
 		super();
 		this.seq = seq;
 		this.refCertiSeq = refCertiSeq;
@@ -38,10 +40,10 @@ public class CertiReply {
 	public void setWriterNickname(String writerNickname) {
 		this.writerNickname = writerNickname;
 	}
-	public TIMESTAMP getWrite_date() {
+	public Timestamp getWrite_date() {
 		return write_date;
 	}
-	public void setWrite_date(TIMESTAMP write_date) {
+	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
 	public String getRepContents() {

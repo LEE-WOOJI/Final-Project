@@ -2,8 +2,8 @@ package kh.spring.dto;
 
 import java.sql.Timestamp;
 
-public class ChalDTO {
-	private int seq;
+public class ChalAllDTO {
+	private int chalSeq;
 	private String chalName;
 	private Timestamp startDate;
 	private Timestamp endDate;
@@ -13,13 +13,19 @@ public class ChalDTO {
 	private String price;
 	private String day;
 	private String category;
+	private int imgseq;
+	private String oriName;
+	private String sysName;
+	private int likeSeq;
+	private String refNickName;
 	
-	public ChalDTO() {}
-
-	public ChalDTO(int seq, String chalName, Timestamp startDate, Timestamp endDate, int personnel, String chalInfo,
-			String tag, String price, String day, String category) {
+	public ChalAllDTO() {}
+	
+	public ChalAllDTO(int chalSeq, String chalName, Timestamp startDate, Timestamp endDate, int personnel,
+			String chalInfo, String tag, String price, String day, String category, int imgseq, String oriName,
+			String sysName, int likeSeq, String refNickName) {
 		super();
-		this.seq = seq;
+		this.chalSeq = chalSeq;
 		this.chalName = chalName;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -29,13 +35,17 @@ public class ChalDTO {
 		this.price = price;
 		this.day = day;
 		this.category = category;
+		this.imgseq = imgseq;
+		this.oriName = oriName;
+		this.sysName = sysName;
+		this.likeSeq = likeSeq;
+		this.refNickName = refNickName;
 	}
-	
-	public int getSeq() {
-		return seq;
+	public int getChalSeq() {
+		return chalSeq;
 	}
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setChalSeq(int chalSeq) {
+		this.chalSeq = chalSeq;
 	}
 	public String getChalName() {
 		return chalName;
@@ -91,6 +101,37 @@ public class ChalDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	public int getImgseq() {
+		return imgseq;
+	}
+	public void setImgseq(int imgseq) {
+		this.imgseq = imgseq;
+	}
+	public String getOriName() {
+		return oriName;
+	}
+	public void setOriName(String oriName) {
+		this.oriName = oriName;
+	}
+	public String getSysName() {
+		return sysName;
+	}
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
+	}
+	public int getLikeSeq() {
+		return likeSeq;
+	}
+	public void setLikeSeq(int likeSeq) {
+		this.likeSeq = likeSeq;
+	}
+	public String getRefNickName() {
+		return refNickName;
+	}
+	public void setRefNickName(String refNickName) {
+		this.refNickName = refNickName;
+	}
+	
 	
 	
 }
