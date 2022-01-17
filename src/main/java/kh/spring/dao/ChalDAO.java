@@ -22,4 +22,9 @@ public class ChalDAO {
 		map.put("end", end);		
 		return mybatis.selectList("Chal.listBound", map);
 	}
+	
+	//검색하기 1.제목
+	public List<ChalBasicDTO> searchK(String keyword){
+		return mybatis.selectList("Chal.searchK", keyword);
+	}
 }

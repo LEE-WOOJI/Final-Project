@@ -50,7 +50,7 @@
 		</div>
 		<br>
 		<form action = "/chal/search" method = "post">
-			<div class="row" style = "text-align:center">
+		<div class="row" style = "text-align:center">
 				<div class = "col-sm-12 col-md-4 col-lg-2">
 				<select class="form-select btn btn-danger" aria-label="Default select example" id = "option" name = "option">
   					<option selected>검색옵션</option>
@@ -121,15 +121,6 @@
                </c:forEach>
             </div>
             
-            <div class = "row">
-            	<div class = "col">
-            		<div class="btn-box">
-	               		<div class = "col-sm-12 col-md-4 col-lg-2" style = "margin:0px;">
-							<button type="button" class="btn btn-danger" style = "width:100%;" id = "more">View More</button>
-						</div>
-            		</div>
-            	</div>
-            </div>
             
          </div>
       </section>
@@ -138,66 +129,5 @@
        	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
    </body>
    
-   <script>
-   		let moreNum = 1;
-   		$("#more").on("click",function(){
-   			moreNum += 6;
-   			$.ajax({
-   				url:"/chal/more",
-   				method:"POST",
-   				data:{"moreNum":moreNum}
-   			}).done(function(resp){
-   				let result = JSON.parse(resp);
-   				let content = "";
-   				for(let i = 0; i < result.length; i++){
-   					console.log("회차 : " + i);
-   					console.log(result[i].chalName);
-   					content += `<div class="col-sm-6 col-md-4 col-lg-4">
-		                  <div class="box">
-		                     <div class="img-box">
-		                        <img src="\${result[i].oriName}" alt="">
-		                     </div>
-		                     <div class="detail-box">
-		                        <h4 id = "title">
-		                           \${result[i].chalName }
-		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
-		                     </div>
-		                     <div class = "category">
-		                        <hr>
-		                        <h6>
-		                           <label>Category : </label>
-		                           \${result[i].category }
-		                        </h6>
-		                     </div>
-		                     <div class = "tag-box">
-		                        <hr>
-		                        <h6>
-		                           <label>Tag : </label>
-		                           \${result[i].tag }
-		                        </h6>
-		                     </div>
-		                     <div class = "startday">
-		                        <h6>
-		                           <label>시작일 : </label>
-		                           \${result[i].startDate }
-		                        </h6>
-		                     </div>
-		                     <div class = "endday">
-		                        <h6>
-		                           <label>종료일 : </label>
-		                           \${result[i].endDate }
-		                        </h6>
-		                     </div>
-		                  </div>
-           		</div>`;
-   					if(result[i].seq = 10){
-   	   					$("#more").css("display","none");
-   	   				}
-   				}$(content).appendTo("#listLine");
-   				
-   			})
-   		});
-		
-   </script>
+   
 </html>

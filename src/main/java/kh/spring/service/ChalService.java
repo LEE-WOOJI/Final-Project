@@ -18,4 +18,9 @@ public class ChalService {
 	public List<ChalBasicDTO> listBound(int start, int end){
 		return cdao.listBound(start, end);
 	}
+	
+	//검색 1.키워드
+	public List<ChalBasicDTO> searchK(String keyword){
+		return cdao.searchK(keyword);
+	}
 }
