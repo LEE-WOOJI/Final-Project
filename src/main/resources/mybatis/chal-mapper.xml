@@ -8,7 +8,13 @@
 		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal) join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
 	<select id="searchK" resultType="kh.spring.dto.ChalBasicDTO">
-		select * from chal join chalImg using(chalSeq) where chalName like '%'||#{value}||'%'
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where chalName like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
+	</select>
+	<select id="searchT" resultType="kh.spring.dto.ChalBasicDTO">
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where tag like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
+	</select>
+	<select id="searchD" resultType="kh.spring.dto.ChalBasicDTO">
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where day = #{keyword}) join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
 </mapper>
 

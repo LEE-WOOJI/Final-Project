@@ -50,17 +50,17 @@
 		</div>
 		<br>
 		<form action = "/chal/search" method = "post">
-		<div class="row" style = "text-align:center">
+			<div class="row" style = "text-align:center">
 				<div class = "col-sm-12 col-md-4 col-lg-2">
 				<select class="form-select btn btn-danger" aria-label="Default select example" id = "option" name = "option">
   					<option selected>검색옵션</option>
-  					<option value="keyword">키워드</option>
+  					<option value="name">이름</option>
   					<option value="tag">태그</option>
   					<option value="day">일수</option>
 				</select>
 				</div>
 				<div class = "col-sm-12 col-md-4 col-lg-9">
-					<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText">
+					<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText" value = "${searchText }">
 				</div>
 				<div class = "col-sm-12 col-md-4 col-lg-1" style = "margin:0px;">
 					<button type="submit" class="btn btn-danger" id = "searchBtn" style = "width:100%;">Search</button>
@@ -73,7 +73,7 @@
          <div class="container">
             <div class="heading_container heading_center">
                <h3>
-                  <span id = "chalTitle">Our Challenge</span>
+                  <span id = "chalTitle">${option }에서 ${searchText }</span>
                   <hr>
                </h3>
             </div>
@@ -121,6 +121,15 @@
                </c:forEach>
             </div>
             
+            <div class = "row">
+            	<div class = "col">
+            		<div class="btn-box">
+	               		<div class = "col-sm-12 col-md-4 col-lg-2" style = "margin:0px;">
+							<button type="button" class="btn btn-danger" style = "width:100%;" id = "more">View More</button>
+						</div>
+            		</div>
+            	</div>
+            </div>
             
          </div>
       </section>
@@ -129,5 +138,67 @@
        	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
    </body>
    
-   
+   <script>
+   		$("#option").val("name").prop("selected", true);
+   		let moreNum = 1;
+   		$("#more").on("click",function(){
+   			moreNum += 3;
+   			$.ajax({
+   				url:"/chal/searchMore",
+   				method:"POST",
+   				data:{"moreNum":moreNum, "option":$("#option"), "searchText":$("#keyword")}
+   			}).done(function(resp){
+   				let result = JSON.parse(resp);
+   				let content = "";
+   				for(let i = 0; i < result.length; i++){
+   					console.log("회차 : " + i);
+   					console.log(result[i].chalName);
+   					content += `<div class="col-sm-6 col-md-4 col-lg-4">
+		                  <div class="box">
+		                     <div class="img-box">
+		                        <img src="\${result[i].oriName}" alt="">
+		                     </div>
+		                     <div class="detail-box">
+		                        <h4 id = "title">
+		                           \${result[i].chalName }
+		                        </h4>
+		                        <img src="/assets/img/heart.png" alt="">
+		                     </div>
+		                     <div class = "category">
+		                        <hr>
+		                        <h6>
+		                           <label>Category : </label>
+		                           \${result[i].category }
+		                        </h6>
+		                     </div>
+		                     <div class = "tag-box">
+		                        <hr>
+		                        <h6>
+		                           <label>Tag : </label>
+		                           \${result[i].tag }
+		                        </h6>
+		                     </div>
+		                     <div class = "startday">
+		                        <h6>
+		                           <label>시작일 : </label>
+		                           \${result[i].startDate }
+		                        </h6>
+		                     </div>
+		                     <div class = "endday">
+		                        <h6>
+		                           <label>종료일 : </label>
+		                           \${result[i].endDate }
+		                        </h6>
+		                     </div>
+		                  </div>
+           		</div>`;
+   					if(result[i].seq = 10){
+   	   					$("#more").css("display","none");
+   	   				}
+   				}$(content).appendTo("#listLine");
+   				
+   			})
+   		});
+		
+   </script>
 </html>

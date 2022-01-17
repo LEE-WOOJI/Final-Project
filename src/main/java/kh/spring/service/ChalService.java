@@ -20,7 +20,17 @@ public class ChalService {
 	}
 	
 	//검색 1.키워드
-	public List<ChalBasicDTO> searchK(String keyword){
-		return cdao.searchK(keyword);
+	public List<ChalBasicDTO> searchK(int start, int end, String keyword){
+		return cdao.searchK(start,end,keyword);
+	}
+	
+	//검색 2.태그
+	public List<ChalBasicDTO> searchT(int start, int end, String keyword){
+		return cdao.searchT(start,end,keyword);
+	}
+	
+	//검색 3.일수
+	public List<ChalBasicDTO> searchD(int start, int end, String keyword){
+		return cdao.searchD(start,end,keyword);
 	}
 }

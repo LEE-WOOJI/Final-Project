@@ -48,10 +48,56 @@ public class ChalController {
 	@RequestMapping("search")
 	public String chalSearch(String option, String searchText, Model model) {
 		System.out.println(option + ":" + searchText);
-		if(option.equals("keyword")) {
-			List<ChalBasicDTO> list = cservice.searchK(searchText);
-			model.addAttribute("list",list);
+		int start = 1;
+		int end = start + 2;
+		if(option.equals("name")) {
+			List<ChalBasicDTO> klist = cservice.searchK(start, end, searchText);
+			model.addAttribute("option",option);
+			model.addAttribute("searchText",searchText);
+			model.addAttribute("list",klist);
+		}else if(option.equals("tag")) {
+			List<ChalBasicDTO> tlist = cservice.searchT(start, end, searchText);
+			model.addAttribute("option",option);
+			model.addAttribute("searchText",searchText);
+			model.addAttribute("list",tlist);
+		}else if(option.equals("day")) {
+			List<ChalBasicDTO> dlist = cservice.searchD(start, end, searchText);
+			model.addAttribute("option",option);
+			model.addAttribute("searchText",searchText);
+			model.addAttribute("list",dlist);
 		}
-		return "/chal/chalListSearchK";
+		return "/chal/chalListSearch";
 	}
+	
+	//검색더보기 버튼을 눌렀을 때
+		@ResponseBody
+		@RequestMapping(value = "searchMore", produces = "text/html;charset=utf8")
+		public String searchMore(String option, String searchText,int moreNum) {
+			int start = moreNum;
+			int end = start + 2;
+			Gson glist = new Gson();
+			String result = null;
+			System.out.println(end);
+			System.out.println(option + ":" + searchText);
+			if(option.equals("name")) {
+				List<ChalBasicDTO> klist = cservice.searchK(start, end, searchText);
+				result = glist.toJson(klist);
+			}else if(option.equals("tag")) {
+				List<ChalBasicDTO> tlist = cservice.searchT(start, end, searchText);
+				result = glist.toJson(tlist);
+			}else if(option.equals("day")) {
+				List<ChalBasicDTO> dlist = cservice.searchD(start, end, searchText);
+				result = glist.toJson(dlist);
+			}
+			return result;
+		}
+	
+	//카테고리 1.건강
+	@RequestMapping("health")
+	public String chalHealth() {return null;}
+	//카테고리 2.취미
+	//카테고리 3.금융
+	//카테고리 4.공부
+	//카테고리 5.생활
+	//카테고리 6.펫/환경
 }

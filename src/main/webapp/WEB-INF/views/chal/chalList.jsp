@@ -54,7 +54,7 @@
 				<div class = "col-sm-12 col-md-4 col-lg-2">
 				<select class="form-select btn btn-danger" aria-label="Default select example" id = "option" name = "option">
   					<option selected>검색옵션</option>
-  					<option value="keyword">키워드</option>
+  					<option value="name">이름</option>
   					<option value="tag">태그</option>
   					<option value="day">일수</option>
 				</select>
