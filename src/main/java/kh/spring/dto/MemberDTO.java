@@ -1,6 +1,6 @@
 package kh.spring.dto;
 
-public class UserDTO {
+public class MemberDTO {
 	private int seq;
 	private String id;
 	private String pw;
@@ -15,9 +15,9 @@ public class UserDTO {
 	private String blacklist;
 	private String kakaologin;
 	
-	public UserDTO() {}
+	public MemberDTO() {}
 
-	public UserDTO(int seq, String id, String pw, String name, String nickname, String phone, String email, String bank,
+	public MemberDTO(int seq, String id, String pw, String name, String nickname, String phone, String email, String bank,
 			String account, String money, String grade, String blacklist, String kakaologin) {
 		super();
 		this.seq = seq;

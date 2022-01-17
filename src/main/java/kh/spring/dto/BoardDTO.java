@@ -2,6 +2,7 @@ package kh.spring.dto;
 
 import java.sql.Timestamp;
 
+
 public class BoardDTO {
 	private int seq;
 	private String title;
