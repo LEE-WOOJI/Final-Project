@@ -82,11 +82,15 @@
                		<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
-		                        <img src=${list.oriName} alt="">
+		                     	<a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
+		                        	<img src=${list.oriName} alt="">
+		                        </a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
-		                           ${list.chalName }
+		                           <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none; color: black;">
+		                           		${list.chalName }
+		                           </a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>

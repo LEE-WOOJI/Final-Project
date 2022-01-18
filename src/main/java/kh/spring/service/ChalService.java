@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChalDAO;
+import kh.spring.dto.BoardDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.dto.ChalDTO;
 
@@ -33,4 +34,11 @@ public class ChalService {
 	public List<ChalBasicDTO> searchD(int start, int end, String keyword){
 		return cdao.searchD(start,end,keyword);
 	}
+	
+
+	// 챌린지 디테일 불러오기
+	public ChalBasicDTO selectBySeq(int seq) {
+		return cdao.selectBySeq(seq);
+	}
+	
 }
