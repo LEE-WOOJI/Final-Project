@@ -1,6 +1,7 @@
 package kh.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ChalBasicDTO {
 	//Chal + ChalImg
@@ -115,6 +116,13 @@ public class ChalBasicDTO {
 	}
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
+	}
+	
+	// 디테일 페이지에서 글피 시작까지 남은 시간 계산하기 위한 simpleDateFormat 
+	//"yyyy/MM/dd" 이런식으로 날짜를 넣어야해서 추가함.
+	public String getDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		return sdf.format(this.startDate.getTime());
 	}
 	
 	
