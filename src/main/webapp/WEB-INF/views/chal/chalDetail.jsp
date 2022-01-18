@@ -17,7 +17,7 @@
 <!-- 글피 남은 시간 카운트다운 js -->
 <script type="text/javascript" src="/js/timer.js"></script>
 <!-- 전체적인 js -->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 <!-- JavaScript Includes -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
@@ -72,9 +72,13 @@ keyframes open { 0% {
 
 
 
+
+
 %
 {
 opacity
+
+
 
 
 
@@ -84,7 +88,11 @@ opacity
 
 
 
+
+
 1
+
+
 
 
 ;
@@ -339,7 +347,7 @@ opacity
 		</div>
 	</section>
 	<!-- Core theme JS-->
-	<script src="js/scripts.js"></script>
+	<script src="/js/scripts.js"></script>
 </body>
 
 <!-- Footer-->
