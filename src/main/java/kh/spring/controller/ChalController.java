@@ -112,8 +112,8 @@ public class ChalController {
 		model.addAttribute("dto",dto);
 		return "/chal/chalDetail";
 	}
+}	
 	
 
-}
 
 

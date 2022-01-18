@@ -35,6 +35,7 @@ public class ChalService {
 		return cdao.searchD(start,end,keyword);
 	}
 	
+
 	// 챌린지 디테일 불러오기
 	public ChalBasicDTO selectBySeq(int seq) {
 		return cdao.selectBySeq(seq);

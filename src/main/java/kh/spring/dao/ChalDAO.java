@@ -51,8 +51,10 @@ public class ChalDAO {
 		return mybatis.selectList("Chal.searchD", map);
 	}
 	
+
 	//디테일 페이지로 가져갈, 해당 chalSeq로 관련 정보 select
 	public ChalBasicDTO selectBySeq(int seq) {
 		return mybatis.selectOne("Chal.selectBySeq");
+
 	}
 }
