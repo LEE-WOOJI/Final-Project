@@ -31,6 +31,10 @@ public class ChalController {
 		return "/chal/chalList";
 	}
 	
+<<<<<<< HEAD
+
+=======
+>>>>>>> 46e911d5f57e2355393d65a68c0513dec87a585f
 	//더보기 버튼을 눌렀을 때
 	@ResponseBody
 	@RequestMapping(value = "more", produces = "text/html;charset=utf8")
@@ -100,4 +104,8 @@ public class ChalController {
 	//카테고리 4.공부
 	//카테고리 5.생활
 	//카테고리 6.펫/환경
+<<<<<<< HEAD
+
+=======
+>>>>>>> 46e911d5f57e2355393d65a68c0513dec87a585f
 }

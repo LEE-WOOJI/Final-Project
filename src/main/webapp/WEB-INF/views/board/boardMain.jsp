@@ -300,6 +300,18 @@ a {
 				location.href = "/board/search?cpage=1&select="+select+"&keyword="+keyword;
 			}
 		})
+
+		// 검색 버튼 클릭 시.
+		$("#search").on("click", function() {
+			if ($("#searchContents").val() == "") {
+				alert("내용을 입력하세요.");
+				return false;
+			}else{
+				let select = $("#select").val();
+				let keyword = $("#searchContents").val();
+				location.href = "/board/search?cpage=1&select="+select+"&keyword="+keyword;
+			}
+		})
 	</script>
 </body>
 </html>
