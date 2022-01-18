@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 
 <head>
-	<title>Sign up</title>
+	<title>회원가입</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
 	
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="css/signup.css">
+	<link rel="stylesheet" href="/css/signup.css">
 
 	<style type="text/css">@font-face {
 		font-family: 'yg-jalnan';
@@ -38,7 +38,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-10 col-lg-10">
 				<div class="login-wrap">
-					<div class="img"  id="image_container" style="background-image: url(images/bg.jpg);"></div>
+					<div class="img"  id="image_container" img src="images/kakao_login.png"></div>
 					
 					
 
@@ -47,14 +47,14 @@
 					
 					<form action="#" class="signup-form">
 						<div class="form-group col-lg-3 mb-3 ">
-							<input type="text" class="form-control" placeholder="아이디" name="id" id="id">
+							<input type="text" class="form-control" placeholder="아이디" name="id" id="id" style="width: 65%; display: inline-block;">
 							
-							<div class="form-group col-lg-6 mb-3">
+							
 								<button type="button" id="check" value="중복검사"
 									class="form-control btn btn-primary submit px-2"
-									style="text-align: center;">중복검사</button>
+									style="text-align: center; width: 30%;">중복검사</button>
 								
-							</div>
+							
 							
 							<span id="checkResult"></span>
 						</div>
@@ -82,11 +82,11 @@
 							<input type="text" class="form-control" name="email" id="email" placeholder="이메일">
 						</div>
 						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name=zipcode id=zipcode max="99999" maxlength="5" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"readonly class="form-control" placeholder="우편번호">
-							<div class="form-group col-lg-6 mb-3">
+							<input type="text" name=zipcode id=zipcode max="99999" maxlength="5" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"readonly class="form-control" placeholder="우편번호" style="width: 70%; display:inline-block;">
+							
 								<button type="button" id="ad" class="form-control btn btn-primary submit px-3"
-									style="text-align: center;">우편번호 찾기</button>
-							</div>
+									style="text-align: center; width: 26%;">찾기</button>
+							
 						</div>
 						<div class="form-group col-lg-3 mb-3">
 							<input type="text" name="address1" id="ad1" class="form-control" placeholder="주소" readonly>
@@ -100,17 +100,17 @@
 						</div>
 
 					</form>
-					<p style="text-align: center;">이미 회원인가요? <a data-toggle="tab" href="#signin">로그인</a></p>
+					<p style="text-align: center;">이미 회원인가요? <a data-toggle="tab" href="#signin" style="color:  rgb(228, 72, 72);">로그인</a></p>
 				</div>
 			</div>
 		</div>
 		</div>
 	</section>
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/popper.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="/js/signup/jquery.min.js"></script>
+	<script src="/js/signup/popper.js"></script>
+	<script src="/js/signup/bootstrap.min.js"></script>
+	<script src="/js/signup/main.js"></script>
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 
 </body>
