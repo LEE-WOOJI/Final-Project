@@ -49,4 +49,9 @@ public class ChalDAO {
 		map.put("keyword", keyword);
 		return mybatis.selectList("Chal.searchD", map);
 	}
+	
+	//카테고리
+	public List<ChalBasicDTO> listCategory(String category){
+		return mybatis.selectList("Chal.listHealth", category);
+	}
 }

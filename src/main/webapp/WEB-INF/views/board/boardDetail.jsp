@@ -25,7 +25,6 @@
 	crossorigin="anonymous"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
 <!-- include summernote css/js -->
-<!-- include summernote css/js -->
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css"
 	rel="stylesheet">

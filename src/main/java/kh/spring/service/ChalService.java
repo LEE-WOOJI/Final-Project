@@ -33,4 +33,9 @@ public class ChalService {
 	public List<ChalBasicDTO> searchD(int start, int end, String keyword){
 		return cdao.searchD(start,end,keyword);
 	}
+	
+	//카테고리
+	public List<ChalBasicDTO> listCategory(String category){
+		return cdao.listCategory(category);
+	}
 }
