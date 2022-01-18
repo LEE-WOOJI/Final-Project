@@ -17,6 +17,7 @@ import kh.spring.service.ChalService;
 @RequestMapping("/chal/")
 @Controller
 public class ChalController {
+
 	@Autowired
 	ChalService cservice;
 
@@ -114,6 +115,7 @@ public class ChalController {
 	}
 }	
 	
+
 
 
 
