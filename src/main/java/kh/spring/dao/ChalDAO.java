@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.ChalBasicDTO;
+import kh.spring.dto.ChalDTO;
 
 @Repository
 public class ChalDAO {
@@ -50,8 +51,10 @@ public class ChalDAO {
 		return mybatis.selectList("Chal.searchD", map);
 	}
 	
-	//카테고리
-	public List<ChalBasicDTO> listCategory(String category){
-		return mybatis.selectList("Chal.listHealth", category);
+
+	//디테일 페이지로 가져갈, 해당 chalSeq로 관련 정보 select
+	public ChalBasicDTO selectBySeq(int seq) {
+		return mybatis.selectOne("Chal.selectBySeq");
+
 	}
 }
