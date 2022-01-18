@@ -102,3 +102,4 @@ public class ChalController {
    //카테고리 5.생활
    //카테고리 6.펫/환경
 }
+
