@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${bList.title}</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -24,6 +24,11 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
+<!-- include summernote css/js -->
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 <style>
 body {
 	margin: 0;
@@ -261,7 +266,7 @@ button:hover {
 		<!-- 자유게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 
-			<form action="/board/done" method="post" id="frm">
+			<form action="/board/modify" method="post" id="frm">
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
@@ -285,15 +290,17 @@ button:hover {
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<input type=text id=input-title name=title value="${bList.title}"
-								style="width: 100%;">
+								style="width: 100%;" readonly>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea id="contents" name="contents" readonly
-								style="min-height: 200px; overflow: hidden"></textarea>
+							<div id="display" style="min-height: 200px; overflow: hidden; border:1px solid black;">${bList.contents}</div>
+							<textarea id="summernote" name="contents" readonly
+								style="min-height: 200px; overflow: hidden; display:none;">${bList.contents}</textarea>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
 							<c:if test="${loginID==writer}">
@@ -301,7 +308,7 @@ button:hover {
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
 								<button type="button" id="del"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제하기</button>
-								<button type="button" id="modDone"
+								<button id="modDone"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">수정완료</button>
 								<button type="button" id="cancel"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">취소</button>
@@ -412,7 +419,7 @@ button:hover {
 	</div>
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-	<script type="text/javascript">
+	<script>
 		// 목록으로 버튼 클릭 시.
 		$("#boardList").on("click", function() {
 			<c:if test="${select==''}">
@@ -422,17 +429,14 @@ button:hover {
 				location.href = "/board/search?cpage=${cpage}&select=${select}&keyword=${keyword}";
 			</c:if>
 		});
-		
-		// texarea에 작성한 내용 보여주기.
-    	$("#contents").text("${bList.contents}");
-    	autosize($("textArea"));
 	</script>
 
-	<script type="text/javascript">
+	<script>
 	// 수정, 삭제, 취소 버튼 클릭 시.
 	let bkTitle = $("#input-title").val();					
-	let bkContents = $("#contents").val();			
+	let bkContents = $("#summernote").val();		
 	$("#mod").on("click", function(){
+		$("#display").css("display","none");
 		$("#del").css("display","none");
 		$("#mod").css("display","none");
 		$("#boardList").css("display","none");
@@ -440,30 +444,44 @@ button:hover {
 		$("#cancel").css("display","inline-block");
 		$("#frm").removeAttr("action");
 		$("#input-title").removeAttr("readonly");
-		$("#contents").removeAttr("readonly");
-		$("#contents").focus();
+		$("#summernote").removeAttr("readonly");
+		$("#summernote").focus();
 		
+		// 썸머노트 에디터
+		$(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: null,
+            minHeight: null,
+            lang: "ko-KR",
+            focus: true,
+            toolbar: [
+             // [groupName, [list of button]]
+             ['fontname', ['fontname']],
+             ['fontsize', ['fontsize']],
+             ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+             ['color', ['forecolor','color']],
+             ['table', ['table']],
+             ['para', ['ul', 'ol', 'paragraph']],
+             ['height', ['height']],
+             ['insert',['picture','link','video']],
+             ['view', ['fullscreen', 'help']]
+           ],
+         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+        });
+    });
 		$("#frm").attr("action","/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}");
-		
 	});
 	$("#del").on("click", function(){
 		if(confirm("정말 삭제하시겠습니까?")) {
 			location.href="/board/delete?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}";
 		}
 	});
-	$("#modDone").on("click",function(){
-		$("#frm").submit();
-	})
+
 	$("#cancel").on("click",function(){
-		$("#input-title").val(bkTitle);
-		$("#contents").val(bkContents);
-		$("#input-title").attr("readonly","");
-		$("#contents").attr("readonly","");
-		$("#mod").css("display","inline-block");
-		$("#del").css("display","inline-block");
-		$("#modDone").css("display","none");
-		$("#cancel").css("display","none");
-		$("#boardList").css("display","inline-block");
+		location.href="/board/detail?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
 	})
 	</script>
 </body>

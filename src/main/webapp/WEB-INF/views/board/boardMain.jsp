@@ -281,7 +281,12 @@ a {
 	<script>
 		// 글쓰기 버튼 클릭 시.
 		$("#writeBtn").on("click", function() {
-			location.href = "/board/write";
+			if(${loginID != ''}){
+				location.href = "/board/write";	
+			}else{
+				alert("로그인 후 이용 가능합니다.");
+				location.href = "";
+			}
 		})
 
 		// 검색 버튼 클릭 시.
