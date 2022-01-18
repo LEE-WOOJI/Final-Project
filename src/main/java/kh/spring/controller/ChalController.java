@@ -95,7 +95,12 @@ public class ChalController {
    
    //카테고리 1.건강
    @RequestMapping("health")
-   public String chalHealth() {return null;}
+   public String chalHealth(Model model) {
+	   String category = "건강";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 2.취미
    //카테고리 3.금융
    //카테고리 4.공부
