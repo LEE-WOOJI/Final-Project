@@ -73,7 +73,7 @@
          <div class="container">
             <div class="heading_container heading_center">
                <h3>
-                  <span id = "chalTitle">${option }에서 ${searchText }</span>
+                  <span id = "chalTitle">${option }에서 '${searchText }'을 검색한 결과입니다</span>
                   <hr>
                </h3>
             </div>
@@ -139,14 +139,16 @@
    </body>
    
    <script>
-   		$("#option").val("name").prop("selected", true);
    		let moreNum = 1;
+   		let opt = \${option};
+   		let key = \${searchText};
    		$("#more").on("click",function(){
-   			moreNum += 3;
+   			moreNum += 2;
+   			console.log(opt);
    			$.ajax({
    				url:"/chal/searchMore",
    				method:"POST",
-   				data:{"moreNum":moreNum, "option":$("#option"), "searchText":$("#keyword")}
+   				data:{"moreNum":moreNum,"opt":opt,"key":key}
    			}).done(function(resp){
    				let result = JSON.parse(resp);
    				let content = "";
