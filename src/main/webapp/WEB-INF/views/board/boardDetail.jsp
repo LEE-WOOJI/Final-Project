@@ -266,7 +266,11 @@ button:hover {
 		<!-- 자유게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 
+<<<<<<< HEAD
+			<form action="/board/done" method="post" id="frm">
+=======
 			<form action="/board/modify" method="post" id="frm">
+>>>>>>> 46e911d5f57e2355393d65a68c0513dec87a585f
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
@@ -290,7 +294,11 @@ button:hover {
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<input type=text id=input-title name=title value="${bList.title}"
+<<<<<<< HEAD
+								style="width: 100%;">
+=======
 								style="width: 100%;" readonly>
+>>>>>>> 46e911d5f57e2355393d65a68c0513dec87a585f
 						</div>
 					</div>
 					<div class="row">
@@ -308,7 +316,11 @@ button:hover {
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
 								<button type="button" id="del"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제하기</button>
+<<<<<<< HEAD
+								<button type="button" id="modDone"
+=======
 								<button id="modDone"
+>>>>>>> 46e911d5f57e2355393d65a68c0513dec87a585f
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">수정완료</button>
 								<button type="button" id="cancel"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">취소</button>
@@ -419,7 +431,11 @@ button:hover {
 	</div>
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+<<<<<<< HEAD
+	<script type="text/javascript">
+=======
 	<script>
+>>>>>>> 46e911d5f57e2355393d65a68c0513dec87a585f
 		// 목록으로 버튼 클릭 시.
 		$("#boardList").on("click", function() {
 			<c:if test="${select==''}">
@@ -429,6 +445,49 @@ button:hover {
 				location.href = "/board/search?cpage=${cpage}&select=${select}&keyword=${keyword}";
 			</c:if>
 		});
+		
+		// texarea에 작성한 내용 보여주기.
+    	$("#contents").text("${bList.contents}");
+    	autosize($("textArea"));
+	</script>
+
+	<script type="text/javascript">
+	// 수정, 삭제, 취소 버튼 클릭 시.
+	let bkTitle = $("#input-title").val();					
+	let bkContents = $("#contents").val();			
+	$("#mod").on("click", function(){
+		$("#del").css("display","none");
+		$("#mod").css("display","none");
+		$("#boardList").css("display","none");
+		$("#modDone").css("display","inline-block");
+		$("#cancel").css("display","inline-block");
+		$("#frm").removeAttr("action");
+		$("#input-title").removeAttr("readonly");
+		$("#contents").removeAttr("readonly");
+		$("#contents").focus();
+		
+		$("#frm").attr("action","/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}");
+		
+	});
+	$("#del").on("click", function(){
+		if(confirm("정말 삭제하시겠습니까?")) {
+			location.href="/board/delete?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}";
+		}
+	});
+	$("#modDone").on("click",function(){
+		$("#frm").submit();
+	})
+	$("#cancel").on("click",function(){
+		$("#input-title").val(bkTitle);
+		$("#contents").val(bkContents);
+		$("#input-title").attr("readonly","");
+		$("#contents").attr("readonly","");
+		$("#mod").css("display","inline-block");
+		$("#del").css("display","inline-block");
+		$("#modDone").css("display","none");
+		$("#cancel").css("display","none");
+		$("#boardList").css("display","inline-block");
+	})
 	</script>
 
 	<script>
