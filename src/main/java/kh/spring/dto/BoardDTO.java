@@ -1,6 +1,7 @@
 package kh.spring.dto;
 
-import oracle.sql.TIMESTAMP;
+import java.sql.Timestamp;
+
 
 public class BoardDTO {
 	private int seq;
@@ -8,11 +9,11 @@ public class BoardDTO {
 	private String contents;
 	private String nickname;
 	private int view_count;
-	private TIMESTAMP write_date;
+	private Timestamp write_date;
 	
 	public BoardDTO() {}
 
-	public BoardDTO(int seq, String title, String contents, String nickname, int view_count, TIMESTAMP write_date) {
+	public BoardDTO(int seq, String title, String contents, String nickname, int view_count, Timestamp write_date) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -52,10 +53,10 @@ public class BoardDTO {
 	public void setView_count(int view_count) {
 		this.view_count = view_count;
 	}
-	public TIMESTAMP getWrite_date() {
+	public Timestamp getWrite_date() {
 		return write_date;
 	}
-	public void setWrite_date(TIMESTAMP write_date) {
+	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
 	

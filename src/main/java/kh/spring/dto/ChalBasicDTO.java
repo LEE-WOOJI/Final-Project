@@ -2,7 +2,8 @@ package kh.spring.dto;
 
 import java.sql.Timestamp;
 
-public class ChalDTO {
+public class ChalBasicDTO {
+	//Chal + ChalImg
 	private int chalSeq;
 	private String chalName;
 	private Timestamp startDate;
@@ -13,11 +14,15 @@ public class ChalDTO {
 	private String price;
 	private String day;
 	private String category;
+	private int seq;
+	private String oriName;
+	private String sysName;
 	
-	public ChalDTO() {}
+	public ChalBasicDTO() {}
 	
-	public ChalDTO(int chalSeq, String chalName, Timestamp startDate, Timestamp endDate, int personnel, String chalInfo,
-			String tag, String price, String day, String category) {
+	public ChalBasicDTO(int chalSeq, String chalName, Timestamp startDate, Timestamp endDate, int personnel,
+			String chalInfo, String tag, String price, String day, String category, int seq, String oriName,
+			String sysName) {
 		super();
 		this.chalSeq = chalSeq;
 		this.chalName = chalName;
@@ -29,6 +34,9 @@ public class ChalDTO {
 		this.price = price;
 		this.day = day;
 		this.category = category;
+		this.seq = seq;
+		this.oriName = oriName;
+		this.sysName = sysName;
 	}
 	public int getChalSeq() {
 		return chalSeq;
@@ -90,7 +98,24 @@ public class ChalDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+	public String getOriName() {
+		return oriName;
+	}
+	public void setOriName(String oriName) {
+		this.oriName = oriName;
+	}
+	public String getSysName() {
+		return sysName;
+	}
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
+	}
 	
 	
 }

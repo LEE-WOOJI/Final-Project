@@ -4,7 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Chal">
-	<select id="selectAll" resultType="kh.spring.dto.ChalDTO">
-		select * from challenge order by chalNum desc
+	<select id="listBound" resultType="kh.spring.dto.ChalBasicDTO">
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal) join chalimg using(chalSeq) where rn between #{start} and #{end}
+	</select>
+	<select id="searchK" resultType="kh.spring.dto.ChalBasicDTO">
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where chalName like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
+	</select>
+	<select id="searchT" resultType="kh.spring.dto.ChalBasicDTO">
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where tag like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
+	</select>
+	<select id="searchD" resultType="kh.spring.dto.ChalBasicDTO">
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where day = #{keyword}) join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
 </mapper>
+

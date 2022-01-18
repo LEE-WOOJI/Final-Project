@@ -1,12 +1,14 @@
 package kh.spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.dto.ChalDTO;
+import kh.spring.dto.ChalBasicDTO;
 
 @Repository
 public class ChalDAO {
@@ -14,7 +16,37 @@ public class ChalDAO {
 	private SqlSessionTemplate mybatis;
 	
 	//전체 조회하기
-	public List<ChalDTO> selectAll(){
-		return mybatis.selectList("Chal.selectAll");
+	public List<ChalBasicDTO> listBound(int start, int end){
+		Map<Object,Object> map = new HashMap<>();
+		map.put("start",start);
+		map.put("end", end);		
+		return mybatis.selectList("Chal.listBound", map);
+	}
+	
+	//검색하기 1.제목
+	public List<ChalBasicDTO> searchK(int start, int end, String keyword){
+		Map<Object,Object> map = new HashMap<>();
+		map.put("start",start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		return mybatis.selectList("Chal.searchK", map);
+	}
+	
+	//검색하기 2.태그
+		public List<ChalBasicDTO> searchT(int start, int end, String keyword){
+			Map<Object,Object> map = new HashMap<>();
+			map.put("start",start);
+			map.put("end", end);
+			map.put("keyword", keyword);
+			return mybatis.selectList("Chal.searchT", map);
+	}
+	
+	//검색하기 3.일수
+	public List<ChalBasicDTO> searchD(int start, int end, String keyword){
+		Map<Object,Object> map = new HashMap<>();
+		map.put("start",start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		return mybatis.selectList("Chal.searchD", map);
 	}
 }

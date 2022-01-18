@@ -43,7 +43,7 @@
 			</div>
 			<div class="col-lg-4 my-3 my-lg-0" style="font-size: medium;">
 				<a href="#" style="text-decoration: none; color: black;"><i
-					class="fas fa-trophy"></i>&ensp;<b>글피</b></a>&emsp; <a href="/board/main"
+					class="fas fa-trophy"></i>&ensp;<b>글피</b></a>&emsp; <a href="/board/main?cpage=1"
 					style="text-decoration: none; color: black;"><i
 					class="fas fa-file-alt"></i>&ensp;<b>커뮤니티</b></a>&emsp; <a href="#"
 					style="text-decoration: none; color: black;"><i

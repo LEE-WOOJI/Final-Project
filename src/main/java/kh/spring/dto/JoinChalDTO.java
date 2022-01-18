@@ -1,14 +1,14 @@
 package kh.spring.dto;
 
-import oracle.sql.TIMESTAMP;
+import java.sql.Timestamp;
 
 public class JoinChalDTO {
 	private int seq;
 	private int refChalSeq; //챌린지 seq 참조
 	private String refNickname;
 	private String chalName;
-	private TIMESTAMP startDate;
-	private TIMESTAMP endDate;
+	private Timestamp startDate;
+	private Timestamp endDate;
 	private int personnel;
 	private String chalInfo;
 	private String tag;
@@ -16,8 +16,8 @@ public class JoinChalDTO {
 	
 	public JoinChalDTO() {}
 
-	public JoinChalDTO(int seq, int refChalSeq, String refNickname, String chalName, TIMESTAMP startDate,
-			TIMESTAMP endDate, int personnel, String chalInfo, String tag, String chalStat) {
+	public JoinChalDTO(int seq, int refChalSeq, String refNickname, String chalName, Timestamp startDate,
+			Timestamp endDate, int personnel, String chalInfo, String tag, String chalStat) {
 		super();
 		this.seq = seq;
 		this.refChalSeq = refChalSeq;
@@ -55,16 +55,16 @@ public class JoinChalDTO {
 	public void setChalName(String chalName) {
 		this.chalName = chalName;
 	}
-	public TIMESTAMP getStartDate() {
+	public Timestamp getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(TIMESTAMP startDate) {
+	public void setStartDate(Timestamp startDate) {
 		this.startDate = startDate;
 	}
-	public TIMESTAMP getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(TIMESTAMP endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
 	public int getPersonnel() {
