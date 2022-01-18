@@ -60,7 +60,7 @@
 				</select>
 				</div>
 				<div class = "col-sm-12 col-md-4 col-lg-9">
-					<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText">
+					<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText" value = "${searchText }">
 				</div>
 				<div class = "col-sm-12 col-md-4 col-lg-1" style = "margin:0px;">
 					<button type="submit" class="btn btn-danger" id = "searchBtn" style = "width:100%;">Search</button>
@@ -73,7 +73,7 @@
          <div class="container">
             <div class="heading_container heading_center">
                <h3>
-                  <span id = "chalTitle">Our Challenge</span>
+                  <span id = "chalTitle">${option }에서 ${searchText }</span>
                   <hr>
                </h3>
             </div>
@@ -139,13 +139,14 @@
    </body>
    
    <script>
+   		$("#option").val("name").prop("selected", true);
    		let moreNum = 1;
    		$("#more").on("click",function(){
-   			moreNum += 6;
+   			moreNum += 3;
    			$.ajax({
-   				url:"/chal/more",
+   				url:"/chal/searchMore",
    				method:"POST",
-   				data:{"moreNum":moreNum}
+   				data:{"moreNum":moreNum, "option":$("#option"), "searchText":$("#keyword")}
    			}).done(function(resp){
    				let result = JSON.parse(resp);
    				let content = "";

@@ -22,4 +22,31 @@ public class ChalDAO {
 		map.put("end", end);		
 		return mybatis.selectList("Chal.listBound", map);
 	}
+	
+	//검색하기 1.제목
+	public List<ChalBasicDTO> searchK(int start, int end, String keyword){
+		Map<Object,Object> map = new HashMap<>();
+		map.put("start",start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		return mybatis.selectList("Chal.searchK", map);
+	}
+	
+	//검색하기 2.태그
+		public List<ChalBasicDTO> searchT(int start, int end, String keyword){
+			Map<Object,Object> map = new HashMap<>();
+			map.put("start",start);
+			map.put("end", end);
+			map.put("keyword", keyword);
+			return mybatis.selectList("Chal.searchT", map);
+	}
+	
+	//검색하기 3.일수
+	public List<ChalBasicDTO> searchD(int start, int end, String keyword){
+		Map<Object,Object> map = new HashMap<>();
+		map.put("start",start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		return mybatis.selectList("Chal.searchD", map);
+	}
 }

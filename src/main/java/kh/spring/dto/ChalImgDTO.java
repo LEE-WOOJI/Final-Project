@@ -2,16 +2,16 @@ package kh.spring.dto;
 
 public class ChalImgDTO {
 	private int seq;
-	private int parentSeq;
+	private int chalSeq;
 	private String oriName;
 	private String sysName;
 	
 	public ChalImgDTO() {}
 
-	public ChalImgDTO(int seq, int parentSeq, String oriName, String sysName) {
+	public ChalImgDTO(int seq, int chalSeq, String oriName, String sysName) {
 		super();
 		this.seq = seq;
-		this.parentSeq = parentSeq;
+		this.chalSeq = chalSeq;
 		this.oriName = oriName;
 		this.sysName = sysName;
 	}
@@ -22,11 +22,11 @@ public class ChalImgDTO {
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-	public int getParentSeq() {
-		return parentSeq;
+	public int getchalSeq() {
+		return chalSeq;
 	}
-	public void setParentSeq(int parentSeq) {
-		this.parentSeq = parentSeq;
+	public void setchalSeq(int chalSeq) {
+		this.chalSeq = chalSeq;
 	}
 	public String getOriName() {
 		return oriName;

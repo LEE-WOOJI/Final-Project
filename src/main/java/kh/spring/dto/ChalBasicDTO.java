@@ -14,13 +14,14 @@ public class ChalBasicDTO {
 	private String price;
 	private String day;
 	private String category;
-	private int imgseq;
+	private int seq;
 	private String oriName;
 	private String sysName;
 	
 	public ChalBasicDTO() {}
+	
 	public ChalBasicDTO(int chalSeq, String chalName, Timestamp startDate, Timestamp endDate, int personnel,
-			String chalInfo, String tag, String price, String day, String category, int imgseq, String oriName,
+			String chalInfo, String tag, String price, String day, String category, int seq, String oriName,
 			String sysName) {
 		super();
 		this.chalSeq = chalSeq;
@@ -33,7 +34,7 @@ public class ChalBasicDTO {
 		this.price = price;
 		this.day = day;
 		this.category = category;
-		this.imgseq = imgseq;
+		this.seq = seq;
 		this.oriName = oriName;
 		this.sysName = sysName;
 	}
@@ -97,11 +98,11 @@ public class ChalBasicDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public int getImgseq() {
-		return imgseq;
+	public int getSeq() {
+		return seq;
 	}
-	public void setImgseq(int imgseq) {
-		this.imgseq = imgseq;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public String getOriName() {
 		return oriName;
