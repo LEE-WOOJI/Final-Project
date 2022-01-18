@@ -72,21 +72,22 @@ public class ChalController {
 	//검색더보기 버튼을 눌렀을 때
 		@ResponseBody
 		@RequestMapping(value = "searchMore", produces = "text/html;charset=utf8")
-		public String searchMore(String option, String searchText,int moreNum) {
+		public String searchMore(String opt, String key,int moreNum) {
 			int start = moreNum;
 			int end = start + 2;
 			Gson glist = new Gson();
 			String result = null;
 			System.out.println(end);
-			System.out.println(option + ":" + searchText);
-			if(option.equals("name")) {
-				List<ChalBasicDTO> klist = cservice.searchK(start, end, searchText);
+			System.out.println(opt + ":" + key);
+			if(opt.equals("name")) {
+				List<ChalBasicDTO> klist = cservice.searchK(start, end, key);
+				System.out.println(key);
 				result = glist.toJson(klist);
-			}else if(option.equals("tag")) {
-				List<ChalBasicDTO> tlist = cservice.searchT(start, end, searchText);
+			}else if(opt.equals("tag")) {
+				List<ChalBasicDTO> tlist = cservice.searchT(start, end, key);
 				result = glist.toJson(tlist);
-			}else if(option.equals("day")) {
-				List<ChalBasicDTO> dlist = cservice.searchD(start, end, searchText);
+			}else if(opt.equals("day")) {
+				List<ChalBasicDTO> dlist = cservice.searchD(start, end, key);
 				result = glist.toJson(dlist);
 			}
 			return result;
