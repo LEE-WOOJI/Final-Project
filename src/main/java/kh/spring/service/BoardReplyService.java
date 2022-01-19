@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dao.BoardReplyDAO;
 import kh.spring.dto.BoardReplyDTO;
+import kh.spring.dto.MemberDTO;
 
 @Service
 public class BoardReplyService {
@@ -19,9 +20,14 @@ public class BoardReplyService {
 		return bDao.selectAllBybSeq(refBoardSeq);
 	}
 	
+	// 아이디값으로 댓글 정보 찾기.
+	public MemberDTO searchInfoById(String id) {
+		return bDao.searchInfoById(id);
+	}
+	
 	// 댓글 입력.
-	public int insert(BoardReplyDTO dto) {
-		return bDao.insert(dto);
+	public int insert(int refBoardSeq, String writerNickname, String repContents) {
+		return bDao.insert(refBoardSeq, writerNickname, repContents);
 	}
 	
 	// 댓글 수정.

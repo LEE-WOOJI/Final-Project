@@ -6,7 +6,12 @@
 <mapper namespace="BoardReply">
 	<!-- 댓글 출력 -->
 	<select id="selectAllBybSeq" resultType="kh.spring.dto.BoardReplyDTO">
-		select * from boardReply where refBoardSeq = #{value} order by 1 desc
+		select * from boardReply where refBoardSeq = #{value} order by 4
+	</select>
+	
+	<!-- 로그인 아이디로 닉네임 찾기. -->
+	<select id="searchInfoById" resultType="kh.spring.dto.MemberDTO">
+		select * from member where id = #{value}
 	</select>
 	
 	<!-- 댓글 입력 -->

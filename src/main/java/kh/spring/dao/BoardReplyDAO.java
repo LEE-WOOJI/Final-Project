@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.BoardReplyDTO;
+import kh.spring.dto.MemberDTO;
 
 @Repository
 public class BoardReplyDAO {
@@ -21,9 +22,18 @@ public class BoardReplyDAO {
 		return mybatis.selectList("BoardReply.selectAllBybSeq",refBoardSeq);
 	}
 	
+	// 아이디값으로 댓글 정보 찾기.
+	public MemberDTO searchInfoById(String id) {
+		return mybatis.selectOne("BoardReply.searchInfoById",id);
+	}
+	
 	// 댓글 입력.
-	public int insert(BoardReplyDTO dto) {
-		return mybatis.insert("BoardReply.insert",dto);
+	public int insert(int refBoardSeq, String writerNickname, String repContents) {
+		Map<String,String> map = new HashMap<>();
+		map.put("refBoardSeq", String.valueOf(refBoardSeq));
+		map.put("writerNickname", writerNickname);
+		map.put("repContents", repContents);
+		return mybatis.insert("BoardReply.insert",map);
 	}
 	
 	// 댓글 수정.
