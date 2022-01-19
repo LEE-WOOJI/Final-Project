@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kh.spring.dto.BoardDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.service.ChalService;
 
@@ -159,6 +160,14 @@ public class ChalController {
 	   String result = glist.toJson(list);
 	   return result;
    }
-   
-}
+	
+	/* 글피 디테일 페이지로 넘어가기*/
+	@RequestMapping("detail")
+	// chalList.jsp 에서 해당'chalSeq'를 받아오기.
+	public String chalDetail(int seq, Model model) {
+		ChalBasicDTO dto = cservice.selectBySeq(seq);
+		model.addAttribute("dto",dto);
+		return "/chal/chalDetail";
+	}
+}	
 
