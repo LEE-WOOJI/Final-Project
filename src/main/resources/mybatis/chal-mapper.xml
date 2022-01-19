@@ -25,7 +25,10 @@
 	</select>
 
 	<select id="selectBySeq" resultType="kh.spring.dto.ChalBasicDTO">
-		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal) join chalimg using(chalSeq) where rn between 1 and 1
+		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal) join chalimg using(chalSeq) where chalseq = #{value}
+	</select>
+	<select id="selectCertiImg" resultType="kh.spring.dto.CertiImgDTO">
+		select * from certiimg where parentseq = #{value}
 	</select>
 
 </mapper>

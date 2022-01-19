@@ -89,7 +89,7 @@
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                           <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none; color: black;">
-		                           		${list.chalName }
+		                           		${list.chalName}
 		                           </a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
