@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.service.ChalService;
 
@@ -98,13 +99,86 @@ public class ChalController {
    public String chalHealth(Model model) {
 	   String category = "건강";
 	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
 	   model.addAttribute("list",list);
 	   return "/chal/chalCategory";
    }
    //카테고리 2.취미
+   @RequestMapping("hobby")
+   public String chalHobby(Model model) {
+	   String category = "취미";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 3.금융
+   @RequestMapping("finance")
+   public String chalFinance(Model model) {
+	   String category = "금융";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 4.공부
+   @RequestMapping("study")
+   public String chalStudy(Model model) {
+	   String category = "공부";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 5.생활
+   @RequestMapping("life")
+   public String chalLife(Model model) {
+	   String category = "생활";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 6.펫/환경
-}
+   @RequestMapping("pet")
+   public String chalPet(Model model) {
+	   String category = "펫/에코";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
+   
+   //정렬
+   @ResponseBody
+   @RequestMapping(value = "filter", produces = "text/html;charset=utf8")
+   public String filter(String category, String filter, Model model) {
+	   System.out.println(category + ":" + filter);
+	   Gson glist = new Gson();
+	   List<ChalBasicDTO> list = cservice.categoryFilter(category, filter);
+	   System.out.println(list.get(0).getChalName() + list.size());
+	   String result = glist.toJson(list);
+	   return result;
+   }
+	
+	/* 글피 디테일 페이지로 넘어가기*/
+	@RequestMapping("detail")
+	// chalList.jsp 에서 해당'chalSeq'를 받아오기.
+	public String chalDetail(int seq, Model model) {
+		ChalBasicDTO dto = cservice.selectBySeq(seq);
+		List<CertiImgDTO> list = cservice.selectCertiImg(seq);
+		String[]tag = dto.getTag().split(",");
+		
+		System.out.println("Tag : " + tag[0] + tag[1]);	
+		System.out.println("챌린지 번호 : " + seq);
+		System.out.println("인증샷 사진 몇개?" + list);
+		
+		model.addAttribute("dto",dto);
+		model.addAttribute("list",list);
+		model.addAttribute("tag1",tag[0]);
+		model.addAttribute("tag2",tag[1]);
+		//model.addAttribute("tag3",tag[2]); // DB에 무조건 태그 3개 넣어야함, 추후 주석 풀기
+		return "/chal/chalDetail";
+	}
+}	
 

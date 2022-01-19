@@ -140,8 +140,8 @@
    
    <script>
    		let moreNum = 1;
-   		let opt = \${option};
-   		let key = \${searchText};
+   		let opt = "${option}";
+   		let key = "${searchText}";
    		$("#more").on("click",function(){
    			moreNum += 2;
    			console.log(opt);
@@ -194,9 +194,7 @@
 		                     </div>
 		                  </div>
            		</div>`;
-   					if(result[i].seq = 10){
-   	   					$("#more").css("display","none");
-   	   				}
+   					
    				}$(content).appendTo("#listLine");
    				
    			})

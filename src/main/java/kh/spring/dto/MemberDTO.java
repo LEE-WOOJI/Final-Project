@@ -8,21 +8,23 @@ public class MemberDTO {
 	private String nickname;
 	private String phone;
 	private String email;
+	private String zipcode;
+	private String address1;
+	private String address2;
 	private String bank;
 	private String account;
 	private String money;
 	private String grade;
 	private String blacklist;
 	private String kakaologin;
-	private String zipcode;
-	private String address1;
-	private String address2;
 	
 	public MemberDTO() {}
+
 
 	public MemberDTO(int seq, String id, String pw, String name, String nickname, String phone, String email,
 			String bank, String account, String money, String grade, String blacklist, String kakaologin,
 			String zipcode, String address1, String address2) {
+
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -31,6 +33,9 @@ public class MemberDTO {
 		this.nickname = nickname;
 		this.phone = phone;
 		this.email = email;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
 		this.bank = bank;
 		this.account = account;
 		this.money = money;
