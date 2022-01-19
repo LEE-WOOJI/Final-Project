@@ -269,7 +269,9 @@ button:hover {
 		<!-- 자유게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 
-			<form action="/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}" method="post" id="frm">
+			<form
+				action="/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
+				method="post" id="frm">
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
@@ -278,12 +280,16 @@ button:hover {
 									<div class="img-box"
 										style="height: 100%; display: inline-block">
 										<img id="profile" class="img-profile"
-											style="width: 50px; height: 50px;" src="" alt="">
+											style="width: 50px; height: 50px;"
+											src="/image/board?nickname=${bList.nickname}" alt="">&ensp;
 									</div>
 									<ul
 										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0"
+										<li class="name mt-3"
 											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">${bList.nickname }</li>
+									</ul>
+									<ul class="meta list list-unstyled profile-detail d-flex mb-0"
+										style="margin-left: auto; justify-content: flex-end;">
 										<li class="label" style="margin: 0; padding: 0">${bList.write_date }</li>
 									</ul>
 								</div>
@@ -307,7 +313,7 @@ button:hover {
 					<br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<c:if test="${loginID==writer}">
+							<c:if test="${writerNickname==bList.nickname}">
 								<button type="button" id="mod"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
 								<button type="button" id="del"
@@ -327,11 +333,13 @@ button:hover {
 					</div>
 				</div>
 			</form>
-			<hr>
 			<!-- 댓글 보여주기 -->
 			<c:if test="${!empty rList}">
+				<hr>
 				<c:forEach var="rList" items="${rList }">
-					<form action="/board/modRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}" method="post" id="frmRp">
+					<form
+						action="/board/modRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
+						method="post" id="frmRp">
 						<div class="container mb-4">
 							<div class="row" style="padding-bottom: 5px;">
 								<div class="col-sm-12">
@@ -340,13 +348,19 @@ button:hover {
 											<div class="img-box"
 												style="height: 100%; display: inline-block">
 												<img id="profile" class="img-profile"
-													style="width: 50px; height: 50px;" src="" alt="">
+													style="width: 50px; height: 50px;"
+													src="/image/board?nickname=${rList.writerNickname}" alt="">&ensp;
 											</div>
 											<ul
 												class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-												<li class="name mt-0" name="writerNickname"
+												<li class="name mt-3" name="writerNickname"
 													style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">${rList.writerNickname}</li>
-												<li class="label" name="write_date" style="margin: 0; padding: 0">${rList.write_date}</li>
+											</ul>
+											<ul
+												class="meta list list-unstyled profile-detail d-flex mb-0"
+												style="margin-left: auto; justify-content: flex-end;">
+												<li class="label" name="write_date"
+													style="margin: 0; padding: 0">${rList.write_date}</li>
 											</ul>
 										</div>
 									</div>
@@ -360,14 +374,14 @@ button:hover {
 							</div>
 							<div class="row">
 								<div class="col-sm-12" style="text-align: right">
-									<c:if test="${loginID==writer}">
-										<button type="button" class ="modRp"
+									<c:if test="${writerNickname==rList.writerNickname}">
+										<button type="button" class="modRp"
 											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정</button>
-										<button class ="modRpDone"
+										<button class="modRpDone"
 											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none">완료</button>
-										<button type="button" class ="modRpCancel"
+										<button type="button" class="modRpCancel"
 											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none">취소</button>
-										<button type="button" class ="delRp"
+										<button type="button" class="delRp"
 											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제</button>
 										<input id="rseq" name="rseq" type=hidden value="${rList.seq}">
 										<input name="refBoardSeq" type=hidden value="${bList.seq}">
@@ -384,8 +398,10 @@ button:hover {
 			</c:if>
 
 			<!-- 댓글 작성 칸 -->
-			<hr>
-			<form action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}" method="post">
+			<form
+				action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
+				method="post">
+				<hr>
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
@@ -394,12 +410,13 @@ button:hover {
 									<div class="img-box"
 										style="height: 100%; display: inline-block">
 										<img id="profile" class="img-profile"
-											style="width: 50px; height: 50px;" src="" alt="">
+											style="width: 50px; height: 50px;"
+											src="/image/board?nickname=${writerNickname}" alt="">&ensp;
 									</div>
 									<ul
 										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0"
-											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
+										<li class="name mt-3"
+											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">${writerNickname}</li>
 									</ul>
 								</div>
 							</div>
@@ -407,12 +424,12 @@ button:hover {
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea id="rpContents" cols=170 rows=4 name="rpContents"></textarea>
+							<textarea id="rpContents" cols=170 rows=4 name="repContents"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="writeRp"
+							<button id="writeRp"
 								style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">등록</button>
 						</div>
 					</div>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.BoardDTO;
+import kh.spring.dto.ProfileDTO;
 
 @Repository
 public class BoardDAO {
@@ -69,5 +70,15 @@ public class BoardDAO {
 	// 게시글 삭제.
 	public int delete(int seq){
 		return mybatis.delete("Board.delete",seq);
-	}	
+	}
+	
+	// nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기.
+	public int findParentSeq(String nickname){
+		return mybatis.selectOne("Board.findParentSeq",nickname);
+	}
+	
+	// member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기.
+	public ProfileDTO findImgName(int parentSeq){
+		return mybatis.selectOne("Board.findImgName",parentSeq);
+	}
 }
