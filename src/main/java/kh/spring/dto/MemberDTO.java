@@ -8,6 +8,9 @@ public class MemberDTO {
 	private String nickname;
 	private String phone;
 	private String email;
+	private String zipcode;
+	private String address1;
+	private String address2;
 	private String bank;
 	private String account;
 	private String money;
@@ -17,7 +20,7 @@ public class MemberDTO {
 	
 	public MemberDTO() {}
 
-	public MemberDTO(int seq, String id, String pw, String name, String nickname, String phone, String email, String bank,
+	public MemberDTO(int seq, String id, String pw, String name, String nickname, String phone, String email, String zipcode, String address1, String address2, String bank,
 			String account, String money, String grade, String blacklist, String kakaologin) {
 		super();
 		this.seq = seq;
@@ -27,6 +30,9 @@ public class MemberDTO {
 		this.nickname = nickname;
 		this.phone = phone;
 		this.email = email;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
 		this.bank = bank;
 		this.account = account;
 		this.money = money;
@@ -77,6 +83,25 @@ public class MemberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	
 	public String getBank() {
 		return bank;
 	}

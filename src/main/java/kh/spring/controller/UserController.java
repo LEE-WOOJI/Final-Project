@@ -26,4 +26,12 @@ public class UserController {
         e.printStackTrace();
         return "redirect:/";
     }
+    //회원가입 폼 페이지
+    @RequestMapping("signup")
+    public String signup() {
+    	return "/user/signup";
+    }
+  
+    			
+    
 }

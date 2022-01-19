@@ -195,9 +195,7 @@
 		                     </div>
 		                  </div>
            		</div>`;
-   					if(result[i].seq = 10){
-   	   					$("#more").css("display","none");
-   	   				}
+   					
    				}$(content).appendTo("#listLine");
    				
    			})
