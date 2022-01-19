@@ -98,13 +98,67 @@ public class ChalController {
    public String chalHealth(Model model) {
 	   String category = "건강";
 	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
 	   model.addAttribute("list",list);
 	   return "/chal/chalCategory";
    }
    //카테고리 2.취미
+   @RequestMapping("hobby")
+   public String chalHobby(Model model) {
+	   String category = "취미";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 3.금융
+   @RequestMapping("finance")
+   public String chalFinance(Model model) {
+	   String category = "금융";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 4.공부
+   @RequestMapping("study")
+   public String chalStudy(Model model) {
+	   String category = "공부";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 5.생활
+   @RequestMapping("life")
+   public String chalLife(Model model) {
+	   String category = "생활";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
    //카테고리 6.펫/환경
+   @RequestMapping("pet")
+   public String chalPet(Model model) {
+	   String category = "펫/에코";
+	   List<ChalBasicDTO> list = cservice.listCategory(category);
+	   model.addAttribute("category",category);
+	   model.addAttribute("list",list);
+	   return "/chal/chalCategory";
+   }
+   
+   //정렬
+   @ResponseBody
+   @RequestMapping(value = "filter", produces = "text/html;charset=utf8")
+   public String filter(String category, String filter, Model model) {
+	   System.out.println(category + ":" + filter);
+	   Gson glist = new Gson();
+	   List<ChalBasicDTO> list = cservice.categoryFilter(category, filter);
+	   System.out.println(list.get(0).getChalName() + list.size());
+	   String result = glist.toJson(list);
+	   return result;
+   }
+   
 }
 

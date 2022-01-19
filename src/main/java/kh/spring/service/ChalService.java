@@ -38,4 +38,9 @@ public class ChalService {
 	public List<ChalBasicDTO> listCategory(String category){
 		return cdao.listCategory(category);
 	}
+	
+	//카테고리 정렬
+	public List<ChalBasicDTO> categoryFilter(String category, String filter){
+		return cdao.categoryFilter(category, filter);
+	}
 }

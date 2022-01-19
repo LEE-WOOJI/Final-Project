@@ -94,7 +94,7 @@
                                 <div class="portfolio-hover-content"><i class="fas fa-medal"
                                         style="font-size: 50px;"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/category/001.png" alt="..." />
+                            <a href = "/chal/health"><img class="img-fluid" src="assets/img/category/001.png" alt="..." /></a>
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">건강</div>
@@ -110,7 +110,7 @@
                                 <div class="portfolio-hover-content"><i class="fas fa-medal"
                                         style="font-size: 50px;"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/category/002.png" alt="..." />
+                            <a href = "/chal/hobby"><img class="img-fluid" src="assets/img/category/002.png" alt="..." /></a>
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">취미</div>
@@ -126,7 +126,7 @@
                                 <div class="portfolio-hover-content"><i class="fas fa-medal"
                                         style="font-size: 50px;"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/category/003.png" alt="..." />
+                            <a href = "/chal/finance"><img class="img-fluid" src="assets/img/category/003.png" alt="..." /></a>
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">금융</div>
@@ -142,7 +142,7 @@
                                 <div class="portfolio-hover-content"><i class="fas fa-medal"
                                         style="font-size: 50px;"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/category/004.png" alt="..." />
+                            <a href = "/chal/study"><img class="img-fluid" src="assets/img/category/004.png" alt="..." /></a>
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">공부</div>
@@ -158,7 +158,7 @@
                                 <div class="portfolio-hover-content"><i class="fas fa-medal"
                                         style="font-size: 50px;"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/category/005.png" alt="..." />
+                            <a href = "/chal/life"><img class="img-fluid" src="assets/img/category/005.png" alt="..." /></a>
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">생활</div>
@@ -174,7 +174,7 @@
                                 <div class="portfolio-hover-content"><i class="fas fa-medal"
                                         style="font-size: 50px;"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/category/006.png" alt="..." />
+                            <a href = "/chal/pet"><img class="img-fluid" src="assets/img/category/006.png" alt="..." /></a>
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading" style="font-family: 'yg-jalnan', verdana, tahoma;">펫/환경</div>

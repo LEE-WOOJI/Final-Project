@@ -52,6 +52,14 @@ public class ChalDAO {
 	
 	//카테고리
 	public List<ChalBasicDTO> listCategory(String category){
-		return mybatis.selectList("Chal.listHealth", category);
+		return mybatis.selectList("Chal.listCategory", category);
+	}
+	
+	//카테고리 정렬
+	public List<ChalBasicDTO> categoryFilter(String category, String filter){
+		Map<Object,Object> map = new HashMap<>();
+		map.put("category", category);
+		map.put("filter", filter);
+		return mybatis.selectList("Chal.filter", map);
 	}
 }
