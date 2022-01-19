@@ -8,8 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
-import kh.spring.dto.ChalDTO;
 
 @Repository
 public class ChalDAO {
@@ -54,7 +54,12 @@ public class ChalDAO {
 
 	//디테일 페이지로 가져갈, 해당 chalSeq로 관련 정보 select
 	public ChalBasicDTO selectBySeq(int seq) {
-		return mybatis.selectOne("Chal.selectBySeq");
+		return mybatis.selectOne("Chal.selectBySeq",seq);
 
+	}
+	
+	//디테일 페이지에서 보여질 사용자 인증샷 select
+	public List<CertiImgDTO> selectCertiImg(int seq){
+		return mybatis.selectList("Chal.selectCertiImg", seq);
 	}
 }

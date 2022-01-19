@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChalDAO;
-import kh.spring.dto.BoardDTO;
+import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
-import kh.spring.dto.ChalDTO;
 
 @Service
 public class ChalService {
@@ -39,6 +38,11 @@ public class ChalService {
 	// 챌린지 디테일 불러오기
 	public ChalBasicDTO selectBySeq(int seq) {
 		return cdao.selectBySeq(seq);
+	}
+	
+	// 챌린지 디테일에 사람들이 올린 인증샷 불러오기
+	public List<CertiImgDTO> selectCertiImg(int seq) {
+		return cdao.selectCertiImg(seq);
 	}
 	
 }
