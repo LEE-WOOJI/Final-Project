@@ -70,9 +70,19 @@ public class BoardController {
 		return "/board/boardSearch";
 	}
 	
-	@RequestMapping("write") // 글쓰기로 이동.
-	public String boardWrite() {
+	@RequestMapping("write") // 글쓰기 페이지로 이동.
+	public String boardWrite(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("loginID");
+		MemberDTO info = brService.searchInfoById(id);
+		model.addAttribute("nickname", info.getNickname());
 		return "/board/boardWrite";
+	}
+	@RequestMapping("writeProc") // 글 삽입.
+	public String writeProc(Model model, String title, String contents, String nickname) {
+		System.out.println("제목: "+title+"  "+"내용 : "+contents);
+		bService.insert(title, contents, nickname);
+		return "redirect:/board/main?cpage=1";
 	}
 	
 	@RequestMapping("detail") // 글 클릭시 글 세부내용으로 이동.

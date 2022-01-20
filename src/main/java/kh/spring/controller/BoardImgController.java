@@ -1,11 +1,9 @@
 package kh.spring.controller;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,50 +21,29 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 
-import kh.spring.dto.ProfileDTO;
-import kh.spring.service.BoardService;
-import kh.spring.service.ImageService;
-
+@RequestMapping("/upload")
 @Controller
-@RequestMapping("/image/")
-public class ImageController {
-
-	@Autowired
-	BoardService bService;
-	@Autowired
-	private HttpSession session;
+public class BoardImgController {
 	
-	@RequestMapping("board") // 프로필 파일 이미지를 게시판에 불러오기.
-	public void board(String nickname, HttpServletResponse response) throws Exception {
-		// nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기.
-		int parentSeq = bService.findParentSeq(nickname);
-		// member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기.
-		ProfileDTO dto = bService.findImgName(parentSeq);
-		String oriName = dto.getOriName();
-		String sysName = dto.getSysName();
-		String realPath = session.getServletContext().getRealPath("files");
-		File target = new File(realPath+"/"+sysName);
-
-		try(DataInputStream dis = new DataInputStream(new FileInputStream(target));
-				DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
-			byte[] fileContents = new byte[(int) target.length()];
-			dis.readFully(fileContents);
-
-			oriName = new String(oriName.getBytes("utf8"),"ISO-8859-1");
-			response.reset();
-			response.setHeader("Content-Disposition", "attachment; filename="+ oriName);
-
-			dos.write(fileContents);
-			dos.flush();	
-		}
-	}
-	
-	@RequestMapping(value = "/boardSnote",produces = "application/json; charset=UTF-8") // 게시판 서머노트 업로드.
+	@RequestMapping(value = "/uploadSummernoteImageFile",produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) throws Exception  {
 		System.out.println("성공");
 
 		JsonObject jsonObject = new JsonObject();
+//		response.setContentType("text/html;charset=utf-8");
+//		PrintWriter out = response.getWriter();
+//		String file_name = multipartFile.getOriginalFilename();
+//		String server_file_name = fileDBName(file_name, save_folder);
+//		System.out.println("server file : " + server_file_name);
+//		multipartFile.transferTo(new File(save_folder + server_file_name));
+//		
+//		out.println("resources/upload"+server_file_name);
+//		out.close();
+//		
+        /*
+		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
+		 */
 		
 		// 내부경로로 저장
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
@@ -92,11 +68,5 @@ public class ImageController {
 			e.printStackTrace();
 		}
 		return jsonObject;
-	}
-
-	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception e) {
-		e.printStackTrace();
-		return "redirect:/";
 	}
 }
