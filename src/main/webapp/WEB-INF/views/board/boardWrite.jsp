@@ -168,6 +168,17 @@ a {
 	padding:10px;
 	border-radius:5px;
 }
+#subject{
+	border:1px solid gray;
+	height:30px;
+	width:99%;
+	margin-bottom:10px;
+	border-radius:5px;
+	margin-left:6px;
+}
+#field{
+	padding-left:10px;
+}
 </style>
 <body>
 	<!-- 메인 네비바 -->
@@ -192,8 +203,11 @@ a {
 			</div>
 
 			<!-- 내용 -->
+			<form action="/board/writeProc" method="post">
 			<div class="card-body py-3">
-				<div id="summernote"></div>
+				<input type="text" id="subject" name="title" placeholder="제목을 작성하세요"><br>
+				<input type="hidden" value=${nickname } name="nickname">
+				<textarea id="summernote" name="contents"></textarea>
 	
 	<script>
 	// 메인화면 페이지 로드 함수
@@ -218,28 +232,65 @@ a {
 			    ['view', ['fullscreen', 'help']]
 			  ],
 			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-        });
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+				// 이미지 파일 업로드 옵션
+			callbacks:{
+                onImageUpload: function(files, editor, welEditable) {
+                	 for (var i = files.length - 1; i >= 0; i--) {
+                         sendFile(files[i],this);
+                }
+			}
+                }
         
-    });
+			
+		});
+
+	});
+    
+	// summernote 이미지 업로드 함수
+		function sendFile(file, el) {
+			var form_data = new FormData();
+			form_data.append('file', file);
+			$.ajax({
+				data : form_data,
+				type : "POST",
+				url : '/image/boardSnote',
+				cache : false,
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(sysName) {
+					//let url = JSON.parse(sysName); 
+					console.log("img : "+sysName);
+					//console.log(url);
+					//setTimeout(function(){
+					//	$(el).summernote('editor.insertImage', '/boardImg/bear.png',500);
+					//})
+					$(el).summernote('insertImage', sysName.url);
+				}
+			});
+		}
 	</script>
 			</div>
+			<div align=right id=write>
+				<button id="write" style="float:right;">글쓰기</button>
+				
+			</div>
+		
+			</form>
 		<!-- 버튼 페이징 -->
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center"></ul>
 		</nav>
-		<div align=right id=write>
-			<button type=submit>글쓰기</button>
-		</div>
 	</div>
+	
 	<!-- 풋터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script>
 	
-		$("#write").on("click",function(){
-			location.href="/board/main";
-		})
+	
 	</script>
+	</div>
 	
 </body>
 </html>
