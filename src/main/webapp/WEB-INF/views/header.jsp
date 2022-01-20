@@ -57,7 +57,7 @@
                         <c:if test="${loginId == null }">
 							<li class="nav-item"><a class="nav-link" href="#Login"><span id = "login">login</span></a></li>
 						</c:if>
-						<c:if test="nav-item">
+						<c:if test="${loginId != null}" >
 							<li class="nav-item"><a class="nav-link" href="#My page"><span id = "mypage">My Page</span></a></li>
                         	<li class="nav-item"><a class="nav-link" href ="#logout"><span id = "logout">Logout</span></a><li>
 						</c:if>
