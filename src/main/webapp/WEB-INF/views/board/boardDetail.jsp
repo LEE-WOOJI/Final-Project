@@ -468,8 +468,8 @@ button:hover {
 		$("#summernote").removeAttr("readonly");
 		$("#summernote").focus();
 		
-		// 썸머노트 에디터
-		$(document).ready(function () {
+		// summernote 에디터
+    $(document).ready(function () {
         $('#summernote').summernote({
             placeholder: '내용을 작성하세요',
             height: 400,
@@ -478,21 +478,47 @@ button:hover {
             lang: "ko-KR",
             focus: true,
             toolbar: [
-             // [groupName, [list of button]]
-             ['fontname', ['fontname']],
-             ['fontsize', ['fontsize']],
-             ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-             ['color', ['forecolor','color']],
-             ['table', ['table']],
-             ['para', ['ul', 'ol', 'paragraph']],
-             ['height', ['height']],
-             ['insert',['picture','link','video']],
-             ['view', ['fullscreen', 'help']]
-           ],
-         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-        });
-    });
+			    // [groupName, [list of button]]
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert',['picture','link','video']],
+			    ['view', ['fullscreen', 'help']]
+			  ],
+			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+				// 이미지 파일 업로드 옵션
+			callbacks:{
+                onImageUpload: function(files, editor, welEditable) {
+                	 for (var i = files.length - 1; i >= 0; i--) {
+                         sendFile(files[i],this);
+					}
+				}
+	    	}
+		});
+	});
+	// summernote 이미지 업로드 함수
+	function sendFile(file, el) {
+		var form_data = new FormData();
+		form_data.append('file', file);
+		$.ajax({
+			data : form_data,
+			type : "POST",
+			url : '/image/boardSnote',
+			cache : false,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(sysName) {
+				console.log("img : "+sysName);
+				$(el).summernote('insertImage', sysName.url);
+			}
+		});
+	}
 		$("#frm").attr("action","/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}");
 	});
 	$("#del").on("click", function(){
