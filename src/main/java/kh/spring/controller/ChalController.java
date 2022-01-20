@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
-import kh.spring.dto.BoardDTO;
+import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.service.ChalService;
 
@@ -166,7 +166,18 @@ public class ChalController {
 	// chalList.jsp 에서 해당'chalSeq'를 받아오기.
 	public String chalDetail(int seq, Model model) {
 		ChalBasicDTO dto = cservice.selectBySeq(seq);
+		List<CertiImgDTO> list = cservice.selectCertiImg(seq);
+		String[]tag = dto.getTag().split(",");
+		
+		System.out.println("Tag : " + tag[0] + tag[1]);	
+		System.out.println("챌린지 번호 : " + seq);
+		System.out.println("인증샷 사진 몇개?" + list);
+		
 		model.addAttribute("dto",dto);
+		model.addAttribute("list",list);
+		model.addAttribute("tag1",tag[0]);
+		model.addAttribute("tag2",tag[1]);
+		//model.addAttribute("tag3",tag[2]); // DB에 무조건 태그 3개 넣어야함, 추후 주석 풀기
 		return "/chal/chalDetail";
 	}
 }	

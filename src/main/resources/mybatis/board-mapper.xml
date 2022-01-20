@@ -56,4 +56,14 @@
 	<delete id="delete">
 		delete from board where seq = #{value}
 	</delete>
+	
+	<!-- nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기. -->
+	<select id="findParentSeq" resultType="int">
+		select seq from member where nickname = #{value}
+	</select>
+	
+	<!-- member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기. -->
+	<select id="findImgName" resultType="kh.spring.dto.ProfileDTO">
+		select * from profile where parentSeq = #{value}
+	</select>
 </mapper>
