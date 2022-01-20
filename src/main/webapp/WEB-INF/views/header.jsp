@@ -54,7 +54,7 @@
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="/chal/list"><span id = "glphy">Glphy</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="/board/main"><span id = "community">Community</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#My page"><span id = "mypage">My Page</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/mypage/mypage"><span id = "mypage">My Page</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="#Login"><span id = "login">login</span></a></li>
                     </ul>
                 </div>

@@ -7,16 +7,13 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChalDAO;
 import kh.spring.dto.ChalBasicDTO;
-import kh.spring.dto.ChalDTO;
 
 @Service
-public class ChalService {
+public class ChalingService {
 	@Autowired
 	private ChalDAO cdao;
 	
-	//전체조회
-	public List<ChalBasicDTO> listBound(int start, int end){
+	public List<ChalBasicDTO> listBount(int start, int end) {
 		return cdao.listBound(start, end);
 	}
-	
 }
