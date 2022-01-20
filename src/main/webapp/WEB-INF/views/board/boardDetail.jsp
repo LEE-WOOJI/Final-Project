@@ -398,6 +398,7 @@ button:hover {
 			</c:if>
 
 			<!-- 댓글 작성 칸 -->
+			<c:if test="${writerNickname != ''}">
 			<form
 				action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
 				method="post">
@@ -435,6 +436,7 @@ button:hover {
 					</div>
 				</div>
 			</form>
+			</c:if>
 		</div>
 		<br>
 	</div>
