@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
+import kh.spring.dto.MemberDTO;
+import kh.spring.service.BoardReplyService;
 import kh.spring.service.ChalService;
 
 @RequestMapping("/chal/")
@@ -21,6 +23,9 @@ import kh.spring.service.ChalService;
 public class ChalController {
    @Autowired
    ChalService cservice;
+   
+   @Autowired
+	BoardReplyService brService;
    
    @Autowired
 	private HttpSession session;
@@ -170,15 +175,27 @@ public class ChalController {
 	@RequestMapping("detail")
 	// chalList.jsp 에서 해당'chalSeq'를 받아오기.
 	public String chalDetail(int seq, Model model) {
+		
+		//블랙리스트 유무를 위하여 로그인 세션 받아옴
+		String id = (String) session.getAttribute("loginID");
+		
+			if(id != null) {
+				MemberDTO member = brService.searchInfoById(id);
+				model.addAttribute("member", member);
+			}
+		
+		// 챌린지 정보 
 		ChalBasicDTO dto = cservice.selectBySeq(seq);
-		// 해당 챌린지의 이미지 불러오기
+		
+		// 해당 챌린지의 인증샷 불러오기
 		List<CertiImgDTO> list = cservice.selectCertiImg(seq);
+		
 		// 태그 자르기
 		String[]tag = dto.getTag().split(",");
 		
-		System.out.println("Tag : " + tag[0] + tag[1]);	
-		System.out.println("챌린지 번호 : " + seq);
-		System.out.println("인증샷 사진 몇개?" + list);
+//		System.out.println("Tag : " + tag[0] + tag[1]);	
+//		System.out.println("챌린지 번호 : " + seq);
+//		System.out.println("인증샷 사진 몇개?" + list);
 		
 		model.addAttribute("dto",dto);
 		model.addAttribute("list",list);
@@ -194,6 +211,13 @@ public class ChalController {
 	public String chalPayment(int seq, Model model) {
 		String id = (String) session.getAttribute("loginID");
 		ChalBasicDTO dto = cservice.selectBySeq(seq);
+		
+		// 결제페이지에서 유저의 이름,이메일,핸드폰 번호를 받기 위하여.
+		if(id != null) {
+			MemberDTO member = brService.searchInfoById(id);
+			model.addAttribute("member", member);
+		}
+		
 		model.addAttribute("dto",dto);
 		return "/chal/chalPayment";
 	}

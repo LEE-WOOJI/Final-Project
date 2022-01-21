@@ -26,6 +26,14 @@
 
 </head>
 <body>
+	<!-- 비회원일경우 로그인페이지로 돌아가기 -->
+	<!--<c:if test="${loginID == null }">
+		<script>
+			alert("로그인 후 참여가능합니다.");
+			location.href = "/user/login";
+		</script>
+	</c:if>-->
+	
 	<div class=" container mt-5 mb-5 d-flex justify-content-center">
 		<div class="border border-3 border-warning  card p-5" style="margin-top: 100px; width: 1000px;">
 			<div>
@@ -113,11 +121,11 @@ $(document).ready(function(){
 				//pg : 'kakao', //pg사 선택 (kakao, kakaopay 둘다 가능)
 				pay_method: 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
-				name : '결제테스트', // 상품명
+				name : '${dto.chalName }', // 상품명
 				amount : 100,
-				buyer_email : '',
-				buyer_name : '',
-				buyer_tel : '010-3336-5891',  //필수항목
+				buyer_email :'${member.email}',
+				buyer_name : '${member.name}',
+				buyer_tel : '${member.phone}',  //필수항목
 				//결제완료후 이동할 페이지 kko나 kkopay는 생략 가능
 				m_redirect_url : 'https://localhost/chal/chalList'
 			}, function(rsp){
