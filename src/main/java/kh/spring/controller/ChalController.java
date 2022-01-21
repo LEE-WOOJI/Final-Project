@@ -2,6 +2,8 @@ package kh.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ import kh.spring.service.ChalService;
 public class ChalController {
    @Autowired
    ChalService cservice;
+   
+   @Autowired
+	private HttpSession session;
    
    //1.전체 리스트
    //처음 리스트에 들어왔을 때
@@ -166,7 +171,9 @@ public class ChalController {
 	// chalList.jsp 에서 해당'chalSeq'를 받아오기.
 	public String chalDetail(int seq, Model model) {
 		ChalBasicDTO dto = cservice.selectBySeq(seq);
+		// 해당 챌린지의 이미지 불러오기
 		List<CertiImgDTO> list = cservice.selectCertiImg(seq);
+		// 태그 자르기
 		String[]tag = dto.getTag().split(",");
 		
 		System.out.println("Tag : " + tag[0] + tag[1]);	
@@ -178,7 +185,17 @@ public class ChalController {
 		model.addAttribute("tag1",tag[0]);
 		model.addAttribute("tag2",tag[1]);
 		//model.addAttribute("tag3",tag[2]); // DB에 무조건 태그 3개 넣어야함, 추후 주석 풀기
+		
 		return "/chal/chalDetail";
+	}
+	
+	/*글피 결제 페이지로 넘어가기*/
+	@RequestMapping("chalPayment")
+	public String chalPayment(int seq, Model model) {
+		String id = (String) session.getAttribute("loginID");
+		ChalBasicDTO dto = cservice.selectBySeq(seq);
+		model.addAttribute("dto",dto);
+		return "/chal/chalPayment";
 	}
 }	
 

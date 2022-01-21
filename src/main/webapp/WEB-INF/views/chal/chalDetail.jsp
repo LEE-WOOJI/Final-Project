@@ -206,7 +206,7 @@ opacity
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="col-md-6">
-					<img class="card-img-top mb-5 mb-md-0" src="${dto.oriName}" alt="..." />
+					<img class="card-img-top mb-5 mb-md-0" src="${dto.oriName}" alt="..." name=""/>
 				</div>
 				<div class="col-md-6">
 					<div class="chalTag"  style="margin: 20px 0px 20px;">
@@ -223,7 +223,7 @@ opacity
 
 					<div style="font-family: 'S-CoreDream-4Regular'">
 						<div>
-							<i class="bi bi-calendar-event"> </i>&nbsp;&nbsp; ${dto.date}일에 시작 ! <!-- 달력아이몬 + 글피 시작 날짜-->
+							<i class="bi bi-calendar-event"></i>&nbsp;&nbsp;${dto.SDate}에 시작 ! <!-- 달력아이몬 + 글피 시작 날짜-->
 						</div>
 						<i class="bi bi-alarm"></i>&nbsp;&nbsp; <!-- 시계 아이콘 + 남은 시간 계산-->
 						<div id="countdown"></div>
@@ -243,7 +243,8 @@ opacity
 
 					<!-- 2019년 2월 19일인 오늘 <div id="countExpire"></div> -->
 					<div class="d-flex">
-						<button type="button" id="joinBtn" class="btn btn-warning btn-lg" style="font-family: 'S-CoreDream-4Regular';">참여하기</button>
+						<button type="button" id="joinBtn" class="btn btn-warning btn-lg" onClick="location.href='/chal/chalPayment?seq=${dto.chalSeq}'" style="font-family: 'S-CoreDream-4Regular';">
+						참여하기</button>
 					</div>
 				</div>
 			</div>
@@ -401,11 +402,11 @@ opacity
 	<script src="/js/scripts.js"></script>
 
 	<script>
- 	CountDownTimer('${dto.date}', 'countdown');
+ 	CountDownTimer('${dto.date} ', 'countdown');
  	CountDownTimer('1/16/2022 5:00 PM', 'HourCountdown');
  	CountDownTimer('1/16/2022', 'countExpire');
 
-	console.log(${dto.date});
+	console.log( ${dto.date} );
 	
 	 function CountDownTimer(dt, id) {
      	var end = new Date(dt);
@@ -423,7 +424,7 @@ opacity
          // 시간 종료 시 뜨는 문구
          if (distance < 0) {
              clearInterval(timer);
-             document.getElementById(id).innerHTML = '선착순 모집이 마감되었습니다.';
+             document.getElementById(id).innerHTML = '이미 시잔된 챌린지에요';
              $("#joinBtn").css("display", "none");
              return;
          }
