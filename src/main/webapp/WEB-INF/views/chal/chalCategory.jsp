@@ -24,6 +24,9 @@
       <link href="/css/chalcss.css" rel="stylesheet" />
       <!-- repcss -->
       <link href="/css/chalrepcss.css" rel="stylesheet" />
+      <!-- Date -->
+      <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+      
       
       <style>
       	#header{margin-bottom:110px;}
@@ -103,13 +106,13 @@
 		                     <div class = "startday">
 		                        <h6>
 		                           <label>시작일 : </label>
-		                           ${list.startDate }
+		                           <fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value = "${list.startDate }"/>
 		                        </h6>
 		                     </div>
 		                     <div class = "endday">
 		                        <h6>
 		                           <label>종료일 : </label>
-		                           ${list.endDate }
+		                           <fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value = "${list.endDate }"/>
 		                        </h6>
 		                     </div>
 		                  </div>
@@ -145,11 +148,15 @@
    					content += `<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
-		                        <img src="\${result[i].oriName}" alt="">
+		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
+	                     			<img src="\${result[i].oriName}" alt="">
+                     			</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
-		                           \${result[i].chalName }
+		                        	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
+	                        			\${result[i].chalName }
+                       				</a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>
@@ -171,6 +178,7 @@
 		                        <h6>
 		                           <label>시작일 : </label>
 		                           \${result[i].startDate }
+		                           
 		                        </h6>
 		                     </div>
 		                     <div class = "endday">
