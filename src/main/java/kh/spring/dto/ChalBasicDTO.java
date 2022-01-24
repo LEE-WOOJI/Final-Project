@@ -1,6 +1,7 @@
 package kh.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ChalBasicDTO {
 	//Chal + ChalImg
@@ -14,13 +15,14 @@ public class ChalBasicDTO {
 	private String price;
 	private String day;
 	private String category;
-	private int imgseq;
+	private int seq;
 	private String oriName;
 	private String sysName;
 	
 	public ChalBasicDTO() {}
+	
 	public ChalBasicDTO(int chalSeq, String chalName, Timestamp startDate, Timestamp endDate, int personnel,
-			String chalInfo, String tag, String price, String day, String category, int imgseq, String oriName,
+			String chalInfo, String tag, String price, String day, String category, int seq, String oriName,
 			String sysName) {
 		super();
 		this.chalSeq = chalSeq;
@@ -33,7 +35,7 @@ public class ChalBasicDTO {
 		this.price = price;
 		this.day = day;
 		this.category = category;
-		this.imgseq = imgseq;
+		this.seq = seq;
 		this.oriName = oriName;
 		this.sysName = sysName;
 	}
@@ -97,11 +99,11 @@ public class ChalBasicDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public int getImgseq() {
-		return imgseq;
+	public int getSeq() {
+		return seq;
 	}
-	public void setImgseq(int imgseq) {
-		this.imgseq = imgseq;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public String getOriName() {
 		return oriName;
@@ -114,6 +116,13 @@ public class ChalBasicDTO {
 	}
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
+	}
+	
+	// 디테일 페이지에서 글피 시작까지 남은 시간 계산하기 위한 simpleDateFormat 
+	//"yyyy/MM/dd" 이런식으로 날짜를 넣어야해서 추가함.
+	public String getDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		return sdf.format(this.startDate.getTime());
 	}
 	
 	

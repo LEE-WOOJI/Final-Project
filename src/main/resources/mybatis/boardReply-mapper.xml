@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardReply">
+	<!-- 댓글 출력 -->
+	<select id="selectAllBybSeq" resultType="kh.spring.dto.BoardReplyDTO">
+		select * from boardReply where refBoardSeq = #{value} order by 4
+	</select>
+	
+	<!-- 로그인 아이디로 닉네임 찾기. -->
+	<select id="searchInfoById" resultType="kh.spring.dto.MemberDTO">
+		select * from member where id = #{value}
+	</select>
+	
+	<!-- 댓글 입력 -->
+	<insert id="insert">
+		insert into boardreply values(boardreply_seq.nextval,#{refBoardSeq},#{writerNickname},sysdate,#{repContents})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="modify">
+		update boardreply set repContents = #{repContents} where seq = #{seq}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete">
+		delete from boardreply where seq = #{seq}
+	</delete>
+</mapper>

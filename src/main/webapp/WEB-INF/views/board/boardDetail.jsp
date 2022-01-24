@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${bList.title}</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -24,6 +24,14 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
+<!-- include summernote css/js -->
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+<script
+	src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 <style>
 body {
 	margin: 0;
@@ -261,7 +269,9 @@ button:hover {
 		<!-- 자유게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 
-			<form action="/board/done" method="post" id="frm">
+			<form
+				action="/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
+				method="post" id="frm">
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
@@ -270,12 +280,16 @@ button:hover {
 									<div class="img-box"
 										style="height: 100%; display: inline-block">
 										<img id="profile" class="img-profile"
-											style="width: 50px; height: 50px;" src="" alt="">
+											style="width: 50px; height: 50px;"
+											src="/image/board?nickname=${bList.nickname}" alt="">&ensp;
 									</div>
 									<ul
 										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0"
+										<li class="name mt-3"
 											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">${bList.nickname }</li>
+									</ul>
+									<ul class="meta list list-unstyled profile-detail d-flex mb-0"
+										style="margin-left: auto; justify-content: flex-end;">
 										<li class="label" style="margin: 0; padding: 0">${bList.write_date }</li>
 									</ul>
 								</div>
@@ -285,23 +299,26 @@ button:hover {
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<input type=text id=input-title name=title value="${bList.title}"
-								style="width: 100%;">
+								style="width: 100%;" readonly>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea id="contents" name="contents" readonly
-								style="min-height: 200px; overflow: hidden"></textarea>
+							<div id="display"
+								style="min-height: 200px; overflow: hidden; border: 1px solid black;">${bList.contents}</div>
+							<textarea id="summernote" name="contents" readonly
+								style="min-height: 200px; overflow: hidden; display: none;">${bList.contents}</textarea>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<c:if test="${loginID==writer}">
+							<c:if test="${writerNickname==bList.nickname}">
 								<button type="button" id="mod"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
 								<button type="button" id="del"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제하기</button>
-								<button type="button" id="modDone"
+								<button id="modDone"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">수정완료</button>
 								<button type="button" id="cancel"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">취소</button>
@@ -316,11 +333,13 @@ button:hover {
 					</div>
 				</div>
 			</form>
-			<hr>
 			<!-- 댓글 보여주기 -->
-			<c:if test="">
-				<c:forEach var="#" items="">
-					<form action="" method="post">
+			<c:if test="${!empty rList}">
+				<hr>
+				<c:forEach var="rList" items="${rList }">
+					<form
+						action="/board/modRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
+						method="post" id="frmRp">
 						<div class="container mb-4">
 							<div class="row" style="padding-bottom: 5px;">
 								<div class="col-sm-12">
@@ -329,13 +348,19 @@ button:hover {
 											<div class="img-box"
 												style="height: 100%; display: inline-block">
 												<img id="profile" class="img-profile"
-													style="width: 50px; height: 50px;" src="" alt="">
+													style="width: 50px; height: 50px;"
+													src="/image/board?nickname=${rList.writerNickname}" alt="">&ensp;
 											</div>
 											<ul
 												class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-												<li class="name mt-0"
-													style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
-												<li class="label" style="margin: 0; padding: 0">작성일</li>
+												<li class="name mt-3" name="writerNickname"
+													style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">${rList.writerNickname}</li>
+											</ul>
+											<ul
+												class="meta list list-unstyled profile-detail d-flex mb-0"
+												style="margin-left: auto; justify-content: flex-end;">
+												<li class="label" name="write_date"
+													style="margin: 0; padding: 0">${rList.write_date}</li>
 											</ul>
 										</div>
 									</div>
@@ -343,26 +368,27 @@ button:hover {
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
-									<textarea class="contents" name="" readonly
-										style="height: auto;">제목</textarea>
+									<textarea class="contents" name="repContents" readonly
+										style="height: auto;">${rList.repContents}</textarea>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12" style="text-align: right">
-									<c:if test="${loginID==writer}">
-										<button type="button" class="btn btn-dark"
-											style="background-color:;">수정</button>
-										<button class="btn btn-dark"
-											style="background-color:; display: none;">완료</button>
-										<button type="button" class="btn btn-dark"
-											style="background-color:; display: none;">취소</button>
-										<button type="button" class="btn btn-dark"
-											style="background-color:;">삭제</button>
-										<input id=hidden-cseq type=hidden value="">
+									<c:if test="${writerNickname==rList.writerNickname}">
+										<button type="button" class="modRp"
+											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정</button>
+										<button class="modRpDone"
+											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none">완료</button>
+										<button type="button" class="modRpCancel"
+											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none">취소</button>
+										<button type="button" class="delRp"
+											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제</button>
+										<input id="rseq" name="rseq" type=hidden value="${rList.seq}">
+										<input name="refBoardSeq" type=hidden value="${bList.seq}">
 									</c:if>
 									<c:if test="${loginID=='admin'}">
-										<button type="button" class="btn btn-dark"
-											style="background-color:;">삭제</button>
+										<button type="button"
+											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제</button>
 									</c:if>
 								</div>
 							</div>
@@ -372,8 +398,10 @@ button:hover {
 			</c:if>
 
 			<!-- 댓글 작성 칸 -->
-			<hr>
-			<form action="" method="post">
+			<form
+				action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
+				method="post">
+				<hr>
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
@@ -382,13 +410,13 @@ button:hover {
 									<div class="img-box"
 										style="height: 100%; display: inline-block">
 										<img id="profile" class="img-profile"
-											style="width: 50px; height: 50px;" src="" alt="">
+											style="width: 50px; height: 50px;"
+											src="/image/board?nickname=${writerNickname}" alt="">&ensp;
 									</div>
 									<ul
 										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0"
-											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">닉네임</li>
-										<li class="label" style="margin: 0; padding: 0">작성일</li>
+										<li class="name mt-3"
+											style="color: black; font-family: 'yg-jalnan', verdana, tahoma;">${writerNickname}</li>
 									</ul>
 								</div>
 							</div>
@@ -396,12 +424,12 @@ button:hover {
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea id="" cols=170 rows=4 name=""></textarea>
+							<textarea id="rpContents" cols=170 rows=4 name="repContents"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id=""
+							<button id="writeRp"
 								style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">등록</button>
 						</div>
 					</div>
@@ -412,7 +440,7 @@ button:hover {
 	</div>
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-	<script type="text/javascript">
+	<script>
 		// 목록으로 버튼 클릭 시.
 		$("#boardList").on("click", function() {
 			<c:if test="${select==''}">
@@ -422,17 +450,14 @@ button:hover {
 				location.href = "/board/search?cpage=${cpage}&select=${select}&keyword=${keyword}";
 			</c:if>
 		});
-		
-		// texarea에 작성한 내용 보여주기.
-    	$("#contents").text("${bList.contents}");
-    	autosize($("textArea"));
 	</script>
 
-	<script type="text/javascript">
-	// 수정, 삭제, 취소 버튼 클릭 시.
+	<script>
+	// 게시 글 수정, 삭제, 취소 버튼 클릭 시.
 	let bkTitle = $("#input-title").val();					
-	let bkContents = $("#contents").val();			
+	let bkContents = $("#summernote").val();		
 	$("#mod").on("click", function(){
+		$("#display").css("display","none");
 		$("#del").css("display","none");
 		$("#mod").css("display","none");
 		$("#boardList").css("display","none");
@@ -440,31 +465,99 @@ button:hover {
 		$("#cancel").css("display","inline-block");
 		$("#frm").removeAttr("action");
 		$("#input-title").removeAttr("readonly");
-		$("#contents").removeAttr("readonly");
-		$("#contents").focus();
+		$("#summernote").removeAttr("readonly");
+		$("#summernote").focus();
 		
+		// summernote 에디터
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: null,
+            minHeight: null,
+            lang: "ko-KR",
+            focus: true,
+            toolbar: [
+			    // [groupName, [list of button]]
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert',['picture','link','video']],
+			    ['view', ['fullscreen', 'help']]
+			  ],
+			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+				// 이미지 파일 업로드 옵션
+			callbacks:{
+                onImageUpload: function(files, editor, welEditable) {
+                	 for (var i = files.length - 1; i >= 0; i--) {
+                         sendFile(files[i],this);
+					}
+				}
+	    	}
+		});
+	});
+	// summernote 이미지 업로드 함수
+	function sendFile(file, el) {
+		var form_data = new FormData();
+		form_data.append('file', file);
+		$.ajax({
+			data : form_data,
+			type : "POST",
+			url : '/image/boardSnote',
+			cache : false,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(sysName) {
+				console.log("img : "+sysName);
+				$(el).summernote('insertImage', sysName.url);
+			}
+		});
+	}
 		$("#frm").attr("action","/board/modify?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}");
-		
 	});
 	$("#del").on("click", function(){
 		if(confirm("정말 삭제하시겠습니까?")) {
 			location.href="/board/delete?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}";
 		}
 	});
-	$("#modDone").on("click",function(){
-		$("#frm").submit();
-	})
+
 	$("#cancel").on("click",function(){
-		$("#input-title").val(bkTitle);
-		$("#contents").val(bkContents);
-		$("#input-title").attr("readonly","");
-		$("#contents").attr("readonly","");
-		$("#mod").css("display","inline-block");
-		$("#del").css("display","inline-block");
-		$("#modDone").css("display","none");
-		$("#cancel").css("display","none");
-		$("#boardList").css("display","inline-block");
+		location.href="/board/detail?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
 	})
+	</script>
+	<script>
+		// 댓글 수정, 삭제, 취소 버튼 클릭 시.
+	   	$(".card").on("click",".modRp",function(){
+   		$(this).css("display","none");
+   		$(this).next().next().next().css("display","none");
+   		$(this).next().css("display","inline-block");
+   		$(this).next().next().css("display","inline-block");
+   		// 기존 내용 백업
+    	bkContentsCmt = $(this).closest("#frmRp").find("textarea").val();
+   		$(this).closest("#frmRp").find("textarea").removeAttr("readonly");
+   		$(this).closest("#frmRp").find("textarea").focus();
+   	});
+   	$(".card").on("click",".modRpCancel",function(){
+   		$(this).closest("#frmRp").find("textarea").val(bkContentsCmt);
+   		$(this).closest("#frmRp").find("textarea").attr("readonly","");
+   		$(this).prev().prev().css("display","inline-block");
+   		$(this).next().css("display","inline-block");
+   		$(this).prev().css("display","none");
+   		$(this).css("display","none");
+   	});
+   	$(".card").on("click",".delRp",function(){
+   		if(confirm("정말 삭제하시겠습니까?")){
+   			$(this).closest("#frmRp").remove();
+   			let rseq = $(this).next().val();
+   			location.href="/board/delRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}&rseq="+rseq;
+   		}
+   	});
 	</script>
 </body>
 </html>

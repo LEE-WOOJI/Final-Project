@@ -26,7 +26,8 @@
       <link href="/css/chalrepcss.css" rel="stylesheet" />
       <!-- Date -->
       <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+      
+      
       <style>
       	#header{margin-bottom:110px;}
       	@font-face {
@@ -37,7 +38,7 @@
 		font-weight: normal;
 		font-style: normal;
 		}
-		#searchBtn, #option, #moreBtn, #title, #chalTitle, #more{font-family: 'yg-jalnan', verdana, tahoma;}
+		#searchBtn, #option, #moreBtn, #title, #chalTitle, #filter{font-family: 'yg-jalnan', verdana, tahoma;}
       </style>
       
    </head>
@@ -51,47 +52,39 @@
 			</div>
 		</div>
 		<br>
-		<form action = "/chal/search" method = "post">
-			<div class="row" style = "text-align:center">
-				<div class = "col-sm-12 col-md-4 col-lg-2">
-				<select class="form-select btn btn-danger" aria-label="Default select example" id = "option" name = "option">
-  					<option selected>검색옵션</option>
-  					<option value="name">이름</option>
-  					<option value="tag">태그</option>
-  					<option value="day">일수</option>
-				</select>
-				</div>
-				<div class = "col-sm-12 col-md-4 col-lg-9">
-					<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText">
-				</div>
-				<div class = "col-sm-12 col-md-4 col-lg-1" style = "margin:0px;">
-					<button type="submit" class="btn btn-danger" id = "searchBtn" style = "width:100%;">Search</button>
-				</div>
-		</div>
-		</form>
 	</div>
 <!-- 챌린지 받아오는 곳 -->
       <section class="product_section layout_padding">
          <div class="container">
             <div class="heading_container heading_center">
                <h3>
-                  <span id = "chalTitle">Our Challenge</span>
+                  <span id = "chalTitle" name = "chalTitle">${category }챌린지 리스트</span>
                   <hr>
                </h3>
+            </div>
+            <div class = "row">
+            	<div class = "col-sm-6 col-md-4 col-lg-3">
+            		<select class="form-select btn btn-danger" aria-label="Default select example" id = "filter" name = "filter">
+  					<option selected>정렬</option>
+  					<option value="chalName"> 가나다순</option>
+  					<option value="startDate">시작일순</option>
+  					<option value="day">일수순</option>
+					</select>
+            	</div>
             </div>
             <div class="row" id = "listLine">
                <c:forEach var = "list" items = "${list }">
                		<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
-		                     	<a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
+		                        <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
 		                        	<img src=${list.oriName} alt="">
 		                        </a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                           <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none; color: black;">
-		                           		${list.chalName}
+		                           		${list.chalName }
 		                           </a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
@@ -127,15 +120,6 @@
                </c:forEach>
             </div>
             
-            <div class = "row">
-            	<div class = "col">
-            		<div class="btn-box">
-	               		<div class = "col-sm-12 col-md-4 col-lg-2" style = "margin:0px;">
-							<button type="button" class="btn btn-danger" style = "width:100%;" id = "more">View More</button>
-						</div>
-            		</div>
-            	</div>
-            </div>
             
          </div>
       </section>
@@ -145,35 +129,34 @@
    </body>
    
    <script>
-   		let moreNum = 1;
-   		$("#more").on("click",function(){
-   			moreNum += 6;
+   		$("#filter").on("change",function(){
+   			$('#listLine div').remove();
+   			let filter = $("#filter").val();
+   			let category = "${category}";
    			$.ajax({
-   				url:"/chal/more",
-   				method:"POST",
-   				data:{"moreNum":moreNum}
+   				url:"/chal/filter",
+   				type:"get",
+   				data:{"filter":filter,"category":category}
    			}).done(function(resp){
    				let result = JSON.parse(resp);
+   				console.log(result); //콘솔창에 잘 찍힘
+   				console.log(result[1].length);
    				let content = "";
-   				
-   				for(let i = 0; i < result.length; i++){
+   				for(let i = 0; i < result.length; i++){ //이게 안굴러감 미친년
    					console.log("회차 : " + i);
    					console.log(result[i].chalName);
-   					let start = moment(result[i].startDate).format("YYYY년 MM월 DD일 hh시")
-   					let end = moment(result[i].endDate).format("YYYY년 MM월 DD일 hh시")
-   					console.log(start);
    					content += `<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-		                     		<img src="\${result[i].oriName}" alt="">
-	                        	</a>
+	                     			<img src="\${result[i].oriName}" alt="">
+                     			</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
-		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
-		                        	\${result[i].chalName }
-                           		</a>  
+		                        	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
+	                        			\${result[i].chalName }
+                       				</a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>
@@ -194,22 +177,19 @@
 		                     <div class = "startday">
 		                        <h6>
 		                           <label>시작일 : </label>
-		                           \${start}
+		                           \${result[i].startDate }
+		                           
 		                        </h6>
 		                     </div>
 		                     <div class = "endday">
 		                        <h6>
 		                           <label>종료일 : </label>
-		                           \${end}
+		                           \${result[i].endDate }
 		                        </h6>
 		                     </div>
 		                  </div>
-           		</div>`;
-           		if (result[i].chalSeq > 20) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
- 	              $("#more").css("display","none");
- 	            }
+         		</div>`;
    				}$(content).appendTo("#listLine");
-   				
    			})
    		});
 		

@@ -9,29 +9,32 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.spring.dto.ChalDTO;
+import kh.spring.service.ChalingService;
 
 @Controller
 @RequestMapping("/mypage/")
 public class MypageController {
 
 	@Autowired
-	UserService uservice;
+	ChalingService chservice; 
 
 	//회원 마이페이지 홈
 	@RequestMapping("mypage")
 	public String mypage() {
 		return "/user/mypage";
 	}
-
+	//진행중이 글피
 	@RequestMapping("chaling")
 	public String userpage(int seq, Model model) {
-		List<ChalDTO>list = uservice.chaling(seq);
+		List<ChalDTO>list = chservice.chaling(seq);
 		model.addAttribute("list",list);
 		return "/user/chaling";
 	}
-@ExceptionHandler(Exception.class)
-public String exceptionHandler(Exception e) {
-	e.printStackTrace();
-	return "redirect:/";
-}
+	//회원 정보 보기
+	
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e) {
+		e.printStackTrace();
+		return "redirect:/";
+	}
 }

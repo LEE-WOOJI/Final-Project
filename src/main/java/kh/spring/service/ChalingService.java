@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dao.ChalDAO;
 import kh.spring.dto.ChalBasicDTO;
+import kh.spring.dto.ChalDTO;
 
 @Service
 public class ChalingService {
@@ -15,5 +16,10 @@ public class ChalingService {
 	
 	public List<ChalBasicDTO> listBount(int start, int end) {
 		return cdao.listBound(start, end);
+	}
+
+	public List<ChalDTO> chaling(int seq) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

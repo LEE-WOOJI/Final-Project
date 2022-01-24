@@ -62,7 +62,7 @@
 				</select>
 				</div>
 				<div class = "col-sm-12 col-md-4 col-lg-9">
-					<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText">
+					<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText" value = "${searchText }">
 				</div>
 				<div class = "col-sm-12 col-md-4 col-lg-1" style = "margin:0px;">
 					<button type="submit" class="btn btn-danger" id = "searchBtn" style = "width:100%;">Search</button>
@@ -75,7 +75,7 @@
          <div class="container">
             <div class="heading_container heading_center">
                <h3>
-                  <span id = "chalTitle">Our Challenge</span>
+                  <span id = "chalTitle">${option }에서 '${searchText }'을 검색한 결과입니다</span>
                   <hr>
                </h3>
             </div>
@@ -84,14 +84,14 @@
                		<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
-		                     	<a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
+		                        <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
 		                        	<img src=${list.oriName} alt="">
 		                        </a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                           <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none; color: black;">
-		                           		${list.chalName}
+		                           		${list.chalName }
 		                           </a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
@@ -146,34 +146,35 @@
    
    <script>
    		let moreNum = 1;
+   		let opt = "${option}";
+   		let key = "${searchText}";
    		$("#more").on("click",function(){
-   			moreNum += 6;
+   			moreNum += 2;
+   			console.log(opt);
    			$.ajax({
-   				url:"/chal/more",
+   				url:"/chal/searchMore",
    				method:"POST",
-   				data:{"moreNum":moreNum}
+   				data:{"moreNum":moreNum,"opt":opt,"key":key}
    			}).done(function(resp){
    				let result = JSON.parse(resp);
    				let content = "";
-   				
    				for(let i = 0; i < result.length; i++){
    					console.log("회차 : " + i);
    					console.log(result[i].chalName);
    					let start = moment(result[i].startDate).format("YYYY년 MM월 DD일 hh시")
    					let end = moment(result[i].endDate).format("YYYY년 MM월 DD일 hh시")
-   					console.log(start);
    					content += `<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-		                     		<img src="\${result[i].oriName}" alt="">
-	                        	</a>
+	                     			<img src="\${result[i].oriName}" alt="">
+                     			</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
-		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
-		                        	\${result[i].chalName }
-                           		</a>  
+		                        	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
+	                        			\${result[i].chalName }
+                       				</a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>
@@ -206,8 +207,8 @@
 		                  </div>
            		</div>`;
            		if (result[i].chalSeq > 20) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
- 	              $("#more").css("display","none");
- 	            }
+	              $("#more").css("display","none");
+           		}		
    				}$(content).appendTo("#listLine");
    				
    			})

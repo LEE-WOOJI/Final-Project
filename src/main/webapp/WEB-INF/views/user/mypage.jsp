@@ -593,7 +593,7 @@ body{
                     </div>
                     <nav class="side-menu">
                         <ul class="nav">
-                            <li><a href="#"><span class="fa fa-user"></span>내정보</a></li>
+                            <li><a href="/mypage/userinfo"><span class="fa fa-user"></span>내정보</a></li>
                             <li><a href="/mypage/chaling"><span class="fa fa-cog"></span>도전중인글피</a></li>
                             <li><a href="#"><span class="fa fa-credit-card"></span>작성한 글 / 댓글</a></li>
                             <li><a href="#"><span class="fa fa-envelope"></span>결제관리</a></li>
