@@ -385,7 +385,7 @@ opacity
 				<details>
 					<summary>이런 분들께 글피를 추천합니다!</summary>
 					<div style="text-align: center;">
-						<img src="/assets/img/chalDetail/who.png" style="width: 80%;">
+						<img src="/assets/img/chalDetail/who1.png" style="width: 80%;">
 					</div>
 				</details>
 				<details>

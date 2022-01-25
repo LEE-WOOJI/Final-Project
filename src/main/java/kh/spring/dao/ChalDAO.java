@@ -1,5 +1,6 @@
 package kh.spring.dao;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
+import kh.spring.dto.JoinChalDTO;
 
 @Repository
 public class ChalDAO {
@@ -72,5 +74,27 @@ public class ChalDAO {
 	//디테일 페이지에서 보여질 사용자 인증샷 select
 	public List<CertiImgDTO> selectCertiImg(int seq){
 		return mybatis.selectList("Chal.selectCertiImg", seq);
+	}
+	
+	//결제완료 시, 참여자수 +1 카운팅
+	public int addPersonnel(int seq) {
+		return mybatis.update("Chal.addPersonnel",seq);
+	}
+	
+	// 결제완료 시 , joinChal 테이블에 추가됨
+	public int joinChal(int refChalSeq, String nickname, String chalName, Timestamp startDate, 
+			Timestamp endDate, int personnel, String chalInfo, String tag, String chalStat) {
+		Map<Object,Object> map = new HashMap<>();
+		map.put("refChal", refChalSeq);
+		map.put("refNickname", nickname);
+		map.put("chalName", chalName);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("personnel", personnel);
+		map.put("chalInfo", chalInfo);
+		map.put("tag", tag);
+		map.put("chalStat", chalStat);
+		return mybatis.insert("Chal.joinChal", map);
+
 	}
 }

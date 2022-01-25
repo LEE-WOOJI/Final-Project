@@ -1,5 +1,6 @@
 package kh.spring.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kh.spring.dao.ChalDAO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
+import kh.spring.dto.JoinChalDTO;
 
 @Service
 public class ChalService {
@@ -55,6 +57,17 @@ public class ChalService {
 	//카테고리 정렬
 	public List<ChalBasicDTO> categoryFilter(String category, String filter){
 		return cdao.categoryFilter(category, filter);
+	}
+	
+	//결제끝나면, 참가자수 +1 
+	public int addPersonnel(int seq) {
+		return cdao.addPersonnel(seq);
+	}
+
+	public int joinChal(int refChalSeq, String nickname, String chalName, Timestamp startDate, 
+			Timestamp endDate, int personnel, String chalInfo, String tag, String chalStat) {
+		return cdao.joinChal(refChalSeq,nickname,chalName,startDate,endDate,personnel,chalInfo,tag,chalStat);
+		
 	}
 
 }

@@ -1,5 +1,5 @@
 package kh.spring.controller;
-
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -221,5 +221,20 @@ public class ChalController {
 		model.addAttribute("dto",dto);
 		return "/chal/chalPayment";
 	}
+	
+	/*결제 완료 후 보여질 페이지*/
+	@RequestMapping("chalOut")
+	public String chalOut(Integer refChalSeq, String nickname, String chalName, Timestamp startDate, 
+							Timestamp endDate, Integer  personnel, String chalInfo, String tag, String chalStat) {
+		System.out.println("refChalSeq값이 뭔데" + refChalSeq);
+		// 참여자 수 +1 증가
+		cservice.addPersonnel(refChalSeq);
+		// JoinChal 테이블에 추가
+		cservice.joinChal(refChalSeq,nickname,chalName,startDate,endDate,personnel,chalInfo,tag,chalStat);
+		return "/chal/chalOut";
+	}
+	
+
+	
 }	
 

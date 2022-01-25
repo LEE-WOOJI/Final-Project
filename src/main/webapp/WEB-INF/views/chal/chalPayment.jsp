@@ -34,10 +34,27 @@
 		</script>
 	</c:if>-->
 	
+	
+	<form id=frm method="post" action="/chal/chalOut">
+		<input type=hidden value="${dto.chalSeq}" name="refChalSeq">
+		<input type=hidden value="주영이" name="nickname">	
+		<input type=hidden value="${dto.chalName}" name="chalName">
+		<input type=hidden value="${dto.startDate}" name="startDate">	
+		<input type=hidden value="${dto.endDate}" name="endDate">
+		<input type=hidden value="${dto.personnel}" name="personnel">	
+		<input type=hidden value="${dto.chalInfo}" name="chalInfo">
+		<input type=hidden value="${dto.tag}" name="tag">
+		<input type=hidden value="Y" name="chalStat">
+	</form>
+	
+	
 	<div class=" container mt-5 mb-5 d-flex justify-content-center">
 		<div class="border border-3 border-warning  card p-5" style="margin-top: 100px; width: 1000px;">
 			<div>
+			<span style="font-family: 'yg-jalnan', verdana, tahoma; text-align: left; font-size: 30px ">결제</span><br>
 				<div style="text-align: center;">
+				
+					<input type=hidden value="${dto.chalSeq}" name="chalSeq" id=chalSeq>
 					<!-- 대표 이미지 -->
 					<img class="card-img-top mb-5 mb-md-0" src="${dto.oriName}" alt="..." id="img"/ >
 				</div>
@@ -89,8 +106,8 @@
 				<div class="d-flex flex-row align-items-center">
 					<img src="/assets/img/chalDetail/통장.png" class="rounded" width="70">
 					<div class="d-flex flex-column ml-3">
-						<span class="business">&nbsp;무통장입금</span>
-						
+						<span class="business">&nbsp;무통장입금&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 111111-11-111111 (주)글피  </span>
+					
 					</div>
 				</div>
 				<div>
@@ -100,8 +117,11 @@
 			<h6 class="mt-4 text-primary">ADD PAYMENT METHOD</h6>
 		
 			<div class="mt-3" style="text-align: center;">
-				<button class="btn btn-primary btn-block payment-button" id="payBtn" style="font-family: 'yg-jalnan', verdana, tahoma;">
-					결제하기 
+				<button class="btn btn-primary btn-block payment-button" id="payBtn" style="font-family: 'S-CoreDream-4Regular'; color: black;">
+					결제취소
+				</button>
+				<button class="btn btn-primary btn-block payment-button" id="list style="font-family: 'S-CoreDream-4Regular'; color: black;">
+					목록으로
 				</button>
 			</div>
 		</div>
@@ -109,6 +129,19 @@
 </body>
 
 <script>
+
+// 취소하기 버튼 누르면 chalDetail 로 돌아감.
+$("#payBtn").on("click",function(){
+	location.href = "/chal/detail?seq=${dto.chalSeq}"
+});
+
+// 목록으로 돌아가기.
+$("#list").on("click",function(){
+	location.href = "/chal/list"
+});
+
+
+
 $(document).ready(function(){ 
 		var IMP = window.IMP;
 		var code = "imp57075748"; //가맹점 식별코드
@@ -126,8 +159,6 @@ $(document).ready(function(){
 				buyer_email :'${member.email}',
 				buyer_name : '${member.name}',
 				buyer_tel : '${member.phone}',  //필수항목
-				//결제완료후 이동할 페이지 kko나 kkopay는 생략 가능
-				m_redirect_url : 'https://localhost/chal/chalList'
 			}, function(rsp){
 				if(rsp.success){//결제 성공시
 					var msg = '결제가 완료되었습니다';
@@ -141,6 +172,8 @@ $(document).ready(function(){
 					"refund" : 'payed'
 					}
 					console.log("결제성공 " + msg);
+					$("#frm").submit();
+					//location.href = "/chal/chalOut?seq=${dto.chalSeq}";
 	
 				}else{//결제 실패시
 					var msg = '결제에 실패했습니다';
