@@ -72,15 +72,36 @@
 	<delete id="chalDelete">
 		delete from chal where chalSeq = #{value}
 	</delete>
-	
+
 	<!-- 관리자 페이지 챌린지 관리에서 갱신 -->
 	<update id="chalRenew">
-		update chal set startDate = sysdate, endDate = sysdate+14 where chalSeq = #{value}
+		update chal set startDate = sysdate, endDate =
+		sysdate+14 where chalSeq = #{value}
 	</update>
 
 	<!-- 관리자 페이지 챌린지 관리에서 챌린지 상태 변경 -->
 	<update id="updateChalStatus">
 		update chal set chalStat = #{chalStat} where chalSeq
 		= #{chalSeq}
+	</update>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 등록 -->
+	<insert id="insertChal">
+		insert into chal
+		values(chal_seq.nextval,#{chalName},#{startDate},#{endDate},#{personnel},#{chalInfo},#{tag},#{price},#{day},#{category},#{chalStat})
+	</insert>
+
+	<!-- 관리자 페이지 챌린지 관리에서 chalSeq로 챌린지 찾기 -->
+	<select id="chalSearchBySeq" resultType="kh.spring.dto.ChalDTO">
+		select * from chal where
+		chalSeq = #{value}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 수정 -->
+	<update id="modifyChal">
+		update chal set chalName = #{chalName}, startDate =
+		#{startDate}, endDate = #{endDate}, personnel = #{personnel}, chalInfo
+		= #{chalInfo}, tag = #{tag}, price = #{price}, day = #{day}, category
+		= #{category}, chalStat = #{chalStat} where chalSeq = #{chalSeq}
 	</update>
 </mapper>
