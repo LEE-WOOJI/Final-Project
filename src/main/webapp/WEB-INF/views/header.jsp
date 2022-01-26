@@ -47,7 +47,6 @@
                 <!--로고-->
                 <a class="navbar-brand" href="/"><img src="/assets/img/logo.png" alt="..." id = "toplogo"/></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -61,6 +60,11 @@
                      <li class="nav-item"><a class="nav-link" href="#My page"><span id = "mypage">My Page</span></a></li>
                            <li class="nav-item"><a class="nav-link" href ="#logout"><span id = "logout">Logout</span></a><li>
                   </c:if>
+							<li class="nav-item"><a class="nav-link" href="#Login"><span id = "login">login</span></a></li>
+						<c:if test="${loginId != null}" >
+							<li class="nav-item"><a class="nav-link" href="#My page"><span id = "mypage">My Page</span></a></li>
+                        	<li class="nav-item"><a class="nav-link" href ="#logout"><span id = "logout">Logout</span></a><li>
+						</c:if>
                     </ul>
                 </div>
             </div>

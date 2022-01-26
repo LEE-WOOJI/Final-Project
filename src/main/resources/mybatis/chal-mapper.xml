@@ -18,7 +18,7 @@
 	</select>
 
 </mapper>
-<mapper namespace="Challist">
+<mapper namespace="Chal">
 	<select id = "listCategory" resultType="kh.spring.dto.ChalBasicDTO">
 		select * from chal join chalimg using(chalSeq) where category = #{value}
 	</select>
@@ -32,4 +32,4 @@
 	<select id="selectCertiImg" resultType="kh.spring.dto.CertiImgDTO">
 		select * from certiimg where parentseq = #{value}
 	</select>
-</mapper>
+</mapper>s

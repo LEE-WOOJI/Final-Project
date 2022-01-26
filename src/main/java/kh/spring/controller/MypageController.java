@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.service.ChalingService;
 
 @Controller
@@ -31,7 +32,10 @@ public class MypageController {
 		return "/user/chaling";
 	}
 	//회원 정보 보기
-	
+//	@RequestMapping("userupdate")
+//	public String userupdate(int seq, Model model) {
+//		
+//	}
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
