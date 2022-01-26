@@ -125,5 +125,18 @@ public class ChalBasicDTO {
 		return sdf.format(this.startDate.getTime());
 	}
 	
+	// 결제 페이지에서 글피 시작 날짜 표현 부분
+	public String getSDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 E요일");
+		return sdf.format(this.startDate.getTime());
+	}
+	
+	// 결제 페이지에서 글피 종료 날짜 표현 부분
+	public String getEDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 E요일");
+		return sdf.format(this.endDate.getTime());
+	}
+	
+	
 	
 }

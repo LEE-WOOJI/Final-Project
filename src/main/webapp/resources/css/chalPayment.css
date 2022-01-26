@@ -1,0 +1,104 @@
+@charset "UTF-8";
+@font-face {
+	font-family: 'yg-jalnan';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'S-CoreDream-4Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+body {
+    background-color: #e6ebf4
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 5px 6px 6px 2px #e9ecef
+}
+
+.heading {
+    font-size: 23px;
+    font-weight: 00
+}
+
+.text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #b1b6bd
+}
+
+#img {
+	width: 350px;
+	height: 350px;
+}
+
+.pricing {
+    border: 2px solid #304FFE;
+    background-color: #f2f5ff
+}
+
+.business {
+    font-size: 20px;
+    font-weight: 500
+}
+
+.plan {
+    color: #aba4a4
+}
+
+.dollar {
+    font-size: 16px;
+    color: #6b6b6f
+}
+
+.amount {
+    font-size: 50px;
+    font-weight: 500
+}
+
+.year {
+    font-size: 20px;
+    color: #6b6b6f;
+    margin-top: 19px
+}
+
+.detail {
+    font-size: 22px;
+    font-weight: 500
+}
+
+.cvv {
+    height: 44px;
+    width: 73px;
+    border: 2px solid #eee
+}
+
+.cvv:focus {
+    box-shadow: none;
+    border: 2px solid #304FFE
+}
+
+.email-text {
+    height: 55px;
+    border: 2px solid #eee
+}
+
+.email-text:focus {
+    box-shadow: none;
+    border: 2px solid #304FFE
+}
+
+.payment-button {
+    height: 70px;
+    font-size: 20px
+}
