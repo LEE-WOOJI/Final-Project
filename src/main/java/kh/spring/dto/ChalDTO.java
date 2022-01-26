@@ -93,11 +93,11 @@ public class ChalDTO {
 		this.category = category;
 	}
 
-	public String getChalStatus() {
+	public String getChalStat() {
 		return chalStat;
 	}
 
-	public void setChalStatus(String chalStat) {
+	public void setChalStat(String chalStat) {
 		this.chalStat = chalStat;
 	}
 }

@@ -1,5 +1,8 @@
 package kh.spring.dao;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,5 +82,20 @@ public class AdminDAO {
 		map.put("chalSeq", String.valueOf(chalSeq));
 		map.put("chalStat", chalStat);
 		return mybatis.update("Admin.updateChalStatus",map);
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 등록.
+	public int insertChal(ChalDTO dto) throws ParseException {
+		return mybatis.insert("Admin.insertChal",dto);
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 chalSeq로 챌린지 찾기.
+	public ChalDTO chalSearchBySeq(int chalSeq){
+		return mybatis.selectOne("Admin.chalSearchBySeq",chalSeq);
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 수정.
+	public int modifyChal(ChalDTO dto) throws ParseException {
+		return mybatis.update("Admin.modifyChal",dto);
 	}
 }
