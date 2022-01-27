@@ -1,5 +1,6 @@
 package kh.spring.dao;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.AdminUtilsDTO;
-import kh.spring.dto.BoardDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.ChalImgDTO;
 
 @Repository
 public class AdminDAO {
@@ -79,5 +80,45 @@ public class AdminDAO {
 		map.put("chalSeq", String.valueOf(chalSeq));
 		map.put("chalStat", chalStat);
 		return mybatis.update("Admin.updateChalStatus",map);
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 등록.
+	public int insertChal(ChalDTO dto) throws ParseException {
+		mybatis.insert("Admin.insertChal",dto);
+		return dto.getChalSeq();
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 등록시 이미지 업로드.	
+	public int insertChalImg(String oriName, String sysName,int chalSeq) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("oriName", oriName);
+		map.put("sysName", sysName);
+		map.put("chalSeq", String.valueOf(chalSeq));
+		return mybatis.insert("Admin.insertChalImg",map);
+	}
+	
+	// chalSeq로 ChalImg테이블의 imgName 찾기.
+	public ChalImgDTO findChalImgName(int chalSeq) {
+		return mybatis.selectOne("Admin.findChalImgName",chalSeq);
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 chalSeq로 챌린지 찾기.
+	public ChalDTO chalSearchBySeq(int chalSeq){
+		return mybatis.selectOne("Admin.chalSearchBySeq",chalSeq);
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 수정.
+	public int modifyChal(ChalDTO dto) throws ParseException {
+		mybatis.update("Admin.modifyChal",dto);
+		return dto.getChalSeq();
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 수정시 이미지 업로드.
+	public int modifyChalImg(String oriName, String sysName,int chalSeq) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("oriName", oriName);
+		map.put("sysName", sysName);
+		map.put("chalSeq", String.valueOf(chalSeq));
+		return mybatis.update("Admin.modifyChalImg",map);
 	}
 }

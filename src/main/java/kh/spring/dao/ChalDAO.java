@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
-import kh.spring.dto.JoinChalDTO;
+import kh.spring.dto.ChalDTO;
 
 @Repository
 public class ChalDAO {
@@ -96,5 +96,10 @@ public class ChalDAO {
 		map.put("chalStat", chalStat);
 		return mybatis.insert("Chal.joinChal", map);
 
+	}
+	
+	//해당 챌린지가 있는지 확인하고, 정보값을 불러옴
+	public ChalDTO chalInfo(int chalSeq) {
+		return mybatis.selectOne("Chal.chalInfo", chalSeq);
 	}
 }

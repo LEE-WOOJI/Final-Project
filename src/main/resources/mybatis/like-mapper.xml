@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Likey">
+ 	<!-- 디테일페이지에서 좋아요 되어있는지 확인 -->
+	<select id="likeCheck" resultType="kh.spring.dto.LikeDTO">
+		select likeNum from likey where id = #{id} and chalNum = #{chalNum}
+	</select>
+	
+	<!-- 로그인한 아이디로 호텔에 좋아요값이 없을때 추가하기 -->
+	<insert id="likeadd">
+		insert into likey values(default, #{id}, #{chalNum})
+	</insert>
+	
+</mapper>

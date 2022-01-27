@@ -301,15 +301,15 @@ a:hover {
 													<td class="td">${list.chalSeq}</td>
 													<td class="td"><a
 														style="color: black; text-decoration: none"
-														href="/board/detail?cpage=${cpage}&seq=${list.chalSeq}&select=${select}&keyword=${keyword}">${list.chalName}</a></td>
+														href="/admin/chalModifyForm?cpage=${cpage}&chalSeq=${list.chalSeq}&select=${select}&keyword=${keyword}">${list.chalName}</a></td>
 													<td class="td">${list.startDate}</td>
 													<td class="td">${list.endDate}</td>
 													<td class="td">${list.personnel}</td>
-													<c:if test="${list.chalStatus eq '만료'}">
-														<td class="td" style="color: red;">${list.chalStatus}</td>
+													<c:if test="${list.chalStat eq '만료'}">
+														<td class="td" style="color: red;">${list.chalStat}</td>
 													</c:if>
-													<c:if test="${list.chalStatus eq '진행중'}">
-														<td class="td" style="color: green;">${list.chalStatus}</td>
+													<c:if test="${list.chalStat eq '진행중'}">
+														<td class="td" style="color: green;">${list.chalStat}</td>
 													</c:if>
 												</tr>
 											</c:forEach>
@@ -394,7 +394,7 @@ a:hover {
 	<script>
 		// 챌린지 등록폼으로 이동
 		$("#writeBtn").on("click", function() {
-			location.href = "/admin/chalWriteForm";
+			location.href = "/admin/chalWriteForm?cpage=${cpage}&select=${select}&keyword=${keyword}";
 		})
 	</script>
 </body>
