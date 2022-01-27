@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import kh.spring.dao.AdminDAO;
 import kh.spring.dao.BoardDAO;
 import kh.spring.dto.AdminUtilsDTO;
-import kh.spring.dto.BoardDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.ChalImgDTO;
 import kh.spring.utils.Static;
 
 @Service
@@ -90,6 +90,16 @@ public class AdminService {
 		dto.setDay(day);
 		return adao.insertChal(dto);
 	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 등록시 이미지 업로드.
+	public int insertChalImg(String oriName, String sysName,int chalSeq) {
+		return adao.insertChalImg(oriName,sysName,chalSeq);
+	}
+	
+	// chalSeq로 ChalImg테이블의 imgName 찾기.
+	public ChalImgDTO findChalImgName(int chalSeq) {
+		return adao.findChalImgName(chalSeq);
+	}
 
 	// 관리자 페이지 챌린지 관리에서 chalSeq로 챌린지 찾기.
 	public ChalDTO chalSearchBySeq(int chalSeq){
@@ -112,7 +122,6 @@ public class AdminService {
 			dto.setStartDate(startDate);
 			dto.setEndDate(endDate);
 			dto.setDay(day);
-			System.out.println(dto.getChalSeq()+"/"+dto.getChalName()+"/"+dto.getStartDate()+"/"+dto.getEndDate()+"/"+dto.getPersonnel()+"/"+dto.getChalInfo()+"/"+dto.getTag()+"/"+dto.getPrice()+"/"+dto.getCategory()+"/"+dto.getDay()+"/"+dto.getChalStat());
 			return adao.modifyChal(dto);
 		}else {
 			String fromDate = from+" 00:00:00";
@@ -126,9 +135,13 @@ public class AdminService {
 			dto.setStartDate(startDate);
 			dto.setEndDate(endDate);
 			dto.setDay(day);
-			System.out.println(dto.getChalSeq()+"/"+dto.getChalName()+"/"+dto.getStartDate()+"/"+dto.getEndDate()+"/"+dto.getPersonnel()+"/"+dto.getChalInfo()+"/"+dto.getTag()+"/"+dto.getPrice()+"/"+dto.getCategory()+"/"+dto.getDay()+"/"+dto.getChalStat());
 			return adao.modifyChal(dto);
 		}
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 챌린지 수정시 이미지 업로드.
+	public int modifyChalImg(String oriName, String sysName,int chalSeq) {
+		return adao.modifyChalImg(oriName,sysName,chalSeq);
 	}
 
 	// 관리자페이지 자유게시판 관리 네비.

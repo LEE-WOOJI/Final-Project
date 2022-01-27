@@ -3,9 +3,6 @@ package kh.spring.controller;
 import java.util.List;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -182,12 +179,8 @@ public class AdminController {
 		model.addAttribute("keyword",keyword);
 		return "/admin/adminChalWriteForm";
 	}
-
-	@RequestMapping("chalWrite") // 챌린지 등록.
-	public String chalWrite(String from, String to, ChalDTO dto) throws ParseException {
-		aService.insertChal(from, to, dto);
-		return "redirect:/admin/chal?cpage=1";
-	}
+	
+	// 챌린지 등록은 ImageController에서 구현.
 	
 	@RequestMapping("chalModifyForm") // 챌린지 수정 폼으로 이동.
 	public String chalModify(Model model, int cpage, String select, String keyword, int chalSeq) throws ParseException {
@@ -200,11 +193,7 @@ public class AdminController {
 		return "/admin/adminChalModifyForm";
 	}
 	
-	@RequestMapping("chalModify") // 챌린지 수정.
-	public String chalModify(String from, String to, ChalDTO dto) throws ParseException {
-		aService.modifyChal(from, to, dto);
-		return "redirect:/admin/chal?cpage=1";
-	}
+	// 챌린지 수정은 ImageController에서 구현.
 
 
 	//유저 블랙관리 페이지로 이동
