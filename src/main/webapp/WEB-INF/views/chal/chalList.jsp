@@ -85,7 +85,7 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
-		                        	<img src=${list.oriName} alt="">
+		                        	<img src=${list.sysName} alt="">
 		                        </a>
 		                     </div>
 		                     <div class="detail-box">

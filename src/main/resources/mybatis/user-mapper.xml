@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="User">
+	<!-- 범위 내의 유저 조회 -->
+	<select id = "selectBound" resultType="kh.spring.dto.MemberDTO">
+		select * from (select member.*, row_number() over(order by seq desc) rn from member) where rn between #{start} and #{end}
+	</select>
+	
+	<!-- 범위 내의 검색대상의 유저 조회 -->
+	<select id = "searchBound" resultType="kh.spring.dto.MemberDTO">
+		select * from (select member.*, row_number() over(order by seq desc) rn from member 
+		<trim prefix="where" prefixOverrides ="and|or">
+			<if test = "id != ''">
+				id like '%'||#{id}||'%'
+			</if>
+			<if test = "nickname != ''">
+				 and nickname like '%'||#{nickname}||'%'
+			</if>
+			<if test = "blacklist != ''">
+				and blacklist=#{blacklist}
+			</if>
+		</trim>
+		) where rn between #{start} and #{end}
+	</select>
+	
+	<!-- 유저 탈퇴 -->
+	<delete id = "delete">
+		delete from member where id = #{value}
+	</delete>
+	
+	<!-- 유저 블랙 -->
+	<update id = "black">
+		update member set blacklist = #{black} where id = #{id}
+	</update>
+	
+	<!-- 유저 수 -->
+	<select id="userCount" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<!-- 검색한 유저 수 -->
+	<select id="userSearchCount" resultType="int">
+		select count(*) from member
+		<trim prefix="where" prefixOverrides = "and/or">
+			<if test = "id != ''">
+				id like '%'||#{id}||'%'
+			</if>
+			<if test = "nickname != ''">
+				 and nickname like '%'||#{nickname}||'%'
+			</if>
+			<if test = "blacklist !- ''">
+				and blacklist=#{blacklist}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 등급에 맞는 유저 조회 -->
+	<select id = "userGrade" resultType="kh.spring.dto.MemberDTO">
+		select * from member where grade = #{value}
+	</select>
+	
+	<!-- 검색 결과에 맞는 해당 등급의 유저 조회 -->
+	<select id = "userGradeSearch" resultType="kh.spring.dto.MemberDTO">
+		select * from member where grade = #{grade} and ${option} like '%'||#{keyword}||'%'
+	</select>
+	
+	<!-- 원하는 등급으로 변경하기 -->
+	<update id = "gradeMeta">
+		update member set grade = #{grade} where id = #{id}
+	</update>
+	
+</mapper>
