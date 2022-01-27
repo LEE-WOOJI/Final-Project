@@ -319,7 +319,7 @@ label:hover {
 				alt="">
 		</div>
 		<br>
-		<form action="/admin/chalWrite" method="post" id="frm">
+		<form action="/image/chalWrite" method="post" enctype="multipart/form-data">
 			<div class="container row"
 				style="float: none; margin: auto; font-family: 'yg-jalnan', verdana, tahoma;">
 				<label id="fileUpload">사진 선택<input type="file" name="file"
