@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>챌린지 등록</title>
+<title>챌린지 수정</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -315,11 +315,11 @@ label:hover {
 				등록</span>
 		</div>
 		<div class="img-box">
-			<img id="preview" class="img-profile" src="/assets/img/chal2.jpg"
+			<img id="preview" class="img-profile" src="/image/chalModifyLoad?chalSeq=${list.chalSeq}"
 				alt="">
 		</div>
 		<br>
-		<form action="/admin/chalModify" method="post" id="frm">
+		<form action="/image/chalModify" method="post" enctype="multipart/form-data">
 			<div class="container row"
 				style="float: none; margin: auto; font-family: 'yg-jalnan', verdana, tahoma;">
 				<label id="fileUpload">사진 선택<input type="file" name="file"
