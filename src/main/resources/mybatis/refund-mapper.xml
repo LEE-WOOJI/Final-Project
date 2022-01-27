@@ -27,4 +27,9 @@
 		</trim>
 		) where rn between #{start} and #{end}
 	</select>
+	
+	<!-- 환급 신청 -->
+	<insert id = "insert">
+		insert into refund values(refund_seq.nextval,#{chalSeq},#{chalName},#{price},#{rate},#{nickname},#{bank},#{account})
+	</insert>
 </mapper>

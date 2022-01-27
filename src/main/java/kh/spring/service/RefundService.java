@@ -24,4 +24,8 @@ public class RefundService {
 	public List<RefundDTO> refundSearch(int start, int end, String chalName, String nickname){
 		return rdao.refundSearch(start, end, chalName, nickname);
 	}
+	
+	public int insert(RefundDTO dto) {
+		return rdao.insert(dto);
+	}
 }
