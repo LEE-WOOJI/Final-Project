@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+	<!-- 관리자 페이지 메인에서 회원 수 출력 -->
+	<select id="getMemberCount" resultType="int">
+		select count(*) from
+		member
+	</select>
+
+	<!-- 관리자 페이지 메인에서 자유게시판 글 수 출력 -->
+	<select id="getBoardCount" resultType="int">
+		select count(*) from board
+	</select>
+
+	<!-- 관리자 페이지 메인에서 챌린지 수 출력 -->
+	<select id="getChalCount" resultType="int">
+		select count(*) from chal
+	</select>
+
+	<!-- 관리자 페이지 메인에서 등급 출력 -->
+	<select id="getGradeCount"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select (select
+		count(grade)
+		from member where grade='gold')
+		goldcount,(select
+		count(grade) from
+		member where grade='silver')
+		silvercount,(select
+		count(grade) from
+		member where grade='bronze')
+		bronzecount from dual
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 목록 출력 -->
+	<select id="selectChalAll" resultType="kh.spring.dto.ChalDTO">
+		select * from
+		(select
+		chal.*,
+		row_number() over(order by chalSeq desc) rn
+		from chal) where rn
+		between
+		#{start} and #{end}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 검색 시 챌린지 수 출력 -->
+	<select id="getChalRecordCountSearch" resultType="int">
+		select count(*)
+		from chal where ${select} like '%'||#{keyword}||'%'
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 검색 시 챌린지 목록 출력 -->
+	<select id="selectChalAllSearch"
+		resultType="kh.spring.dto.ChalDTO">
+		select * from
+		(select
+		chal.*,
+		row_number() over(order by
+		chalSeq
+		desc) rn
+		from chal where
+		${select} like '%'||#{keyword}||'%')
+		where rn
+		between #{start} and
+		#{end}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 삭제 -->
+	<delete id="chalDelete">
+		delete from chal where chalSeq = #{value}
+	</delete>
+
+	<!-- 관리자 페이지 챌린지 관리에서 갱신 -->
+	<update id="chalRenew">
+		update chal set startDate = sysdate, endDate =
+		sysdate+14 where chalSeq = #{value}
+	</update>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 상태 변경 -->
+	<update id="updateChalStatus">
+		update chal set chalStat = #{chalStat} where chalSeq
+		= #{chalSeq}
+	</update>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 등록 -->
+	<insert id="insertChal">
+		insert into chal
+		values(chal_seq.nextval,#{chalName},#{startDate},#{endDate},#{personnel},#{chalInfo},#{tag},#{price},#{day},#{category},#{chalStat})
+	</insert>
+
+	<!-- 관리자 페이지 챌린지 관리에서 chalSeq로 챌린지 찾기 -->
+	<select id="chalSearchBySeq" resultType="kh.spring.dto.ChalDTO">
+		select * from chal where
+		chalSeq = #{value}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 수정 -->
+	<update id="modifyChal">
+		update chal set chalName = #{chalName}, startDate =
+		#{startDate}, endDate = #{endDate}, personnel = #{personnel}, chalInfo
+		= #{chalInfo}, tag = #{tag}, price = #{price}, day = #{day}, category
+		= #{category}, chalStat = #{chalStat} where chalSeq = #{chalSeq}
+	</update>
+</mapper>

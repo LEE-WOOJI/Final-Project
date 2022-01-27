@@ -130,7 +130,7 @@ public class BoardController {
 		return "redirect:/board/detail";
 	}
 	
-	@RequestMapping("modRp") // 댓글 삭제.
+	@RequestMapping("modRp") // 댓글 수정.
 	public String rpModify(Model model, int cpage, int seq, String select, String keyword, String repContents, int rseq) {
 		brService.modify(rseq, repContents);
 		model.addAttribute("cpage",cpage);

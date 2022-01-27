@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>자유게시판 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -149,6 +149,45 @@ a:hover {
 	font-weight: normal;
 	font-style: normal;
 }
+
+.pagination.justify-content-center>li {
+	color: black;
+}
+
+.pagination.justify-content-center>li>a {
+	color: black;
+}
+
+.pagination.justify-content-center>li>a:hover {
+	background-color: black;
+	color: white;
+}
+
+#delBtn {
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+
+#delBtn:hover {
+	background-color: black;
+	color: white;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+
+#search {
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+
+.td {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 130px;
+}
 </style>
 </head>
 <body>
@@ -196,20 +235,8 @@ a:hover {
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center"
-											style="font-family: 'yg-jalnan', verdana, tahoma;">
-											<div class="fm-icon-box radius-15 bg-warning text-dark"
-												style="height: 40px; width: 40px;">
-												<i class="fas fa-user-friends fa-xs"></i>
-											</div>
-											&ensp; 총 유저(회원) 수 ${memberResult}명
-										</div>
-									</div>
-								</div>
-							</div>
+							<h5 style="font-family: 'yg-jalnan', verdana, tahoma;">&ensp;자유게시판
+								관리</h5>
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
@@ -224,53 +251,65 @@ a:hover {
 									</div>
 								</div>
 							</div>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center"
-											style="font-family: 'yg-jalnan', verdana, tahoma;">
-											<div class="fm-icon-box radius-15 bg-success text-white"
-												style="height: 40px; width: 40px;">
-												<span class="iconify"
-													data-icon="ant-design:folder-open-outlined" data-width="30"></span>
-											</div>
-											&ensp; 챌린지 수 ${chalResult}건
-										</div>
-									</div>
+							<!-- 게시글 목록 -->
+							<form action="/admin/boardSearch">
+								<div class="table-responsive mt-3">
+									<table class="table table-striped table-hover table-sm mb-0">
+										<thead>
+											<tr style="font-family: 'yg-jalnan', verdana, tahoma;">
+												<th></th>
+												<th>번호</th>
+												<th>제목</th>
+												<th>닉네임</th>
+												<th>날짜</th>
+												<th>조회수</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="list" items="${list}">
+												<tr>
+													<td class="td"><input type="checkbox" name="checkbox"
+														value="${list.seq}"></td>
+													<td class="td">${list.seq}</td>
+													<td class="td"><a
+														style="color: black; text-decoration: none"
+														href="/board/detail?cpage=${cpage}&seq=${list.seq}&select=${select}&keyword=${keyword}">${list.title}</a></td>
+													<td class="td">${list.nickname}</td>
+													<td class="td">${list.write_date}</td>
+													<td class="td">${list.view_count}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
-							</div>
-						</div>
-						<div class="table-responsive mt-3">
-							<table class="table table-striped table-hover table-sm mb-0">
-								<h6 class="mt-3 mb-0"
-									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">유저
-									수 추이</h6>
-								<div class="chart-box">
-									<div class="chart-container">
-										<canvas id="lineChart" width="400" height="300"></canvas>
-									</div>
-								</div>
-								<br>
-								<br>
-								<h6 class="mt-3 mb-0"
-									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">등급
-									별 회원 수</h6>
-								<div class="chart-box">
-									<div class="chart-container">
-										<canvas id="gradeChart" width="400" height="300"></canvas>
-									</div>
-								</div>
-								<br>
-								<br>
-								<h6 class="mt-3 mb-0"
-									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">등급
-									별 챌린지 달성률</h6>
-								<div class="chart-box">
-									<div class="chart-container">
-										<canvas id="successChart" width="400" height="200"></canvas>
-									</div>
-								</div>
-							</table>
+
+								<!-- 버튼 페이징 -->
+								<nav aria-label="Page navigation example">
+									<ul class="pagination justify-content-center">${navi}
+									</ul>
+								</nav>
+								<input type="hidden" value="1" name="cpage">
+								<table class="table-sm mb-0" align=right>
+									<tr>
+										<td><select class="selectpicker" id="select"
+											name="select">
+												<option value="title">제목</option>
+												<option value="contents">내용</option>
+												<option value="nickname">닉네임</option>
+										</select></td>
+										<td><input type="search" class="form-control rounded"
+											placeholder="내용을 입력하세요" id="searchContents" name="keyword" /></td>
+										<td>
+											<button id="search">
+												<i class="fas fa-search"></i>
+											</button>
+										</td>
+										<td>
+											<input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기">
+										</td>
+									</tr>
+								</table>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -280,93 +319,28 @@ a:hover {
 	<!-- 풋터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 
-	<script type="text/javascript"
-		src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
-		// 등급 차트
-		const ctx = document.getElementById('gradeChart').getContext('2d');
-		const myChart = new Chart(ctx, {
-			type : 'doughnut',
-			data : {
-				labels : [ '골드', '실버', '브론즈' ],
-				datasets : [ {
-					label : '# of Votes',
-					data : [ ${gradeResult.goldcount}, ${gradeResult.silvercount}, ${gradeResult.bronzecount} ],
-					backgroundColor : [ 'rgba(255, 217, 0, 0.5)',
-							'rgba(192, 192, 192, 0.5)',
-							'rgba(168, 128, 74, 0.5)', ],
-					borderColor : [ 'rgba(255, 217, 0)', 'rgba(192, 192, 192)',
-							'rgba(168, 128, 74)', ],
-					borderWidth : 1
-				} ]
-			},
-			options : {
-				maintainAspectRatio : false,
-				scales : {
-					y : {
-						beginAtZero : true
-					}
-				}
+		// 자유게시판 글 찾기
+		$("#search").on("click", function() {
+			if ($("#searchContents").val() == "") {
+				alert("내용을 입력하세요.");
+				return false;
 			}
-		});
-
-		// 등급별 달성률 차트
-		new Chart(document.getElementById("successChart"), {
-			type : 'bar',
-			data : {
-				labels : [ '브론즈', '실버', '골드' ],
-				datasets : [ {
-					data : [ 10.5, 15, 20 ],
-					backgroundColor : [ 'rgba(168, 128, 74, 0.5)',
-							'rgba(192, 192, 192, 0.5)',
-							'rgba(255, 217, 0, 0.5)' ],
-					borderColor : [ 'rgba(168, 128, 74)',
-							'rgba(192, 192, 192)', 'rgba(255, 217, 0)' ],
-					borderWidth : 1
-				} ]
-			},
-			options : {
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
-						}
-					} ]
-				},
+		})
+	</script>
+	<script>
+		// 자유게시판 글 삭제
+		function submit2(frm) {
+			if ($("input:checkbox[name='checkbox']:checked").length == 0) {
+				alert("삭제할 항목을 선택해주세요.");
+				return false;
 			}
-		});
-
-		// 유저 수 추이 차트
-		new Chart(document.getElementById("lineChart"), {
-			type : 'line',
-			data : {
-				labels : [ '월', '화', '수', '목', '금', '토', '일' ],
-				datasets : [ {
-					label : '유저 수 추이',
-					data : [ 65, 59, 80, 81, 56, 55, 40 ],
-					fill : false,
-					borderColor : 'red',
-					tension : 0.1
-				} ]
-			},
-			options : {
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
-						}
-					} ]
-				},
+			if (confirm("정말 삭제하시겠습니까?")) {
+				frm.action = "/admin/boardDelete";
+				frm.submit();
+				return true;
 			}
-		});
+		}
 	</script>
 </body>
 </html>
