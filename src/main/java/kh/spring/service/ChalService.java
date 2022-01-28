@@ -21,6 +21,7 @@ public class ChalService {
 		return cdao.listBound(start, end);
 	}
 	
+//head
 	//검색 1.키워드
 	public List<ChalBasicDTO> searchK(int start, int end, String keyword){
 		return cdao.searchK(start,end,keyword);
@@ -74,5 +75,6 @@ public class ChalService {
 	public ChalDTO chalInfo(int chalSeq) {
 		return cdao.chalInfo(chalSeq);
 	}
+
 
 }

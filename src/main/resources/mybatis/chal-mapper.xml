@@ -16,7 +16,6 @@
 	<select id="searchD" resultType="kh.spring.dto.ChalBasicDTO">
 		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where day = #{keyword}) join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
-
 	<select id = "listCategory" resultType="kh.spring.dto.ChalBasicDTO">
 		select * from chal join chalimg using(chalSeq) where category = #{value}
 	</select>
@@ -24,15 +23,14 @@
 		select * from chal join chalimg using(chalSeq) where category = #{category} order by ${filter} asc
 	</select>
 
-	<!-- 챌린지 정보 조회(대표이미지, 내용, 참여자 수, 날짜 등등) -->
 	<select id="selectBySeq" resultType="kh.spring.dto.ChalBasicDTO">
 		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal) join chalimg using(chalSeq) where chalseq = #{value}
 	</select>
-	
-	<!-- 인증샷 조회 -->
 	<select id="selectCertiImg" resultType="kh.spring.dto.CertiImgDTO">
 		select * from certiimg where parentseq = #{value}
 	</select>
+<<<<<<< HEAD
+=======
 	
 	<update id="addPersonnel">
 		update chal set personnel = personnel + 1 where chalSeq = #{value}
@@ -47,5 +45,5 @@
 		select * from chal where chalSeq = #{value}
 	</select>
 
+>>>>>>> 49232126d2730261f6334869925e76e908cd053e
 </mapper>
-
