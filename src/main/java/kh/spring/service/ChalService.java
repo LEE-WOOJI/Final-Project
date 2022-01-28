@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import kh.spring.dao.ChalDAO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
-import kh.spring.dto.JoinChalDTO;
+import kh.spring.dto.ChalDTO;
 
 @Service
 public class ChalService {
@@ -69,6 +69,11 @@ public class ChalService {
 			Timestamp endDate, int personnel, String chalInfo, String tag, String chalStat) {
 		return cdao.joinChal(refChalSeq,nickname,chalName,startDate,endDate,personnel,chalInfo,tag,chalStat);
 		
+	}
+	
+	//챌린지에 대한 정보값 불러오기
+	public ChalDTO chalInfo(int chalSeq) {
+		return cdao.chalInfo(chalSeq);
 	}
 
 

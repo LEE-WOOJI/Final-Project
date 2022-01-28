@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>챌린지 등록</title>
+<title>챌린지 수정</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -315,11 +315,11 @@ label:hover {
 				등록</span>
 		</div>
 		<div class="img-box">
-			<img id="preview" class="img-profile" src="/assets/img/chal2.jpg"
+			<img id="preview" class="img-profile" src="/image/chalModifyLoad?chalSeq=${list.chalSeq}"
 				alt="">
 		</div>
 		<br>
-		<form action="/image/chalWrite" method="post" enctype="multipart/form-data">
+		<form action="/image/chalModify" method="post" enctype="multipart/form-data">
 			<div class="container row"
 				style="float: none; margin: auto; font-family: 'yg-jalnan', verdana, tahoma;">
 				<label id="fileUpload">사진 선택<input type="file" name="file"
@@ -341,50 +341,51 @@ label:hover {
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<input type=text id=input-title name=chalName
-								style="width: 100%;" placeholder="챌린지 이름을 입력하세요.">
+								style="width: 100%;" placeholder="챌린지 이름을 입력하세요." value="${list.chalName}">
 						</div>
 					</div>
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<span style="font-family: 'yg-jalnan', verdana, tahoma;">시작일
 								: </span><input type="text" name="from" id="from" autocomplete="off"
-								style="width: 21%;"> <span
+								style="width: 21%;" value="${list.startDate}"> <span
 								style="font-family: 'yg-jalnan', verdana, tahoma;">종료일 :
 							</span><input type="text" name="to" id="to" autocomplete="off"
-								style="width: 21%;">&ensp; <span
+								style="width: 21%;" value="${list.endDate}">&ensp; <span
 								style="font-family: 'yg-jalnan', verdana, tahoma;">인원 : </span><input
 								type="number" id="personnel" name="personnel"
-								style="width: 10%;" min="1" max="50">
+								style="width: 10%;" min="1" max="50" value="${list.personnel}">
 						</div>
 					</div>
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<span style="font-family: 'yg-jalnan', verdana, tahoma;">카테고리
 								: </span> <select name="category">
-								<option>건강</option>
-								<option>취미</option>
-								<option>금융</option>
-								<option>공부</option>
-								<option>생활</option>
-								<option>펫/환경</option>
+								<option value="건강" <c:if test="${list.category eq '건강'}">selected</c:if>>건강</option>
+								<option value="취미" <c:if test="${list.category eq '취미'}">selected</c:if>>취미</option>
+								<option value="금융" <c:if test="${list.category eq '금융'}">selected</c:if>>금융</option>
+								<option value="공부" <c:if test="${list.category eq '공부'}">selected</c:if>>공부</option>
+								<option value="생활" <c:if test="${list.category eq '생활'}">selected</c:if>>생활</option>
+								<option value="펫/환경" <c:if test="${list.category eq '펫/환경'}">selected</c:if>>펫/환경</option>
 							</select>&ensp; <span style="font-family: 'yg-jalnan', verdana, tahoma;">태그
 								: </span> <input type="text" id="tag" name="tag"
-								placeholder="태그를 입력하세요." />
+								placeholder="태그를 입력하세요."  value="${list.tag}"/>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<textarea name="chalInfo" id="chalInfo"
 								style="min-height: 200px; overflow: hidden;"
-								placeholder="챌린지 정보를 입력하세요."></textarea>
+								placeholder="챌린지 정보를 입력하세요.">${list.chalInfo}</textarea>
 						</div>
 					</div>
 					<input type="hidden" value="10000" name="price"> <input
-						type="hidden" value="진행중" name="chalStat"> <br>
+						type="hidden" value="진행중" name="chalStat">
+						<input type="hidden" value="${list.chalSeq}" name="chalSeq"> <br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
 							<button type="button" id="chalList">목록으로</button>
-							<button id="complete">작성완료</button>
+							<button id="complete">수정완료</button>
 						</div>
 					</div>
 				</div>

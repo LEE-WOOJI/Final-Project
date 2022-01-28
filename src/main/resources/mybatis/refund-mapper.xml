@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace = "Refund">
+	<!-- 환급 리스트 불러오기 -->
+	<select id = "listBound" resultType="kh.spring.dto.RefundDTO">
+		select * from (select refund.*, row_number() over(order by seq) rn from refund) where rn between #{start} and #{end}
+	</select>
+	
+	<!-- 환급 완료 처리(삭제) -->
+	<delete id = "delete">
+		delete from refund where nickname = #{value}
+	</delete>
+	
+	<!-- 환급 검색 -->
+	<select id = "refundSearch" resultType = "kh.spring.dto.RefundDTO">
+		select * from (select refund.*, row_number() over(order by seq asc) rn from refund
+		<trim prefix="where" prefixOverrides ="and|or">
+			<if test = "chalName != ''">
+				chalName like '%'||#{chalName}||'%'
+			</if>
+			<if test = "nickname != ''">
+				and nickname like '%'||#{nickname}||'%'
+			</if>
+		</trim>
+		) where rn between #{start} and #{end}
+	</select>
+	
+	<!-- 환급 신청 -->
+	<insert id = "insert">
+		insert into refund values(refund_seq.nextval,#{chalSeq},#{chalName},#{price},#{rate},#{nickname},#{bank},#{account})
+	</insert>
+</mapper>
