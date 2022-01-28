@@ -43,6 +43,26 @@ public class AdminService {
 	public AdminUtilsDTO getGradeCount() {
 		return adao.getGradeCount();
 	}
+	
+	// 관리자 페이지 메인에서 유저수 추이의 날짜 출력.
+	public AdminUtilsDTO getDate() {
+		return adao.getDate();
+	}
+	
+	// 관리자 페이지 메인에서 유저수 추이의 누적 가입자 수 출력.
+	public AdminUtilsDTO getSignUpAccumCount(){
+		return adao.getSignUpAccumCount();
+	}
+
+	// 관리자 페이지 메인에서 유저수 추이의 일일 가입자 수 출력.
+	public AdminUtilsDTO getSignUpDailyCount(){
+		return adao.getSignUpDailyCount();
+	}
+	
+	// 관리자 페이지 메인에서 등급별 결제 수 출력.	
+	public AdminUtilsDTO getPayCountByGrade(){
+		return adao.getPayCountByGrade();
+	}
 
 	// 관리자 페이지 챌린지 관리에서 챌린지 목록 출력.
 	public List<ChalDTO> selectChalAll(int start, int end){

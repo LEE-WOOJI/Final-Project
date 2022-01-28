@@ -35,6 +35,88 @@
 		bronzecount from dual
 	</select>
 
+	<!-- 관리자 페이지 메인에서 유저수 추이의 날짜 출력 -->
+	<select id="getDate" resultType="kh.spring.dto.AdminUtilsDTO">
+		select
+		to_char(sysdate, 'dy')
+		today,
+		to_char(sysdate-1, 'dy') today_1,
+		to_char(sysdate-2, 'dy')
+		today_2,
+		to_char(sysdate-3, 'dy') today_3,
+		to_char(sysdate-4, 'dy')
+		today_4,
+		to_char(sysdate-5, 'dy') today_5,
+		to_char(sysdate-6, 'dy')
+		today_6
+		from dual
+	</select>
+
+	<!-- 관리자 페이지 메인에서 유저수 추이의 누적 가입자 수 출력 -->
+	<select id="getSignUpAccumCount"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select
+		(select count(*) from member) signUp,
+		(select count(*)
+		from member where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate)-1/(24*60*60)) signUp_1,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-1)-1/(24*60*60)) signUp_2,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-2)-1/(24*60*60)) signUp_3,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-3)-1/(24*60*60)) signUp_4,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-4)-1/(24*60*60)) signUp_5,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-5)-1/(24*60*60)) signUp_6
+		from dual
+	</select>
+
+	<!-- 관리자 페이지 메인에서 유저수 추이의 일일 가입자 수 출력 -->
+	<select id="getSignUpDailyCount"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select (select count(*) from member where signUp_date
+		between trunc(sysdate) and
+		trunc(sysdate+1)-1/(24*60*60)) signUpDaily,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-1) and
+		trunc(sysdate)-1/(24*60*60)) signUpDaily_1,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-2) and
+		trunc(sysdate-1)-1/(24*60*60)) signUpDaily_2,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-3) and
+		trunc(sysdate-2)-1/(24*60*60)) signUpDaily_3,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-4) and
+		trunc(sysdate-3)-1/(24*60*60)) signUpDaily_4,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-5) and
+		trunc(sysdate-4)-1/(24*60*60)) signUpDaily_5,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-6) and
+		trunc(sysdate-5)-1/(24*60*60)) signUpDaily_6
+		from
+		dual
+	</select>
+
+	<!-- 관리자 페이지 메인에서 등급별 결제 수 출력 -->
+	<select id="getPayCountByGrade"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select (select count(grade) from pay join member on(pay.refNickname =
+		member.nickname) where grade = 'gold') goldPay, (select count(grade)
+		from pay join member on(pay.refNickname = member.nickname) where grade
+		= 'silver') silverPay, (select count(grade) from pay join member
+		on(pay.refNickname = member.nickname) where grade = 'bronze')
+		bronzePay from dual
+	</select>
+
 	<!-- 관리자 페이지 챌린지 관리에서 챌린지 목록 출력 -->
 	<select id="selectChalAll" resultType="kh.spring.dto.ChalDTO">
 		select * from
