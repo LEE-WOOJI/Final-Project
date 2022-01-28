@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+	<select id="selectBySeq" resultType="kh.spring.dto.MemberDTO">
+		select * from member where
+		seq = #{value}	
+	</select>
+	
+<!-- 유저 삭제 -->
+	<delete id="delete">
+		delete from member where seq = #{value}
+	</delete>
+	
+	<select id="selectMyChal" resultType="kh.spring.dto.JoinChalDTO">
+		select j.seq,j.refchalseq,j.refnickname,c.chalname,c.startdate,c.enddate,c.personnel,c.chalinfo,c.tag,c.chalstat
+			from member m
+			left outer join joinchal j on m.nickname = j.refnickname
+			left outer join chal c on c.chalseq = j.refchalseq
+			where m.nickname = #{nickName}
+	</select>
+</mapper>
