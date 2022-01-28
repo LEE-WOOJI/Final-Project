@@ -1,7 +1,7 @@
 package kh.spring.dto;
 
 public class MemberDTO {
-	private int seq;
+	private int    seq;
 	private String id;
 	private String pw;
 	private String name;

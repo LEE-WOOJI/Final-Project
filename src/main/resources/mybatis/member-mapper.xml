@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	
+	<!-- member로그인-->
+	<select id="isLoginAllowed" resultType="kh.spring.dto.MemberDTO">
+		select count(*) 
+		  from member 
+		 where id = #{id}
+		   and pw = #{pw}
+	</select>
+	
+	<!-- ID 중복체크 -->
+	<select id="isIDExist" resultType="kh.spring.dto.MemberDTO">
+		select *
+			from member
+		   where id= #{id}
+	</select>
+	<!-- 닉네임 중복체크 -->
+	<select id="isNICExist" resultType="kh.spring.dto.MemberDTO">
+		select *
+			from member
+			where nickname = #{nickname}
+	</select>
+	
+	<!-- 회원가입  -->
+	<insert id="insertMember" parameterType="kh.spring.dto.MemberDTO">
+		INSERT INTO member (
+			seq
+		    ,  id
+		    , pw
+		    , name
+		    , nickname
+		    , phone
+		    , email
+		    , bank
+		    , account
+		    , money
+		    , grade
+		    , blacklist
+		    , kakaologin
+		    , zipcode
+		    , address1
+		    , address2
+		) VALUES (
+			 member_seq.nextval
+			, #{id          , jdbcType=VARCHAR}
+			, #{pw          , jdbcType=VARCHAR}
+			, #{name        , jdbcType=VARCHAR}
+			, #{nickname    , jdbcType=VARCHAR}
+			, #{phone       , jdbcType=VARCHAR}
+			, #{email       , jdbcType=VARCHAR}
+			, #{bank        , jdbcType=VARCHAR}
+			, #{account     , jdbcType=VARCHAR}
+			, #{money       , jdbcType=INTEGER}
+			, #{grade       , jdbcType=VARCHAR}
+			, #{blacklist   , jdbcType=VARCHAR}
+			, #{kakaologin  , jdbcType=VARCHAR}
+			, #{zipcode     , jdbcType=VARCHAR}
+			, #{address1    , jdbcType=VARCHAR}
+			, #{address2    , jdbcType=VARCHAR}
+		)
+	</insert>
+	<!-- 카카오 회원가입 -->
+	<insert id="kakaoInsert" parameterType="kh.spring.dto.MemberDTO">
+	INSERT INTO member(
+			  id
+			, name
+		    , nickname
+		    , email
+		  	, kakaologin
+		   
+		) VALUES (
+			  #{id          }
+			, #{name        }
+			, #{nickname    }
+			, #{email		}
+			, 'Y'
+	)
+	</insert>
+	
+	<!--  -->
+</mapper>
