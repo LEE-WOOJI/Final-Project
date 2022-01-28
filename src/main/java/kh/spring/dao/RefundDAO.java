@@ -35,4 +35,15 @@ public class RefundDAO {
 		return mybatis.selectList("Refund.refundSearch", map);
 	}
 	
+	public int insert(RefundDTO dto) {
+		Map<Object,Object> map = new HashMap<>();
+		map.put("chalSeq", dto.getChalSeq());
+		map.put("chalName", dto.getChalName());
+		map.put("price",dto.getPrice());
+		map.put("rate",dto.getRate());
+		map.put("nickname",dto.getNickname());
+		map.put("bank",dto.getBank());
+		map.put("account",dto.getAccount());
+		return mybatis.update("Refund.insert", map);
+	}
 }

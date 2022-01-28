@@ -348,6 +348,8 @@ public class AdminController {
 		int end = start + 4;
 		List<RefundDTO> list = rService.refundSearch(start, end, chalName, nickname);
 		model.addAttribute("list",list);
+		model.addAttribute("chalName",chalName);
+		model.addAttribute("nickname",nickname);
 		return "/admin/adminUserRS";
 	}
 
@@ -359,9 +361,9 @@ public class AdminController {
 		int end = start + 4;
 		System.out.println(moreNum +"유저 환급 검색 더보기들어옴");
 		Gson glist = new Gson();
-		List<RefundDTO> list = rService.listBound(start, end);
-		String result = glist.toJson(list);
-		return result;
+        List<RefundDTO> list = rService.refundSearch(start, end, chalName, nickname);
+        String result = glist.toJson(list);
+        return result;
 	}
 
 	@ExceptionHandler(Exception.class)

@@ -212,12 +212,12 @@ a:hover {
 							<div class="col-sm-12 col-md-4 col-lg-4">
 								<input type="text" class="form-control" placeholder="챌린지 명을 입력하세요"
 									aria-label="Recipient's username"
-									aria-describedby="basic-addon2" name="chalName">
+									aria-describedby="basic-addon2" name="chalName" id = "chalName" values = "${chalName}">
 							</div>
 							<div class="col-sm-12 col-md-4 col-lg-4">
 								<input type="text" class="form-control" placeholder="닉네임를 입력하세요"
 									aria-label="Recipient's username"
-									aria-describedby="basic-addon2" name="nickname">
+									aria-describedby="basic-addon2" name="nickname" id = "nickname" values = "${nickname}">
 							</div>
 							
 							<div class="col-sm-12 col-md-2 col-lg-2">
@@ -233,21 +233,21 @@ a:hover {
 							리스트</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none;">
-							<div class="col-2 list" style="padding: 0px;">번호</div>
 							<div class="col-2 list" style="padding: 0px;">챌린지</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
-							<div class="col-2 list" style="padding: 0px;">가격</div>
-							<div class="col-2 list" style="padding: 0px;">달성률</div>
+							<div class="col-2 list" style="padding: 0px;">환급금액</div>
+							<div class="col-1 list" style="padding: 0px;">은행명</div>
+							<div class="col-3 list" style="padding: 0px;">계좌번호</div>
 							<div class="col-2 list" style="padding: 0px;">환급</div>
 						</div>
 						<c:forEach var="list" items="${list}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
-								<div class="col-2" style="padding: 0px;">${list.seq}</div>
 								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
 								<div class="col-2" style="padding: 0px;">${list.price}</div>
-								<div class="col-2" style="padding: 0px;">${list.rate}%</div>
+								<div class="col-1" style="padding: 0px;">${list.bank}</div>
+								<div class="col-3" style="padding: 0px;">${list.account}</div>
 								<div class="col-2" style="padding: 0px;">
 									<a
 										href="/admin/userRefundGo?nickname=${list.nickname}"
@@ -284,14 +284,15 @@ a:hover {
 			let result = confirm("환급을 완료시키겠습니까?");
 			if(!result){return false;}
 		})
-		
+		let nickname = "${nickname}";
+		let chalName = "${chalName}";
 		let moreNum = 1;
    		$("#more").on("click",function(){
-   			moreNum += 5;
+   			moreNum += 4;
    			$.ajax({
-   				url:"/admin/userRefundMore",
+   				url:"/admin/userRefundSearchMore",
    				method:"POST",
-   				data:{"moreNum":moreNum}
+   				data:{"moreNum":moreNum,"chalName":chalName,"nickname":nickname}
    			}).done(function(resp){
    				let result = JSON.parse(resp);
    				let content = "";
@@ -301,11 +302,11 @@ a:hover {
    					console.log(result[i].nickname);
    					content += `<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none;">
-						<div class="col-2" style="padding: 0px;">\${result[i].seq}</div>
 						<div class="col-2" style="padding: 0px;">\${result[i].chalName}</div>
 						<div class="col-2" style="padding: 0px;">\${result[i].nickname}</div>
 						<div class="col-2" style="padding: 0px;">\${result[i].price}</div>
-						<div class="col-2" style="padding: 0px;">\${result[i].rate}%</div>
+						<div class="col-1" style="padding: 0px;">\${result[i].bank}%</div>
+						<div class="col-3" style="padding: 0px;">\${result[i].account}</div>
 						<div class="col-2" style="padding: 0px;">
 							<a
 								href="/admin/userRefundGo?nickname=\${result[i].nickname}"

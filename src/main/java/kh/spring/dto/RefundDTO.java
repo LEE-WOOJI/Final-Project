@@ -7,17 +7,8 @@ public class RefundDTO {
 	private int price;
 	private int rate;
 	private String nickname;
-	
-	public RefundDTO() {}
-	public RefundDTO(int seq, int chalSeq, String chalName, int price, int rate, String nickname) {
-		super();
-		this.seq = seq;
-		this.chalSeq = chalSeq;
-		this.chalName = chalName;
-		this.price = price;
-		this.rate = rate;
-		this.nickname = nickname;
-	}
+	private String bank;
+	private String account;
 	public int getSeq() {
 		return seq;
 	}
@@ -54,6 +45,30 @@ public class RefundDTO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
+	}
+	public RefundDTO(int seq, int chalSeq, String chalName, int price, int rate, String nickname, String bank,
+			String account) {
+		super();
+		this.seq = seq;
+		this.chalSeq = chalSeq;
+		this.chalName = chalName;
+		this.price = price;
+		this.rate = rate;
+		this.nickname = nickname;
+		this.bank = bank;
+		this.account = account;
+	}
+	public RefundDTO() {}
 	
 }
