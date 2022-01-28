@@ -1,36 +1,44 @@
 package kh.spring.dto;
 
 public class LikeDTO {
-	private int seq;
-	private int refChalSeq;
-	private String refNickName;
+	private String likeNum;
+	private String chalNum;
+	private String id;
 	
-	public LikeDTO() {}
-
-	public LikeDTO(int seq, int refChalSeq, String refNickName) {
+	public LikeDTO() {
 		super();
-		this.seq = seq;
-		this.refChalSeq = refChalSeq;
-		this.refNickName = refNickName;
+		// TODO Auto-generated constructor stub
 	}
-	
-	public int getSeq() {
-		return seq;
+
+	public LikeDTO(String likeNum, String chalNum, String id) {
+		super();
+		this.likeNum = likeNum;
+		this.chalNum = chalNum;
+		this.id = id;
 	}
-	public void setSeq(int seq) {
-		this.seq = seq;
+
+	public String getLikeNum() {
+		return likeNum;
 	}
-	public int getRefChalSeq() {
-		return refChalSeq;
+
+	public void setLikeNum(String likeNum) {
+		this.likeNum = likeNum;
 	}
-	public void setRefChalSeq(int refChalSeq) {
-		this.refChalSeq = refChalSeq;
+
+	public String getChalNum() {
+		return chalNum;
 	}
-	public String getRefNickName() {
-		return refNickName;
+
+	public void setChalNum(String chalNum) {
+		this.chalNum = chalNum;
 	}
-	public void setRefNickName(String refNickName) {
-		this.refNickName = refNickName;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

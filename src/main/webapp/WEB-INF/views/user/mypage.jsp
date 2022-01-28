@@ -585,10 +585,10 @@ body{
                     <div class="user-info">
                         <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
                         <ul class="meta list list-unstyled">
-                            <li class="name">이웅진
-                                <label class="label label-info">등급</label>
+                            <li class="name">${user.nickname}
+                                <label class="label label-info">${user.grade }</label>
                             </li>
-                            <li class="email"><a href="#">ahd8901@naver.com</a></li>
+                            <li class="email"><a href="#">${user.email}</a></li>
                         </ul>
                     </div>
                     <nav class="side-menu">
@@ -596,7 +596,6 @@ body{
                             <li><a href="/mypage/userinfo"><span class="fa fa-user"></span>내정보</a></li>
                             <li><a href="/mypage/chaling"><span class="fa fa-cog"></span>도전중인글피</a></li>
                             <li><a href="#"><span class="fa fa-credit-card"></span>작성한 글 / 댓글</a></li>
-                            <li><a href="#"><span class="fa fa-envelope"></span>결제관리</a></li>
                             <li><a href="#"><span class="fa fa-th"></span>회원탈퇴</a></li>
                         </ul>
                     </nav>

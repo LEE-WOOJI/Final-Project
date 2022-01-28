@@ -32,6 +32,4 @@ public class UserController {
     	return "/user/signup";
     }
   
-    			
-    
 }

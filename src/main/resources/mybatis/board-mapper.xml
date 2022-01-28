@@ -11,6 +11,7 @@
 		insert into board values(board_seq.nextval, #{title}, #{contents},
 		#{nickname}, default, sysdate)
 	</insert>
+	
 	<!-- 게시글 목록 -->
 	<select id="selectAll" resultType="kh.spring.dto.BoardDTO">
 		select * from

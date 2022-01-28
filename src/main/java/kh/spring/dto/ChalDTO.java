@@ -13,11 +13,12 @@ public class ChalDTO {
 	private String price;
 	private String day;
 	private String category;
+	private String chalStat;
 	
 	public ChalDTO() {}
 	
 	public ChalDTO(int chalSeq, String chalName, Timestamp startDate, Timestamp endDate, int personnel, String chalInfo,
-			String tag, String price, String day, String category) {
+			String tag, String price, String day, String category, String chalStat) {
 		super();
 		this.chalSeq = chalSeq;
 		this.chalName = chalName;
@@ -29,6 +30,7 @@ public class ChalDTO {
 		this.price = price;
 		this.day = day;
 		this.category = category;
+		this.chalStat = chalStat;
 	}
 	public int getChalSeq() {
 		return chalSeq;
@@ -90,7 +92,12 @@ public class ChalDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
-	
+
+	public String getChalStatus() {
+		return chalStat;
+	}
+
+	public void setChalStatus(String chalStat) {
+		this.chalStat = chalStat;
+	}
 }
