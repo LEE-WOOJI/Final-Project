@@ -65,7 +65,7 @@
 			</div>
 	
 			<!--가격 만원 부분-->
-			<div class="border  border-light  bg-light p-3 rounded mt-4 d-flex justify-content-between">
+			<div class="border border-light  bg-light p-3 rounded mt-4 d-flex justify-content-between">
 				<div class="images align-items-center">
 					<i class="fas fa-user-friends fa-lg"></i>&nbsp;
 					<span style="font-family: 'S-CoreDream-4Regular'">참가인원 ${dto.personnel} 명</span>
@@ -95,32 +95,32 @@
 					<img src="https://i.imgur.com/qHX7vY1.png" class="rounded" width="70">
 					<div class="d-flex flex-column ml-3">
 						<span class="business">&nbsp;카드결제</span>
-						
 					</div>
 				</div>
 				<div>
-					<button type="button" class="btn btn-warning" id="iamport" style="color: black;">결제하기</button>
+					<button type="button" class="btn btn-danger" id="iamport" style="color: white;">결제하기</button>
 				</div>
 			</div>
 			<div class="credit rounded mt-2 d-flex justify-content-between align-items-center" style="font-family: 'S-CoreDream-4Regular'">
 				<div class="d-flex flex-row align-items-center">
 					<img src="/assets/img/chalDetail/통장.png" class="rounded" width="70">
 					<div class="d-flex flex-column ml-3">
-						<span class="business">&nbsp;무통장입금&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 111111-11-111111 (주)글피  </span>
-					
+						<span class="business">&nbsp;무통장입금&nbsp;&nbsp;&nbsp;&nbsp; 
+						<img src="/assets/img/chalDetail/kb.png" style="width: 150px"> 
+						660401-01-826550 (주)글피  </span>
 					</div>
 				</div>
 				<div>
-					<button type="button" class="btn btn-warning" id="iamport" style="color: black;">결제하기</button>
+					<button type="button" class="btn btn-danger" id="accountPay" style="color: white;">결제하기</button>
 				</div>
 			</div>
-			<h6 class="mt-4 text-primary">ADD PAYMENT METHOD</h6>
+			
 		
 			<div class="mt-3" style="text-align: center;">
-				<button class="btn btn-primary btn-block payment-button" id="payBtn" style="font-family: 'S-CoreDream-4Regular'; color: black;">
+				<button class="btn btn-danger btn-block payment-button" id="payBtn" style="font-family: 'yg-jalnan', verdana, tahoma; color: white;">
 					결제취소
 				</button>
-				<button class="btn btn-primary btn-block payment-button" id="list style="font-family: 'S-CoreDream-4Regular'; color: black;">
+				<button class="btn btn-danger btn-block payment-button" id="list" style="font-family: 'yg-jalnan', verdana, tahoma; color: white;">
 					목록으로
 				</button>
 			</div>
@@ -139,6 +139,12 @@ $("#payBtn").on("click",function(){
 $("#list").on("click",function(){
 	location.href = "/chal/list"
 });
+
+//목록으로 돌아가기.
+$("#accountPay").on("click",function(){
+	$("#frm").submit();
+});
+
 
 
 
