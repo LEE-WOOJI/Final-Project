@@ -39,6 +39,26 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.getGradeCount");
 	}
 	
+	// 관리자 페이지 메인에서 유저수 추이의 날짜 출력.
+	public AdminUtilsDTO getDate() {
+		return mybatis.selectOne("Admin.getDate");
+	}
+	
+	// 관리자 페이지 메인에서 유저수 추이의 누적 가입자 수 출력.
+	public AdminUtilsDTO getSignUpAccumCount(){
+		return mybatis.selectOne("Admin.getSignUpAccumCount");
+	}
+	
+	// 관리자 페이지 메인에서 유저수 추이의 일일 가입자 수 출력.
+	public AdminUtilsDTO getSignUpDailyCount(){
+		return mybatis.selectOne("Admin.getSignUpDailyCount");
+	}
+	
+	// 관리자 페이지 메인에서 등급별 결제 수 출력.	
+	public AdminUtilsDTO getPayCountByGrade(){
+		return mybatis.selectOne("Admin.getPayCountByGrade");
+	}
+	
 	// 관리자 페이지 챌린지 관리에서 챌린지 목록 출력.
 	public List<ChalDTO> selectChalAll(int start, int end){
 		Map<String,String> map = new HashMap<>();
