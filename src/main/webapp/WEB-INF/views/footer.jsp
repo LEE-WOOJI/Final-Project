@@ -50,7 +50,7 @@
 					class="fas fa-file-alt"></i>&ensp;<b>커뮤니티</b></a>&emsp;
 				<c:choose>
 					<c:when test="${loginId == null }">
-						<a href="/user/login" style="text-decoration: none; color: black;"><i
+						<a href="/user/loginform" style="text-decoration: none; color: black;"><i
 							class="fas fa-user-alt"></i>&ensp;<b>로그인</b></a>
 					</c:when>
 					<c:when test="${loginId eq 'admin' }">
