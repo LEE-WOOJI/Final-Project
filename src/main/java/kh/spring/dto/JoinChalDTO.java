@@ -9,7 +9,7 @@ public class JoinChalDTO {
 	private String chalName;
 	private Timestamp startDate;
 	private Timestamp endDate;
-	private int personnel;
+	private String personnel;
 	private String chalInfo;
 	private String tag;
 	private String chalStat;
@@ -17,7 +17,7 @@ public class JoinChalDTO {
 	public JoinChalDTO() {}
 
 	public JoinChalDTO(int seq, int refChalSeq, String refNickname, String chalName, Timestamp startDate,
-			Timestamp endDate, int personnel, String chalInfo, String tag, String chalStat) {
+			Timestamp endDate, String personnel, String chalInfo, String tag, String chalStat) {
 		super();
 		this.seq = seq;
 		this.refChalSeq = refChalSeq;
@@ -67,10 +67,10 @@ public class JoinChalDTO {
 	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
-	public int getPersonnel() {
+	public String getPersonnel() {
 		return personnel;
 	}
-	public void setPersonnel(int personnel) {
+	public void setPersonnel(String personnel) {
 		this.personnel = personnel;
 	}
 	public String getChalInfo() {

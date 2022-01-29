@@ -38,7 +38,9 @@ public class MypageDAO {
 	public List<BoardReplyDTO> getUserBoardReply(String writernickname){
 		return mybatis.selectList("Mypage.getUserBoardReply",writernickname);
 	}
-
+	public int update(MemberDTO memberDTO) {
+		return mybatis.update("Mypage.updateUserInfo",memberDTO);
+	}
 	// 인증 등록.
 	public int insertCerti(CertiDTO dto) throws ParseException {
 		return mybatis.insert("Mypage.insertCerti",dto);
