@@ -3,7 +3,7 @@ package kh.spring.dto;
 import java.sql.Timestamp;
 
 public class MemberDTO {
-	private int seq;
+	private int    seq;
 	private String id;
 	private String pw;
 	private String name;
