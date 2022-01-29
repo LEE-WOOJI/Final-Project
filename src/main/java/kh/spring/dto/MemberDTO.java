@@ -1,7 +1,9 @@
 package kh.spring.dto;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
-	private int seq;
+	private int    seq;
 	private String id;
 	private String pw;
 	private String name;
@@ -17,13 +19,14 @@ public class MemberDTO {
 	private String grade;
 	private String blacklist;
 	private String kakaologin;
+	private Timestamp signUp_date;
 	
 	public MemberDTO() {}
 
 
 	public MemberDTO(int seq, String id, String pw, String name, String nickname, String phone, String email,
 			String bank, String account, String money, String grade, String blacklist, String kakaologin,
-			String zipcode, String address1, String address2) {
+			String zipcode, String address1, String address2, Timestamp signUp_date) {
 
 		super();
 		this.seq = seq;
@@ -45,6 +48,7 @@ public class MemberDTO {
 		this.zipcode = zipcode;
 		this.address1 = address1;
 		this.address2 = address2;
+		this.signUp_date = signUp_date;
 	}
 
 	public int getSeq() {
@@ -173,6 +177,16 @@ public class MemberDTO {
 
 	public void setAddress2(String address2) {
 		this.address2 = address2;
+	}
+
+
+	public Timestamp getSignUp_date() {
+		return signUp_date;
+	}
+
+
+	public void setSignUp_date(Timestamp signUp_date) {
+		this.signUp_date = signUp_date;
 	}
 
 }

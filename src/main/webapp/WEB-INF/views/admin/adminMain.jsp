@@ -172,16 +172,16 @@ a:hover {
 						</div>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="#" class="list-group-item py-1"><span
+								<a href="/admin/userBlack" class="list-group-item py-1"><span
 									class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span>유저
-										블랙/탈퇴 관리</span></a> <a href="#" class="list-group-item py-1"><span
+										블랙/탈퇴 관리</span></a> <a href="/admin/userGrade" class="list-group-item py-1"><span
 									class="iconify" data-icon="icon-park-outline:gold-medal"
-									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="#"
+									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="/admin/userRefund"
 									class="list-group-item py-1"><span class="iconify"
 									data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-										환급</span></a> <a href="#" class="list-group-item py-1"><span
+										환급</span></a> <a href="/admin/certi?cpage=1" class="list-group-item py-1"><span
 									class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
-										챌린지 삭제 </span></a> <a href="/admin/chal?cpage=1"
+										인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
 									class="list-group-item py-1"><span class="iconify"
 									data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>챌린지
 										관리</span></a> <a href="/admin/board?cpage=1" class="list-group-item py-1"><span
@@ -243,7 +243,7 @@ a:hover {
 						<div class="table-responsive mt-3">
 							<table class="table table-striped table-hover table-sm mb-0">
 								<h6 class="mt-3 mb-0"
-									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">유저
+									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">회원
 									수 추이</h6>
 								<div class="chart-box">
 									<div class="chart-container">
@@ -263,11 +263,11 @@ a:hover {
 								<br>
 								<br>
 								<h6 class="mt-3 mb-0"
-									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">등급
-									별 챌린지 달성률</h6>
+									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">등급별
+									결제 수</h6>
 								<div class="chart-box">
 									<div class="chart-container">
-										<canvas id="successChart" width="400" height="200"></canvas>
+										<canvas id="payChart" width="400" height="200"></canvas>
 									</div>
 								</div>
 							</table>
@@ -310,13 +310,13 @@ a:hover {
 			}
 		});
 
-		// 등급별 달성률 차트
-		new Chart(document.getElementById("successChart"), {
+		// 등급별 결제 수 차트
+		new Chart(document.getElementById("payChart"), {
 			type : 'bar',
 			data : {
 				labels : [ '브론즈', '실버', '골드' ],
 				datasets : [ {
-					data : [ 10.5, 15, 20 ],
+					data : [ ${payResult.bronzePay}, ${payResult.silverPay}, ${payResult.goldPay} ],
 					backgroundColor : [ 'rgba(168, 128, 74, 0.5)',
 							'rgba(192, 192, 192, 0.5)',
 							'rgba(255, 217, 0, 0.5)' ],
@@ -344,12 +344,19 @@ a:hover {
 		new Chart(document.getElementById("lineChart"), {
 			type : 'line',
 			data : {
-				labels : [ '월', '화', '수', '목', '금', '토', '일' ],
+				labels : [ '${dateResult.today_6}', '${dateResult.today_5}', '${dateResult.today_4}', '${dateResult.today_3}', '${dateResult.today_2}', '${dateResult.today_1}', '${dateResult.today}(오늘)' ],
 				datasets : [ {
-					label : '유저 수 추이',
-					data : [ 65, 59, 80, 81, 56, 55, 40 ],
+					label : '누적 회원 수',
+					data : [ ${signUpAccumResult.signUp_6}, ${signUpAccumResult.signUp_5}, ${signUpAccumResult.signUp_4}, ${signUpAccumResult.signUp_3}, ${signUpAccumResult.signUp_2}, ${signUpAccumResult.signUp_1}, ${signUpAccumResult.signUp} ],
 					fill : false,
-					borderColor : 'red',
+					borderColor : '#F77272',
+					tension : 0.1
+				
+			},{
+					label : '일일 가입한 회원 수',
+					data : [ ${signUpDailyResult.signUpDaily_6}, ${signUpDailyResult.signUpDaily_5}, ${signUpDailyResult.signUpDaily_4}, ${signUpDailyResult.signUpDaily_3}, ${signUpDailyResult.signUpDaily_2}, ${signUpDailyResult.signUpDaily_1}, ${signUpDailyResult.signUpDaily} ],
+					fill : false,
+					borderColor : '#7B9EFA',
 					tension : 0.1
 				} ]
 			},

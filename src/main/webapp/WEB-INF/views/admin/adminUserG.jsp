@@ -182,18 +182,18 @@ a:hover {
 							<div class="list-group list-group-flush">
 								<a href="/admin/userBlack" class="list-group-item py-1"><span
 									class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span>유저
-										블랙/탈퇴 관리</span></a> <a href="#" class="list-group-item py-1"><span
+										블랙/탈퇴 관리</span></a> <a href="/admin/userGrade" class="list-group-item py-1"><span
 									class="iconify" data-icon="icon-park-outline:gold-medal"
-									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="#"
+									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="/admin/userRefund"
 									class="list-group-item py-1"><span class="iconify"
 									data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-										환급</span></a> <a href="#" class="list-group-item py-1"><span
+										환급</span></a> <a href="/admin/certi?cpage=1" class="list-group-item py-1"><span
 									class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
-										챌린지 삭제 </span></a> <a href="#" class="list-group-item py-1"><span
-									class="iconify" data-icon="ant-design:folder-open-outlined"
-									data-width="25"></span>&ensp;<span>챌린지 관리</span></a> <a href="#"
+										인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
 									class="list-group-item py-1"><span class="iconify"
-									data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
+									data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>챌린지
+										관리</span></a> <a href="/admin/board?cpage=1" class="list-group-item py-1"><span
+									class="iconify" data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
 										관리</span></a>
 							</div>
 						</div>
@@ -213,7 +213,7 @@ a:hover {
 								</select>
 								</div>
 								<div class = "col-sm-12 col-md-4 col-lg-8">
-									<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "searchText">
+									<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" id = "keyword" name = "searchText">
 								</div>
 								<div class = "col-sm-12 col-md-4 col-lg-2" style = "margin:0px;">
 									<button type="submit" class="btn btn-danger" id = "searchBtn" style = "width:100%;">Search</button>
@@ -365,6 +365,19 @@ a:hover {
 			let result = confirm("정말 골드로 변경하시겠습니까?");
 			if(!result){return false;}
 		})
+		
+		$("#searchBtn").on("click",function(){
+			
+			if($("#option").val() == "검색옵션"){
+				alert("검색옵션을 선택해주세요.");
+				return false;
+			}
+			if($("#keyword").val() == ""){
+				alert("검색어를 입력해주세요.");
+				return false;
+			}
+		})
+		
 	</script>
 </body>
 </html>
