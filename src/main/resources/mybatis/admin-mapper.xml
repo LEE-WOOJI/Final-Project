@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+	<!-- 관리자 페이지 메인에서 회원 수 출력 -->
+	<select id="getMemberCount" resultType="int">
+		select count(*) from
+		member
+	</select>
+
+	<!-- 관리자 페이지 메인에서 자유게시판 글 수 출력 -->
+	<select id="getBoardCount" resultType="int">
+		select count(*) from board
+	</select>
+
+	<!-- 관리자 페이지 메인에서 챌린지 수 출력 -->
+	<select id="getChalCount" resultType="int">
+		select count(*) from chal
+	</select>
+
+	<!-- 관리자 페이지 메인에서 등급 출력 -->
+	<select id="getGradeCount"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select (select
+		count(grade)
+		from member where grade='gold')
+		goldcount,(select
+		count(grade) from
+		member where grade='silver')
+		silvercount,(select
+		count(grade) from
+		member where grade='bronze')
+		bronzecount from dual
+	</select>
+
+	<!-- 관리자 페이지 메인에서 유저수 추이의 날짜 출력 -->
+	<select id="getDate" resultType="kh.spring.dto.AdminUtilsDTO">
+		select
+		to_char(sysdate, 'dy')
+		today,
+		to_char(sysdate-1, 'dy') today_1,
+		to_char(sysdate-2, 'dy')
+		today_2,
+		to_char(sysdate-3, 'dy') today_3,
+		to_char(sysdate-4, 'dy')
+		today_4,
+		to_char(sysdate-5, 'dy') today_5,
+		to_char(sysdate-6, 'dy')
+		today_6
+		from dual
+	</select>
+
+	<!-- 관리자 페이지 메인에서 유저수 추이의 누적 가입자 수 출력 -->
+	<select id="getSignUpAccumCount"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select
+		(select count(*) from member) signUp,
+		(select count(*)
+		from member where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate)-1/(24*60*60)) signUp_1,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-1)-1/(24*60*60)) signUp_2,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-2)-1/(24*60*60)) signUp_3,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-3)-1/(24*60*60)) signUp_4,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-4)-1/(24*60*60)) signUp_5,
+		(select count(*) from member
+		where signUp_date between trunc(sysdate-365) and
+		trunc(sysdate-5)-1/(24*60*60)) signUp_6
+		from dual
+	</select>
+
+	<!-- 관리자 페이지 메인에서 유저수 추이의 일일 가입자 수 출력 -->
+	<select id="getSignUpDailyCount"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select (select count(*) from member where signUp_date
+		between trunc(sysdate) and
+		trunc(sysdate+1)-1/(24*60*60)) signUpDaily,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-1) and
+		trunc(sysdate)-1/(24*60*60)) signUpDaily_1,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-2) and
+		trunc(sysdate-1)-1/(24*60*60)) signUpDaily_2,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-3) and
+		trunc(sysdate-2)-1/(24*60*60)) signUpDaily_3,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-4) and
+		trunc(sysdate-3)-1/(24*60*60)) signUpDaily_4,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-5) and
+		trunc(sysdate-4)-1/(24*60*60)) signUpDaily_5,
+		(select count(*) from member where signUp_date between
+		trunc(sysdate-6) and
+		trunc(sysdate-5)-1/(24*60*60)) signUpDaily_6
+		from
+		dual
+	</select>
+
+	<!-- 관리자 페이지 메인에서 등급별 결제 수 출력 -->
+	<select id="getPayCountByGrade"
+		resultType="kh.spring.dto.AdminUtilsDTO">
+		select (select count(grade) from pay join member on(pay.refNickname =
+		member.nickname) where grade = 'gold') goldPay, (select count(grade)
+		from pay join member on(pay.refNickname = member.nickname) where grade
+		= 'silver') silverPay, (select count(grade) from pay join member
+		on(pay.refNickname = member.nickname) where grade = 'bronze')
+		bronzePay from dual
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 목록 출력 -->
+	<select id="selectChalAll" resultType="kh.spring.dto.ChalDTO">
+		select * from
+		(select
+		chal.*,
+		row_number() over(order by chalSeq desc) rn
+		from chal) where rn
+		between
+		#{start} and #{end}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 검색 시 챌린지 수 출력 -->
+	<select id="getChalRecordCountSearch" resultType="int">
+		select count(*)
+		from chal where ${select} like '%'||#{keyword}||'%'
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 검색 시 챌린지 목록 출력 -->
+	<select id="selectChalAllSearch"
+		resultType="kh.spring.dto.ChalDTO">
+		select * from
+		(select
+		chal.*,
+		row_number() over(order by
+		chalSeq
+		desc) rn
+		from chal where
+		${select} like '%'||#{keyword}||'%')
+		where rn
+		between #{start} and
+		#{end}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 삭제 -->
+	<delete id="chalDelete">
+		delete from chal where chalSeq = #{value}
+	</delete>
+
+	<!-- 관리자 페이지 챌린지 관리에서 갱신 -->
+	<update id="chalRenew">
+		update chal set startDate = sysdate, endDate =
+		sysdate+14 where chalSeq = #{value}
+	</update>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 상태 변경 -->
+	<update id="updateChalStatus">
+		update chal set chalStat = #{chalStat} where chalSeq
+		= #{chalSeq}
+	</update>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 등록 -->
+	<insert id="insertChal">
+		insert into chal
+		values(chal_seq.nextval,#{chalName},#{startDate},#{endDate},#{personnel},#{chalInfo},#{tag},#{price},#{day},#{category},#{chalStat})
+		<selectKey resultType="int" order="AFTER"
+			keyProperty="chalSeq">
+			select chal_seq.currval from dual
+		</selectKey>
+	</insert>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 등록시 이미지 업로드 -->
+	<insert id="insertChalImg">
+		insert into chalImg
+		values(chalImg_seq.nextval,#{chalSeq},#{oriName},#{sysName})
+	</insert>
+
+	<!-- chalSeq로 ChalImg테이블의 imgName 찾기 -->
+	<select id="findChalImgName"
+		resultType="kh.spring.dto.ChalImgDTO">
+		select * from chalImg where chalSeq = #{value}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 chalSeq로 챌린지 찾기 -->
+	<select id="chalSearchBySeq" resultType="kh.spring.dto.ChalDTO">
+		select * from chal where
+		chalSeq = #{value}
+	</select>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 수정 -->
+	<update id="modifyChal">
+		update chal set chalName = #{chalName}, startDate =
+		#{startDate}, endDate = #{endDate}, personnel = #{personnel}, chalInfo
+		= #{chalInfo}, tag = #{tag}, price = #{price}, day = #{day}, category
+		= #{category}, chalStat = #{chalStat} where chalSeq = #{chalSeq}
+	</update>
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 수정시 이미지 업로드 -->
+	<update id="modifyChalImg">
+		update chalImg set oriName = #{oriName}, sysName =
+		#{sysName} where chalSeq = #{chalSeq}
+	</update>
+	
+	<!-- 유저 인증 관리 페이지에서 인증 개수 출력 -->
+	<select id = "getCertiCount" resultType = "int">
+		select count(*) from certi
+	</select>
+	
+	<!-- 인증 관리 페이지에서 인증 불러오기 -->
+	<select id = "selectCertiAll" resultType = "kh.spring.dto.CertiDTO">
+		select * from (select certi.*, row_number() over(order by seq desc) rn from certi) where rn between #{start} and #{end}
+	</select>
+	
+	<!-- 인증 관리 페이지에서 삭제하기 -->
+	<delete id = "certiDelete">
+		delete from certi where seq = #{value}
+	</delete>
+	
+	<!-- 관리자 페이지 인증 관리에서 검색 시 챌린지 수 출력 -->
+	<select id="getCertiCountSearch" resultType="int">
+		select count(*) from certi where ${select} like '%'||#{keyword}||'%'
+	</select>
+	
+	<!-- 관리자 페이지 인증 관리에서 검색 시 챌린지 목록 출력 -->
+	<select id="selectCertiAllSearch"
+		resultType="kh.spring.dto.CertiDTO">
+		select * from (select certi.*, row_number() over(order by seq desc) rn
+		from certi where ${select} like '%'||#{keyword}||'%')
+		where rn between #{start} and #{end}
+	</select>
+</mapper>

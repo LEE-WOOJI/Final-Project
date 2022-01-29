@@ -59,14 +59,13 @@ public class MemberDAO {
 	
 	//카카오 로그인
 
-	public int kakaoInsert(String id, String email, String nickname,String blacklist) {
+	public int kakaoInsert( String nickname, String email) {
 		Map<String,String> map = new HashMap<>();
-		map.put("id", id);
+		map.put("id", email);
 		map.put("email", email);
 		map.put("nickname", nickname);
-		map.put(blacklist, blacklist);
 		
-		return mybatis.selectOne("Member.kakaoInsert", map);
+		return mybatis.insert("Member.kakaoInsert", map);
             
         }
 	

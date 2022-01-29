@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dao.BoardDAO;
 import kh.spring.dto.BoardDTO;
+import kh.spring.dto.ProfileDTO;
 import kh.spring.utils.Static;
 
 @Service
 public class BoardService {
 	@Autowired
 	private BoardDAO bdao;
+	// 게시판 내용 입력.
+	public int insert(String title, String contents, String nickname) {
+		return bdao.insert(title, contents, nickname);
+	}
 
 	// 게시판 목록 출력.
 	public List<BoardDTO> selectAll(int start, int end){
@@ -35,7 +40,7 @@ public class BoardService {
 	public int getRecordCountSearch(String select, String keyword) {
 		return bdao.getRecordCountSearch(select, keyword);
 	}
-	
+
 	// 게시판 현재 페이지 검사.
 	public Map<String, String> pageCheck(int currentPage) throws Exception {
 		if(currentPage < 1) { 
@@ -163,24 +168,34 @@ public class BoardService {
 
 		return pageNavi;
 	}
-	
+
 	// seq로 작성한 글의 detail 출력.
 	public BoardDTO selectBySeq(int seq){
 		return bdao.selectBySeq(seq);
 	}
-	
+
 	// 조희수 증가.
 	public int addViewCount(int seq){
 		return bdao.addViewCount(seq);
 	}
-	
+
 	// 게시글 수정.
 	public int modify(int seq, String title, String contents){
 		return bdao.modify(seq,title,contents);
 	}	
-	
+
 	// 게시글 삭제.
 	public int delete(int seq){
 		return bdao.delete(seq);
-	}	
+	}
+
+	// nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기.
+	public int findParentSeq(String nickname){
+		return bdao.findParentSeq(nickname);
+	}
+
+	// member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기.
+	public ProfileDTO findImgName(int parentSeq){
+		return bdao.findImgName(parentSeq);
+	}
 }

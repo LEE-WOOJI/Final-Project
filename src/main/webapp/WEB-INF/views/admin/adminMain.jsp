@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- 태그 라이브러리 -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자</title>
+<title>관리자 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -26,8 +27,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
-<style>
+<style type="text/css">
 body {
 	margin-top: 20px;
 	background-color: #f7f7ff;
@@ -129,113 +132,62 @@ body {
 .rounded-circle {
 	border-radius: 50% !important;
 }
+
+#header {
+	margin-bottom: 100px;
+}
+
+a:hover {
+	text-decoration-line: none;
+}
+
+@font-face {
+	font-family: 'yg-jalnan';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 </style>
 </head>
 <body>
 	<div class="container">
+		<div class="row" id="header">
+			<div class="col">
+				<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+			</div>
+		</div>
+		<br>
 		<div class="row">
 			<div class="col-12 col-lg-3">
 				<div class="card">
 					<div class="card-body">
-						<div class="d-grid">
-							<a href="javascript:;" class="btn btn-primary">+ Add File</a>
+						<div class="d-grid"></div>
+						<div class="list-group list-group-flush">
+							<a href="/admin/main" class="list-group-item py-1">
+								<h5 class="my-3"
+									style="font-family: 'yg-jalnan', verdana, tahoma;">관리자 페이지</h5>
+							</a>
 						</div>
-						<h5 class="my-3">My Drive</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-folder me-2"></i><span>All Files</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-devices me-2"></i><span>My Devices</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-analyse me-2"></i><span>Recents</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-plug me-2"></i><span>Important</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-trash-alt me-2"></i><span>Deleted Files</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-file me-2"></i> <span>Documents</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-image me-2"></i><span>Images</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-video me-2"></i><span>Videos</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-music me-2"></i><span>Audio</span></a> <a
-									href="javascript:;" class="list-group-item py-1"><i
-									class="bx bx-beer me-2"></i><span>Zip Files</span></a>
+								<a href="/admin/userBlack" class="list-group-item py-1"><span
+									class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span>유저
+										블랙/탈퇴 관리</span></a> <a href="/admin/userGrade" class="list-group-item py-1"><span
+									class="iconify" data-icon="icon-park-outline:gold-medal"
+									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="/admin/userRefund"
+									class="list-group-item py-1"><span class="iconify"
+									data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
+										환급</span></a> <a href="/admin/certi?cpage=1" class="list-group-item py-1"><span
+									class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
+										인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
+									class="list-group-item py-1"><span class="iconify"
+									data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>챌린지
+										관리</span></a> <a href="/admin/board?cpage=1" class="list-group-item py-1"><span
+									class="iconify" data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
+										관리</span></a>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card">
-					<div class="card-body">
-						<h5 class="mb-0 text-primary font-weight-bold">
-							45.5 GB <span class="float-end text-secondary">50 GB</span>
-						</h5>
-						<p class="mb-0 mt-2">
-							<span class="text-secondary">Used</span><span
-								class="float-end text-primary">Upgrade</span>
-						</p>
-						<div class="progress mt-3" style="height: 7px;">
-							<div class="progress-bar" role="progressbar" style="width: 15%"
-								aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-							<div class="progress-bar bg-warning" role="progressbar"
-								style="width: 30%" aria-valuenow="30" aria-valuemin="0"
-								aria-valuemax="100"></div>
-							<div class="progress-bar bg-danger" role="progressbar"
-								style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-								aria-valuemax="100"></div>
-						</div>
-						<div class="mt-3"></div>
-						<div class="d-flex align-items-center">
-							<div class="fm-file-box bg-light-primary text-primary">
-								<i class="bx bx-image"></i>
-							</div>
-							<div class="flex-grow-1 ms-2">
-								<h6 class="mb-0">Images</h6>
-								<p class="mb-0 text-secondary">1,756 files</p>
-							</div>
-							<h6 class="text-primary mb-0">15.3 GB</h6>
-						</div>
-						<div class="d-flex align-items-center mt-3">
-							<div class="fm-file-box bg-light-success text-success">
-								<i class="bx bxs-file-doc"></i>
-							</div>
-							<div class="flex-grow-1 ms-2">
-								<h6 class="mb-0">Documents</h6>
-								<p class="mb-0 text-secondary">123 files</p>
-							</div>
-							<h6 class="text-primary mb-0">256 MB</h6>
-						</div>
-						<div class="d-flex align-items-center mt-3">
-							<div class="fm-file-box bg-light-danger text-danger">
-								<i class="bx bx-video"></i>
-							</div>
-							<div class="flex-grow-1 ms-2">
-								<h6 class="mb-0">Media Files</h6>
-								<p class="mb-0 text-secondary">24 files</p>
-							</div>
-							<h6 class="text-primary mb-0">3.4 GB</h6>
-						</div>
-						<div class="d-flex align-items-center mt-3">
-							<div class="fm-file-box bg-light-warning text-warning">
-								<i class="bx bx-image"></i>
-							</div>
-							<div class="flex-grow-1 ms-2">
-								<h6 class="mb-0">Other Files</h6>
-								<p class="mb-0 text-secondary">458 files</p>
-							</div>
-							<h6 class="text-primary mb-0">3 GB</h6>
-						</div>
-						<div class="d-flex align-items-center mt-3">
-							<div class="fm-file-box bg-light-info text-info">
-								<i class="bx bx-image"></i>
-							</div>
-							<div class="flex-grow-1 ms-2">
-								<h6 class="mb-0">Unknown Files</h6>
-								<p class="mb-0 text-secondary">57 files</p>
-							</div>
-							<h6 class="text-primary mb-0">178 GB</h6>
 						</div>
 					</div>
 				</div>
@@ -243,35 +195,17 @@ body {
 			<div class="col-12 col-lg-9">
 				<div class="card">
 					<div class="card-body">
-						<div class="fm-search">
-							<div class="mb-0">
-								<div class="input-group input-group-lg">
-									<span class="input-group-text bg-transparent"><i
-										class="fa fa-search"></i></span> <input type="text"
-										class="form-control" placeholder="Search the files">
-								</div>
-							</div>
-						</div>
 						<div class="row mt-3">
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="fm-icon-box radius-15 bg-primary text-white">
-												<i class="lni lni-google-drive"></i>
+										<div class="d-flex align-items-center"
+											style="font-family: 'yg-jalnan', verdana, tahoma;">
+											<div class="fm-icon-box radius-15 bg-warning text-dark"
+												style="height: 40px; width: 40px;">
+												<i class="fas fa-user-friends fa-xs"></i>
 											</div>
-											<div class="ms-auto font-24">
-												<i class="fa fa-ellipsis-h"></i>
-											</div>
-										</div>
-										<h5 class="mt-3 mb-0">Google Drive</h5>
-										<p class="mb-1 mt-4">
-											<span>45.5 GB</span> <span class="float-end">50 GB</span>
-										</p>
-										<div class="progress" style="height: 7px;">
-											<div class="progress-bar bg-primary" role="progressbar"
-												style="width: 75%;" aria-valuenow="75" aria-valuemin="0"
-												aria-valuemax="100"></div>
+											&ensp; 총 유저(회원) 수 ${memberResult}명
 										</div>
 									</div>
 								</div>
@@ -279,22 +213,13 @@ body {
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="fm-icon-box radius-15 bg-danger text-white">
-												<i class="lni lni-dropbox-original"></i>
+										<div class="d-flex align-items-center"
+											style="font-family: 'yg-jalnan', verdana, tahoma;">
+											<div class="fm-icon-box radius-15 bg-danger text-white"
+												style="height: 40px; width: 40px;">
+												<i class="far fa-edit fa-xs"></i>
 											</div>
-											<div class="ms-auto font-24">
-												<i class="fa fa-ellipsis-h"></i>
-											</div>
-										</div>
-										<h5 class="mt-3 mb-0">Dropbox</h5>
-										<p class="mb-1 mt-4">
-											<span>1,2 GB</span> <span class="float-end">3 GB</span>
-										</p>
-										<div class="progress" style="height: 7px;">
-											<div class="progress-bar bg-danger" role="progressbar"
-												style="width: 45%;" aria-valuenow="55" aria-valuemin="0"
-												aria-valuemax="100"></div>
+											&ensp; 자유게시판 글 수 ${boardResult}건
 										</div>
 									</div>
 								</div>
@@ -302,241 +227,49 @@ body {
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="fm-icon-box radius-15 bg-warning text-dark">
-												<i class="bx bxs-door-open"></i>
+										<div class="d-flex align-items-center"
+											style="font-family: 'yg-jalnan', verdana, tahoma;">
+											<div class="fm-icon-box radius-15 bg-success text-white"
+												style="height: 40px; width: 40px;">
+												<span class="iconify"
+													data-icon="ant-design:folder-open-outlined" data-width="30"></span>
 											</div>
-											<div class="ms-auto font-24">
-												<i class="fa fa-ellipsis-h"></i>
-											</div>
-										</div>
-										<h5 class="mt-3 mb-0">OneDrive</h5>
-										<p class="mb-1 mt-4">
-											<span>2,5 GB</span> <span class="float-end">3 GB</span>
-										</p>
-										<div class="progress" style="height: 7px;">
-											<div class="progress-bar bg-warning" role="progressbar"
-												style="width: 65%;" aria-valuenow="65" aria-valuemin="0"
-												aria-valuemax="100"></div>
+											&ensp; 챌린지 수 ${chalResult}건
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-						<!--end row-->
-						<h5>Folders</h5>
-						<div class="row mt-3">
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="font-30 text-primary">
-												<i class="bx bxs-folder"></i>
-											</div>
-											<div class="user-groups ms-auto">
-												<img
-													src="https://bootdey.com/img/Content/avatar/avatar1.png"
-													width="35" height="35" class="rounded-circle" alt="">
-												<img
-													src="https://bootdey.com/img/Content/avatar/avatar2.png"
-													width="35" height="35" class="rounded-circle" alt="">
-											</div>
-											<div class="user-plus">+</div>
-										</div>
-										<h6 class="mb-0 text-primary">Analytics</h6>
-										<small>15 files</small>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="font-30 text-primary">
-												<i class="bx bxs-folder"></i>
-											</div>
-											<div class="user-groups ms-auto">
-												<img
-													src="https://bootdey.com/img/Content/avatar/avatar7.png"
-													width="35" height="35" class="rounded-circle" alt="">
-											</div>
-										</div>
-										<h6 class="mb-0 text-primary">Assets</h6>
-										<small>345 files</small>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="font-30 text-primary">
-												<i class="bx bxs-folder"></i>
-											</div>
-											<div class="user-groups ms-auto">
-												<img
-													src="https://bootdey.com/img/Content/avatar/avatar2.png"
-													width="35" height="35" class="rounded-circle" alt="">
-												<img
-													src="https://bootdey.com/img/Content/avatar/avatar3.png"
-													width="35" height="35" class="rounded-circle" alt="">
-											</div>
-										</div>
-										<h6 class="mb-0 text-primary">Marketing</h6>
-										<small>143 files</small>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!--end row-->
-						<div class="d-flex align-items-center">
-							<div>
-								<h5 class="mb-0">Recent Files</h5>
-							</div>
-							<div class="ms-auto">
-								<a href="javascript:;" class="btn btn-sm btn-outline-secondary">View
-									all</a>
 							</div>
 						</div>
 						<div class="table-responsive mt-3">
 							<table class="table table-striped table-hover table-sm mb-0">
-								<thead>
-									<tr>
-										<th>Name <i class="bx bx-up-arrow-alt ms-2"></i>
-										</th>
-										<th>Members</th>
-										<th>Last Modified</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file-pdf me-2 font-24 text-danger"></i>
-												</div>
-												<div class="font-weight-bold text-danger">Competitor
-													Analysis Template</div>
-											</div>
-										</td>
-										<td>Only you</td>
-										<td>Sep 3, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file me-2 font-24 text-primary"></i>
-												</div>
-												<div class="font-weight-bold text-primary">How to
-													Create a Case Study</div>
-											</div>
-										</td>
-										<td>3 members</td>
-										<td>Jun 12, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file me-2 font-24 text-primary"></i>
-												</div>
-												<div class="font-weight-bold text-primary">Landing
-													Page Structure</div>
-											</div>
-										</td>
-										<td>10 members</td>
-										<td>Jul 17, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file-pdf me-2 font-24 text-danger"></i>
-												</div>
-												<div class="font-weight-bold text-danger">Meeting
-													Report</div>
-											</div>
-										</td>
-										<td>5 members</td>
-										<td>Aug 28, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file me-2 font-24 text-primary"></i>
-												</div>
-												<div class="font-weight-bold text-primary">Project
-													Documents</div>
-											</div>
-										</td>
-										<td>Only you</td>
-										<td>Aug 17, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file-doc me-2 font-24 text-success"></i>
-												</div>
-												<div class="font-weight-bold text-success">Review
-													Checklist Template</div>
-											</div>
-										</td>
-										<td>7 members</td>
-										<td>Sep 8, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file me-2 font-24 text-primary"></i>
-												</div>
-												<div class="font-weight-bold text-primary">How to
-													Create a Case Study</div>
-											</div>
-										</td>
-										<td>3 members</td>
-										<td>Jun 12, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file me-2 font-24 text-primary"></i>
-												</div>
-												<div class="font-weight-bold text-primary">Landing
-													Page Structure</div>
-											</div>
-										</td>
-										<td>10 members</td>
-										<td>Jul 17, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file-doc me-2 font-24 text-success"></i>
-												</div>
-												<div class="font-weight-bold text-success">Review
-													Checklist Template</div>
-											</div>
-										</td>
-										<td>7 members</td>
-										<td>Sep 8, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i></td>
-									</tr>
-								</tbody>
+								<h6 class="mt-3 mb-0"
+									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">회원
+									수 추이</h6>
+								<div class="chart-box">
+									<div class="chart-container">
+										<canvas id="lineChart" width="400" height="300"></canvas>
+									</div>
+								</div>
+								<br>
+								<br>
+								<h6 class="mt-3 mb-0"
+									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">등급
+									별 회원 수</h6>
+								<div class="chart-box">
+									<div class="chart-container">
+										<canvas id="gradeChart" width="400" height="300"></canvas>
+									</div>
+								</div>
+								<br>
+								<br>
+								<h6 class="mt-3 mb-0"
+									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">등급별
+									결제 수</h6>
+								<div class="chart-box">
+									<div class="chart-container">
+										<canvas id="payChart" width="400" height="200"></canvas>
+									</div>
+								</div>
 							</table>
 						</div>
 					</div>
@@ -544,5 +277,103 @@ body {
 			</div>
 		</div>
 	</div>
+	<!-- 풋터 -->
+	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+
+	<script type="text/javascript"
+		src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+		// 등급 차트
+		const ctx = document.getElementById('gradeChart').getContext('2d');
+		const myChart = new Chart(ctx, {
+			type : 'doughnut',
+			data : {
+				labels : [ '골드', '실버', '브론즈' ],
+				datasets : [ {
+					label : '# of Votes',
+					data : [ ${gradeResult.goldcount}, ${gradeResult.silvercount}, ${gradeResult.bronzecount} ],
+					backgroundColor : [ 'rgba(255, 217, 0, 0.5)',
+							'rgba(192, 192, 192, 0.5)',
+							'rgba(168, 128, 74, 0.5)', ],
+					borderColor : [ 'rgba(255, 217, 0)', 'rgba(192, 192, 192)',
+							'rgba(168, 128, 74)', ],
+					borderWidth : 1
+				} ]
+			},
+			options : {
+				maintainAspectRatio : false,
+				scales : {
+					y : {
+						beginAtZero : true
+					}
+				}
+			}
+		});
+
+		// 등급별 결제 수 차트
+		new Chart(document.getElementById("payChart"), {
+			type : 'bar',
+			data : {
+				labels : [ '브론즈', '실버', '골드' ],
+				datasets : [ {
+					data : [ ${payResult.bronzePay}, ${payResult.silverPay}, ${payResult.goldPay} ],
+					backgroundColor : [ 'rgba(168, 128, 74, 0.5)',
+							'rgba(192, 192, 192, 0.5)',
+							'rgba(255, 217, 0, 0.5)' ],
+					borderColor : [ 'rgba(168, 128, 74)',
+							'rgba(192, 192, 192)', 'rgba(255, 217, 0)' ],
+					borderWidth : 1
+				} ]
+			},
+			options : {
+				maintainAspectRatio : false,
+				legend : {
+					display : false
+				},
+				scales : {
+					yAxes : [ {
+						ticks : {
+							beginAtZero : true
+						}
+					} ]
+				},
+			}
+		});
+
+		// 유저 수 추이 차트
+		new Chart(document.getElementById("lineChart"), {
+			type : 'line',
+			data : {
+				labels : [ '${dateResult.today_6}', '${dateResult.today_5}', '${dateResult.today_4}', '${dateResult.today_3}', '${dateResult.today_2}', '${dateResult.today_1}', '${dateResult.today}(오늘)' ],
+				datasets : [ {
+					label : '누적 회원 수',
+					data : [ ${signUpAccumResult.signUp_6}, ${signUpAccumResult.signUp_5}, ${signUpAccumResult.signUp_4}, ${signUpAccumResult.signUp_3}, ${signUpAccumResult.signUp_2}, ${signUpAccumResult.signUp_1}, ${signUpAccumResult.signUp} ],
+					fill : false,
+					borderColor : '#F77272',
+					tension : 0.1
+				
+			},{
+					label : '일일 가입한 회원 수',
+					data : [ ${signUpDailyResult.signUpDaily_6}, ${signUpDailyResult.signUpDaily_5}, ${signUpDailyResult.signUpDaily_4}, ${signUpDailyResult.signUpDaily_3}, ${signUpDailyResult.signUpDaily_2}, ${signUpDailyResult.signUpDaily_1}, ${signUpDailyResult.signUpDaily} ],
+					fill : false,
+					borderColor : '#7B9EFA',
+					tension : 0.1
+				} ]
+			},
+			options : {
+				maintainAspectRatio : false,
+				legend : {
+					display : false
+				},
+				scales : {
+					yAxes : [ {
+						ticks : {
+							beginAtZero : true
+						}
+					} ]
+				},
+			}
+		});
+	</script>
 </body>
 </html>

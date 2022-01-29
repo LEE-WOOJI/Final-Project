@@ -24,7 +24,9 @@
       <link href="/css/chalcss.css" rel="stylesheet" />
       <!-- repcss -->
       <link href="/css/chalrepcss.css" rel="stylesheet" />
-      
+      <!-- Date -->
+      <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
       <style>
       	#header{margin-bottom:110px;}
       	@font-face {
@@ -83,13 +85,13 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
-		                        	<img src=${list.oriName} alt="">
+		                        	<img src=${list.sysName} alt="">
 		                        </a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                           <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none; color: black;">
-		                           		${list.chalName }
+		                           		${list.chalName}
 		                           </a>
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
@@ -111,13 +113,13 @@
 		                     <div class = "startday">
 		                        <h6>
 		                           <label>시작일 : </label>
-		                           ${list.startDate }
+		                           <fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value = "${list.startDate }"/>
 		                        </h6>
 		                     </div>
 		                     <div class = "endday">
 		                        <h6>
 		                           <label>종료일 : </label>
-		                           ${list.endDate }
+		                           <fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value = "${list.endDate }"/>
 		                        </h6>
 		                     </div>
 		                  </div>
@@ -153,17 +155,25 @@
    			}).done(function(resp){
    				let result = JSON.parse(resp);
    				let content = "";
+   				
    				for(let i = 0; i < result.length; i++){
    					console.log("회차 : " + i);
    					console.log(result[i].chalName);
+   					let start = moment(result[i].startDate).format("YYYY년 MM월 DD일 hh시")
+   					let end = moment(result[i].endDate).format("YYYY년 MM월 DD일 hh시")
+   					console.log(start);
    					content += `<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
-		                        <img src="\${result[i].oriName}" alt="">
+		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
+		                     		<img src="\${result[i].oriName}" alt="">
+	                        	</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
-		                           \${result[i].chalName }
+		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
+		                        	\${result[i].chalName }
+                           		</a>  
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>
@@ -184,20 +194,20 @@
 		                     <div class = "startday">
 		                        <h6>
 		                           <label>시작일 : </label>
-		                           \${result[i].startDate }
+		                           \${start}
 		                        </h6>
 		                     </div>
 		                     <div class = "endday">
 		                        <h6>
 		                           <label>종료일 : </label>
-		                           \${result[i].endDate }
+		                           \${end}
 		                        </h6>
 		                     </div>
 		                  </div>
            		</div>`;
-   					if(result[i].seq = 10){
-   	   					$("#more").css("display","none");
-   	   				}
+           		if (result[i].chalSeq > 20) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
+ 	              $("#more").css("display","none");
+ 	            }
    				}$(content).appendTo("#listLine");
    				
    			})

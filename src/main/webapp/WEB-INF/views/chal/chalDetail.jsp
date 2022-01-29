@@ -74,9 +74,25 @@ keyframes open { 0% {
 
 
 
+
+
+
+
+
+
+
+
 %
 {
 opacity
+
+
+
+
+
+
+
+
 
 
 
@@ -90,7 +106,23 @@ opacity
 
 
 
+
+
+
+
+
+
+
+
 1
+
+
+
+
+
+
+
+
 
 
 
@@ -182,35 +214,48 @@ opacity
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="col-md-6">
-					<img class="card-img-top mb-5 mb-md-0" src="${dto.oriName}" alt="..." />
+					<img class="card-img-top mb-5 mb-md-0" src="${dto.oriName}" alt="..." name="" />
 				</div>
 				<div class="col-md-6">
-					<div class="chalTag" style="margin: 10px;">
-						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'">인기 글피</span>
-						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'">생활</span>
-						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'">아침형 인간</span>
+					<div class="chalTag" style="margin: 20px 0px 20px;">
+						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag1} </span>
+						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag2}</span>
+						<!-- 추후 주석 풀기 -->
+						<!-- <span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag3}</span> -->
 					</div>
-					<h1 class="display-5 fw-bolder" style="font-family: 'yg-jalnan', verdana, tahoma;">아침 6시 기상하기</h1>
-					<div class="fs-5 mb-5">
-						<i class="bi bi-people-fill"></i>
-						<span style="font-family: 'S-CoreDream-4Regular'">현재 ${dto.personnel}명</span>
-					</div>
+					<h1 class="display-5 fw-bolder" style="font-family: 'yg-jalnan', verdana, tahoma; margin-bottom: 20px;">${dto.chalName}</h1>
+
+
+					<i class="bi bi-people-fill"></i>
+					<!-- 사람 아이콘 -->
+					<span style="font-family: 'S-CoreDream-4Regular'">&nbsp;&nbsp;현재 ${dto.personnel}명 참여중</span>
+					<!-- 참여 인원 -->
 
 					<div style="font-family: 'S-CoreDream-4Regular'">
-						글피 시작까지
+						<div>
+							<i class="bi bi-calendar-event"></i>&nbsp;&nbsp;${dto.SDate}에 시작 !
+							<!-- 달력아이몬 + 글피 시작 날짜-->
+						</div>
+						<i class="bi bi-alarm"></i>&nbsp;&nbsp;
+						<!-- 시계 아이콘 + 남은 시간 계산-->
 						<div id="countdown"></div>
-						
 					</div>
 					<br>
 
-					<span class="lead" style="font-family: 'S-CoreDream-4Regular'">
-						확실한 동기 부여를 위해서 만 원을 걸어요.<br> 글피를 시작하기 전에 돈을걸고, <br> 내가 실천한 만큼 돌려받으면<br> 절대 포기할 수가 없죠!<br>
-					</span>
+					<div class="lead" style="font-family: 'S-CoreDream-4Regular'";>
+
+						<span>
+							확실한 동기 부여를 위해서 만 원을 걸어요.<br> 글피를 시작하기 전에 돈을걸고, <br> 내가 실천한 만큼 돌려받으면<br> 절대 포기할 수가 없죠!<br> <br> ${dto.chalInfo}
+							<!--  DB에 저장돼있는 chalInfo 내용 출력-->
+						</span>
+					</div>
 					<br>
 
 					<!-- 2019년 2월 19일인 오늘 <div id="countExpire"></div> -->
 					<div class="d-flex">
-						<button type="button" class="btn btn-warning" style="font-family: 'S-CoreDream-4Regular';">참여하기</button>
+						<c:if test="${member.blacklist ne 'Y'}">
+							<button type="button" id="joinBtn" class="btn btn-warning btn-lg" onClick="location.href='/chal/chalPayment?seq=${dto.chalSeq}'" style="font-family: 'S-CoreDream-4Regular';">참여하기</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -239,7 +284,7 @@ opacity
 
 
 			<!-- 실시간 인증 사진 캐러샐 -->
-			<h2 class="fw-bolder mb-4" style="font-family: 'yg-jalnan', verdana, tahoma;">실시간 인증</h2>
+			<h2 class="fw-bolder mb-4" style="font-family: 'yg-jalnan', verdana, tahoma;">인증 사진</h2>
 			<div class="container" style="margin-bottom: 50px;">
 				<div class="row blog">
 					<div class="col-md-12">
@@ -251,28 +296,37 @@ opacity
 								<li data-target="#blogCarousel" data-slide-to="1"></li>
 							</ol>
 
+
 							<div class="carousel-inner">
 								<div class="carousel-item active">
 									<div class="row">
 										<div class="thumbnail col-md-3 col-sm-12">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="1" end="1" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="2" end="2" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="3" end="3" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="4" end="4" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 									</div>
 								</div>
@@ -280,28 +334,37 @@ opacity
 								<div class="carousel-item">
 									<div class="row">
 										<div class="thumbnail col-md-3">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="5" end="5" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="6" end="6" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="7" end="7" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
-											<a href="#">
-												<img src="/assets/img/chalDetail/default.png" alt="Image" style="max-width: 100%;">
-											</a>
+											<c:forEach var="i" items="${list}" begin="8" end="8" varStatus="status">
+												<a href="/chal/certiImg?seq=${i.parentSeq}">
+													<img src="${i.oriName} " style="max-width: 100%;">
+												</a>
+											</c:forEach>
 										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -320,9 +383,9 @@ opacity
 			<div class="detail">
 				<h1 style="font-family: 'yg-jalnan', verdana, tahoma;">글피 이용 방법 및 주의사항</h1>
 				<details>
-					<summary>이런 분들께 해당 글피를 추천합니다!</summary>
+					<summary>이런 분들께 글피를 추천합니다!</summary>
 					<div style="text-align: center;">
-						<img src="/assets/img/chalDetail/who.png" style="width: 80%;">
+						<img src="/assets/img/chalDetail/who1.png" style="width: 80%;">
 					</div>
 				</details>
 				<details>
@@ -348,13 +411,14 @@ opacity
 	</section>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
-	
+
 	<script>
- 	CountDownTimer(${dto.date}, 'countdown');
+ 	CountDownTimer('${dto.date} ', 'countdown');
  	CountDownTimer('1/16/2022 5:00 PM', 'HourCountdown');
  	CountDownTimer('1/16/2022', 'countExpire');
 
-
+	console.log( ${dto.date} );
+	
 	 function CountDownTimer(dt, id) {
      	var end = new Date(dt);
      	var _second = 1000;
@@ -371,7 +435,8 @@ opacity
          // 시간 종료 시 뜨는 문구
          if (distance < 0) {
              clearInterval(timer);
-             document.getElementById(id).innerHTML = '카운트다운이 끝났습니다. 곧 오픈합니다!';
+             document.getElementById(id).innerHTML = '이미 시잔된 챌린지에요';
+             $("#joinBtn").css("display", "none");
              return;
          }
 
@@ -386,11 +451,11 @@ opacity
          document.getElementById(id).innerHTML += seconds + '초';
 
      }
-
      timer = setInterval(showRemaining, 1000);
-
  }
- </script>	
+	 
+	 $()
+ </script>
 </body>
 
 <!-- Footer-->

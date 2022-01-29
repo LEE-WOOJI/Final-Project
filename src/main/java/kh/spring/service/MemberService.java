@@ -30,13 +30,29 @@ public class MemberService {
 		}
 	//비밀번호 암호화
 		public void insertMember(MemberDTO dto) {
-			dto.setPw( EncrpytionUtils.getSHA512(dto.getPw()));
+			dto.setPw(EncrpytionUtils.getSHA512(dto.getPw()));
 			mdao.insertMember(dto);
 		}
 	//카카오 로그인
-		public int kakaoInsert(String id, String nickname, String email, String blacklist) {
+		public boolean kakaoInsert(String nickname, String email) {
 			
-			return mdao.kakaoInsert(id,nickname,email,blacklist); 
+			MemberDTO idcheck = mdao.isIDExist(email);
+			
+			if(idcheck == null) {
+				mdao.kakaoInsert(nickname,email);
+				return true;
+			}else {
+				if(idcheck.getBlacklist() == null) {
+					return true;
+				}else {
+					if(idcheck.getBlacklist().equals('Y') == false) {
+						return true;
+					}else {
+						return false;
+					}
+				}
+			}
+			
 		}
 	
 //	//전체조회

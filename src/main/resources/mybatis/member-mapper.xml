@@ -6,7 +6,7 @@
 <mapper namespace="Member">
 	
 	<!-- member로그인-->
-	<select id="isLoginAllowed" resultType="kh.spring.dto.MemberDTO">
+	<select id="isLoginAllowed" resultType="int">
 		select count(*) 
 		  from member 
 		 where id = #{id}
@@ -45,6 +45,7 @@
 		    , zipcode
 		    , address1
 		    , address2
+		    , signup_Date
 		) VALUES (
 			 member_seq.nextval
 			, #{id          , jdbcType=VARCHAR}
@@ -62,25 +63,31 @@
 			, #{zipcode     , jdbcType=VARCHAR}
 			, #{address1    , jdbcType=VARCHAR}
 			, #{address2    , jdbcType=VARCHAR}
+			, sysdate
 		)
 	</insert>
-	<!-- 카카오 회원가입 -->
+		<!-- 카카오 회원가입 -->
 	<insert id="kakaoInsert" parameterType="kh.spring.dto.MemberDTO">
 	INSERT INTO member(
-			  id
+			  seq
+			, id
 			, name
 		    , nickname
 		    , email
 		  	, kakaologin
-		   
+		    , signup_Date
 		) VALUES (
-			  #{id          }
-			, #{name        }
-			, #{nickname    }
-			, #{email		}
+			  member_seq.nextval
+			, #{email    , jdbcType=VARCHAR}
+			, #{name     , jdbcType=VARCHAR}
+			, #{nickname , jdbcType=VARCHAR}
+			, #{email	 , jdbcType=VARCHAR}
 			, 'Y'
+			, sysdate
 	)
 	</insert>
 	
 	<!--  -->
+	
+	
 </mapper>

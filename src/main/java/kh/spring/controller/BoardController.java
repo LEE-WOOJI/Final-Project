@@ -3,6 +3,7 @@ package kh.spring.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.spring.dao.BoardReplyDAO;
 import kh.spring.dto.BoardDTO;
 import kh.spring.dto.BoardReplyDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.service.BoardReplyService;
 import kh.spring.service.BoardService;
 
@@ -25,11 +26,20 @@ public class BoardController {
 	BoardService bService;
 	@Autowired
 	BoardReplyService brService;
-	@Autowired
-	HttpSession session;
 	
 	@RequestMapping("main") // 메인으로 이동.
-	public String main(Model model, int cpage) throws Exception {
+	public String main(Model model, int cpage, HttpServletRequest request) throws Exception {
+		// 로그인아이디 세션값 저장.
+		HttpSession session = request.getSession();
+		session.setAttribute("loginID", "hi");
+		// 로그인아이디 세션값 꺼내기.
+		String id = (String) session.getAttribute("loginID");
+		// 아이디값으로 댓글 정보 찾기.
+		MemberDTO info = brService.searchInfoById(id);
+		String writerNickname = info.getNickname();
+		// 닉네임 세션값 저장.
+		session.setAttribute("writerNickname", writerNickname);
+		
 		Map<String,String> map = bService.pageCheck(cpage);
 		int currentPage = Integer.parseInt(map.get("currentPage"));
 		int start = Integer.parseInt(map.get("start"));
@@ -60,17 +70,28 @@ public class BoardController {
 		return "/board/boardSearch";
 	}
 	
-	@RequestMapping("write") // 글쓰기로 이동.
-	public String boardWrite() {
+	@RequestMapping("write") // 글쓰기 페이지로 이동.
+	public String boardWrite(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("loginID");
+		MemberDTO info = brService.searchInfoById(id);
+		model.addAttribute("nickname", info.getNickname());
 		return "/board/boardWrite";
+	}
+	@RequestMapping("writeProc") // 글 삽입.
+	public String writeProc(Model model, String title, String contents, String nickname) {
+		System.out.println("제목: "+title+"  "+"내용 : "+contents);
+		bService.insert(title, contents, nickname);
+		return "redirect:/board/main?cpage=1";
 	}
 	
 	@RequestMapping("detail") // 글 클릭시 글 세부내용으로 이동.
-	public String boardDetail(Model model, int cpage, int seq, String select, String keyword) {
+	public String boardDetail(Model model, int cpage, int seq, String select, String keyword) throws Exception {
 		// 조휘수 증가.
 		bService.addViewCount(seq);
 		// 댓글 가져가기.
 		List<BoardReplyDTO> rList = brService.selectAllBybSeq(seq);
+		// seq로 작성한 글의 detail 출력.
 		BoardDTO bList = bService.selectBySeq(seq);
 		model.addAttribute("cpage",cpage);
 		model.addAttribute("select",select);
@@ -108,7 +129,8 @@ public class BoardController {
 		model.addAttribute("keyword",keyword);
 		return "redirect:/board/detail";
 	}
-	@RequestMapping("modRp") // 댓글 삭제.
+	
+	@RequestMapping("modRp") // 댓글 수정.
 	public String rpModify(Model model, int cpage, int seq, String select, String keyword, String repContents, int rseq) {
 		brService.modify(rseq, repContents);
 		model.addAttribute("cpage",cpage);
@@ -118,6 +140,19 @@ public class BoardController {
 		return "redirect:/board/detail";
 	}
 	
+	@RequestMapping("writeRp") // 댓글 작성.
+	public String rpWrite(Model model, int cpage, int seq, String select, String keyword, String repContents, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		// 닉네임 세션값을 꺼내기.
+		String writerNickname = (String) session.getAttribute("writerNickname");
+		int refBoardSeq = seq;
+		brService.insert(refBoardSeq,writerNickname,repContents);
+		model.addAttribute("cpage",cpage);
+		model.addAttribute("seq",seq);
+		model.addAttribute("select",select);
+		model.addAttribute("keyword",keyword);
+		return "redirect:/board/detail";
+	}
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
