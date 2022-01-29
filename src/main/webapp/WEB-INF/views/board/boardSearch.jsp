@@ -206,13 +206,13 @@ a {
 							style="font-family: 'yg-jalnan', verdana, tahoma;">제목</div>
 						<div class="col-4 text-muted">
 							<div class="row no-gutters align-items-center">
-								<div class="d-none d-md-block col-4"
+								<div class="d-none d-md-block col-5"
 									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">닉네임</div>
 								<div class="d-md-none col-12"
 									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">닉네임</div>
-								<div class="d-none d-md-block col-4"
+								<div class="d-none d-md-block col-5"
 									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">작성일</div>
-								<div class="d-none d-md-block col-4"
+								<div class="d-none d-md-block col-2"
 									style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">조회수</div>
 							</div>
 						</div>
@@ -230,10 +230,11 @@ a {
 							</div>
 							<div class="col-4 text-muted">
 								<div class="row no-gutters align-items-center">
+									<img src="/image/board?nickname=${list.nickname}" alt="" class="d-block ui-w-30 rounded-circle" style="width: 50px; height: 40px;">
 									<div class="d-none d-md-block col-4">${list.nickname}</div>
 									<div class="d-md-none col-12">${list.nickname}</div>
 									<div class="d-none d-md-block col-4">${list.write_date}</div>
-									<div class="d-none d-md-block col-4">${list.view_count}</div>
+									<div class="d-none d-md-block col-2">${list.view_count}</div>
 								</div>
 							</div>
 						</div>
@@ -281,7 +282,24 @@ a {
 	<script>
 		// 글쓰기 버튼 클릭 시.
 		$("#writeBtn").on("click", function() {
-			location.href = "/board/write";
+			if(${loginId != null}){
+				location.href = "/board/write";	
+			}else{
+				alert("로그인 후 이용 가능합니다.");
+				location.href = "/user/login";
+			}
+		})
+
+		// 검색 버튼 클릭 시.
+		$("#search").on("click", function() {
+			if ($("#searchContents").val() == "") {
+				alert("내용을 입력하세요.");
+				return false;
+			}else{
+				let select = $("#select").val();
+				let keyword = $("#searchContents").val();
+				location.href = "/board/search?cpage=1&select="+select+"&keyword="+keyword;
+			}
 		})
 
 		// 검색 버튼 클릭 시.

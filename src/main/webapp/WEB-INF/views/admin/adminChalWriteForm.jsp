@@ -328,7 +328,7 @@ label:hover {
 			</div>
 			<br>
 
-			<!-- 자유게시판 박스 -->
+			<!-- 작성 박스 -->
 			<div class="card mb-3 col-xl-6 col-md-12">
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
@@ -351,10 +351,7 @@ label:hover {
 								style="width: 21%;"> <span
 								style="font-family: 'yg-jalnan', verdana, tahoma;">종료일 :
 							</span><input type="text" name="to" id="to" autocomplete="off"
-								style="width: 21%;">&ensp; <span
-								style="font-family: 'yg-jalnan', verdana, tahoma;">인원 : </span><input
-								type="number" id="personnel" name="personnel"
-								style="width: 10%;" min="1" max="50">
+								style="width: 21%;">
 						</div>
 					</div>
 					<div class="row" style="padding-bottom: 5px;">
@@ -487,11 +484,6 @@ label:hover {
 
 			if ($("#to").val() == "") {
 				alert("종료일을 선택하세요.");
-				return false;
-			}
-
-			if ($("#personnel").val() == "") {
-				alert("인원을 입력하세요.");
 				return false;
 			}
 

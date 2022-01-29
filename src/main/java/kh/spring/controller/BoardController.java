@@ -29,17 +29,6 @@ public class BoardController {
 	
 	@RequestMapping("main") // 메인으로 이동.
 	public String main(Model model, int cpage, HttpServletRequest request) throws Exception {
-		// 로그인아이디 세션값 저장.
-		HttpSession session = request.getSession();
-		session.setAttribute("loginID", "hi");
-		// 로그인아이디 세션값 꺼내기.
-		String id = (String) session.getAttribute("loginID");
-		// 아이디값으로 댓글 정보 찾기.
-		MemberDTO info = brService.searchInfoById(id);
-		String writerNickname = info.getNickname();
-		// 닉네임 세션값 저장.
-		session.setAttribute("writerNickname", writerNickname);
-		
 		Map<String,String> map = bService.pageCheck(cpage);
 		int currentPage = Integer.parseInt(map.get("currentPage"));
 		int start = Integer.parseInt(map.get("start"));
@@ -73,7 +62,7 @@ public class BoardController {
 	@RequestMapping("write") // 글쓰기 페이지로 이동.
 	public String boardWrite(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("loginID");
+		String id = (String) session.getAttribute("loginId");
 		MemberDTO info = brService.searchInfoById(id);
 		model.addAttribute("nickname", info.getNickname());
 		return "/board/boardWrite";

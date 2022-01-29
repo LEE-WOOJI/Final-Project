@@ -313,7 +313,7 @@ button:hover {
 					<br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<c:if test="${writerNickname==bList.nickname}">
+							<c:if test="${writerNickname==bList.nickname or loginId=='admin'}">
 								<button type="button" id="mod"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
 								<button type="button" id="del"
@@ -322,10 +322,6 @@ button:hover {
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">수정완료</button>
 								<button type="button" id="cancel"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">취소</button>
-							</c:if>
-							<c:if test="${loginID=='admin'}">
-								<button type="button" id="del"
-									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제하기</button>
 							</c:if>
 							<button type="button" id="boardList"
 								style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">목록으로</button>
@@ -374,7 +370,7 @@ button:hover {
 							</div>
 							<div class="row">
 								<div class="col-sm-12" style="text-align: right">
-									<c:if test="${writerNickname==rList.writerNickname}">
+									<c:if test="${writerNickname==rList.writerNickname or loginId=='admin'}">
 										<button type="button" class="modRp"
 											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정</button>
 										<button class="modRpDone"
@@ -386,10 +382,6 @@ button:hover {
 										<input id="rseq" name="rseq" type=hidden value="${rList.seq}">
 										<input name="refBoardSeq" type=hidden value="${bList.seq}">
 									</c:if>
-									<c:if test="${loginID=='admin'}">
-										<button type="button"
-											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제</button>
-									</c:if>
 								</div>
 							</div>
 						</div>
@@ -398,7 +390,7 @@ button:hover {
 			</c:if>
 
 			<!-- 댓글 작성 칸 -->
-			<c:if test="${writerNickname != ''}">
+			<c:if test="${writerNickname != null or loginId=='admin'}">
 			<form
 				action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
 				method="post">
