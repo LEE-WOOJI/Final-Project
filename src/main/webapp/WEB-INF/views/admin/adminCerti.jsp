@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 관리</title>
+<title>챌린지 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -163,18 +163,7 @@ a:hover {
 	color: white;
 }
 
-#delBtn {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
 
-#delBtn:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
 
 #search {
 	background-color: transparent;
@@ -234,35 +223,22 @@ a:hover {
 			<div class="col-12 col-lg-9">
 				<div class="card">
 					<div class="card-body">
-						<div class="row mt-3">
-							<h5 style="font-family: 'yg-jalnan', verdana, tahoma;">&ensp;자유게시판
+						<div class="row mt-3" style = "text-align:center">
+							<h5 style="font-family: 'yg-jalnan', verdana, tahoma;">&ensp;유저챌린지
 								관리</h5>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center"
-											style="font-family: 'yg-jalnan', verdana, tahoma;">
-											<div class="fm-icon-box radius-15 bg-danger text-white"
-												style="height: 40px; width: 40px;">
-												<i class="far fa-edit fa-xs"></i>
-											</div>
-											&ensp; 자유게시판 글 수 ${boardResult}건
-										</div>
-									</div>
-								</div>
-							</div>
+							
 							<!-- 게시글 목록 -->
-							<form action="/admin/boardSearch">
+							<form action="/admin/certiSearch">
 								<div class="table-responsive mt-3">
 									<table class="table table-striped table-hover table-sm mb-0">
 										<thead>
-											<tr style="font-family: 'yg-jalnan', verdana, tahoma;">
+											<tr style="font-family: 'yg-jalnan', verdana, tahoma; background-color:#f8e8e6;">
 												<th></th>
 												<th>번호</th>
+												<th>챌린지 이름</th>
 												<th>제목</th>
-												<th>닉네임</th>
 												<th>날짜</th>
-												<th>조회수</th>
+												<th>닉네임</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -270,13 +246,13 @@ a:hover {
 												<tr>
 													<td class="td"><input type="checkbox" name="checkbox"
 														value="${list.seq}"></td>
-													<td class="td">${list.seq}</td>
-													<td class="td"><a
+														<td class="td">${list.seq}</td>
+													<td class="td">${list.chalName}</td>
+													<td class = "td"><a
 														style="color: black; text-decoration: none"
-														href="/board/detail?cpage=${cpage}&seq=${list.seq}&select=${select}&keyword=${keyword}">${list.title}</a></td>
-													<td class="td">${list.nickname}</td>
-													<td class="td">${list.write_date}</td>
-													<td class="td">${list.view_count}</td>
+														href="">${list.certiTitle}</a></td>
+													<td class="td">${list.certiDate}</td>
+													<td class="td">${list.refNickname}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -291,22 +267,25 @@ a:hover {
 								<input type="hidden" value="1" name="cpage">
 								<table class="table-sm mb-0" align=right>
 									<tr>
-										<td><select class="selectpicker" id="select"
-											name="select">
-												<option value="title">제목</option>
-												<option value="contents">내용</option>
-												<option value="nickname">닉네임</option>
-										</select></td>
+										<td>
+											<select class="form-select btn btn-danger" aria-label="Default select example" id = "select" name = "select" style = "backgroud-color:#f8e8e6;">
+					  							<option selected>옵션</option>
+					  							<option value="chalName">챌린지 이름</option>
+					  							<option value="nickname">닉네임</option>
+					  							<option value="certiTitle">제목</option>
+											</select>
+										</td>
 										<td><input type="search" class="form-control rounded"
-											placeholder="내용을 입력하세요" id="searchContents" name="keyword" /></td>
+											placeholder="내용을 입력하세요" id="keyword" name="keyword" /></td>
 										<td>
 											<button id="search">
 												<i class="fas fa-search"></i>
 											</button>
 										</td>
 										<td>
-											<input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기">
-										</td>
+											<div>
+											<button type="button" class="btn btn-warning" id = "delBtn" onclick="return submit2(this.form)" style = "background-color:#dc3545; border-color:#dc3545; ">삭제하기</button>
+								</div>
 									</tr>
 								</table>
 							</form>
@@ -320,27 +299,32 @@ a:hover {
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 
 	<script>
-		// 자유게시판 글 찾기
+		// 인증 찾기
 		$("#search").on("click", function() {
-			if ($("#searchContents").val() == "") {
+			if ($("#select").val() == "옵션") {
+				alert("검색옵션을 선택해주세요.");
+				return false;
+			}
+			if ($("#keyword").val() == "") {
 				alert("내용을 입력하세요.");
 				return false;
 			}
 		})
 	</script>
 	<script>
-		// 자유게시판 글 삭제
+		// 챌린지 삭제
 		function submit2(frm) {
 			if ($("input:checkbox[name='checkbox']:checked").length == 0) {
 				alert("삭제할 항목을 선택해주세요.");
 				return false;
 			}
 			if (confirm("정말 삭제하시겠습니까?")) {
-				frm.action = "/admin/boardDelete";
+				frm.action = "/admin/certiDelete";
 				frm.submit();
 				return true;
 			}
 		}
 	</script>
+	
 </body>
 </html>
