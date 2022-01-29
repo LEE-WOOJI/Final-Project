@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mypage">
+	<select id="getUser" resultType="kh.spring.dto.MemberDTO">
+		select * from member
+		where seq =
+		#{value}
+	</select>
+	<select id="getUserChalList"
+		resultType="kh.spring.dto.JoinChalDTO">
+		select j.seq, j.refchalseq , j.refnickname ,
+		c.chalname , c.startdate , c.enddate , c.personnel ,
+		c.chalinfo , c.tag ,
+		c.chalstat
+		from joinchal j
+		inner join Member m on m.nickname
+		=j.refnickname
+		inner join chal c on c.chalseq = j.refchalseq
+		where
+		m.nickname = #{value}
+	</select>
+	<select id="getUserBoard" resultType="kh.spring.dto.BoardDTO">
+		select *
+		from board
+		where
+		board.nickname = #{value}
+	</select>
+	<select id="getUserBoardReply"
+		resultType="kh.spring.dto.BoardReplyDTO">
+		select *
+		from boardreply
+		where 
+		boardreply.writernickname = #{value}
+	</select>
+
+	<delete id="delete">
+		delete from member where seq = #{value}
+	</delete>
+</mapper>
