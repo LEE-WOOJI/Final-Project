@@ -208,4 +208,32 @@
 		update chalImg set oriName = #{oriName}, sysName =
 		#{sysName} where chalSeq = #{chalSeq}
 	</update>
+	
+	<!-- 유저 인증 관리 페이지에서 인증 개수 출력 -->
+	<select id = "getCertiCount" resultType = "int">
+		select count(*) from certi
+	</select>
+	
+	<!-- 인증 관리 페이지에서 인증 불러오기 -->
+	<select id = "selectCertiAll" resultType = "kh.spring.dto.CertiDTO">
+		select * from (select certi.*, row_number() over(order by seq desc) rn from certi) where rn between #{start} and #{end}
+	</select>
+	
+	<!-- 인증 관리 페이지에서 삭제하기 -->
+	<delete id = "certiDelete">
+		delete from certi where seq = #{value}
+	</delete>
+	
+	<!-- 관리자 페이지 인증 관리에서 검색 시 챌린지 수 출력 -->
+	<select id="getCertiCountSearch" resultType="int">
+		select count(*) from certi where ${select} like '%'||#{keyword}||'%'
+	</select>
+	
+	<!-- 관리자 페이지 인증 관리에서 검색 시 챌린지 목록 출력 -->
+	<select id="selectCertiAllSearch"
+		resultType="kh.spring.dto.CertiDTO">
+		select * from (select certi.*, row_number() over(order by seq desc) rn
+		from certi where ${select} like '%'||#{keyword}||'%')
+		where rn between #{start} and #{end}
+	</select>
 </mapper>

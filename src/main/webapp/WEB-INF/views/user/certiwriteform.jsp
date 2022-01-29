@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>챌린지 수정</title>
+<title>글피 인증</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -144,6 +144,7 @@ a {
 #title {
 	width: 50px;
 	height: 50px;
+	margin-bottom: 3px;
 }
 
 .search-bar {
@@ -311,15 +312,15 @@ label:hover {
 	<div class="container-fluid mt-100">
 		<div id="board-title"
 			style="font-family: 'yg-jalnan', verdana, tahoma;">
-			<img id="title" src="/assets/img/chal1.jpg">&ensp;<span>챌린지
-				등록</span>
+			<img id="title" src="/assets/img/certi1.jpg"><span>글피 인증</span>
 		</div>
 		<div class="img-box">
-			<img id="preview" class="img-profile" src="/image/chalModifyLoad?chalSeq=${list.chalSeq}"
+			<img id="preview" class="img-profile" src="/assets/img/certi2.jpg"
 				alt="">
 		</div>
 		<br>
-		<form action="/image/chalModify" method="post" enctype="multipart/form-data">
+		<form action="/image/certiWrite" method="post"
+			enctype="multipart/form-data">
 			<div class="container row"
 				style="float: none; margin: auto; font-family: 'yg-jalnan', verdana, tahoma;">
 				<label id="fileUpload">사진 선택<input type="file" name="file"
@@ -338,51 +339,26 @@ label:hover {
 							</div>
 						</div>
 					</div>
+					<input type="hidden" name="chalSeq" value="${list.chalSeq}">
+					<input type="hidden" name="chalName" value="${list.chalName}">
+					<input type="hidden" name="refNickname" value="${list.refNickname}">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
-							<input type=text id=input-title name=chalName
-								style="width: 100%;" placeholder="챌린지 이름을 입력하세요." value="${list.chalName}">
-						</div>
-					</div>
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<span style="font-family: 'yg-jalnan', verdana, tahoma;">시작일
-								: </span><input type="text" name="from" id="from" autocomplete="off"
-								style="width: 21%;" value="${list.startDate}"> <span
-								style="font-family: 'yg-jalnan', verdana, tahoma;">종료일 :
-							</span><input type="text" name="to" id="to" autocomplete="off"
-								style="width: 21%;" value="${list.endDate}">
-						</div>
-					</div>
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<span style="font-family: 'yg-jalnan', verdana, tahoma;">카테고리
-								: </span> <select name="category">
-								<option value="건강" <c:if test="${list.category eq '건강'}">selected</c:if>>건강</option>
-								<option value="취미" <c:if test="${list.category eq '취미'}">selected</c:if>>취미</option>
-								<option value="금융" <c:if test="${list.category eq '금융'}">selected</c:if>>금융</option>
-								<option value="공부" <c:if test="${list.category eq '공부'}">selected</c:if>>공부</option>
-								<option value="생활" <c:if test="${list.category eq '생활'}">selected</c:if>>생활</option>
-								<option value="펫/환경" <c:if test="${list.category eq '펫/환경'}">selected</c:if>>펫/환경</option>
-							</select>&ensp; <span style="font-family: 'yg-jalnan', verdana, tahoma;">태그
-								: </span> <input type="text" id="tag" name="tag"
-								placeholder="태그를 입력하세요."  value="${list.tag}"/>
+							<input type=text id=input-title name="certiTitle"
+								style="width: 100%;" placeholder="인증 제목을 입력하세요.">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea name="chalInfo" id="chalInfo"
+							<textarea name="chalInfo" id="certiContents"
 								style="min-height: 200px; overflow: hidden;"
-								placeholder="챌린지 정보를 입력하세요.">${list.chalInfo}</textarea>
+								placeholder="인증 내용을 입력하세요."></textarea>
 						</div>
 					</div>
-					<input type="hidden" value="10000" name="price"> <input
-						type="hidden" value="진행중" name="chalStat">
-						<input type="hidden" value="${list.chalSeq}" name="chalSeq"> <br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
 							<button type="button" id="chalList">목록으로</button>
-							<button id="complete">수정완료</button>
+							<button id="complete">작성완료</button>
 						</div>
 					</div>
 				</div>
@@ -391,51 +367,6 @@ label:hover {
 	</div>
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-
-	<script>
-		// 시작일 종료일 출력.
-		$(function() {
-			var dateFormat = "yy/mm/dd", from = $("#from").datepicker(
-					{
-						showMonthAfterYear : true, //연도,달 순서로 지정
-						changeMonth : true,//달 변경 지정
-						dateFormat : "yy/mm/dd",//날짜 포맷
-						dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ],//요일 이름 지정
-						monthNamesShort : [ "1", "2", "3", "4", "5", "6", "7",
-								"8", "9", "10", "11", "12" ],//월 이름 지정
-						minDate : 0
-					//오늘 이전 날짜를 선택할 수 없음
-					}).on("change", function() {
-				to.datepicker("option", "minDate", getDate(this));//종료일의 minDate 지정
-			}), to = $("#to").datepicker(
-					{
-						showMonthAfterYear : true,
-						changeMonth : true,
-						dateFormat : "yy/mm/dd",
-						dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ],
-						monthNamesShort : [ "1", "2", "3", "4", "5", "6", "7",
-								"8", "9", "10", "11", "12" ],
-						minDate : '+1D' //내일부터 선택가능, 지정형식 예(+1D +1M +1Y)
-					}).on("change", function() {
-				from.datepicker("option", "maxDate", getDate(this));//시작일의 maxDate 지정
-			});
-
-			function getDate(element) {
-				var date;
-				try {
-					date = $.datepicker.parseDate(dateFormat, element.value);
-					if (element.id == 'from') {
-						date.setDate(date.getDate() + 1);//종료일은 시작보다 하루 이후부터 지정할 수 있도록 설정
-					} else {
-						date.setDate(date.getDate() - 1);//시작일은 종료일보다 하루 전부터 지정할 수 있도록 설정
-					}
-				} catch (error) {
-					date = null;
-				}
-				return date;
-			}
-		});
-	</script>
 
 	<script>
 		// 사진 업로드시 변경.
@@ -457,12 +388,7 @@ label:hover {
 	<script>
 		// 목록으로가기.
 		$("#chalList").on("click", function() {
-			<c:if test="${select==''}">
-				location.href = "/admin/chal?cpage=${cpage}&select=${select}&keyword=${keyword}";
-			</c:if>
-			<c:if test="${select!=''}">
-				location.href = "/admin/chalSearch?cpage=${cpage}&select=${select}&keyword=${keyword}";
-			</c:if>
+			location.href = "/mypage/certi?chalSeq=${list.seq}&chalName=${list.chalName}&refNickname=${refNickname}";
 		})
 	</script>
 
@@ -470,26 +396,15 @@ label:hover {
 		// 작성완료 버튼 클릭 시.
 		$("#complete").on("click", function() {
 			if ($("#input-title").val() == "") {
-				alert("챌린지 이름을 입력하세요.");
+				alert("인증 제목을 입력하세요.");
 				return false;
 			}
 			if ($("#chalInfo").val() == "") {
-				alert("챌린지 정보를 입력하세요.");
+				alert("인증 내용을 입력하세요.");
 				return false;
 			}
-
-			if ($("#from").val() == "") {
-				alert("시작일을 선택하세요.");
-				return false;
-			}
-
-			if ($("#to").val() == "") {
-				alert("종료일을 선택하세요.");
-				return false;
-			}
-
-			if ($("#tag").val() == "") {
-				alert("태그를 입력하세요.");
+			if ($("#file").val() == "") {
+				alert("사진을 선택하세요.");
 				return false;
 			}
 		})

@@ -183,18 +183,18 @@ a:hover {
 							<div class="list-group list-group-flush">
 								<a href="/admin/userBlack" class="list-group-item py-1"><span
 									class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span>유저
-										블랙/탈퇴 관리</span></a> <a href="#" class="list-group-item py-1"><span
+										블랙/탈퇴 관리</span></a> <a href="/admin/userGrade" class="list-group-item py-1"><span
 									class="iconify" data-icon="icon-park-outline:gold-medal"
-									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="#"
+									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="/admin/userRefund"
 									class="list-group-item py-1"><span class="iconify"
 									data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-										환급</span></a> <a href="#" class="list-group-item py-1"><span
+										환급</span></a> <a href="/admin/certi?cpage=1" class="list-group-item py-1"><span
 									class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
-										챌린지 삭제 </span></a> <a href="#" class="list-group-item py-1"><span
-									class="iconify" data-icon="ant-design:folder-open-outlined"
-									data-width="25"></span>&ensp;<span>챌린지 관리</span></a> <a href="#"
+										인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
 									class="list-group-item py-1"><span class="iconify"
-									data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
+									data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>챌린지
+										관리</span></a> <a href="/admin/board?cpage=1" class="list-group-item py-1"><span
+									class="iconify" data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
 										관리</span></a>
 							</div>
 						</div>
@@ -280,7 +280,7 @@ a:hover {
 	<script type="text/javascript"
 		src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
-		$(".refundBtn").on("click",function(){
+		$(document).on("click",".refundBtn",function(e){
 			let result = confirm("환급을 완료시키겠습니까?");
 			if(!result){return false;}
 		})

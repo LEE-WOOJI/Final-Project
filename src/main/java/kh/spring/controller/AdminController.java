@@ -1,8 +1,8 @@
 package kh.spring.controller;
 
-import java.util.List;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import kh.spring.dto.AdminUtilsDTO;
 import kh.spring.dto.BoardDTO;
+import kh.spring.dto.CertiDTO;
 import kh.spring.dto.ChalDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.RefundDTO;
@@ -365,7 +366,58 @@ public class AdminController {
         String result = glist.toJson(list);
         return result;
 	}
+	
+	//유저 인증 관리
+	@RequestMapping("certi")
+	public String joinChal(Model model, int cpage)throws Exception{
+		//인증 개수 출력
+		int certiResult = aService.getCertiCount();
+		//인증 목록 출력
+		Map<String,String> map = aService.certiPageCheck(cpage);
+		int currentPage = Integer.parseInt(map.get("currentPage"));
+		int start = Integer.parseInt(map.get("start"));
+		int end = Integer.parseInt(map.get("end"));
+		
+		String navi = aService.getCertiPageNavi(currentPage);
+		List<CertiDTO> list = aService.selectCertiAll(start,end);
+		
+		
+		model.addAttribute("capage",cpage);
+		model.addAttribute("navi",navi);
+		model.addAttribute("list",list);
+		model.addAttribute("certiResult",certiResult);
 
+		return "/admin/adminCerti";
+	}
+	
+	//유저 인증 삭제
+	@RequestMapping("certiDelete")
+	public String certiDelete(Model model, int cpage, String select, String keyword, int[] checkbox) {
+		for(int i=0; i<checkbox.length; i++) {
+			aService.certiDelete(checkbox[i]);
+		}
+		model.addAttribute("cpage",cpage);
+		return "redirect:/admin/certi";
+	}
+	
+	//인증 관리에서 검색
+	@RequestMapping("certiSearch")
+	public String CertiSearch(Model model, int cpage, String select, String keyword) throws Exception{
+		Map<String,String> map = aService.certiPageCheck(cpage);
+		int currentPage = Integer.parseInt(map.get("currentPage"));
+		int start = Integer.parseInt(map.get("start"));
+		int end = Integer.parseInt(map.get("end"));
+		System.out.println(select + ":" + keyword);
+		String navi = aService.getCertiPageNaviSearch(currentPage, select, keyword);
+		List<CertiDTO> list = aService.selectCertiAllSearch(start,end,select,keyword);
+		model.addAttribute("cpage",cpage);
+		model.addAttribute("select",select);
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("navi",navi);
+		model.addAttribute("list",list);
+		return "/admin/adminCertiSearch";
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

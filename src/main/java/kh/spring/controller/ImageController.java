@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 
+import kh.spring.dto.CertiDTO;
+import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalDTO;
 import kh.spring.dto.ChalImgDTO;
 import kh.spring.dto.ProfileDTO;
 import kh.spring.service.AdminService;
 import kh.spring.service.BoardService;
+import kh.spring.service.MypageService;
 
 @Controller
 @RequestMapping("/image/")
@@ -39,6 +41,8 @@ public class ImageController {
 	BoardService bService;
 	@Autowired
 	AdminService aService;
+	@Autowired
+	MypageService mService;
 	@Autowired
 	private HttpSession session;
 
@@ -226,6 +230,51 @@ public class ImageController {
 			}	
 		}
 		return "redirect:/admin/chal?cpage=1";
+	}
+
+	@RequestMapping("certiWrite") // 인증 등록시 이미지 업로드.
+	public String certiWrite(CertiDTO dto, MultipartFile file[]) throws Exception {
+		// 인증 정보 등록.
+		int certiSeq = mService.insertCerti(dto);
+		for(MultipartFile mf : file) {
+			if(!file[0].isEmpty()) {
+				String realPath = session.getServletContext().getRealPath("files");
+
+				File realPathFile = new File(realPath);
+				if(!realPathFile.exists()) {
+					realPathFile.mkdir();	
+				}
+				String oriName = mf.getOriginalFilename();
+				String sysName = UUID.randomUUID()+"_"+oriName;
+				mf.transferTo(new File(realPath+"/"+sysName));
+				// 인증 이미지 등록.
+				mService.insertCertiImg(oriName,sysName,certiSeq);
+			}
+		}
+		return "/user/certi";
+	}
+
+	@RequestMapping("certiWriteLoad") // 인증 파일 이미지를 불러오기.
+	public void certiWriteLoad(int parentSeq, HttpServletResponse response) throws Exception {
+		// parentSeq로 CertiImg테이블의 imgName 찾기.
+		CertiImgDTO dto = mService.findCertiImgName(parentSeq);
+		String oriName = dto.getOriName();
+		String sysName = dto.getSysName();
+		String realPath = session.getServletContext().getRealPath("files");
+		File target = new File(realPath+"/"+sysName);
+
+		try(DataInputStream dis = new DataInputStream(new FileInputStream(target));
+				DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
+			byte[] fileContents = new byte[(int) target.length()];
+			dis.readFully(fileContents);
+
+			oriName = new String(oriName.getBytes("utf8"),"ISO-8859-1");
+			response.reset();
+			response.setHeader("Content-Disposition", "attachment; filename="+ oriName);
+
+			dos.write(fileContents);
+			dos.flush();
+		}
 	}
 
 	@ExceptionHandler(Exception.class)
