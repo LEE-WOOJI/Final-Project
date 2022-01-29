@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.AdminUtilsDTO;
+import kh.spring.dto.CertiDTO;
 import kh.spring.dto.ChalDTO;
 import kh.spring.dto.ChalImgDTO;
 
@@ -121,4 +122,40 @@ public class AdminDAO {
 		map.put("chalSeq", String.valueOf(chalSeq));
 		return mybatis.update("Admin.modifyChalImg",map);
 	}
+	
+	//관리자 인증관리 페이지에서 인증 수 출력
+	public int getCertiCount(){
+		return mybatis.selectOne("Admin.getCertiCount");
+	}
+	
+	// 관리자 페이지 인증 관리에서 챌린지 목록 출력.
+	public List<CertiDTO> selectCertiAll(int start, int end){
+		Map<String,String> map = new HashMap<>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		return mybatis.selectList("Admin.selectCertiAll",map);
+	}
+	
+	//관리자 페이지 인증 관리에서 삭제
+	public int certiDelete(int seq) {
+		return mybatis.update("Admin.certiDelete",seq);
+	}
+	
+	// 관리자 인증 관리에서 검색 시 챌린지 수 출력.
+	public int getCertiCountSearch(String select, String keyword) {
+		Map<String,String> map = new HashMap<>();
+		map.put("select", select);
+		map.put("keyword", keyword);
+		return mybatis.selectOne("Admin.getCertiCountSearch",map);
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 검색 시 챌린지 목록 출력.
+	public List<CertiDTO> selectCertiAllSearch(int start, int end, String select, String keyword){
+		Map<String,String> map = new HashMap<>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		map.put("select", select);
+		map.put("keyword", keyword);
+		return mybatis.selectList("Admin.selectCertiAllSearch",map);
+		}
 }
