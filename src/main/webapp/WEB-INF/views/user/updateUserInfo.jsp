@@ -39,22 +39,12 @@
 			<div class="col-md-10 col-lg-10">
 				<div class="login-wrap">
 					<div class="img"  id="image_container" img src="images/kakao_login.png"></div>
-					
-					
-
-
 					<h3 class="text-center mb-4">회원가입</h3>
 					
-					<form action="#" class="signup-form">
+					<form action="/mypage/update" class="signup-form" method="POST">
 						<div class="form-group col-lg-3 mb-3 ">
-							<input type="text" class="form-control" placeholder="아이디" name="id" id="id" style="width: 65%; display: inline-block;">
-							
-							
-								<button type="button" id="check" value="중복검사"
-									class="form-control btn btn-primary submit px-2"
-									style="text-align: center; width: 30%;">중복검사</button>
-								
-							
+							<input name="seq" type="hidden" value="${user.seq}">
+							<input type="text" class="form-control" readonly placeholder="${user.id }" name="id" id="id" style="width: 65%; display: inline-block;">
 							
 							<span id="checkResult"></span>
 						</div>
@@ -69,17 +59,17 @@
 						</div>
 						<div class="form-group col-lg-3 mb-3">
 							<input type="text" name="name" id="name" maxlength="3" class="form-control"
-								placeholder="이름">
+							readonly placeholder="${user.name}"/>
 
 						</div>
 						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="nickname" id="nickname" class="form-control" placeholder="닉네임">
+							<input type="text" name="nickname" id="nickname"class="form-control"  readonly placeholder="${user.nickname }">
 						</div>
 						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="phone" class="form-control" placeholder="연락처">
+							<input type="text" name="phone" class="form-control" placeholder="연락처" value="${user.phone}">
 						</div>
 						<div class="form-group col-lg-3 mb-3">
-							<input type="text" class="form-control" name="email" id="email" placeholder="이메일">
+							<input type="text" class="form-control" name="email" id="email" placeholder="이메일" value="${user.email}"/>
 						</div>
 						<div class="form-group col-lg-3 mb-3">
 							<input type="text" name=zipcode id=zipcode max="99999" maxlength="5" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"readonly class="form-control" placeholder="우편번호" style="width: 70%; display:inline-block;">
@@ -89,18 +79,16 @@
 							
 						</div>
 						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="address1" id="ad1" class="form-control" placeholder="주소" readonly>
+							<input type="text" name="address1" id="ad1" class="form-control" placeholder="${user.address1}" readonly>
 						</div>
 						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="address2" id="ad2" class="form-control" placeholder="상세주소">
+							<input type="text" name="address2" id="ad2" class="form-control" placeholder="상세주소" value="${user.address2}">
 						</div>
 						<div class="form-group col-lg-3 mb-3">
 							<button type="submit" class="form-control btn btn-primary submit px-3"
-								style="text-align: center;">가입완료</button>
+								style="text-align: center;">수정하기</button>
 						</div>
-
 					</form>
-					<p style="text-align: center;">이미 회원인가요? <a data-toggle="tab" href="#signin" style="color:  rgb(228, 72, 72);">로그인</a></p>
 				</div>
 			</div>
 		</div>

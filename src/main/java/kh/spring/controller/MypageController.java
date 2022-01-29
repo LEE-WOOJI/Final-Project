@@ -1,16 +1,21 @@
 package kh.spring.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dto.BoardDTO;
 import kh.spring.dto.BoardReplyDTO;
@@ -27,18 +32,17 @@ import kh.spring.service.UserService;
 public class MypageController {
 
 	@Autowired
-	ChalingService chservice; 
-	@Autowired
 	MypageService memberService;
 	@Autowired
 	BoardReplyService brService;
 
+	@Autowired
+	private HttpSession session;
 	//회원 마이페이지 홈
 	@RequestMapping("info")
 	public String mypage(Model model ,int seq, HttpServletRequest request) {
 		MemberDTO memberDTO = memberService.selectBySeq(seq);
 		model.addAttribute("user",memberDTO);
-		System.out.print(memberDTO.toString());
 		return "user/mypage";
 
 	}
@@ -80,7 +84,46 @@ public class MypageController {
 		model.addAttribute("user",memberDTO);
 		return "user/updateUserInfo";
 	}
+
+	@RequestMapping("update")
+	public String update(HttpServletRequest httpServletRequest,Model model) {
+		int seq = Integer.parseInt(httpServletRequest.getParameter("seq"));
+		String phone = httpServletRequest.getParameter("phone");
+		String email = httpServletRequest.getParameter("email");
+		String address1 = httpServletRequest.getParameter("address1");
+		String address2 = httpServletRequest.getParameter("address2");
+		String pw = httpServletRequest.getParameter("pw");
+		MemberDTO memberDTO = memberService.selectBySeq(seq);
+		memberDTO.setPhone(phone);
+		memberDTO.setEmail(email);
+		memberDTO.setAddress1(address1);
+		memberDTO.setAddress2(address2);
+		memberDTO.setPw(pw);
+		model.addAttribute("user",memberDTO);
+		memberService.update(memberDTO);
+		return "user/mypage";
+	}
 	
+	@RequestMapping("updateUserProfile")
+	public String updateUserProfile(Model model, int seq) {
+		MemberDTO memberDTO = memberService.selectBySeq(seq);
+		model.addAttribute("user",memberDTO);
+		return "user/updateProfile";
+	}
+	
+	@RequestMapping("updateUserProfileAction")
+	public String updateUserProfileAction(Model model,HttpServletRequest httpServletRequest, @RequestParam("file") MultipartFile file) throws IOException {
+		int seq = Integer.parseInt(httpServletRequest.getParameter("seq"));
+		String realPath = session.getServletContext().getRealPath("files");
+		System.out.print(realPath);
+		String filename ="ssh.png";
+//		FileCopyUtils.copy(file.getBytes(), new File(realPath+"/"+filename));
+		File f = new File(realPath+"/"+filename);
+		MemberDTO memberDTO = memberService.selectBySeq(seq);
+		model.addAttribute("user",memberDTO);
+		return "user/updateProfile";
+	}
+
 	@RequestMapping("delete")
 	public String deleteUser(int seq) {
 		memberService.delete(seq);

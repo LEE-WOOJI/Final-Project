@@ -631,7 +631,7 @@ body{
                     <div class="user-info">
                         <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
                         <ul class="meta list list-unstyled">
-                            <li class="name">Rebecca Sanders
+                            <li class="name">${user.name }
                                 <label class="label label-info">등급</label>
                             </li>
                             <li class="email"><a href="#">${user.email }</a></li>
@@ -663,8 +663,11 @@ body{
                     		     <div class="drive-item module text-center">
                                 <div class="drive-item-inner module-inner">
                                     <div class="drive-item-title">${item.chalName }<a href="#">${item.chalStat }</a></div>
+                                    <button>인증</button>
+                                    <button>보기</button>
                                     <div class="drive-item-thumb">
-                                        <a href="#"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""></a>
+                                    <!-- 임의로작성 certicontroller 주소몰라서 -->
+                                        <a href="/chaing/certi?chalSeq=${item.seq}&chalName=${item.chalName}&refNickName=${user.nickName}"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="drive-item-footer module-footer">

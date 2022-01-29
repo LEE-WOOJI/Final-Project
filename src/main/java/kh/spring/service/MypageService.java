@@ -33,4 +33,7 @@ public class MypageService {
 	public List<BoardReplyDTO> getUserBoardReply(String writernickname){
 		return mypageDAO.getUserBoardReply(writernickname);
 	}
+	public int update(MemberDTO memberDTO) {
+		return mypageDAO.update(memberDTO);
+	}
 }

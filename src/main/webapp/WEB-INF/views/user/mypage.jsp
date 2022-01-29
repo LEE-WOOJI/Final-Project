@@ -592,14 +592,14 @@ body{
                     </div>
                     <nav class="side-menu">
                         <ul class="nav">
-                            <li><a href="/mypage/userinfo"><span class="fa fa-user"></span>내정보</a></li>
+                            <li><a href="/mypage/updateUserInfo"><span class="fa fa-user"></span>내정보</a></li>
                             <li><a href="/mypage/chaling"><span class="fa fa-chaling"></span>도전중인글피</a></li>
                             <li><a href="/mypage/myBoardReply"><span class="fa fa-myboard"></span>작성한 글 / 댓글</a></li>
                             <li><a href="/mypage/delete"><span class="userdelete"></span>회원탈퇴</a></li>
                         </ul>
                     </nav>
             </div>
-        </section>
+       </section>
     </div>
 </div>
 </body>

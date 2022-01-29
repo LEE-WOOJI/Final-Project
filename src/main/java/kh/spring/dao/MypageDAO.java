@@ -33,4 +33,7 @@ public class MypageDAO {
 	public List<BoardReplyDTO> getUserBoardReply(String writernickname){
 		return mybatis.selectList("Mypage.getUserBoardReply",writernickname);
 	}
-}	
+	public int update(MemberDTO memberDTO) {
+		return mybatis.update("Mypage.updateUserInfo",memberDTO);
+	}
+}

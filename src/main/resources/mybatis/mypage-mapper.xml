@@ -35,6 +35,10 @@
 		where 
 		boardreply.writernickname = #{value}
 	</select>
+	<update id="updateUserInfo" parameterType="kh.spring.dto.MemberDTO">
+		update member set pw =#{pw}, email=#{email}, address1=#{address1}, address2=#{address2}, phone=#{phone}
+		where seq= #{seq}
+	</update>
 
 	<delete id="delete">
 		delete from member where seq = #{value}
