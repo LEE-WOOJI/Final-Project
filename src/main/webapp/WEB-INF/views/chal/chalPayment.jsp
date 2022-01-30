@@ -27,17 +27,17 @@
 </head>
 <body>
 	<!-- 비회원일경우 로그인페이지로 돌아가기 -->
-	<!--<c:if test="${loginID == null }">
+	<c:if test="${loginId == null }">
 		<script>
 			alert("로그인 후 참여가능합니다.");
 			location.href = "/user/login";
 		</script>
-	</c:if>-->
+	</c:if>
 	
 	
 	<form id=frm method="post" action="/chal/chalOut">
 		<input type=hidden value="${dto.chalSeq}" name="refChalSeq">
-		<input type=hidden value="주영이" name="nickname">	
+		<input type=hidden value="${member.nickname}" name="nickname">	
 		<input type=hidden value="${dto.chalName}" name="chalName">
 		<input type=hidden value="${dto.startDate}" name="startDate">	
 		<input type=hidden value="${dto.endDate}" name="endDate">
@@ -56,7 +56,7 @@
 				
 					<input type=hidden value="${dto.chalSeq}" name="chalSeq" id=chalSeq>
 					<!-- 대표 이미지 -->
-					<img class="card-img-top mb-5 mb-md-0" src="${dto.oriName}" alt="..." id="img"/ >
+					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="">
 				</div>
 				<!-- 글피 이름 -->
 				<h4 class="heading" style="font-family: 'yg-jalnan', verdana, tahoma; font-size: 30px;">${dto.chalName }</h4>
@@ -161,7 +161,7 @@ $(document).ready(function(){
 				pay_method: 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
 				name : '${dto.chalName }', // 상품명
-				amount : 100,
+				amount : 10000,
 				buyer_email :'${member.email}',
 				buyer_name : '${member.name}',
 				buyer_tel : '${member.phone}',  //필수항목
