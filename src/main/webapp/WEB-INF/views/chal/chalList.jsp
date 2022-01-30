@@ -94,7 +94,9 @@
 		                           		${list.chalName}
 		                           </a>
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        <button class=heart>
+		                        	<img src="/assets/img/heart.png" alt="" id=heart>
+		                     	</button>
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -214,6 +216,39 @@
    				
    			})
    		});
-		
+   </script>
+   <script>
+   		$(document).ready(function(){
+   			// 좋아요가 있는지 확인한 값을 heartval에 저장
+   			var heartval = ${heart.heart}
+   			// heartval이 1이면 좋아요가 이미 되있는것이므로 heartOn.png를 출력하는 코드
+   			if(heartval>0){
+   				console.log(heartval);
+   				$("#heart").prop("src","/resources/assets/img/heartOn.png");
+   				$(".heart").prop("name",heartval);
+   			}else{
+   				console.log(heartval);
+   				$("#heart").prop("src","/resources/assets/img/heart.png");
+   				$(".heart").prop("name",heartval);
+   			}
+   		
+   		// 좋아요 버튼을 클릭 시 실행되는 코드
+   		$(".heart").on("click",function(){
+   			var that = $(".heart");
+   			$.ajax({
+   				url : "/heart/fill",
+   				type : "post",
+   				data : {"seq":${dto.seq}, "refChalSeq":${sessionScope.login}},
+   				success : function(data){
+   					that.prop("name",data);
+   					if(data==1){
+   						$("#heart").prop("src","/resources/assets/img/heartOn.png");
+   					}else{
+   						$("#heart").prop("src","/resources/assets/img/heart.png");
+   					}
+   				}
+   			});
+   		});
+   	});
    </script>
 </html>
