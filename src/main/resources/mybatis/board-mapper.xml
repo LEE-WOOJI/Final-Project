@@ -9,7 +9,7 @@
 		<!--<selectKey keyProperty="seq" order="BEFORE" resultType="int"> select 
 			board_seq.nextval from dual </selectKey> -->
 		insert into board values(board_seq.nextval, #{title}, #{contents},
-		#{nickname}, default, sysdate)
+		#{nickname}, 0, sysdate)
 	</insert>
 	
 	<!-- 게시글 목록 -->
