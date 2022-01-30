@@ -43,16 +43,39 @@ public class MemberDAO {
 		
 		return mybatis.selectOne("Member.isPWExist", map);
 	}
-	//회원가입 성공
-	public void insertMember(MemberDTO dto) {
-		mybatis.insert("Member.insertMember",dto);
+	//이메일 중복체크
+	public MemberDTO isEMAILExist(String email) {
+		Map<String,String> map = new HashMap<>();
+		map.put("email", email);
+		
+		return mybatis.selectOne("Member.isEMAILExist", map);
 	}
+	//회원가입 성공
+	public int insertMember(MemberDTO dto) {
+		return mybatis.insert("Member.insertMember",dto);
+	}
+	//회원가입 시 이미지 저장
+	public int insertMemberImg(String oriName, String sysName,int memberSeq) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("oriName  ", oriName);
+		map.put("sysName"  , sysName);
+		map.put("memberSeq", String.valueOf(memberSeq));
+		return mybatis.insert("Member.insertMemberImg",map);
+	}
+		
 	//닉네임 중복체크
 	public MemberDTO isNICExist(String nickname) {
 		Map<String,String> map = new HashMap<>();
 		map.put("nickname", nickname);
 		
 		return mybatis.selectOne("Member.isNICExist", map);
+	}
+	//비밀번호 찾기
+	public MemberDTO searchPw(String id) {
+		Map<String,String> map = new HashMap<>();
+		map.put("id", id);
+		
+		return mybatis.selectOne("Member.searchPw", map);
 	}
 	
 	
@@ -68,9 +91,13 @@ public class MemberDAO {
 		return mybatis.insert("Member.kakaoInsert", map);
             
         }
+	//임시 비밀 번호 저장
+	public void updateTempPassword(MemberDTO dto) {
+		mybatis.update("Member.updateTempPassword",dto);
+	}
 	
 	
-
+	
 //	// 게시판 목록 출력.
 //	public List<BoardDTO> selectAll(int start, int end){
 //		Map<String,String> map = new HashMap<>();

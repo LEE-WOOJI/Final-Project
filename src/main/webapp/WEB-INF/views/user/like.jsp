@@ -42,7 +42,7 @@ body {
 
 .fm-file-box {
 	font-size: 25px;
-	background: #e9ecef;
+	background: #e9ecef; 
 	width: 44px;
 	height: 44px;
 	display: flex;

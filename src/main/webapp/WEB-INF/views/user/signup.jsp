@@ -4,15 +4,19 @@
 <html lang="en">
 
 <head>
-	<title>회원가입</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/css/signup.css">
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
+<title>회원가입</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/signup.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
 	var confirmId = ""; // 중복확인 후 전역변수에 확인한 ID 대입.
 	$(function() {
 		
@@ -97,6 +101,59 @@
 			})
 		});
 	})
+	
+	var confirmEmail = ""; // 중복확인 후 전역변수에 확인한 이메일 대입.	
+	$(function() {
+		
+		$("#emailcheck").on("click", function() {
+			if ($("#email").val() == '') {
+				alert("이메일를 입력하세요.");
+				$("#email").focus();
+				return false;
+			}
+			
+			$.ajax({
+				url : "/user/emailcheck",
+				data : {
+					email : $("#email").val()
+				}
+			}).done(function(resp) {
+				if (resp == "true") {
+					$("#emailcheckResult").css("color", "red")
+					$("#emailcheckResult").css("font-size", "12px")
+					$("#emailcheckResult").text("이미사용중인 이메일 입니다.")
+					confirmEmail = ""; // 중복되면 이메일 제거
+				} else {
+					$("#emailcheckResult").css("color", "#5daf5d")
+					$("#emailcheckResult").css("font-size", "12px")
+					$("#emailcheckResult").text("사용가능한 이메일 입니다.")
+					confirmEmail = $("#email").val(); // 중복되지 않으면 이메일 저장.
+					
+				}
+				
+			})
+		});
+	})
+	$(document).ready(function() {
+	    var readURL = function(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	
+	            reader.onload = function (e) {
+	                $('.profile-pic').attr('src', e.target.result);
+	            }
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+	
+	    $(".file-upload").on('change', function(){
+	        readURL(this);
+	    });
+	    
+	    $(".upload-button").on('click', function() {
+	       $(".file-upload").click();
+	    });
+	});
 	//회원가입 시 필수 값 체크
 	function validation() {
 		if ($("#id").val() == '') {
@@ -256,84 +313,124 @@
 		}
 	</script>
 
-	<style type="text/css">@font-face {
-		font-family: 'yg-jalnan';
-		src:
-			url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
-			format('woff');
-		font-weight: normal;
-		font-style: normal;
-	}
-	*{font-family: 'yg-jalnan', verdana, tahoma;}
-	</style>
+<style type="text/css">
+@font-face {
+	font-family: 'yg-jalnan';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+</style>
 
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 	<section class="ftco-section">
 		<div class="container">
-			<div class="col-md-6 text-center mb-5">
+			<div class="col-md-6 text-center mb-5"></div>
+		</div>
+		<form action="signproc" class="signup-form"
+			onsubmit="return validation()" method="post" enctype="multipart/form-data">
+		<div class="row">
+			<div class="small-12 medium-2 large-2 columns"
+				style="text-align: center">
+				<div class="circle">
+					<img class="profile-pic"
+						style="width: 300px; height: 300px; border-radius: 50%;"
+						src="/assets/img/디폴트이미지.jpg">
 
+				</div>
+
+				<div class="p-image">
+					<i class="fa fa-camera upload-button"></i> 
+					<!-- <input class="file-upload" type="file" accept="image/*" style="width: 220px" > -->
+					<label id="fileUpload">사진 선택<input type="file" name="file" accept="image/*" class="file-upload"
+						id="file" accept="jpg,jpeg,png" style="display: none;">
+					</label>
+				</div>
 			</div>
 		</div>
-		<div class="row justify-content-center">
-			<div class="col-md-10 col-lg-10">
-				<div class="login-wrap">
-					<div class="img"  id="image_container" img src="assets/img/signupsample.png"></div>
-					<h3 class="text-center mb-4">회원가입</h3>
-					
-					<form action="signproc" class="signup-form" onsubmit="return validation()" method="post">
-						<div class="form-group col-lg-3 mb-3 ">
-							<input type="text" class="form-control" placeholder="아이디" name="id" id="id" maxlength="12" style="width: 65%; display: inline-block;">
-								<button type="button" id="check" value="중복검사"
-									class="form-control btn btn-primary submit px-2"
-									style="text-align: center; width: 30%;">중복검사</button>
-									<span id="checkResult"></span>
-						</div>
-						
-						<div class="form-group col-lg-3 mb-3">
-							<input type="password" name="pw" id="ps" class="form-control" placeholder="비밀번호 특수문자 포함 8~20자리" onblur="pwcheck(this);">
-							<span id="pwcheck1" style="color: red;"></span>
-						</div>
-						
-						
-						<div class="form-group col-lg-3 mb-3">
-							<input type="password" id="reps" class="form-control" placeholder="비밀번호 확인" onblur="pwcheck(this);">
-							<span id="pwcheck2" style="color: red;"></span>
-						</div>
-						
-						
-						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="name" id="name" maxlength="4" class="form-control"
-								placeholder="이름">
+		&nbsp;
+		&nbsp;
+		<h3 class="text-center mb-4">회원가입</h3>
 
-						</div>
-						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="nickname" id="nickname" maxlength="10" class="form-control" placeholder="닉네임" style="width: 65%; display: inline-block;">
-							<button type="button" id="niccheck" value="중복검사"
-									class="form-control btn btn-primary submit px-2"
-									style="text-align: center; width: 30%;">중복검사</button>
-									<span id="niccheckResult"></span>
-						</div>
-						
-						
-						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="phone" id="phone" max="9999" maxlength="11" size="28" onKeyup="this.value=this.value.replace(/[^0-9]/g,'')" class="form-control" placeholder="연락처 ex) - 없이 숫자로만 입력해주세요">
-						</div>
-						
-						
-						<div class="form-group col-lg-3 mb-3">
-							<input type="text" class="form-control" name="email" id="email" placeholder="이메일 ex) glorytrophy@gmail.com">
-						</div>
-						
-						
-						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name=zipcode id=zipcode max="99999" maxlength="5" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"readonly class="form-control" placeholder="우편번호" style="width: 70%; display:inline-block;">
-							
-								<button type="button" value="우편번호찾기" id="ad" class="form-control btn btn-primary submit px-3"
-									style="text-align: center; width: 26%;">찾기</input>
-									<script>
+			<div class="form-group col-lg-3 mb-3 ">
+				<input type="text" class="form-control" placeholder="아이디" name="id"
+					id="id" maxlength="12"
+					style="width: 69%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+				<button type="button" id="check" value="중복검사"
+					class="form-control btn btn-primary submit px-2"
+					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
+				<span id="checkResult"></span>
+			</div>
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="password" name="pw" id="ps" class="form-control"
+					placeholder="비밀번호 특수문자 포함 8~20자리" onblur="pwcheck(this);"
+					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"> <span
+					id="pwcheck1" style="color: red;"></span>
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="password" id="reps" class="form-control"
+					placeholder="비밀번호 확인" onblur="pwcheck(this);"
+					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"> <span
+					id="pwcheck2" style="color: red;"></span>
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="name" id="name" maxlength="4"
+					class="form-control" placeholder="이름"
+					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="nickname" id="nickname" maxlength="10"
+					class="form-control" placeholder="닉네임"
+					style="width: 69%;font-size: smaller; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+				<button type="button" id="niccheck" value="중복검사"
+					class="form-control btn btn-primary submit px-2"
+					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
+				<span id="niccheckResult"></span>
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="phone" id="phone" max="9999" maxlength="11"
+					size="28" onKeyup="this.value=this.value.replace(/[^0-9]/g,'')"
+					class="form-control" placeholder="연락처 ex) - 없이 숫자로만 입력해주세요"
+					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" class="form-control" name="email" id="email"
+					placeholder="이메일 ex) glorytrophy@gmail.com"
+					style="width: 69%;display: inline-block;font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+				<button type="button" id="emailcheck" value="중복검사"
+					class="form-control btn btn-primary submit px-2"
+					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
+				<span id="emailcheckResult"></span>
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name=zipcode id=zipcode max="99999" maxlength="5"
+					onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" readonly
+					class="form-control" placeholder="우편번호"
+					style="font-size: smaller;width: 70%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+
+				<button type="button" value="우편번호찾기" id="ad"
+					class="form-control btn btn-primary submit px-3"
+					style="text-align: center; width: 26%; font-family: 'yg-jalnan', verdana, tahoma;">
+					찾기</input>
+					<script>
 									//카카오 api 우편번호 검색 
 									document.getElementById("ad").onclick = function(){
 									      new daum.Postcode({
@@ -346,23 +443,31 @@
 									           }).open();
 									}
 									</script>
-							
-						</div>
-						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="address1" id="ad1" class="form-control" placeholder="주소" readonly>
-						</div>
-						<div class="form-group col-lg-3 mb-3">
-							<input type="text" name="address2" id="ad2" class="form-control" placeholder="상세주소">
-						</div>
-						<div class="form-group col-lg-3 mb-3">
-							<input type="submit" value="가입완료" id="regi" class="form-control btn btn-primary submit px-3" style="text-align: center;" />
-							
-						</div>
-
-					</form>
-					<p style="text-align: center;">이미 회원인가요? <a href="/user/loginform" style="color:  rgb(228, 72, 72);">로그인</a></p>
-				</div>
 			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="address1" id="ad1" class="form-control"
+					placeholder="주소" style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"
+					readonly>
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="address2" id="ad2" class="form-control"
+					placeholder="상세주소"
+					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="submit" value="가입완료" id="regi"
+					class="form-control btn btn-primary submit px-3"
+					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
+
+			</div>
+
+		</form>
+		<p style="text-align: center;">
+			이미 회원인가요? <a href="/user/loginform"
+				style="color: rgb(228, 72, 72); font-family: 'yg-jalnan', verdana, tahoma;">로그인</a>
+		</p>
+		</div>
+		</div>
 		</div>
 		</div>
 	</section>
