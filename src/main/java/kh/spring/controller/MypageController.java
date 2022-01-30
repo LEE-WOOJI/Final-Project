@@ -108,6 +108,7 @@ public class MypageController {
 		List<ChalDTO> blist =  cservice.myChalListB(nickname);
 		List<ChalDTO> plist =  cservice.myChalListP(nickname);
 		List<ChalDTO> flist =  cservice.myChalListF(nickname);
+		model.addAttribute("nickname",nickname);
 		model.addAttribute("blist",blist);
 		model.addAttribute("plist",plist);
 		model.addAttribute("flist",flist);
@@ -132,6 +133,7 @@ public class MypageController {
 		String nickname = (String)session.getAttribute("writerNickname");
 		List<BoardDTO> boardList = memberService.getUserBoard(nickname);
 		List<BoardReplyDTO> boardReplyList = memberService.getUserBoardReply(nickname);
+		model.addAttribute("nickname",nickname);
 		model.addAttribute("blist", boardList);
 		model.addAttribute("rlist", boardReplyList);
 		return "/user/mypageBoard";
