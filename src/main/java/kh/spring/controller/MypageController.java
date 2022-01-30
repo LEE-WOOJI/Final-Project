@@ -153,9 +153,10 @@ public class MypageController {
 	}
 
 	@RequestMapping("certi") // 인증 상세목록으로 이동.
-	public String certi(Model model, int chalSeq, String chalName, String refNickname) {
+	public String certi(Model model, int chalSeq, String chalName) {
+		String nickname = (String)session.getAttribute("writerNickname");
 		// 인증한 목록 출력.
-		List<CertiDTO> list = mService.findCertiList(chalSeq, chalName, refNickname);
+		List<CertiDTO> list = mService.findCertiList(chalSeq, chalName, nickname);
 		model.addAttribute("list",list);
 		return "/user/certi";
 	}

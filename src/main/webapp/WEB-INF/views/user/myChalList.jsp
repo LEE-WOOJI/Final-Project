@@ -223,7 +223,7 @@ a:hover {
 								<div class="col-2" style="padding: 0px;">${list.endDate}</div>
 								<div class="col-2" style="padding: 0px;">
 									<a
-										href="#인증"
+										href="/mypage/certi?chalSeq=${list.chalSeq }&chalName=${list.chalName}"
 										style="text-decoration-line: none;"> <input type="button"
 										value="인증" class="btn certi"
 										style="background-color: #f8d2cd;">
