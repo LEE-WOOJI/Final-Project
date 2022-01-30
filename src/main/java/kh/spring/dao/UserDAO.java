@@ -81,5 +81,4 @@ public class UserDAO {
 		return mybatis.selectOne("User.userSearchCount", map);
 	}
 	
-	
 }

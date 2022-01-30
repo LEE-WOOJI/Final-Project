@@ -52,7 +52,7 @@
 							<form action="/user/login" class="signin-form" method="post">
 			      		<div class="form-group mb-3" >
 			      			<label class="label" for="name" style="font-family: 'yg-jalnan', verdana, tahoma;">아이디</label>
-			      			<input type="text" name="id"class="form-control" placeholder="Username" required>
+			      			<input type="text" id="id"  name="id"class="form-control" placeholder="Username" required>
 			      		</div>
 		            <div class="form-group mb-3">
 		            	<label class="label" for="password" style="font-family: 'yg-jalnan', verdana, tahoma;">비밀번호</label>
@@ -75,8 +75,11 @@
 									  <span class="checkmark"></span>
 										</label>
 									</div>
+								
 									<div class="w-50 text-md-right">
-										<a href="#" style="font-family: 'yg-jalnan', verdana, tahoma;">비밀번호 찾기</a>
+										<a href="javascript:searchID()" style="font-family: 'yg-jalnan', verdana, tahoma;" >아이디 찾기</a>
+										&nbsp;
+										<a href="javascript:searchPw()" style="font-family: 'yg-jalnan', verdana, tahoma;">비밀번호 찾기</a>
 									</div>
 		            </div>
 		          </form>
@@ -122,7 +125,61 @@
 			},
 		})
 	}
+	//아이디 찾기
+	var ingSearchID = false;
+	function searchID() {
+		if(ingSearchID){
+			alert("전송중입니다. 잠시만 기다려주세요.")
+			return false;
+		}
+		ingSearchID = true;
+		if ($("#email").val() == '') {
+			alert("Email 를 입력하세요.");
+			$("#email").focus();
+			return false;
+		}
+		$.ajax({
+			url : "/user/searchID",
+			data : {
+				email : $("#email").val()
+			}
+		}).done(function(resp) {
+			if (resp == true) {
+				alert("아이디가 전송되었습니다.")
+			} else {
+				alert("전송에 실패했습니다 이메일를 확인해주세요.")
+			}
+			ingSearchID = false;
+		})
+	}
 	
+	//비밀번호 찾기
+	var ingSearchPw = false;
+	function searchPw() {
+		if(ingSearchPw){
+			alert("전송중입니다. 잠시만 기다려주세요.")
+			return false;
+		}
+		ingSearchPw = true;
+		if ($("#id").val() == '') {
+			alert("ID 를 입력하세요.");
+			$("#id").focus();
+			return false;
+		}
+		$.ajax({
+			url : "/user/searchPw",
+			data : {
+				id : $("#id").val()
+			}
+		}).done(function(resp) {
+			if (resp == true) {
+				alert("임시비밀번호가 전송되었습니다.")
+			} else {
+				alert("전송에 실패했습니다 아아디를 확인해주세요.")
+			}
+			ingSearchPw = false;
+		})
+	}
 
 	
 	

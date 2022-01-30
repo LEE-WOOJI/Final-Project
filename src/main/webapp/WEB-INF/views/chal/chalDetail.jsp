@@ -214,7 +214,7 @@ opacity
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="col-md-6">
-					<img class="card-img-top mb-5 mb-md-0" src="${dto.oriName}" alt="..." name="" />
+					<img class="card-img-top mb-5 mb-md-0" src="/image/chalModifyLoad?chalSeq=${seq}" alt="" />
 				</div>
 				<div class="col-md-6">
 					<div class="chalTag" style="margin: 20px 0px 20px;">

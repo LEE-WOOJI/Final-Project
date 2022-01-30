@@ -36,22 +36,24 @@ public class MypageService {
 	public List<BoardReplyDTO> getUserBoardReply(String writernickname){
 		return mypageDAO.getUserBoardReply(writernickname);
 	}
-
+	public int update(MemberDTO memberDTO) {
+		return mypageDAO.update(memberDTO);
+	}
 	// 인증 등록.
 	public int insertCerti(CertiDTO dto) throws ParseException {
 		return mypageDAO.insertCerti(dto);
 	}
-	
+
 	// 인증 이미지 등록.
 	public int insertCertiImg(String oriName, String sysName,int certiSeq) {
 		return mypageDAO.insertCertiImg(oriName, sysName, certiSeq);
 	}
-	
+
 	// 인증 이미지 불러오기.
 	public CertiImgDTO findCertiImgName(int parentSeq) {
 		return mypageDAO.findCertiImgName(parentSeq);
 	}
-	
+
 	// 인증한 목록 출력.
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {
 		return mypageDAO.findCertiList(chalSeq,chalName,refNickname);

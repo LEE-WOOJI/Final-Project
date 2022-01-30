@@ -85,7 +85,7 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
-		                        	<img src=${list.sysName} alt="">
+		                        	<img src="/image/chalModifyLoad?chalSeq=${list.chalSeq}" alt="">
 		                        </a>
 		                     </div>
 		                     <div class="detail-box">
@@ -94,7 +94,9 @@
 		                           		${list.chalName}
 		                           </a>
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        <button class=heart>
+		                        	<img src="/assets/img/heart.png" alt="" id=heart>
+		                     	</button>
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -205,13 +207,48 @@
 		                     </div>
 		                  </div>
            		</div>`;
-           		if (result[i].chalSeq > 20) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
- 	              $("#more").css("display","none");
- 	            }
-   				}$(content).appendTo("#listLine");
+           		
+   				}
+   				if (result.length < 6) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
+     	              $("#more").css("display","none");
+     	            }
+   				$(content).appendTo("#listLine");
    				
    			})
    		});
-		
+   </script>
+   <script>
+   		$(document).ready(function(){
+   			// 좋아요가 있는지 확인한 값을 heartval에 저장
+   			var heartval = ${heart.heart}
+   			// heartval이 1이면 좋아요가 이미 되있는것이므로 heartOn.png를 출력하는 코드
+   			if(heartval>0){
+   				console.log(heartval);
+   				$("#heart").prop("src","/resources/assets/img/heartOn.png");
+   				$(".heart").prop("name",heartval);
+   			}else{
+   				console.log(heartval);
+   				$("#heart").prop("src","/resources/assets/img/heart.png");
+   				$(".heart").prop("name",heartval);
+   			}
+   		
+   		// 좋아요 버튼을 클릭 시 실행되는 코드
+   		$(".heart").on("click",function(){
+   			var that = $(".heart");
+   			$.ajax({
+   				url : "/heart/fill",
+   				type : "post",
+   				data : {"seq":${dto.seq}, "refChalSeq":${sessionScope.login}},
+   				success : function(data){
+   					that.prop("name",data);
+   					if(data==1){
+   						$("#heart").prop("src","/resources/assets/img/heartOn.png");
+   					}else{
+   						$("#heart").prop("src","/resources/assets/img/heart.png");
+   					}
+   				}
+   			});
+   		});
+   	});
    </script>
 </html>

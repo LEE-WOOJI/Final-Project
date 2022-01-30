@@ -25,6 +25,12 @@
 			from member
 			where nickname = #{nickname}
 	</select>
+		<!-- 이메일 중복체크 -->
+	<select id="isEMAILExist" resultType="kh.spring.dto.MemberDTO">
+		select *
+			from member
+			where email = #{email}
+	</select>
 	
 	<!-- 회원가입  -->
 	<insert id="insertMember" parameterType="kh.spring.dto.MemberDTO">
@@ -65,6 +71,10 @@
 			, #{address2    , jdbcType=VARCHAR}
 			, sysdate
 		)
+		<selectKey resultType="int" order="AFTER"
+			keyProperty="memberSeq">
+			select member_seq.currval from dual
+		</selectKey>
 	</insert>
 		<!-- 카카오 회원가입 -->
 	<insert id="kakaoInsert" parameterType="kh.spring.dto.MemberDTO">
@@ -88,8 +98,30 @@
 			, 'bronze'
 	)
 	</insert>
+		<!-- 임시비밀번호 저장 -->
+	<update id="updateTempPassword" parameterType="kh.spring.dto.MemberDTO">
+	UPDATE member
+	   set pw = #{pw          , jdbcType=VARCHAR}
+	 where id = #{id          , jdbcType=VARCHAR}
+	</update>
 	
-	<!--  -->
+
+
+	<!-- 관리자 페이지 챌린지 관리에서 챌린지 등록시 이미지 업로드 -->
+	<insert id="insertMemberImg">
+		INSERT INTO profile (
+		    seq,
+		    parentseq,
+		    oriname,
+		    sysname
+		) VALUES (
+		    profile_seq.nextval,
+		    #{memberSeq       , jdbcType=INTEGER},
+		    #{oriName         , jdbcType=VARCHAR},
+		    #{sysName         , jdbcType=VARCHAR}
+		)
+	</insert>
+
 	
 	
 </mapper>

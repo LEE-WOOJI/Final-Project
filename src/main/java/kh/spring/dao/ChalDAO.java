@@ -102,4 +102,19 @@ public class ChalDAO {
 	public ChalDTO chalInfo(int chalSeq) {
 		return mybatis.selectOne("Chal.chalInfo", chalSeq);
 	}
+	
+	//어떤 유저가 과거에 참여한 챌린지 조회
+	public List<ChalDTO> myChalListB(String nickname){
+		return mybatis.selectList("Chal.myChalListB", nickname);
+	}
+	
+	//어떤 유저가 참여하고 있는 챌린지 조회
+	public List<ChalDTO> myChalListP(String nickname){
+		return mybatis.selectList("Chal.myChalListP", nickname);
+	}
+		
+	//어떤 유저가 참여할 챌린지 조회
+	public List<ChalDTO> myChalListF(String nickname){
+		return mybatis.selectList("Chal.myChalListF", nickname);
+	}
 }
