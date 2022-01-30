@@ -57,7 +57,7 @@
 			, #{bank        , jdbcType=VARCHAR}
 			, #{account     , jdbcType=VARCHAR}
 			, #{money       , jdbcType=INTEGER}
-			, #{grade       , jdbcType=VARCHAR}
+			, 'bronze'
 			, #{blacklist   , jdbcType=VARCHAR}
 			, #{kakaologin  , jdbcType=VARCHAR}
 			, #{zipcode     , jdbcType=VARCHAR}
@@ -76,6 +76,7 @@
 		    , email
 		  	, kakaologin
 		    , signup_Date
+		    , grade
 		) VALUES (
 			  member_seq.nextval
 			, #{email    , jdbcType=VARCHAR}
@@ -84,6 +85,7 @@
 			, #{email	 , jdbcType=VARCHAR}
 			, 'Y'
 			, sysdate
+			, 'bronze'
 	)
 	</insert>
 	

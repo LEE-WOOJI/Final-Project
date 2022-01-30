@@ -313,7 +313,7 @@ button:hover {
 					<br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<c:if test="${writerNickname==bList.nickname or loginId=='admin'}">
+							<c:if test="${writerNickname==bList.nickname or loginId=='admin1234'}">
 								<button type="button" id="mod"
 									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
 								<button type="button" id="del"
@@ -370,7 +370,7 @@ button:hover {
 							</div>
 							<div class="row">
 								<div class="col-sm-12" style="text-align: right">
-									<c:if test="${writerNickname==rList.writerNickname or loginId=='admin'}">
+									<c:if test="${writerNickname==rList.writerNickname or loginId=='admin1234'}">
 										<button type="button" class="modRp"
 											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정</button>
 										<button class="modRpDone"
@@ -390,7 +390,7 @@ button:hover {
 			</c:if>
 
 			<!-- 댓글 작성 칸 -->
-			<c:if test="${writerNickname != null or loginId=='admin'}">
+			<c:if test="${writerNickname != null or loginId=='admin1234'}">
 			<form
 				action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
 				method="post">
