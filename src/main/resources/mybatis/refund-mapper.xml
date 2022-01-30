@@ -6,13 +6,18 @@
 <mapper namespace = "Refund">
 	<!-- 환급 리스트 불러오기 -->
 	<select id = "listBound" resultType="kh.spring.dto.RefundDTO">
-		select * from (select refund.*, row_number() over(order by seq) rn from refund) where rn between #{start} and #{end}
+		select * from (select refund.*, row_number() over(order by seq) rn from refund) where rn between #{start} and #{end} and bank != '처리완료'
 	</select>
 	
 	<!-- 환급 완료 처리(삭제) -->
 	<delete id = "delete">
 		delete from refund where nickname = #{value}
 	</delete>
+	
+	<!-- 환급 완료 처리(은행명변경) -->
+	<update id = "update">
+		update refund set bank = '처리완료' where chalName = ${chalName} and nickname = ${nickname}
+	</update>
 	
 	<!-- 환급 검색 -->
 	<select id = "refundSearch" resultType = "kh.spring.dto.RefundDTO">
@@ -32,4 +37,9 @@
 	<insert id = "insert">
 		insert into refund values(refund_seq.nextval,#{chalSeq},#{chalName},#{price},#{rate},#{nickname},#{bank},#{account})
 	</insert>
+	
+	<!-- 환급 중복 신청 -->
+	<select id = "refundOk" resultType = "int">
+		select count(*) from refund where nickname = #{nickname} and chalName = #{chalName}
+	</select>
 </mapper>

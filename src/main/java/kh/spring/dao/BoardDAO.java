@@ -90,4 +90,13 @@ public class BoardDAO {
 	public ProfileDTO findImgName(int parentSeq){
 		return mybatis.selectOne("Board.findImgName",parentSeq);
 	}
+	
+	//마이페이지에서 검색
+	public List<BoardDTO> mySearch(String nickname,String option, String keyword){
+		Map<String,String> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("option", option);
+		map.put("keyword", keyword);
+		return mybatis.selectList("Board.mySearch",map);
+	}
 }

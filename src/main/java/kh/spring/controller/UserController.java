@@ -32,7 +32,6 @@ import kh.spring.utils.EncrpytionUtils;
 @RequestMapping("/user/")
 @Controller
 public class UserController {
-	
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -205,7 +204,8 @@ public class UserController {
   
     //유저 환급 정보
     @RequestMapping("refundInfo")
-    public String refundInfo(String nickname, int chalSeq, Model model) {
+    public String refundInfo(int chalSeq, Model model) {
+    	String nickname = (String)session.getAttribute("writerNickname");
     	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
     	int certiCount = ctservice.certiCount(nickname, chalSeq);
     	Timestamp startDate = chalInfo.getStartDate();
@@ -225,7 +225,22 @@ public class UserController {
     	return "/user/refundInfo";
     }
     
-    //유저 환급 신청
+    //유저 취소 정보
+    @RequestMapping("cancleInfo")
+    public String cancleInfo(int chalSeq, Model model) {
+    	String nickname = (String)session.getAttribute("writerNickname");
+    	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
+    	Timestamp startDate = chalInfo.getStartDate();
+    	Timestamp endDate = chalInfo.getEndDate();
+    	int price = 10000;
+    	RefundDTO dto = new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,0,nickname,null,null);
+    	model.addAttribute("dto",dto);
+    	model.addAttribute("startDate",startDate);
+    	model.addAttribute("endDate",endDate);
+    	return "/user/cancleInfo";
+    }
+    
+  //유저 환급 신청
     @RequestMapping("refund")
     public String refund(String nickname, int chalSeq, String bank, String account, Model model) {
     	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
@@ -242,5 +257,17 @@ public class UserController {
     	System.out.println("실행 결과 : " + result);
     	return "/user/mypage";
     }
+    
+    //유저 환급 신청
+    @RequestMapping("cancle")
+    public String refund(int chalSeq, String bank, String account, Model model) {
+    	String nickname = (String)session.getAttribute("writerNickname");
+    	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
+    	int price = 10000;
+    	int result = rservice.insert(new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,0,nickname,bank,account));
+    	System.out.println("실행 결과 : " + result);
+    	return "/user/mypage";
+    }
+    
     
 }

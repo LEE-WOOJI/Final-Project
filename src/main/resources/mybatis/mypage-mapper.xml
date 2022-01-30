@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mypage">
+	<select id="getUser" resultType="kh.spring.dto.MemberDTO">
+		select * from member
+		where seq =
+		#{value}
+	</select>
+	<select id="getUserChalList"
+		resultType="kh.spring.dto.JoinChalDTO">
+		select j.seq, j.refchalseq , j.refnickname ,
+		c.chalname ,
+		c.startdate , c.enddate , c.personnel ,
+		c.chalinfo , c.tag ,
+		c.chalstat
+		from joinchal j
+		inner join Member m on m.nickname
+		=j.refnickname
+		inner
+		join chal c on c.chalseq = j.refchalseq
+		where
+		m.nickname = #{value}
+	</select>
+	<select id="getUserBoard" resultType="kh.spring.dto.BoardDTO">
+		select *
+		from board
+		where
+		board.nickname = #{value}
+	</select>
+	<select id="getUserBoardReply"
+		resultType="kh.spring.dto.BoardReplyDTO">
+		select *
+		from boardreply
+		where
+		boardreply.writernickname =
+		#{value}
+	</select>
+	<update id="updateUserInfo"
+		parameterType="kh.spring.dto.MemberDTO">
+		update member set pw =#{pw}, email=#{email},
+		address1=#{address1}, address2=#{address2}, phone=#{phone}
+		where seq=
+		#{seq}
+	</update>
+
+	<delete id="delete">
+		delete from member where seq = #{value}
+	</delete>
+
+	<!-- 인증 등록 -->
+	<insert id="insertCerti">
+		insert into certi
+		values(certi_seq.nextval,#{chalSeq},#{chalName},#{refNickname},#{certiTitle},#{certiContents},sysdate)
+		<selectKey resultType="int" order="AFTER" keyProperty="seq">
+			select certi_seq.currval from dual
+		</selectKey>
+	</insert>
+
+	<!-- 인증 이미지 등록 -->
+	<insert id="insertCertiImg">
+		insert into certiImg
+		values(certiImg_seq.nextval,#{certiSeq},#{oriName},#{sysName})
+	</insert>
+
+	<!-- 인증 이미지 불러오기 -->
+	<select id="findCertiImgName"
+		resultType="kh.spring.dto.CertiImgDTO">
+		select * from certiImg where parentSeq = #{value}
+	</select>
+
+	<!-- 인증한 목록 출력 -->
+	<select id="findCertiList" resultType="kh.spring.dto.CertiDTO">
+		select * from certi where
+		chalSeq =#{chalSeq} and chalName =#{chalName} and refNickname =
+		#{refNickname}
+	</select>
+</mapper>

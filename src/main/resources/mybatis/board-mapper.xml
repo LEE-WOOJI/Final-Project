@@ -79,4 +79,9 @@
 		select * from profile where
 		parentSeq = #{value}
 	</select>
+	
+	<!-- 마이페이지에서 검색 -->
+	<select id = "mySearch" resultType = "kh.spring.dto.BoardDTO">
+		select * from board where nickname = #{nickname} and ${option} like '%'||#{keyword}||'%'
+	</select>
 </mapper>

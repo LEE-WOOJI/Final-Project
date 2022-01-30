@@ -342,10 +342,12 @@ a:hover {
 							</a>
 						</div>
 					</div>`;
-           		if (result[i].seq > 20) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
- 	              $("#more").css("display","none");
- 	            }
-   				}$(content).appendTo("#table");
+           		
+   				}
+   				if (result.length < 5) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
+     	              $("#more").css("display","none");
+     	            }
+   				$(content).appendTo("#table");
    				
    			})
    		});

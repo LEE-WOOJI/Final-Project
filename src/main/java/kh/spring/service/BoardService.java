@@ -198,4 +198,9 @@ public class BoardService {
 	public ProfileDTO findImgName(int parentSeq){
 		return bdao.findImgName(parentSeq);
 	}
+	
+	//마이페이지 검색
+	public List<BoardDTO> mySearch(String nickname, String option, String keyword){
+		return bdao.mySearch(nickname, option, keyword);
+	}
 }

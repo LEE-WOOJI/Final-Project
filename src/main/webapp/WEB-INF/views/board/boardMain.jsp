@@ -282,11 +282,11 @@ a {
 	<script>
 		// 글쓰기 버튼 클릭 시.
 		$("#writeBtn").on("click", function() {
-			if(${loginID != ''}){
+			if(${loginId != null}){
 				location.href = "/board/write";	
 			}else{
 				alert("로그인 후 이용 가능합니다.");
-				location.href = "/user/login";
+				location.href = "/user/loginform";
 			}
 		})
 
