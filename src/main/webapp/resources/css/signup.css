@@ -8295,3 +8295,7 @@ textarea.form-control {
         border: 1px solid transparent;
         background: #f35587;
         color: #fff; }
+
+    body {
+  background-color: #efefef;
+}
