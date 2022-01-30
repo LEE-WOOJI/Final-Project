@@ -196,7 +196,8 @@ public class ChalController {
 		//		System.out.println("Tag : " + tag[0] + tag[1]);	
 		//		System.out.println("챌린지 번호 : " + seq);
 		//		System.out.println("인증샷 사진 몇개?" + list);
-
+		System.out.println(dto.getChalSeq());
+		model.addAttribute("seq",dto.getChalSeq());
 		model.addAttribute("dto",dto);
 		model.addAttribute("list",list);
 		model.addAttribute("tag1",tag[0]);

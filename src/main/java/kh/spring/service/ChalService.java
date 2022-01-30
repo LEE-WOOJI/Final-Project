@@ -74,5 +74,18 @@ public class ChalService {
 	public ChalDTO chalInfo(int chalSeq) {
 		return cdao.chalInfo(chalSeq);
 	}
-
+	
+	
+	//과거 참여 챌린지
+	public List<ChalDTO> myChalListB(String nickname){
+		return cdao.myChalListB(nickname);
+	}
+	//참여중 챌린지
+	public List<ChalDTO> myChalListP(String nickname){
+		return cdao.myChalListP(nickname);
+	}
+	//참여할 챌리닞
+	public List<ChalDTO> myChalListF(String nickname){
+		return cdao.myChalListF(nickname);
+	}
 }

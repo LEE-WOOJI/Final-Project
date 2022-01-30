@@ -320,11 +320,11 @@ public class AdminController {
 		return "/admin/adminUserR";
 	}
 
-	//유저 환급 관리 - 환급(삭제)
+	//유저 환급 관리 - 환급(은행명 환급완료로 바뀜)
 	@RequestMapping("userRefundGo")
-	public String refundGo(String nickname) {
+	public String refundGo(String nickname, String chalName) {
 		System.out.println(nickname);
-		int result = rService.delete(nickname);
+		int result = rService.update(nickname, chalName);
 		System.out.println(result);
 		return "redirect:/admin/userRefund";
 	}

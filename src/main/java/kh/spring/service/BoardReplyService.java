@@ -39,4 +39,9 @@ public class BoardReplyService {
 	public int delete(int rseq) {
 		return bDao.delete(rseq);
 	}
+	
+	//마이페이지 검색
+	public List<BoardReplyDTO> mySearch(String nickname, String option, String keyword){
+		return bDao.mySearch(nickname, option, keyword);
+	}
 }

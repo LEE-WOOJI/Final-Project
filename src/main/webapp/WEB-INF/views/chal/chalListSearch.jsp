@@ -206,10 +206,12 @@
 		                     </div>
 		                  </div>
            		</div>`;
-           		if (result[i].chalSeq > 20) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
-	              $("#more").css("display","none");
-           		}		
-   				}$(content).appendTo("#listLine");
+           			
+   				}
+   				if (result.length < 6) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
+     	              $("#more").css("display","none");
+     	            }
+   				$(content).appendTo("#listLine");
    				
    			})
    		});
