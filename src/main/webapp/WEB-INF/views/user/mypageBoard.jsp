@@ -35,6 +35,12 @@ body {
 	margin-top: 20px;
 	background-color: #f7f7ff;
 }
+.profile_img {
+	margin-left:58px;
+   border-radius: 50%;
+   width: 150px;
+   height: 150px;
+}
 
 #boaCon, #repCon{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
@@ -181,22 +187,33 @@ a:hover {
 							</a>
 						</div>
 						<div class="fm-menu">
+							<div class="profile_box">
+                              <img class="profile_img" src="/image/board?nickname=${nickname}">
+                              <br>
+                           </div>
+							
 							<div class="list-group list-group-flush">
-								<a href="/admin/userBlack" class="list-group-item py-1"><span
-									class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span>유저
-										블랙/탈퇴 관리</span></a> <a href="/admin/userGrade" class="list-group-item py-1"><span
-									class="iconify" data-icon="icon-park-outline:gold-medal"
-									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="/admin/userRefund"
-									class="list-group-item py-1"><span class="iconify"
-									data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-										환급</span></a> <a href="/admin/certi?cpage=1" class="list-group-item py-1"><span
-									class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
-										인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
-									class="list-group-item py-1"><span class="iconify"
-									data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>챌린지
-										관리</span></a> <a href="/admin/board?cpage=1" class="list-group-item py-1"><span
-									class="iconify" data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
-										관리</span></a>
+								<a href="/mypage/mypageUserUpdate" class="list-group-item py-1"><span
+                           class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
+                           a href=/mypage/updateUserInfo>내 정보 </span></a>
+
+                           		<a href="/mypage/myChalList" class="list-group-item py-1"><span
+                           class="iconify" data-icon="icon-park-outline:gold-medal"
+                           data-width="25"></span>&ensp;<span>도전중인 글피</span></a>
+                           
+                            	<a href="/mypage/myBoardAndReply" class="list-group-item py-1"><span
+                           class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>작성한
+                              글 / 댓글</span></a> 
+                              
+                                <a href="/mypage/zzzim"
+                           class="list-group-item py-1"><span class="iconify"
+                           data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
+                              찜한 글피 </span></a> 
+                              
+                              <a href="/mypage/delete"
+                           class="list-group-item py-1"><span class="iconify"
+                           data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>회원
+                              탈퇴</span></a>
 							</div>
 						</div>
 					</div>
