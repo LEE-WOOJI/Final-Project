@@ -13,18 +13,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dto.BoardDTO;
 import kh.spring.dto.BoardReplyDTO;
-import kh.spring.dto.JoinChalDTO;
+import kh.spring.dto.CertiDTO;
+import kh.spring.dto.ChalDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.BoardReplyService;
+import kh.spring.service.BoardService;
+import kh.spring.service.ChalService;
 import kh.spring.service.MypageService;
-import kh.spring.dto.CertiDTO;
+import kh.spring.service.RefundService;
 
-@Controller
 @RequestMapping("/mypage/")
+@Controller
 public class MypageController {
 
 	@Autowired
@@ -35,7 +39,12 @@ public class MypageController {
 	private BoardReplyService brService;
 	@Autowired
 	private MypageService mService;
-
+	@Autowired
+	private BoardService bService;
+	@Autowired
+	private ChalService cservice;
+	@Autowired
+	private RefundService rservice;
 
 	@RequestMapping("updateUserInfo")
 	public String  updateUesrInfoPage(Model model, int seq) {
@@ -89,40 +98,52 @@ public class MypageController {
 		MemberDTO memberDTO = memberService.selectBySeq(seq);
 		model.addAttribute("user",memberDTO);
 		System.out.print(memberDTO.toString());
-		return "user/mypage";
+		return "/user/mypage";
 
 	}
 	//참여중인 목록
-	@RequestMapping("chaling")
-	public String chalingPage(Model model,String nickName ,HttpServletRequest request) {
-		//      // 로그인아이디 세션값 저장.
-		//      HttpSession session = request.getSession();
-		//      session.setAttribute("loginID", "qweobnk");
-		//      // 로그인아이디 세션값 꺼내기.
-		//      String id = (String) session.getAttribute("loginID");
-		//      System.out.println(id);
-		//      // 아이디값으로 정보찾기
-		//      MemberDTO info = brService.searchInfoById(id);
-		//      String joinChalNickname = info.getNickname();
-		//      System.out.println(joinChalNickname);
-		//      // 닉네임 세션값 저장.
-		//      session.setAttribute("joinChalNickname", joinChalNickname);
-		List<JoinChalDTO> joinChalList = memberService.getUserChalList(nickName);
-		model.addAttribute("list", joinChalList);;
-		return "/user/chaling";
+	@RequestMapping("myChalList")
+	public String myChalList(Model model) {
+		String nickname = (String)session.getAttribute("writerNickname");
+		List<ChalDTO> blist =  cservice.myChalListB(nickname);
+		List<ChalDTO> plist =  cservice.myChalListP(nickname);
+		List<ChalDTO> flist =  cservice.myChalListF(nickname);
+		model.addAttribute("blist",blist);
+		model.addAttribute("plist",plist);
+		model.addAttribute("flist",flist);
+		return "/user/myChalList";
 	}
-
-	@RequestMapping("myBoard")
-	public String myBoardPage(Model model, String nickName) {
-		List<BoardDTO> boardList = memberService.getUserBoard(nickName);
-		model.addAttribute("list", boardList);
-		return "/user/myBoard";
+	
+	//환급 신청되는지 확인
+	@ResponseBody
+	@RequestMapping(value ="refundOk", produces = "text/html;charset=utf8")
+	public String chalCancel(String chalName) {
+		//중복확인 메서드
+		int num = rservice.refundOk(chalName, chalName);
+		String result = "중복아님";
+		if(num == 1) {
+			result = "중복";
+		}
+		return result;
 	}
-	@RequestMapping("myBoardReply")
-	public String myBoardReply(Model model, String nickName) {
-		List<BoardReplyDTO> boardReplyList = memberService.getUserBoardReply(nickName);
-		model.addAttribute("list", boardReplyList);
-		return "/user/myBoardReply";
+	//내가 작성한 글과 댓글
+	@RequestMapping("myBoardAndReply")
+	public String myBoardPage(Model model) {
+		String nickname = (String)session.getAttribute("writerNickname");
+		List<BoardDTO> boardList = memberService.getUserBoard(nickname);
+		List<BoardReplyDTO> boardReplyList = memberService.getUserBoardReply(nickname);
+		model.addAttribute("blist", boardList);
+		model.addAttribute("rlist", boardReplyList);
+		return "/user/mypageBoard";
+	}
+	@RequestMapping("myBARSearch")
+	public String myBoardReply(Model model, String option, String keyword) {
+		String nickname = (String)session.getAttribute("writerNickname");
+		List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
+		List<BoardReplyDTO> boardReplyList = brService.mySearch(nickname, option, keyword);
+		model.addAttribute("blist", boardList);
+		model.addAttribute("rlist", boardReplyList);
+		return "/user/mypageBoard";
 	}
 
 	@RequestMapping("delete")
@@ -132,9 +153,10 @@ public class MypageController {
 	}
 
 	@RequestMapping("certi") // 인증 상세목록으로 이동.
-	public String certi(Model model, int chalSeq, String chalName, String refNickname) {
+	public String certi(Model model, int chalSeq, String chalName) {
+		String nickname = (String)session.getAttribute("writerNickname");
 		// 인증한 목록 출력.
-		List<CertiDTO> list = mService.findCertiList(chalSeq, chalName, refNickname);
+		List<CertiDTO> list = mService.findCertiList(chalSeq, chalName, nickname);
 		model.addAttribute("list",list);
 		return "/user/certi";
 	}

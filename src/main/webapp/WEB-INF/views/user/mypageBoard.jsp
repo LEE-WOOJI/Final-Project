@@ -36,9 +36,10 @@ body {
 	background-color: #f7f7ff;
 }
 
+#boaCon, #repCon{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
 .list {
 	font-family: 'yg-jalnan', verdana, tahoma;
-	background-color: #f8e8e6;
 }
 
 .row .col {
@@ -204,71 +205,79 @@ a:hover {
 			<div class="col-12 col-lg-9">
 				<div class="card">
 					<div class="card-body">
-						<form action ="/admin/userRefundSearch">
-							<div class="row mt-3">
-							<div class="col-sm-12 col-md-2 col-lg-2"
-								style="text-align: center; margin-top: 5px; font-family: 'yg-jalnan', verdana, tahoma;">
-								검색</div>
-							<div class="col-sm-12 col-md-4 col-lg-4">
-								<input type="text" class="form-control" placeholder="챌린지 명을 입력하세요"
-									aria-label="Recipient's username"
-									aria-describedby="basic-addon2" name="chalName">
+						<form action = "/mypage/myBARSearch" method = "post">
+							<div class="row" style = "text-align:center">
+								<div class = "col-sm-12 col-md-4 col-lg-2">
+								<select class="form-select btn btn-danger" aria-label="Default select example" id = "option" name = "option">
+				  					<option selected>검색옵션</option>
+				  					<option value="chalName">챌린지 이름</option>
+				  					<option value="seq">글 번호</option>
+								</select>
+								</div>
+								<div class = "col-sm-12 col-md-4 col-lg-8">
+									<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" id = "keyword" name = "searchText">
+								</div>
+								<div class = "col-sm-12 col-md-4 col-lg-2" style = "margin:0px;">
+									<button type="submit" class="btn btn-danger" id = "searchBtn" style = "width:100%;">Search</button>
+								</div>
 							</div>
-							<div class="col-sm-12 col-md-4 col-lg-4">
-								<input type="text" class="form-control" placeholder="닉네임를 입력하세요"
-									aria-label="Recipient's username"
-									aria-describedby="basic-addon2" name="nickname">
-							</div>
-							
-							<div class="col-sm-12 col-md-2 col-lg-2">
-								<button type="submit" class="btn btn-danger" id="searchBtn"
-									style="width: 100%; font-family: 'yg-jalnan', verdana, tahoma;">Search</button>
-							</div>
-						</div>
 						</form>
 					</div>
-
-					<div class="table" id = "table" style="overflow-x: hidden;">
-						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">유저 환급
-							리스트</h6>
+					<br>
+					<br>
+					
+					<!-- 글 리스트 -->
+					<div class="table" id = "silver" style="height : 400px;overflow-y: scroll;overflow-x:hidden;">
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">글 리스트</h6>
 						<br>
-						<div class="row" style="text-align: center; line-height: 30px; border: none;">
-							<div class="col-2 list" style="padding: 0px;">챌린지</div>
+						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#e6e5e4;">
+							<div class="col-2 list" style="padding: 0px;">글번호</div>
+							<div class="col-2 list" style="padding: 0px;">제목</div>
+							<div class="col-2 list" style="padding: 0px;">내용</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
-							<div class="col-2 list" style="padding: 0px;">환급금액</div>
-							<div class="col-1 list" style="padding: 0px;">은행명</div>
-							<div class="col-3 list" style="padding: 0px;">계좌번호</div>
-							<div class="col-2 list" style="padding: 0px;">환급</div>
+							<div class="col-2 list" style="padding: 0px;">조회수</div>
+							<div class="col-2 list" style="padding: 0px;">작성일</div>
 						</div>
-						<c:forEach var="list" items="${list}">
+						<c:forEach var="list" items="${blist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
-								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
+								<div class="col-2" style="padding: 0px;">${list.seq}</div>
+								<div class="col-2" style="padding: 0px;"><a href="/board/detail?cpage=1&seq=${list.seq}" class="text-big" data-abc="true"
+									style="color: black;">${list.title}</a></div>
+								<div class="col-2" style="padding: 0px;" id = "boaCon">${list.contents}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
-								<div class="col-2" style="padding: 0px;">${list.price}</div>
-								<div class="col-1" style="padding: 0px;">${list.bank}</div>
-								<div class="col-3" style="padding: 0px;">${list.account}</div>
-								<div class="col-2" style="padding: 0px;">
-									<a
-										href="/admin/userRefundGo?nickname=${list.nickname}&chalName=${list.chalName}"
-										style="text-decoration-line: none;"> <input type="button"
-										value="환급" class="btn refundBtn"
-										style="background-color: rgba(245, 188, 188, 0.65);">
-									</a>
-								</div>
+								<div class="col-2" style="padding: 0px;">${list.view_count}</div>
+								<div class="col-2" style="padding: 0px;">${list.write_date}</div>
 							</div>
 						</c:forEach>
 					</div>
-					<!-- 더보기 -->
-						<div class = "row" style = "border: none;">
-			            	<div class = "col">
-			            		<div class="btn-box" style = "margin-left:45%;">
-				               		<div class = "col-sm-12 col-md-4 col-lg-2">
-										<button type="button" class="btn btn-danger" style = "width:100%;" id = "more">More</button>
-									</div>
-			            		</div>
-			            	</div>
-            		   </div>
+					<br>
+					<br>
+					<br>
+					<!-- 댓글 리스트 -->
+					<div class="table" id = "gold" style="height : 400px;overflow-y: scroll; overflow-x:hidden;"">
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">댓글 리스트</h6>
+						<br>
+						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#fff09b;">
+							<div class="col-2 list" style="padding: 0px;">댓글 번호</div>
+							<div class="col-2 list" style="padding: 0px;">글 번호</div>
+							<div class="col-2 list" style="padding: 0px;">닉네임</div>
+							<div class="col-2 list" style="padding: 0px;">작성일</div>
+							<div class="col-4 list" style="padding: 0px;">댓글 내용</div>
+						</div>
+						<c:forEach var="list" items="${rlist}">
+							<br>
+							<div class="row" style="text-align: center; line-height: 30px; border: none; ">
+								<div class="col-2" style="padding: 0px;">${list.seq}</div>
+								<div class="col-2" style="padding: 0px;">${list.refBoardSeq}</div>
+								<div class="col-2" style="padding: 0px;">${list.writerNickname}</div>
+								<div class="col-2" style="padding: 0px;">${list.write_date}</div>
+								<div class="col-4" style="padding: 0px;" id = "repCon"><a href="/board/detail?cpage=1&seq=${list.seq}" class="text-big" data-abc="true"
+									style="color: black;">${list.repContents}</a></div>
+								</div>
+						</c:forEach>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -280,52 +289,19 @@ a:hover {
 	<script type="text/javascript"
 		src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
-			$(document).on("click",".refundBtn",function(e){
-				let result = confirm("환급을 완료시키겠습니까?");
-				if(!result){return false;}
-			})
-	
-	
 		
-		let moreNum = 1;
-   		$("#more").on("click",function(){
-   			moreNum += 5;
-   			$.ajax({
-   				url:"/admin/userRefundMore",
-   				method:"POST",
-   				data:{"moreNum":moreNum}
-   			}).done(function(resp){
-   				let result = JSON.parse(resp);
-   				let content = "";
-   				
-   				for(let i = 0; i < result.length; i++){
-   					console.log("회차 : " + i);
-   					console.log(result[i].nickname);
-   					content += `<br>
-						<div class="row" style="text-align: center; line-height: 30px; border: none;">
-						<div class="col-2" style="padding: 0px;">\${result[i].chalName}</div>
-						<div class="col-2" style="padding: 0px;">\${result[i].nickname}</div>
-						<div class="col-2" style="padding: 0px;">\${result[i].price}</div>
-						<div class="col-1" style="padding: 0px;">\${result[i].bank}%</div>
-						<div class="col-3" style="padding: 0px;">\${result[i].account}</div>
-						<div class="col-2" style="padding: 0px;">
-							<a
-								href="/admin/userRefundGo?nickname=\${result[i].nickname}"
-								style="text-decoration-line: none;"> <input type="button"
-								value="환급" class="btn refundBtn"
-								style="background-color: rgba(245, 188, 188, 0.65);">
-							</a>
-						</div>
-					</div>`;
-           		
-   				}
-   				if (result.length < 5) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
-   	              $("#more").css("display","none");
-   	            }
-   				$(content).appendTo("#table");
-   				
-   			})
-   		});
+		$("#searchBtn").on("click",function(){
+			
+			if($("#option").val() == "검색옵션"){
+				alert("검색옵션을 선택해주세요.");
+				return false;
+			}
+			if($("#keyword").val() == ""){
+				alert("검색어를 입력해주세요.");
+				return false;
+			}
+		})
+		
 	</script>
 </body>
 </html>

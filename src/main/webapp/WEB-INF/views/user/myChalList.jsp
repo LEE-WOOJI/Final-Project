@@ -38,7 +38,6 @@ body {
 
 .list {
 	font-family: 'yg-jalnan', verdana, tahoma;
-	background-color: #f8e8e6;
 }
 
 .row .col {
@@ -202,73 +201,96 @@ a:hover {
 				</div>
 			</div>
 			<div class="col-12 col-lg-9">
-				<div class="card">
-					<div class="card-body">
-						<form action ="/admin/userRefundSearch">
-							<div class="row mt-3">
-							<div class="col-sm-12 col-md-2 col-lg-2"
-								style="text-align: center; margin-top: 5px; font-family: 'yg-jalnan', verdana, tahoma;">
-								검색</div>
-							<div class="col-sm-12 col-md-4 col-lg-4">
-								<input type="text" class="form-control" placeholder="챌린지 명을 입력하세요"
-									aria-label="Recipient's username"
-									aria-describedby="basic-addon2" name="chalName">
-							</div>
-							<div class="col-sm-12 col-md-4 col-lg-4">
-								<input type="text" class="form-control" placeholder="닉네임를 입력하세요"
-									aria-label="Recipient's username"
-									aria-describedby="basic-addon2" name="nickname">
-							</div>
-							
-							<div class="col-sm-12 col-md-2 col-lg-2">
-								<button type="submit" class="btn btn-danger" id="searchBtn"
-									style="width: 100%; font-family: 'yg-jalnan', verdana, tahoma;">Search</button>
-							</div>
-						</div>
-						</form>
-					</div>
-
-					<div class="table" id = "table" style="overflow-x: hidden;">
-						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">유저 환급
-							리스트</h6>
+					<!-- 진행 중인 리스트 -->
+					<div class="table" id = "presentG" style="height : 400px;overflow-y: scroll; overflow-x:hidden;"">
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">진행 중인 글피!</h6>
 						<br>
-						<div class="row" style="text-align: center; line-height: 30px; border: none;">
-							<div class="col-2 list" style="padding: 0px;">챌린지</div>
-							<div class="col-2 list" style="padding: 0px;">닉네임</div>
-							<div class="col-2 list" style="padding: 0px;">환급금액</div>
-							<div class="col-1 list" style="padding: 0px;">은행명</div>
-							<div class="col-3 list" style="padding: 0px;">계좌번호</div>
-							<div class="col-2 list" style="padding: 0px;">환급</div>
+						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
+							<div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
+							<div class="col-2 list" style="padding: 0px;">카테고리</div>
+							<div class="col-2 list" style="padding: 0px;">인원</div>
+							<div class="col-2 list" style="padding: 0px;">시작일</div>
+							<div class="col-2 list" style="padding: 0px;">종료일</div>
+							<div class="col-2 list" style="padding: 0px;">인증</div>
 						</div>
-						<c:forEach var="list" items="${list}">
+						<c:forEach var="list" items="${plist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
 								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
-								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
-								<div class="col-2" style="padding: 0px;">${list.price}</div>
-								<div class="col-1" style="padding: 0px;">${list.bank}</div>
-								<div class="col-3" style="padding: 0px;">${list.account}</div>
+								<div class="col-2" style="padding: 0px;">${list.category}</div>
+								<div class="col-2" style="padding: 0px;">${list.personnel}</div>
+								<div class="col-2" style="padding: 0px;">${list.startDate}</div>
+								<div class="col-2" style="padding: 0px;">${list.endDate}</div>
 								<div class="col-2" style="padding: 0px;">
 									<a
-										href="/admin/userRefundGo?nickname=${list.nickname}&chalName=${list.chalName}"
+										href="/mypage/certi?chalSeq=${list.chalSeq }&chalName=${list.chalName}"
 										style="text-decoration-line: none;"> <input type="button"
-										value="환급" class="btn refundBtn"
-										style="background-color: rgba(245, 188, 188, 0.65);">
+										value="인증" class="btn certi"
+										style="background-color: #f8d2cd;">
 									</a>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
-					<!-- 더보기 -->
-						<div class = "row" style = "border: none;">
-			            	<div class = "col">
-			            		<div class="btn-box" style = "margin-left:45%;">
-				               		<div class = "col-sm-12 col-md-4 col-lg-2">
-										<button type="button" class="btn btn-danger" style = "width:100%;" id = "more">More</button>
+					<br>
+					<br>
+					<br>
+					<!-- 진행 예정 글피 리스트 -->
+					<div class="table" id = "futureG" style="height : 400px;overflow-y: scroll;overflow-x:hidden;">
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">진행 예정 글피!</h6>
+						<br>
+						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
+							<div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
+							<div class="col-2 list" style="padding: 0px;">카테고리</div>
+							<div class="col-2 list" style="padding: 0px;">인원</div>
+							<div class="col-2 list" style="padding: 0px;">시작일</div>
+							<div class="col-2 list" style="padding: 0px;">종료일</div>
+							<div class="col-2 list" style="padding: 0px;">취소</div>
+						</div>
+						<c:forEach var="list" items="${flist}">
+							<br>
+							<div class="row" style="text-align: center; line-height: 30px; border: none;">
+								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
+								<div class="col-2" style="padding: 0px;">${list.category}</div>
+								<div class="col-2" style="padding: 0px;">${list.personnel}</div>
+								<div class="col-2" style="padding: 0px;">${list.startDate}</div>
+								<div class="col-2" style="padding: 0px;">${list.endDate }</div>
+								<div class="col-2" style="padding: 0px;">
+								<input type="button" value="취소" class="btn cancle" style="background-color: #f8d2cd;"></div>
+							</div>
+						</c:forEach>
+					</div>
+					<br>
+					<br>
+					<br>
+					<!-- 완료한 글피 리스트 -->
+					<div class="table" id = "beforeG" style="height : 400px;overflow-y: scroll; overflow-x:hidden;"">
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">완료한 글피 리스트</h6>
+						<br>
+						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
+							<div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
+							<div class="col-2 list" style="padding: 0px;">카테고리</div>
+							<div class="col-2 list" style="padding: 0px;">인원</div>
+							<div class="col-2 list" style="padding: 0px;">시작일</div>
+							<div class="col-2 list" style="padding: 0px;">종료일</div>
+							<div class="col-2 list" style="padding: 0px;">환급</div>
+						</div>
+						<c:forEach var="list" items="${blist}">
+							<br>
+							<div class="row" style="text-align: center; line-height: 30px; border: none; ">
+								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
+								<div class="col-2" style="padding: 0px;">${list.category}</div>
+								<div class="col-2" style="padding: 0px;">${list.personnel}</div>
+								<div class="col-2" style="padding: 0px;">${list.startDate}</div>
+								<div class="col-2" style="padding: 0px;">${list.endDate}</div>
+									<div class="col-2" style="padding: 0px;"><input type="button"
+											value="환급" class="btn refund"
+											style="background-color: #f8d2cd;">
 									</div>
-			            		</div>
-			            	</div>
-            		   </div>
+								</div>
+						</c:forEach>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -280,52 +302,34 @@ a:hover {
 	<script type="text/javascript"
 		src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
-			$(document).on("click",".refundBtn",function(e){
-				let result = confirm("환급을 완료시키겠습니까?");
-				if(!result){return false;}
+	let chalName =  "${list.chalName}"	
+	$(".cancle").on("click",function(){
+			$.ajax({
+				url:"/mypage/refundOk",
+				method:"POST",
+				data:{"chalName",chalName}
+			}).done(function(resp){
+				if(resp == "중복"){
+					alert("이미 환급 신청이 완료되었습니다!");
+				}else{
+					location.href = "/user/cancleInfo?chalSeq=${list.chalSeq}";
+				}
 			})
+		});
 	
-	
-		
-		let moreNum = 1;
-   		$("#more").on("click",function(){
-   			moreNum += 5;
-   			$.ajax({
-   				url:"/admin/userRefundMore",
-   				method:"POST",
-   				data:{"moreNum":moreNum}
-   			}).done(function(resp){
-   				let result = JSON.parse(resp);
-   				let content = "";
-   				
-   				for(let i = 0; i < result.length; i++){
-   					console.log("회차 : " + i);
-   					console.log(result[i].nickname);
-   					content += `<br>
-						<div class="row" style="text-align: center; line-height: 30px; border: none;">
-						<div class="col-2" style="padding: 0px;">\${result[i].chalName}</div>
-						<div class="col-2" style="padding: 0px;">\${result[i].nickname}</div>
-						<div class="col-2" style="padding: 0px;">\${result[i].price}</div>
-						<div class="col-1" style="padding: 0px;">\${result[i].bank}%</div>
-						<div class="col-3" style="padding: 0px;">\${result[i].account}</div>
-						<div class="col-2" style="padding: 0px;">
-							<a
-								href="/admin/userRefundGo?nickname=\${result[i].nickname}"
-								style="text-decoration-line: none;"> <input type="button"
-								value="환급" class="btn refundBtn"
-								style="background-color: rgba(245, 188, 188, 0.65);">
-							</a>
-						</div>
-					</div>`;
-           		
-   				}
-   				if (result.length < 5) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
-   	              $("#more").css("display","none");
-   	            }
-   				$(content).appendTo("#table");
-   				
-   			})
-   		});
+	$(".refund").on("click",function(){
+		$.ajax({
+			url:"/mypage/refundOk",
+			method:"POST",
+			data:{"chalName",chalName}
+		}).done(function(resp){
+			if(resp == "중복"){
+				alert("이미 환급 신청이 완료되었습니다!");
+			}else{
+				location.href = "/user/refundInfo?chalSeq=${list.chalSeq}";
+			}
+		})
+	});
 	</script>
 </body>
 </html>

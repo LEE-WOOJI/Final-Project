@@ -48,4 +48,13 @@ public class BoardReplyDAO {
 	public int delete(int rseq) {
 		return mybatis.insert("BoardReply.delete",rseq);
 	}
+	
+	//마이페이지에서 검색
+	public List<BoardReplyDTO> mySearch(String nickname, String option, String keyword){
+		Map<String,String> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("option", option);
+		map.put("keyword", keyword);
+		return mybatis.selectList("BoardReply.mySearch",map);
+	}
 }

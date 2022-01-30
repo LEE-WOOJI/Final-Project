@@ -1,6 +1,9 @@
 package kh.spring.controller;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dto.ChalDTO;
 import kh.spring.dto.MemberDTO;
@@ -28,7 +32,6 @@ import kh.spring.utils.EncrpytionUtils;
 @RequestMapping("/user/")
 @Controller
 public class UserController {
-	
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -120,6 +123,26 @@ public class UserController {
         return "false";
         
     }
+    //이메일 중복확인
+    @RequestMapping("emailcheck")
+    @ResponseBody
+    public String email(Model model,String email, HttpServletRequest request) {
+    	HashMap <String, String> returnMap = new HashMap <String, String>();
+    	MemberDTO result = memberService.isEMAILExist(email);	
+		if(result != null) { // 이메일이 없을경우
+			return "true";
+		}
+		
+        return "false";
+        
+    }
+    //비밀번호 찾기
+    @RequestMapping("searchPw")
+    @ResponseBody
+    public boolean searchPw(Model model,String id, HttpServletRequest request) {
+    	boolean result = memberService.searchPw(id);	
+		return result;
+    } 
     // 회원가입 버튼을 눌렀을때
 	 @RequestMapping("signup")
 	public String signup() {
@@ -130,10 +153,26 @@ public class UserController {
 	  
 	 // 회원가입 완료 버튼을 눌렀을때
 	 @RequestMapping("signproc")
-	public String signup(Model model, MemberDTO dto) {
-		 memberService.insertMember(dto);
+	public String signup(Model model, MemberDTO dto, MultipartFile file[]) throws Exception {
+		 int memSeq = memberService.insertMember(dto);
 		 
-		 return "redirect:/user/login";
+		 for(MultipartFile mf : file) {
+	         if(!file[0].isEmpty()) {
+	            String realPath = session.getServletContext().getRealPath("files");
+
+	            File realPathFile = new File(realPath);
+	            if(!realPathFile.exists()) {
+	               realPathFile.mkdir();   
+	            }
+	            String oriName = mf.getOriginalFilename();
+	            String sysName = UUID.randomUUID()+"_"+oriName;
+	            mf.transferTo(new File(realPath+"/"+sysName));
+	            // member image insert
+	            memberService.insertMemberImg(oriName,sysName,memSeq);
+	         }
+	      }
+		 
+		 return "redirect:/user/loginform";
 	}
 	 
 	 //카카오 로그인 버튼을 눌렀을떄
@@ -165,7 +204,8 @@ public class UserController {
   
     //유저 환급 정보
     @RequestMapping("refundInfo")
-    public String refundInfo(String nickname, int chalSeq, Model model) {
+    public String refundInfo(int chalSeq, Model model) {
+    	String nickname = (String)session.getAttribute("writerNickname");
     	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
     	int certiCount = ctservice.certiCount(nickname, chalSeq);
     	Timestamp startDate = chalInfo.getStartDate();
@@ -185,7 +225,22 @@ public class UserController {
     	return "/user/refundInfo";
     }
     
-    //유저 환급 신청
+    //유저 취소 정보
+    @RequestMapping("cancleInfo")
+    public String cancleInfo(int chalSeq, Model model) {
+    	String nickname = (String)session.getAttribute("writerNickname");
+    	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
+    	Timestamp startDate = chalInfo.getStartDate();
+    	Timestamp endDate = chalInfo.getEndDate();
+    	int price = 10000;
+    	RefundDTO dto = new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,0,nickname,null,null);
+    	model.addAttribute("dto",dto);
+    	model.addAttribute("startDate",startDate);
+    	model.addAttribute("endDate",endDate);
+    	return "/user/cancleInfo";
+    }
+    
+  //유저 환급 신청
     @RequestMapping("refund")
     public String refund(String nickname, int chalSeq, String bank, String account, Model model) {
     	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
@@ -202,5 +257,17 @@ public class UserController {
     	System.out.println("실행 결과 : " + result);
     	return "/user/mypage";
     }
+    
+    //유저 환급 신청
+    @RequestMapping("cancle")
+    public String refund(int chalSeq, String bank, String account, Model model) {
+    	String nickname = (String)session.getAttribute("writerNickname");
+    	ChalDTO chalInfo = cservice.chalInfo(chalSeq);
+    	int price = 10000;
+    	int result = rservice.insert(new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,0,nickname,bank,account));
+    	System.out.println("실행 결과 : " + result);
+    	return "/user/mypage";
+    }
+    
     
 }
