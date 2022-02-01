@@ -30,6 +30,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
+<!-- Date -->
+      <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 body {
 	margin-top: 20px;
@@ -227,12 +229,13 @@ a:hover {
 								<div class = "col-sm-12 col-md-4 col-lg-2">
 								<select class="form-select btn btn-danger" aria-label="Default select example" id = "option" name = "option">
 				  					<option selected>검색옵션</option>
-				  					<option value="chalName">챌린지 이름</option>
-				  					<option value="seq">글 번호</option>
+				  					<option value="seq">글번호</option>
+				  					<option value="title">제목</option>
+				  					<option value="contents">내용</option>
 								</select>
 								</div>
 								<div class = "col-sm-12 col-md-4 col-lg-8">
-									<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" id = "keyword" name = "searchText">
+									<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" id = "keyword" name = "keyword">
 								</div>
 								<div class = "col-sm-12 col-md-4 col-lg-2" style = "margin:0px;">
 									<button type="submit" class="btn btn-danger" id = "searchBtn" style = "width:100%;">Search</button>
@@ -249,22 +252,24 @@ a:hover {
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#e6e5e4;">
 							<div class="col-2 list" style="padding: 0px;">글번호</div>
-							<div class="col-2 list" style="padding: 0px;">제목</div>
+							<div class="col-3 list" style="padding: 0px;">제목</div>
 							<div class="col-2 list" style="padding: 0px;">내용</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
-							<div class="col-2 list" style="padding: 0px;">조회수</div>
+							<div class="col-1 list" style="padding: 0px;">조회수</div>
 							<div class="col-2 list" style="padding: 0px;">작성일</div>
 						</div>
 						<c:forEach var="list" items="${blist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
 								<div class="col-2" style="padding: 0px;">${list.seq}</div>
-								<div class="col-2" style="padding: 0px;"><a href="/board/detail?cpage=1&seq=${list.seq}" class="text-big" data-abc="true"
+								<div class="col-3" style="padding: 0px;"><a href="/board/detail?cpage=1&seq=${list.seq}" class="text-big" data-abc="true"
 									style="color: black;">${list.title}</a></div>
 								<div class="col-2" style="padding: 0px;" id = "boaCon">${list.contents}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
-								<div class="col-2" style="padding: 0px;">${list.view_count}</div>
-								<div class="col-2" style="padding: 0px;">${list.write_date}</div>
+								<div class="col-1" style="padding: 0px;">${list.view_count}</div>
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.write_date}"/>
+								</div>
 							</div>
 						</c:forEach>
 					</div>
@@ -288,8 +293,10 @@ a:hover {
 								<div class="col-2" style="padding: 0px;">${list.seq}</div>
 								<div class="col-2" style="padding: 0px;">${list.refBoardSeq}</div>
 								<div class="col-2" style="padding: 0px;">${list.writerNickname}</div>
-								<div class="col-2" style="padding: 0px;">${list.write_date}</div>
-								<div class="col-4" style="padding: 0px;" id = "repCon"><a href="/board/detail?cpage=1&seq=${list.seq}" class="text-big" data-abc="true"
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.write_date}"/>
+								</div>
+								<div class="col-4" style="padding: 0px;" id = "repCon"><a href="/board/detail?cpage=1&seq=${list.refBoardSeq}" class="text-big" data-abc="true"
 									style="color: black;">${list.repContents}</a></div>
 								</div>
 						</c:forEach>

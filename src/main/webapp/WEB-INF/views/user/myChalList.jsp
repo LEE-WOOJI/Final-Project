@@ -30,6 +30,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
+<!-- Date -->
+      <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 body {
 	margin-top: 20px;
@@ -219,11 +221,11 @@ a:hover {
 			<div class="col-12 col-lg-9">
 					<!-- 진행 중인 리스트 -->
 					<div class="table" id = "presentG" style="height : 400px;overflow-y: scroll; overflow-x:hidden;"">
-						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">진행 중인 글피!</h6>
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; color : #f86b58;">진행 중인 글피!</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
 							<div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
-							<div class="col-2 list" style="padding: 0px;">카테고리</div>
+							<div class="col-2 list" style="padding: 0px;">태그</div>
 							<div class="col-2 list" style="padding: 0px;">인원</div>
 							<div class="col-2 list" style="padding: 0px;">시작일</div>
 							<div class="col-2 list" style="padding: 0px;">종료일</div>
@@ -233,13 +235,17 @@ a:hover {
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
 								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
-								<div class="col-2" style="padding: 0px;">${list.category}</div>
-								<div class="col-2" style="padding: 0px;">${list.personnel}</div>
-								<div class="col-2" style="padding: 0px;">${list.startDate}</div>
-								<div class="col-2" style="padding: 0px;">${list.endDate}</div>
+								<div class="col-2" style="padding: 0px;">${list.tag}</div>
+								<div class="col-2" style="padding: 0px;">${list.personnel}명</div>
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.startDate}"/>
+								</div>
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.endDate}"/>
+								</div>
 								<div class="col-2" style="padding: 0px;">
 									<a
-										href="/mypage/certi?chalSeq=${list.chalSeq }&chalName=${list.chalName}"
+										href="/mypage/certi?refChalSeq=${list.refChalSeq}&chalName=${list.chalName}"
 										style="text-decoration-line: none;"> <input type="button"
 										value="인증" class="btn certi"
 										style="background-color: #f8d2cd;">
@@ -253,11 +259,11 @@ a:hover {
 					<br>
 					<!-- 진행 예정 글피 리스트 -->
 					<div class="table" id = "futureG" style="height : 400px;overflow-y: scroll;overflow-x:hidden;">
-						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">진행 예정 글피!</h6>
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; color : #f86b58;">진행 예정 글피!</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
 							<div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
-							<div class="col-2 list" style="padding: 0px;">카테고리</div>
+							<div class="col-2 list" style="padding: 0px;">태그</div>
 							<div class="col-2 list" style="padding: 0px;">인원</div>
 							<div class="col-2 list" style="padding: 0px;">시작일</div>
 							<div class="col-2 list" style="padding: 0px;">종료일</div>
@@ -267,10 +273,14 @@ a:hover {
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
 								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
-								<div class="col-2" style="padding: 0px;">${list.category}</div>
-								<div class="col-2" style="padding: 0px;">${list.personnel}</div>
-								<div class="col-2" style="padding: 0px;">${list.startDate}</div>
-								<div class="col-2" style="padding: 0px;">${list.endDate }</div>
+								<div class="col-2" style="padding: 0px;">${list.tag}</div>
+								<div class="col-2" style="padding: 0px;">${list.personnel}명</div>
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.startDate}"/>
+								</div>
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.endDate}"/>
+								</div>
 								<div class="col-2" style="padding: 0px;">
 								<input type="button" value="취소" class="btn cancle" style="background-color: #f8d2cd;"></div>
 							</div>
@@ -281,11 +291,11 @@ a:hover {
 					<br>
 					<!-- 완료한 글피 리스트 -->
 					<div class="table" id = "beforeG" style="height : 400px;overflow-y: scroll; overflow-x:hidden;"">
-						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">완료한 글피 리스트</h6>
+						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; color : #f86b58;">완료한 글피 리스트</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
 							<div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
-							<div class="col-2 list" style="padding: 0px;">카테고리</div>
+							<div class="col-2 list" style="padding: 0px;">태그</div>
 							<div class="col-2 list" style="padding: 0px;">인원</div>
 							<div class="col-2 list" style="padding: 0px;">시작일</div>
 							<div class="col-2 list" style="padding: 0px;">종료일</div>
@@ -295,10 +305,14 @@ a:hover {
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none; ">
 								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
-								<div class="col-2" style="padding: 0px;">${list.category}</div>
-								<div class="col-2" style="padding: 0px;">${list.personnel}</div>
-								<div class="col-2" style="padding: 0px;">${list.startDate}</div>
-								<div class="col-2" style="padding: 0px;">${list.endDate}</div>
+								<div class="col-2" style="padding: 0px;">${list.tag}</div>
+								<div class="col-2" style="padding: 0px;">${list.personnel}명</div>
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.startDate}"/>
+								</div>
+								<div class="col-2" style="padding: 0px;">
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.endDate}"/>
+								</div>
 									<div class="col-2" style="padding: 0px;"><input type="button"
 											value="환급" class="btn refund"
 											style="background-color: #f8d2cd;">
@@ -320,7 +334,7 @@ a:hover {
 	<script>
 	let chalName =  "${list.chalName}"	
 	$(".cancle").on("click",function(){
-			$.ajax({
+		$.ajax({
 				url:"/mypage/refundOk",
 				method:"POST",
 				data:{"chalName",chalName}

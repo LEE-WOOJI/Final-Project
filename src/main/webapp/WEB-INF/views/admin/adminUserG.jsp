@@ -228,20 +228,20 @@ a:hover {
 						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">브론즈 리스트</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#ffd09e;">
-							<div class="col-2 list" style="padding: 0px;">아이디</div>
+							<div class="col-3 list" style="padding: 0px;">아이디</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
 							<div class="col-2 list" style="padding: 0px;">등급</div>
-							<div class="col-2 list" style="padding: 0px;">블랙여부</div>
+							<div class="col-1 list" style="padding: 0px;">블랙</div>
 							<div class="col-2 list" style="padding: 0px;">실버</div>
 							<div class="col-2 list" style="padding: 0px;">골드</div>
 						</div>
 						<c:forEach var="list" items="${blist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
-								<div class="col-2" style="padding: 0px;">${list.id}</div>
+								<div class="col-3" style="padding: 0px;">${list.id}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
 								<div class="col-2" style="padding: 0px;">${list.grade}</div>
-								<div class="col-2" style="padding: 0px;">${list.blacklist}</div>
+								<div class="col-1" style="padding: 0px;">${list.blacklist}</div>
 								<div class="col-2" style="padding: 0px;">
 									<a
 										href="/admin/userGradeMeta?grade=silver&id=${list.id}"
@@ -269,20 +269,20 @@ a:hover {
 						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">실버 리스트</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#e6e5e4;">
-							<div class="col-2 list" style="padding: 0px;">아이디</div>
+							<div class="col-3 list" style="padding: 0px;">아이디</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
 							<div class="col-2 list" style="padding: 0px;">등급</div>
-							<div class="col-2 list" style="padding: 0px;">블랙여부</div>
+							<div class="col-1 list" style="padding: 0px;">블랙</div>
 							<div class="col-2 list" style="padding: 0px;">브론즈</div>
 							<div class="col-2 list" style="padding: 0px;">골드</div>
 						</div>
 						<c:forEach var="list" items="${slist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
-								<div class="col-2" style="padding: 0px;">${list.id}</div>
+								<div class="col-3" style="padding: 0px;">${list.id}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
 								<div class="col-2" style="padding: 0px;">${list.grade}</div>
-								<div class="col-2" style="padding: 0px;">${list.blacklist}</div>
+								<div class="col-1" style="padding: 0px;">${list.blacklist}</div>
 								<div class="col-2" style="padding: 0px;">
 									<a href="/admin/userGradeMeta?grade=bronze&id=${list.id}"
 										style="text-decoration-line: none;"> <input type="button"
@@ -309,20 +309,20 @@ a:hover {
 						<h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">골드 리스트</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#fff09b;">
-							<div class="col-2 list" style="padding: 0px;">아이디</div>
+							<div class="col-3 list" style="padding: 0px;">아이디</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
 							<div class="col-2 list" style="padding: 0px;">등급</div>
-							<div class="col-2 list" style="padding: 0px;">블랙 여부</div>
+							<div class="col-1 list" style="padding: 0px;">블랙 여부</div>
 							<div class="col-2 list" style="padding: 0px;">브론즈</div>
 							<div class="col-2 list" style="padding: 0px;">실버</div>
 						</div>
 						<c:forEach var="list" items="${glist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none; ">
-								<div class="col-2" style="padding: 0px;">${list.id}</div>
+								<div class="col-3" style="padding: 0px;">${list.id}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
 								<div class="col-2" style="padding: 0px;">${list.grade}</div>
-								<div class="col-2" style="padding: 0px;">${list.blacklist}</div>
+								<div class="col-1" style="padding: 0px;">${list.blacklist}</div>
 								<div class="col-2" style="padding: 0px;">
 										<a href="/admin/userGradeMeta?grade=bronze&id=${list.id}"
 											style="text-decoration-line: none;"> <input type="button"
