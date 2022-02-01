@@ -3,24 +3,25 @@ package kh.spring.dto;
 import java.sql.Timestamp;
 
 public class MemberDTO {
-   private int    seq;
-   private String id;
-   private String pw;
-   private String name;
-   private String nickname;
-   private String phone;
-   private String email;
-   private String zipcode;
-   private String address1;
-   private String address2;
-   private String bank;
-   private String account;
-   private String money;
-   private String grade;
-   private String blacklist;
-   private String kakaologin;
-   private Timestamp signUp_date;
-   
+	private int    seq;
+	private String id;
+	private String pw;
+	private String name;
+	private String nickname;
+	private String phone;
+	private String email;
+	private String zipcode;
+	private String address1;
+	private String address2;
+	private String bank;
+	private String account;
+	private String money;
+	private String grade;
+	private String blacklist;
+	private String kakaologin;
+	private Timestamp signUp_date;
+	
+	
    
    public MemberDTO() {}
 
@@ -29,27 +30,6 @@ public class MemberDTO {
          String bank, String account, String money, String grade, String blacklist, String kakaologin,
          String zipcode, String address1, String address2, Timestamp signUp_date) {
 
-      super();
-      this.seq = seq;
-      this.id = id;
-      this.pw = pw;
-      this.name = name;
-      this.nickname = nickname;
-      this.phone = phone;
-      this.email = email;
-      this.zipcode = zipcode;
-      this.address1 = address1;
-      this.address2 = address2;
-      this.bank = bank;
-      this.account = account;
-      this.money = money;
-      this.grade = grade;
-      this.blacklist = blacklist;
-      this.kakaologin = kakaologin;
-      this.zipcode = zipcode;
-      this.address1 = address1;
-      this.address2 = address2;
-      this.signUp_date = signUp_date;
    }
 
 
