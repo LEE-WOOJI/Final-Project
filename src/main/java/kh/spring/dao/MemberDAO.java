@@ -18,6 +18,7 @@ import kh.spring.dto.ProfileDTO;
 @Repository
 public class MemberDAO {
 
+
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	// 로그인 기능
@@ -109,3 +110,9 @@ public class MemberDAO {
 	
 
 }
+
+ 
+   
+   
+
+

@@ -11,34 +11,34 @@ import kh.spring.utils.Static;
 
 @Service
 public class MemberService {
-	@Autowired
-	private MemberDAO mdao;
-	//로그인
-	public int isLoginAllowed(String id,String pw) {
-		return mdao.isLoginAllowed(id,pw);
-	}
-	
-	//아이디 중복체크
-		public MemberDTO isIDExist(String id) {
-			return mdao.isIDExist(id);
-		}
-	//비밀번호 중복체크
-		public MemberDTO isPWExist(String pw) {
-			return mdao.isPWExist(pw);
-		}
-	//닉네임 중복체크
-		public MemberDTO isNICExist(String nickname) {
-			return mdao.isNICExist(nickname);
-		}
-	//이메일 중복체크
-		public MemberDTO isEMAILExist(String email) {
-			return mdao.isEMAILExist(email);
-		}
-	//회원가입
-		public int insertMember(MemberDTO dto) {
-			dto.setPw(EncrpytionUtils.getSHA512(dto.getPw()));
-			return mdao.insertMember(dto);
-		}
+   @Autowired
+   private MemberDAO mdao;
+   //로그인
+   public int isLoginAllowed(String id,String pw) {
+      return mdao.isLoginAllowed(id,pw);
+   }
+   
+   //아이디 중복체크
+      public MemberDTO isIDExist(String id) {
+         return mdao.isIDExist(id);
+      }
+   //비밀번호 중복체크
+      public MemberDTO isPWExist(String pw) {
+         return mdao.isPWExist(pw);
+      }
+   //닉네임 중복체크
+      public MemberDTO isNICExist(String nickname) {
+         return mdao.isNICExist(nickname);
+      }
+   //이메일 중복체크
+      public MemberDTO isEMAILExist(String email) {
+         return mdao.isEMAILExist(email);
+      }
+   //회원가입
+      public int insertMember(MemberDTO dto) {
+         dto.setPw(EncrpytionUtils.getSHA512(dto.getPw()));
+         return mdao.insertMember(dto);
+      }
 
 		
 	// 회원가입 시 이미지 업로드.
@@ -98,8 +98,6 @@ public class MemberService {
 			}
 			
 		}
-
-
-
+   
 
 }

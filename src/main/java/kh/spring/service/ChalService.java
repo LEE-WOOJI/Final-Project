@@ -10,6 +10,7 @@ import kh.spring.dao.ChalDAO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.JoinChalDTO;
 
 @Service
 public class ChalService {
@@ -77,15 +78,19 @@ public class ChalService {
 	
 	
 	//과거 참여 챌린지
-	public List<ChalDTO> myChalListB(String nickname){
+	public List<JoinChalDTO> myChalListB(String nickname){
 		return cdao.myChalListB(nickname);
 	}
 	//참여중 챌린지
-	public List<ChalDTO> myChalListP(String nickname){
+	public List<JoinChalDTO> myChalListP(String nickname){
 		return cdao.myChalListP(nickname);
 	}
 	//참여할 챌리닞
-	public List<ChalDTO> myChalListF(String nickname){
+	public List<JoinChalDTO> myChalListF(String nickname){
 		return cdao.myChalListF(nickname);
+	}
+	//시퀀스찾기
+	public int seqSearch(String chalName) {
+		return cdao.seqSearch(chalName);
 	}
 }

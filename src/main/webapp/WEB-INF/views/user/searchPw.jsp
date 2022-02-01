@@ -72,7 +72,7 @@ function searchPw() {
 		<h3 class="text-center mb-4">비밀번호 찾기</h3>
 
 			<div class="form-group col-lg-3 mb-3 ">
-				<input type="text" class="form-control" placeholder="아이디를 입력해주세요" name="id"
+				<input type="text" class="form-control" placeholder="이메일를 입력해주세요" name="id"
 					id="id" style="width: 69%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 				<button type="button" id="searchPw" value="중복검사"
 					class="form-control btn btn-primary submit px-2"
