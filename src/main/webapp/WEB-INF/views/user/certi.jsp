@@ -244,12 +244,12 @@ a:hover {
 							<div class="row mt-3">
 								<h2 class="title"
 									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; font-size: 23px;">내
-									글피${list[0].chalName}</h2>
+									글피${chalName}</h2>
 								<div class="actions">
-									<input type="hidden" name="chalSeq" value="${list.chalSeq}">
-									<input type="hidden" name="chalName" value="${list.chalName}">
+									<input type="hidden" name="chalSeq" value="${chalSeq}">
+									<input type="hidden" name="chalName" value="${chalName}">
 									<input type="hidden" name="refNickname"
-										value="${list.refNickname}">
+										value="${refNickname}">
 									<button class="btn btn-danger"
 										style="font-family: 'yg-jalnan', verdana, tahoma; float: right;">
 										<i class="fa fa-plus"></i> 인증하기

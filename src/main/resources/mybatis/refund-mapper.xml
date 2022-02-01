@@ -16,7 +16,7 @@
 	
 	<!-- 환급 완료 처리(은행명변경) -->
 	<update id = "update">
-		update refund set bank = '처리완료' where chalName = ${chalName} and nickname = ${nickname}
+		update refund set bank = '처리완료' where chalName = #{chalName} and nickname = #{nickname}
 	</update>
 	
 	<!-- 환급 검색 -->
@@ -40,6 +40,6 @@
 	
 	<!-- 환급 중복 신청 -->
 	<select id = "refundOk" resultType = "int">
-		select count(*) from refund where nickname = #{nickname} and chalName = #{chalName}
+		select count(*) from refund where nickname = #{nickname} and chalSeq = #{chalSeq}
 	</select>
 </mapper>
