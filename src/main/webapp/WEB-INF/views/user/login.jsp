@@ -77,9 +77,9 @@
 									</div>
 								
 									<div class="w-50 text-md-right">
-										<a href="javascript:searchID()" style="font-family: 'yg-jalnan', verdana, tahoma;" >아이디 찾기</a>
+										<a href="/user/searchIdForm" style="font-family: 'yg-jalnan', verdana, tahoma;" >아이디 찾기</a>
 										&nbsp;
-										<a href="javascript:searchPw()" style="font-family: 'yg-jalnan', verdana, tahoma;">비밀번호 찾기</a>
+										<a href="/user/searchPwForm" style="font-family: 'yg-jalnan', verdana, tahoma;">비밀번호 찾기</a>
 									</div>
 		            </div>
 		          </form>

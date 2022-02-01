@@ -177,7 +177,7 @@ public class ChalController {
 	public String chalDetail(int seq, Model model) {
 
 		//블랙리스트 유무를 위하여 로그인 세션 받아옴
-		String id = (String) session.getAttribute("loginID");
+		String id = (String) session.getAttribute("loginId");
 
 		if(id != null) {
 			MemberDTO member = brService.searchInfoById(id);
@@ -192,17 +192,13 @@ public class ChalController {
 
 		// 태그 자르기
 		String[]tag = dto.getTag().split(",");
-
-		//		System.out.println("Tag : " + tag[0] + tag[1]);	
-		//		System.out.println("챌린지 번호 : " + seq);
-		//		System.out.println("인증샷 사진 몇개?" + list);
 		System.out.println(dto.getChalSeq());
 		model.addAttribute("seq",dto.getChalSeq());
 		model.addAttribute("dto",dto);
 		model.addAttribute("list",list);
 		model.addAttribute("tag1",tag[0]);
 		model.addAttribute("tag2",tag[1]);
-		//model.addAttribute("tag3",tag[2]); // DB에 무조건 태그 3개 넣어야함, 추후 주석 풀기
+		model.addAttribute("tag3",tag[2]); 
 
 		return "/chal/chalDetail";
 	}
@@ -210,7 +206,7 @@ public class ChalController {
 	/*글피 결제 페이지로 넘어가기*/
 	@RequestMapping("chalPayment")
 	public String chalPayment(int seq, Model model) {
-		String id = (String) session.getAttribute("loginID");
+		String id = (String) session.getAttribute("loginId");
 		ChalBasicDTO dto = cservice.selectBySeq(seq);
 
 		// 결제페이지에서 유저의 이름,이메일,핸드폰 번호를 받기 위하여.
@@ -227,7 +223,6 @@ public class ChalController {
 	@RequestMapping("chalOut")
 	public String chalOut(Integer refChalSeq, String nickname, String chalName, Timestamp startDate, 
 							Timestamp endDate, Integer  personnel, String chalInfo, String tag, String chalStat) {
-		System.out.println("refChalSeq값이 뭔데" + refChalSeq);
 		// 참여자 수 +1 증가
 		cservice.addPersonnel(refChalSeq);
 		// JoinChal 테이블에 추가

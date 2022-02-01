@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,42 +55,39 @@ public class UserController {
      // 메인jsp에서 로그인 버튼을 눌렀을떄
     @RequestMapping("loginform")
     public String login() {
-       
-    
+
         return "/user/login";
     }
    
    // 회원 로그인 페이지
     @RequestMapping("login")
     public String login(String id,String pw, HttpServletRequest request) {
-       
-       int result = memberService.isLoginAllowed(id,EncrpytionUtils.getSHA512(pw));   
-       
-      if(result>0) { // 로그인에 성공했을 경우
-         HttpSession session = request.getSession(); // 서버쪽 세션 금고에
-         session.setAttribute("loginId", id); // loginID라는 키값으로 사용자 ID를 저장
-         
-         
-           // 아이디값으로 댓글 정보 찾기.
-           MemberDTO info = brService.searchInfoById(id);
-           String writerNickname = info.getNickname();
-           // 닉네임 세션값 저장.
-           session.setAttribute("writerNickname", writerNickname);
-         
-         System.out.println("로그인에 성공했습니다.");
-      }
-      return "redirect:/";
-       }
-          
-          // 로그아웃 버튼을 눌렀을떄
-      @RequestMapping("logout")
-   
-      public String logout() {
-         
-         session.invalidate();
-         
-         return "redirect: /";
-      } 
+
+    	
+    	int result = memberService.isLoginAllowed(id,EncrpytionUtils.getSHA512(pw));	
+    	
+		if(result>0) { // 로그인에 성공했을 경우
+			HttpSession session = request.getSession(); // 서버쪽 세션 금고에
+			session.setAttribute("loginId", id); // loginID라는 키값으로 사용자 ID를 저장
+			
+	        // 아이디값으로 댓글 정보 찾기.
+	        MemberDTO info = brService.searchInfoById(id);
+	        String writerNickname = info.getNickname();
+	        // 닉네임 세션값 저장.
+	        session.setAttribute("writerNickname", writerNickname);
+			System.out.println("로그인에 성공했습니다.");
+		}
+	return "redirect:/";
+	}
+    		
+	// 로그아웃 버튼을 눌렀을떄
+	@RequestMapping("logout")
+	public String logout() {
+		
+		session.invalidate();
+		return "redirect: /";
+	} 
+
     //아이디 중복확인
     @GetMapping("idcheck")
     @ResponseBody
@@ -114,15 +113,15 @@ public class UserController {
     @RequestMapping("nickcheck")
     @ResponseBody
     public String nickname(Model model,String nickname, HttpServletRequest request) {
-       HashMap <String, String> returnMap = new HashMap <String, String>();
-       MemberDTO result = memberService.isNICExist(nickname);   
-      if(result != null) { // 닉넥임이 없을경우
-         return "true";
-      }
+    	HashMap <String, String> returnMap = new HashMap <String, String>();
+    	MemberDTO result = memberService.isNICExist(nickname);	
+		if(result != null) { // 닉넥임이 없을경우
+			return "true";
+		}
       
         return "false";
-        
     }
+   
     //이메일 중복확인
     @RequestMapping("emailcheck")
     @ResponseBody
@@ -136,13 +135,31 @@ public class UserController {
         return "false";
         
     }
-//    //아이디 찾기
-//    @RequestMapping("searchId")
-//    @ResponseBody
-//    public boolean searchId(Model model,String email, HttpServletRequest request) {
-//       boolean result = memberService.searchId(email);   
-//      return result;
-//    } 
+    
+    // 아이디 찾기 버튼을 눌렀을때 (화면이동)
+	@RequestMapping(value="searchIdForm",method = RequestMethod.GET)
+	public String searchId() {
+		 return "/user/searchId";
+	}
+	
+    //아이디 찾기
+    @RequestMapping("searchId")
+    @ResponseBody
+    public String searchId(Model model,String email, HttpServletRequest request) {
+    	MemberDTO result = memberService.isEMAILExist(email);	
+		if(result != null) { // 이메일이 없을경우
+			return result.getId();
+		}
+        return "";
+    }
+    
+    // 비밀번호 찾기 버튼을 눌렀을때 (화면이동)
+	@RequestMapping(value="searchPwForm",method = RequestMethod.GET)
+	public String searchPwForm() {
+		 return "/user/searchPw";
+	}
+	
+
     //비밀번호 찾기
     @RequestMapping("searchPw")
     @ResponseBody
@@ -150,22 +167,21 @@ public class UserController {
        boolean result = memberService.searchPw(id);   
       return result;
     } 
+    
     // 회원가입 버튼을 눌렀을때
-    @RequestMapping("signup")
-   public String signup() {
-      
-       
-       return "/user/signup";
-   }
-     
-    // 회원가입 완료 버튼을 눌렀을때
-    @RequestMapping("signproc")
-   public String signup(Model model, MemberDTO dto, MultipartFile file[]) throws Exception {
-       int memSeq = memberService.insertMember(dto);
-          
-       for(MultipartFile mf : file) {
-            if(!file[0].isEmpty()) {
-               String realPath = session.getServletContext().getRealPath("files");
+	 @RequestMapping("signup")
+	public String signup() {
+		 return "/user/signup";
+	}
+	  
+	 // 회원가입 완료 버튼을 눌렀을때
+	 @RequestMapping("signproc")
+	public String signup(Model model, MemberDTO dto, MultipartFile file[]) throws Exception {
+		 int memSeq = memberService.insertMember(dto);
+		 	
+		 for(MultipartFile mf : file) {
+	         if(!file[0].isEmpty()) {
+	            String realPath = session.getServletContext().getRealPath("files");
 
                File realPathFile = new File(realPath);
                if(!realPathFile.exists()) {
