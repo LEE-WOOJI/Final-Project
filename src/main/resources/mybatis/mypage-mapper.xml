@@ -74,7 +74,7 @@
 	<!-- 인증한 목록 출력 -->
 	<select id="findCertiList" resultType="kh.spring.dto.CertiDTO">
 		select * from certi where
-		chalSeq =#{chalSeq} and chalName =#{chalName} and refNickname =
+		chalSeq = #{chalSeq} and chalName =#{chalName} and refNickname =
 		#{refNickname}
 	</select>
 </mapper>

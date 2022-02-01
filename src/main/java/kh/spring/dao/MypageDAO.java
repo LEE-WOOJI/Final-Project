@@ -62,10 +62,12 @@ public class MypageDAO {
 	
 	// 인증한 목록 출력.
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String,String>();
+		System.out.println("잘 들어오는지?" + chalSeq);
 		map.put("chalSeq", String.valueOf(chalSeq));
 		map.put("chalName", chalName);
 		map.put("refNickname", refNickname);
 		return mybatis.selectList("Mypage.findCertiList",map);
 	}
+	
 }
