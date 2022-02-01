@@ -21,14 +21,14 @@ public class CommonUtils {
 	  /**
 	   * SendMail
 	   */
-	  public static void sendMail(String member_email,String temp_pw) {
+	  public static void sendMail(String email,String temp_pw) {
 	    // 메일 인코딩
 	    final String bodyEncoding = "UTF-8"; //콘텐츠 인코딩
 	    
 	    String subject = "글피 임시비밀번호 입니다.";
 	    String fromEmail = "lsm940705@gmail.com";
 	    String fromUsername = "SYSTEM MANAGER";
-	    String toEmail = member_email; // 콤마(,)로 여러개 나열
+	    String toEmail = email; // 콤마(,)로 여러개 나열
 	    
 	    final String username = "lsm940705@gmail.com";         
 	    final String password = "fwihbdhtrhsgzige";

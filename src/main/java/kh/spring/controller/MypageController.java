@@ -178,10 +178,13 @@ public class MypageController {
 		int chalSeq = refChalSeq;
 		String nickname = (String)session.getAttribute("writerNickname");
 		// 인증한 목록 출력.
-		System.out.println(chalSeq + ":" + chalName + ":" +nickname);
 		List<CertiDTO> list = mService.findCertiList(chalSeq, chalName, nickname);
-		System.out.println(list.size());
+		CertiDTO info = new CertiDTO();
+		info.setChalSeq(chalSeq);
+		info.setChalName(chalName);
+		info.setRefNickname(nickname);
 		model.addAttribute("list",list);
+		model.addAttribute("info",info);
 		return "/user/certi";
 	}
 
@@ -198,4 +201,11 @@ public class MypageController {
 		e.printStackTrace();
 		return "redirect:/";
 	}
+	
+	@RequestMapping("like") // 인증 작성폼으로 이동.
+	public String like() {
+		return "/user/like";
+	}
+	
+	
 }
