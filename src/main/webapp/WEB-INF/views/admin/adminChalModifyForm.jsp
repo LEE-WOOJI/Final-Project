@@ -366,7 +366,7 @@ label:hover {
 								<option value="펫/환경" <c:if test="${list.category eq '펫/환경'}">selected</c:if>>펫/환경</option>
 							</select>&ensp; <span style="font-family: 'yg-jalnan', verdana, tahoma;">태그
 								: </span> <input type="text" id="tag" name="tag"
-								placeholder="태그를 입력하세요."  value="${list.tag}"/>
+								placeholder="tag1,tag2,tag3"  value="${list.tag}"/>
 						</div>
 					</div>
 					<div class="row">
@@ -490,6 +490,9 @@ label:hover {
 
 			if ($("#tag").val() == "") {
 				alert("태그를 입력하세요.");
+				return false;
+			}else if($("#tag").val().split(',').length-1 !=2){
+				alert("태그 양식을 지켜주세요.");
 				return false;
 			}
 		})
