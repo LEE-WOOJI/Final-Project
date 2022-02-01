@@ -50,8 +50,8 @@ public class MypageService {
 	}
 
 	// 인증 이미지 불러오기.
-	public CertiImgDTO findCertiImgName(int parentSeq) {
-		return mypageDAO.findCertiImgName(parentSeq);
+	public CertiImgDTO findCertiImgName(int seq) {
+		return mypageDAO.findCertiImgName(seq);
 	}
 
 	// 인증한 목록 출력.

@@ -243,13 +243,12 @@ a:hover {
 						<div class="card-body">
 							<div class="row mt-3">
 								<h2 class="title"
-									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; font-size: 23px;">내
-									글피${list[0].chalName}</h2>
+									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; font-size: 23px;">${info.chalName}</h2>
 								<div class="actions">
-									<input type="hidden" name="chalSeq" value="${list.chalSeq}">
-									<input type="hidden" name="chalName" value="${list.chalName}">
+									<input type="hidden" name="chalSeq" value="${info.chalSeq}">
+									<input type="hidden" name="chalName" value="${info.chalName}">
 									<input type="hidden" name="refNickname"
-										value="${list.refNickname}">
+										value="${info.refNickname}">
 									<button class="btn btn-danger"
 										style="font-family: 'yg-jalnan', verdana, tahoma; float: right;">
 										<i class="fa fa-plus"></i> 인증하기
@@ -258,16 +257,14 @@ a:hover {
 							</div>
 							<div class="drive-wrapper drive-grid-view">
 								<div class="grid-items-wrapper">
-									<br>
 									<c:choose>
 										<c:when test="${!empty list}">
 											<c:forEach var="list" items="${list}">
-												<br>
-												<div
-													style="width: 300px; height: 300px; font-family: 'yg-jalnan', verdana, tahoma; float: left; margin: 5px; text-align: center;">
+												<div class="row"
+													style="width: 300px; height: 300px; font-family: 'yg-jalnan', verdana, tahoma; float: left; margin: 5px; text-align: center; padding-bottom: 50px;">
 													제목 : ${list.certiTitle} <img
-														src="/image/certiWriteLoad?parentSeq=${list.seq}" alt=""
-														style="max-width: 100%; height: auto;">인증날짜 :
+														src="/image/certiWriteLoad?seq=${list.seq}" alt=""
+														style="width:90%;height:90%;object-fit:cover;">인증날짜 :
 													${list.certiDate}
 												</div>
 											</c:forEach>
