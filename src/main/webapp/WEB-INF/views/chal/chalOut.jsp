@@ -53,7 +53,7 @@
 
 		
 			<div class="mt-3" style="text-align: center;">
-				<button class="btn btn-primary btn-block payment-button" id="home" style="font-family: 'yg-jalnan', verdana, tahoma; color: black;">
+				<button class="btn btn-danger btn-block payment-button" id="home" style="font-family: 'yg-jalnan', verdana, tahoma; color: white;">
 					홈으로
 				</button>
 			</div>
