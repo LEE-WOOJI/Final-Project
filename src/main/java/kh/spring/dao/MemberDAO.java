@@ -52,14 +52,17 @@ public class MemberDAO {
 	}
 	//회원가입 성공
 	public int insertMember(MemberDTO dto) {
-		return mybatis.insert("Member.insertMember",dto);
+		
+		mybatis.insert("Member.insertMember",dto);
+		return dto.getSeq();
+		
 	}
 	//회원가입 시 이미지 저장
-	public int insertMemberImg(String oriName, String sysName,int memberSeq) {
+	public int insertMemberImg(String oriName, String sysName,int seq) {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("oriName  ", oriName);
+		map.put("oriName"  , oriName);
 		map.put("sysName"  , sysName);
-		map.put("memberSeq", String.valueOf(memberSeq));
+		map.put("seq", String.valueOf(seq));
 		return mybatis.insert("Member.insertMemberImg",map);
 	}
 		
@@ -70,6 +73,13 @@ public class MemberDAO {
 		
 		return mybatis.selectOne("Member.isNICExist", map);
 	}
+	//아이디 찾기
+	public MemberDTO searchId(String email) {
+		Map<String,String> map = new HashMap<>();
+		map.put("email", email);
+		
+		return mybatis.selectOne("Member.searchId", map);
+	}
 	//비밀번호 찾기
 	public MemberDTO searchPw(String id) {
 		Map<String,String> map = new HashMap<>();
@@ -79,9 +89,7 @@ public class MemberDAO {
 	}
 	
 	
-	
 	//카카오 로그인
-
 	public int kakaoInsert( String nickname, String email) {
 		Map<String,String> map = new HashMap<>();
 		map.put("id", email);
@@ -91,6 +99,7 @@ public class MemberDAO {
 		return mybatis.insert("Member.kakaoInsert", map);
             
         }
+	
 	//임시 비밀 번호 저장
 	public void updateTempPassword(MemberDTO dto) {
 		mybatis.update("Member.updateTempPassword",dto);
@@ -98,68 +107,5 @@ public class MemberDAO {
 	
 	
 	
-//	// 게시판 목록 출력.
-//	public List<BoardDTO> selectAll(int start, int end){
-//		Map<String,String> map = new HashMap<>();
-//		map.put("start", String.valueOf(start));
-//		map.put("end", String.valueOf(end));
-//		return mybatis.selectList("Board.selectAll",map);
-//	}
-//
-//	// 게시판 검색 시 목록 출력.
-//	public List<BoardDTO> selectAllSearch(int start, int end, String select, String keyword){
-//		Map<String,String> map = new HashMap<>();
-//		map.put("start", String.valueOf(start));
-//		map.put("end", String.valueOf(end));
-//		map.put("select", select);
-//		map.put("keyword", keyword);
-//		return mybatis.selectList("Board.selectAllSearch",map);
-//	}
-//
-//	// 게시판 글 수 출력.
-//	public int getRecordCount() {
-//		return mybatis.selectOne("Board.getRecordCount");
-//	}
-//
-//	// 게시판 검색 시 글 수 출력.
-//	public int getRecordCountSearch(String select, String keyword) {
-//		Map<String,String> map = new HashMap<>();
-//		map.put("select", select);
-//		map.put("keyword", keyword);
-//		return mybatis.selectOne("Board.getRecordCountSearch",map);
-//	}
-//
-//	// seq로 작성한 글의 detail 출력.
-//	public BoardDTO selectBySeq(int seq){
-//		return mybatis.selectOne("Board.selectBySeq",seq);
-//	}
-//
-//	// 조희수 증가.
-//	public int addViewCount(int seq){
-//		return mybatis.update("Board.addViewCount",seq);
-//	}
-//
-//	// 게시글 수정.
-//	public int modify(int seq, String title, String contents){
-//		Map<String,String> map = new HashMap<>();
-//		map.put("seq", String.valueOf(seq));
-//		map.put("title", title);
-//		map.put("contents", contents);
-//		return mybatis.update("Board.modify",map);
-//	}
-//
-//	// 게시글 삭제.
-//	public int delete(int seq){
-//		return mybatis.delete("Board.delete",seq);
-//	}
-//
-//	// nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기.
-//	public int findParentSeq(String nickname){
-//		return mybatis.selectOne("Board.findParentSeq",nickname);
-//	}
-//
-//	// member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기.
-//	public ProfileDTO findImgName(int parentSeq){
-//		return mybatis.selectOne("Board.findImgName",parentSeq);
-//	}
+
 }

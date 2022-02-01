@@ -12,17 +12,13 @@
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
-<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-   crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 <!-- Google fonts-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-   rel="stylesheet" type="text/css" />
-<link
-   href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
-   rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
 <!-- Font Awesome icons (free version)-->
 <link href="/css/styles.css" rel="stylesheet" />
-
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style type="text/css">
 @font-face {
    font-family: 'yg-jalnan';
@@ -40,6 +36,27 @@
 </style>
 <script type="text/javascript">
 
+Kakao.init('280f4b845b98a0adf26878c0048c5ade'); //발급받은 키 중 javascript키를 사용해준다.
+
+function logout() {
+		if (confirm("정말 로그아웃 하시겠습니까?")) {
+			if (Kakao.Auth.getAccessToken()) {
+				Kakao.API.request({
+					url : '/v1/user/unlink',
+					success : function(response) {
+						location.href = "/user/logout"; //카카오api 결과값을 받은후 로그아웃 처리
+					},
+					fail : function(error) {
+						location.href = "/user/logout";
+					},
+				})
+				Kakao.Auth.setAccessToken(undefined)
+			} else {
+				location.href = "/user/logout"; //카카오 api를 사용한 로그인이 아니고 일반 로그인인 경우
+			}
+
+		}
+	}
 </script>
 </head>
 <!-- header -->
@@ -68,7 +85,7 @@
                      	</c:if>
                      	<c:if test = "${loginId != 'admin1234' }">
                      		<li class="nav-item"><a class="nav-link" href="#My page"><span id = "mypage">My Page</span></a></li>
-                            <li class="nav-item"><a class="nav-link" href ="/user/logout"><span id = "logout">Logout</span></a><li>
+                            <li class="nav-item"><a class="nav-link" href ="javascript:logout();"><span id = "logout">Logout</span></a><li>
                      	</c:if>
                   </c:if>
                   

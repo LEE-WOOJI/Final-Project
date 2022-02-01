@@ -16,27 +16,29 @@
 	<!-- ID 중복체크 -->
 	<select id="isIDExist" resultType="kh.spring.dto.MemberDTO">
 		select *
-			from member
-		   where id= #{id}
+   	  	  from member
+         where id= #{id}
 	</select>
 	<!-- 닉네임 중복체크 -->
 	<select id="isNICExist" resultType="kh.spring.dto.MemberDTO">
 		select *
-			from member
-			where nickname = #{nickname}
+       	  from member
+       	 where nickname = #{nickname}
+		   and nvl(kakaologin,'N') = 'N'
 	</select>
 		<!-- 이메일 중복체크 -->
 	<select id="isEMAILExist" resultType="kh.spring.dto.MemberDTO">
 		select *
-			from member
-			where email = #{email}
+		  from member
+		 where email = #{email}
+		   and nvl(kakaologin,'N') = 'N'
 	</select>
 	
 	<!-- 회원가입  -->
 	<insert id="insertMember" parameterType="kh.spring.dto.MemberDTO">
 		INSERT INTO member (
 			seq
-		    ,  id
+		    , id
 		    , pw
 		    , name
 		    , nickname
@@ -72,7 +74,7 @@
 			, sysdate
 		)
 		<selectKey resultType="int" order="AFTER"
-			keyProperty="memberSeq">
+			keyProperty="seq">
 			select member_seq.currval from dual
 		</selectKey>
 	</insert>
@@ -81,7 +83,6 @@
 	INSERT INTO member(
 			  seq
 			, id
-			, name
 		    , nickname
 		    , email
 		  	, kakaologin
@@ -90,7 +91,6 @@
 		) VALUES (
 			  member_seq.nextval
 			, #{email    , jdbcType=VARCHAR}
-			, #{name     , jdbcType=VARCHAR}
 			, #{nickname , jdbcType=VARCHAR}
 			, #{email	 , jdbcType=VARCHAR}
 			, 'Y'
@@ -98,14 +98,20 @@
 			, 'bronze'
 	)
 	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="searchId" resultType="kh.spring.dto.MemberDTO">
+		select * from member 
+         where email = #{email}
+		   and nvl(kakaologin,'N') = 'N'
+	</select>
+
 		<!-- 임시비밀번호 저장 -->
 	<update id="updateTempPassword" parameterType="kh.spring.dto.MemberDTO">
-	UPDATE member
-	   set pw = #{pw          , jdbcType=VARCHAR}
-	 where id = #{id          , jdbcType=VARCHAR}
+		UPDATE member
+		   set pw = #{pw          , jdbcType=VARCHAR}
+		 where id = #{id          , jdbcType=VARCHAR}
 	</update>
-	
-
 
 	<!-- 관리자 페이지 챌린지 관리에서 챌린지 등록시 이미지 업로드 -->
 	<insert id="insertMemberImg">
@@ -116,7 +122,7 @@
 		    sysname
 		) VALUES (
 		    profile_seq.nextval,
-		    #{memberSeq       , jdbcType=INTEGER},
+		    #{seq       	  , jdbcType=INTEGER},
 		    #{oriName         , jdbcType=VARCHAR},
 		    #{sysName         , jdbcType=VARCHAR}
 		)

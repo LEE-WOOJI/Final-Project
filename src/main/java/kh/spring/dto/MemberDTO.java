@@ -20,7 +20,7 @@ public class MemberDTO {
 	private String blacklist;
 	private String kakaologin;
 	private Timestamp signUp_date;
-	private int memberSeq;
+	
 	
 	public MemberDTO() {}
 
@@ -52,14 +52,6 @@ public class MemberDTO {
 		this.signUp_date = signUp_date;
 	}
 
-	public int getMemberSeq() {
-		return memberSeq;
-	}
-
-
-	public void setMemberSeq(int memberSeq) {
-		this.memberSeq = memberSeq;
-	}
 
 
 	public int getSeq() {
