@@ -673,7 +673,7 @@ body {
 								<ul class="nav">
 									<li><a href="/mypage/userinfo"
 										style="text-decoration: none;"><span class="fa fa-user"></span>내정보</a></li>
-									<li><a href="/mypage/chaling"
+									<li><a href="/mypage/mypageMain"
 										style="text-decoration: none;"><span class="fa fa-cog"></span>도전중인글피</a></li>
 									<li><a href="#" style="text-decoration: none;"><span
 											class="fa fa-credit-card"></span>작성한 글 / 댓글</a></li>
@@ -689,9 +689,10 @@ body {
 								style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">내
 								글피${list[0].chalName}</h2>
 							<div class="actions">
-							<input type="hidden" name="chalSeq" value="${list.chalSeq}">
-							<input type="hidden" name="chalName" value="${list.chalName}">
-							<input type="hidden" name="refNickname" value="${list.refNickname}">
+								<input type="hidden" name="chalSeq" value="${list.chalSeq}">
+								<input type="hidden" name="chalName" value="${list.chalName}">
+								<input type="hidden" name="refNickname"
+									value="${list.refNickname}">
 								<button class="btn btn-danger"
 									style="font-family: 'yg-jalnan', verdana, tahoma;">
 									<i class="fa fa-plus"></i> 인증하기

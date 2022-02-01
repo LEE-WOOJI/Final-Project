@@ -4,32 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Mypage">
+	<!-- 닉네임 -->
 	<select id="getUser" resultType="kh.spring.dto.MemberDTO">
 		select * from member
-		where seq =
+		where
+		nickname =
 		#{value}
 	</select>
+
 	<select id="getUserChalList"
 		resultType="kh.spring.dto.JoinChalDTO">
-		select j.seq, j.refchalseq , j.refnickname ,
-		c.chalname ,
-		c.startdate , c.enddate , c.personnel ,
-		c.chalinfo , c.tag ,
-		c.chalstat
-		from joinchal j
-		inner join Member m on m.nickname
-		=j.refnickname
-		inner
-		join chal c on c.chalseq = j.refchalseq
-		where
-		m.nickname = #{value}
+		select * from joinChal where refnickname = #{value}
 	</select>
+
 	<select id="getUserBoard" resultType="kh.spring.dto.BoardDTO">
 		select *
 		from board
 		where
 		board.nickname = #{value}
 	</select>
+
 	<select id="getUserBoardReply"
 		resultType="kh.spring.dto.BoardReplyDTO">
 		select *
@@ -38,16 +32,18 @@
 		boardreply.writernickname =
 		#{value}
 	</select>
+
 	<update id="updateUserInfo"
 		parameterType="kh.spring.dto.MemberDTO">
 		update member set pw =#{pw}, email=#{email},
 		address1=#{address1}, address2=#{address2}, phone=#{phone}
-		where seq=
-		#{seq}
+		where nick=
+		#{nickname}
 	</update>
-
+	
+	<!-- 회원 삭제 -->
 	<delete id="delete">
-		delete from member where seq = #{value}
+		delete from member where nickname = #{value}
 	</delete>
 
 	<!-- 인증 등록 -->
@@ -76,5 +72,21 @@
 		select * from certi where
 		chalSeq =#{chalSeq} and chalName =#{chalName} and refNickname =
 		#{refNickname}
+		</select>
+		
+	<select id="findParentSeq" resultType="int">
+		select seq from member
+		where nickname = #{value}
+	</select>
+
+	<!-- member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기. -->
+	<select id="findImgName" resultType="kh.spring.dto.ProfileDTO">
+		select * from profile where
+		parentSeq = #{value}
+	</select>
+	
+	<!-- 글피 디테일  -->
+	<select id="glphyDetail" resultType="kh.spring.dto.mypageDTO">
+		select * from glphydetail where seq =#{value}
 	</select>
 </mapper>

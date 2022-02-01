@@ -143,7 +143,7 @@
 	  <!-- Footer-->
        	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
    </body>
-   
+ 
    <script>
    		let moreNum = 1;
    		$("#more").on("click",function(){

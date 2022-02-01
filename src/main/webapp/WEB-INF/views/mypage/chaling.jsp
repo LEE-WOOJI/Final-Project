@@ -632,7 +632,7 @@ body{
                         <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
                         <ul class="meta list list-unstyled">
                             <li class="name">${user.name }
-                                <label class="label label-info">등급</label>
+                                <label class="label label-info">${user.grade }</label>
                             </li>
                             <li class="email"><a href="#">${user.email }</a></li>
                         </ul>
@@ -657,6 +657,7 @@ body{
                     <div class="content-utilities">
                       
                     </div>
+                    
                     <div class="drive-wrapper drive-grid-view ">
                         <div class="grid-items-wrapper">
                         	<c:forEach var="item" items="${list}">

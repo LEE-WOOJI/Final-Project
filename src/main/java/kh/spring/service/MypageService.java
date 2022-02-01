@@ -13,14 +13,15 @@ import kh.spring.dto.CertiDTO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.ProfileDTO;
 
 @Service
 public class MypageService {
 	@Autowired
 	private MypageDAO mypageDAO;
 
-	public MemberDTO selectBySeq(int seq) {
-		return mypageDAO.selectBySeq(seq);
+	public MemberDTO selectBySeq(String nickname) {
+		return mypageDAO.selectBySeq(nickname);
 	}
 
 	public List<JoinChalDTO> getUserChalList(String nickname){
@@ -58,4 +59,7 @@ public class MypageService {
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {
 		return mypageDAO.findCertiList(chalSeq,chalName,refNickname);
 	}
+	
+//	//db에서 user 프로필사진 이름 변경
+//	public void img_update(String userId, String profile_img)
 }

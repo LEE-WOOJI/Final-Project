@@ -39,9 +39,7 @@
 			<div class="col-md-10 col-lg-10">
 				<div class="login-wrap">
 					<div class="img"  id="image_container" img src="images/kakao_login.png"></div>
-					<h3 class="text-center mb-4">회원가입</h3>
-					
-					<form action="/mypage/update" class="signup-form" method="POST">
+					<form action="/mypage/mypageUserUpdate" class="signup-form" method="POST">
 						<div class="form-group col-lg-3 mb-3 ">
 							<input name="seq" type="hidden" value="${user.seq}">
 							<input type="text" class="form-control" readonly placeholder="${user.id }" name="id" id="id" style="width: 65%; display: inline-block;">
@@ -94,13 +92,10 @@
 		</div>
 		</div>
 	</section>
-
 	<script src="/js/signup/jquery.min.js"></script>
 	<script src="/js/signup/popper.js"></script>
 	<script src="/js/signup/bootstrap.min.js"></script>
 	<script src="/js/signup/main.js"></script>
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-
 </body>
-
 </html>

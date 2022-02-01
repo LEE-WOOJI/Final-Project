@@ -15,14 +15,15 @@ import kh.spring.dto.CertiDTO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.ProfileDTO;
 
 @Repository
 public class MypageDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	public MemberDTO selectBySeq(int seq) {
-		return mybatis.selectOne("Mypage.getUser",seq);
+	public MemberDTO selectBySeq(String nickname) {
+		return mybatis.selectOne("Mypage.getUser",nickname);
 	}
 
 	public List<JoinChalDTO> getUserChalList(String nickname){
@@ -68,4 +69,5 @@ public class MypageDAO {
 		map.put("refNickname", refNickname);
 		return mybatis.selectList("Mypage.findCertiList",map);
 	}
+
 }

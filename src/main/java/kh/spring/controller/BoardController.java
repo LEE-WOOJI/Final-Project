@@ -142,7 +142,7 @@ public class BoardController {
 		model.addAttribute("keyword",keyword);
 		return "redirect:/board/detail";
 	}
-	
+
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
