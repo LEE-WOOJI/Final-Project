@@ -234,7 +234,11 @@ a:hover {
 						<c:forEach var="list" items="${plist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
-								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
+								<div class="col-2" style="padding: 0px;">
+								<a href = "/chal/detail?seq=${list.refChalSeq}" style = "text-decoration : none; color:black;">
+								${list.chalName}
+								</a>
+								</div>
 								<div class="col-2" style="padding: 0px;">${list.tag}</div>
 								<div class="col-2" style="padding: 0px;">${list.personnel}명</div>
 								<div class="col-2" style="padding: 0px;">
@@ -272,7 +276,11 @@ a:hover {
 						<c:forEach var="list" items="${flist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
-								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
+								<div class="col-2 name" style="padding: 0px;" >
+								<a href = "/chal/detail?seq=${list.refChalSeq}" style = "text-decoration : none; color:black;">
+								${list.chalName}
+								</a>
+								</div>
 								<div class="col-2" style="padding: 0px;">${list.tag}</div>
 								<div class="col-2" style="padding: 0px;">${list.personnel}명</div>
 								<div class="col-2" style="padding: 0px;">
@@ -282,7 +290,9 @@ a:hover {
 								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.endDate}"/>
 								</div>
 								<div class="col-2" style="padding: 0px;">
-								<input type="button" value="취소" class="btn cancle" style="background-color: #f8d2cd;"></div>
+								<input type="button" value="취소" class="btn cancle" style="background-color: #f8d2cd;">
+								<input type="button" value="${list.refChalSeq }" class="btn seq" style="background-color: #f8d2cd; display:none;">
+								</div>
 							</div>
 						</c:forEach>
 					</div>
@@ -304,7 +314,10 @@ a:hover {
 						<c:forEach var="list" items="${blist}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none; ">
-								<div class="col-2" style="padding: 0px;">${list.chalName}</div>
+								<div class="col-2" style="padding: 0px;" style = "text-decoration : none; color:black;">
+								<a href = "/chal/detail?seq=${list.refChalSeq}" style = "text-decoration : none; color:black;">
+								${list.chalName}
+								</a></div>
 								<div class="col-2" style="padding: 0px;">${list.tag}</div>
 								<div class="col-2" style="padding: 0px;">${list.personnel}명</div>
 								<div class="col-2" style="padding: 0px;">
@@ -332,31 +345,39 @@ a:hover {
 	<script type="text/javascript"
 		src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
-	let chalName =  "${list.chalName}"	
-	$(".cancle").on("click",function(){
-		$.ajax({
-				url:"/mypage/refundOk",
-				method:"POST",
-				data:{"chalName",chalName}
-			}).done(function(resp){
-				if(resp == "중복"){
-					alert("이미 환급 신청이 완료되었습니다!");
-				}else{
-					location.href = "/user/cancleInfo?chalSeq=${list.chalSeq}";
-				}
-			})
-		});
-	
-	$(".refund").on("click",function(){
+	let chalSeq = $(".seq").val();
+	$(document).on("click",".cancle",function(e){
+		let result = confirm("취소신청하시겠습니까?");
+		console.log(chalSeq);
+		if(!result){return false;}
 		$.ajax({
 			url:"/mypage/refundOk",
 			method:"POST",
-			data:{"chalName",chalName}
+			data:{"chalSeq":chalSeq}
 		}).done(function(resp){
-			if(resp == "중복"){
-				alert("이미 환급 신청이 완료되었습니다!");
+			console.log(resp);
+			if(resp == "true"){
+				alert("이미 취소 신청이 되었습니다")
 			}else{
-				location.href = "/user/refundInfo?chalSeq=${list.chalSeq}";
+				console.log(chalSeq);
+				location.href = "/user/cancleInfo?chalSeq="+chalSeq;
+			}
+		})
+	});
+	
+	 $(".refund").on("click",function(){
+		 let result = confirm("환급신청하시겠습니까?");
+		 if(!result){return false;}
+		 $.ajax({
+			url:"/mypage/refundOk",
+			method:"POST",
+			data:{"chalSeq":chalSeq}
+		}).done(function(resp){
+			console.log(resp);
+			if(resp == "true"){
+				alert("이미 환급 신청이 되었습니다")
+			}else{
+				location.href = "/user/refundInfo?chalSeq="+chalSeq;
 			}
 		})
 	});

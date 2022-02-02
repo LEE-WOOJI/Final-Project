@@ -119,14 +119,16 @@ public class MypageController {
 	//환급 신청되는지 확인
 	@ResponseBody
 	@RequestMapping(value ="refundOk", produces = "text/html;charset=utf8")
-	public String chalCancel(String chalName) {
+	public String chalCancel(int chalSeq) {
+		String nickname = (String)session.getAttribute("writerNickname");
+		System.out.println(chalSeq);
 		//중복확인 메서드
-		int num = rservice.refundOk(chalName, chalName);
-		String result = "중복아님";
+		int num = rservice.refundOk(nickname, chalSeq);
+		System.out.println("결과값" + num);
 		if(num == 1) {
-			result = "중복";
+			return "true";
 		}
-		return result;
+		return "false";
 	}
 	//내가 작성한 글과 댓글
 	@RequestMapping("myBoardAndReply")
@@ -146,16 +148,19 @@ public class MypageController {
 		if(option.equals("title")) {
 			List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
 			List<BoardReplyDTO> boardReplyList = memberService.getUserBoardReply(nickname);
+			model.addAttribute("nickname",nickname);
 			model.addAttribute("blist", boardList);
 			model.addAttribute("rlist", boardReplyList);
 		}else if(option.equals("contents")) {
 			List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
 			List<BoardReplyDTO> boardReplyList = brService.mySearch(nickname, "repContents", keyword);
+			model.addAttribute("nickname",nickname);
 			model.addAttribute("blist", boardList);
 			model.addAttribute("rlist", boardReplyList);
 		}else if(option.equals("seq")) {
 			List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
-			List<BoardReplyDTO> boardReplyList = brService.mySearch(nickname, option, keyword);
+			List<BoardReplyDTO> boardReplyList = brService.mySearch(nickname, "refBoardSeq", keyword);
+			model.addAttribute("nickname",nickname);
 			model.addAttribute("blist", boardList);
 			model.addAttribute("rlist", boardReplyList);
 		}

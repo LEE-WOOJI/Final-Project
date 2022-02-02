@@ -48,10 +48,11 @@ public class RefundDAO {
 	}
 	
 	//환급 중복
-	public int refundOk(String nickname, String chalName) {
+	public int refundOk(String nickname, int chalSeq) {
+		System.out.println("DAO" + chalSeq);
 		Map<Object,Object> map = new HashMap<>();
 		map.put("nickname", nickname);
-		map.put("chalName", chalName);
+		map.put("chalSeq", chalSeq);
 		return mybatis.selectOne("Refund.refundOk",map);
 	}
 	
