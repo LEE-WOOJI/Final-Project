@@ -364,7 +364,7 @@ a:hover {
 		})
 	});
 	
-	 $(".refund").on("click",function(){
+	$(document).on("click",".refund",function(e){
 		 let result = confirm("환급신청하시겠습니까?");
 		 if(!result){return false;}
 		 $.ajax({
