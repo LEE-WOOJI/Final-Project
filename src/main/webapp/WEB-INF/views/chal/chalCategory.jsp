@@ -77,6 +77,7 @@
                		<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
+		                     	<input type = "text" class = "like" value  = "${list.chalSeq}" style = "display:none;">
 		                        <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
 		                        	<img src="/image/chalModifyLoad?chalSeq=${list.chalSeq}" alt="">
 		                        </a>
@@ -195,27 +196,16 @@
    			})
    		});
    
-		$(document).ready(function(){
-			// 좋아요가 있는지 확인한 값을 heartval에 저장
-			var heartval = ${heart.heart}
-			// heartval이 1이면 좋아요가 이미 되있는것이므로 heartOn.png를 출력하는 코드
-			if(heartval>0){
-				console.log(heartval);
-				$("#heart").prop("src","/assets/img/heartOn.png");
-				$(".heart").prop("name",heartval);
-			}else{
-				console.log(heartval);
-				$("#heart").prop("src","/assets/img/heart.png");
-				$(".heart").prop("name",heartval);
-			}
+		
 		
 		// 좋아요 버튼을 클릭 시 실행되는 코드
 		$(".heart").on("click",function(){
+			let seq = $(".like").val();
 			var that = $(".heart");
 			$.ajax({
 				url : "/heart/heart",
 				type : "post",
-				data : {"seq":${dto.seq}, "refChalSeq":${sessionScope.login}},
+				data : {"refChalSeq":seq},
 				success : function(data){
 					that.prop("name",data);
 					if(data==1){
@@ -226,7 +216,5 @@
 				}
 			});
 		});
-	});
-
    </script>
 </html>

@@ -1,15 +1,15 @@
 package kh.spring.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.HeartDTO;
-import kh.spring.dto.MemberDTO;
 import kh.spring.service.HeartService;
 
 @RequestMapping("/heart")
@@ -17,6 +17,8 @@ import kh.spring.service.HeartService;
 public class HeartController {
 	@Autowired
 	private HeartService hService;
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping("/fill")
 	public String detail(@RequestParam("seq") int seq, Model model, @RequestParam(value="page", required=false, defaultValue="1")int page,@RequestParam("refChalSeq") int refChalSeq) {
@@ -36,7 +38,11 @@ public class HeartController {
 	}
 	
 	@RequestMapping("/heart")
-	public @ResponseBody int heart(@ModelAttribute HeartDTO hdto) {
+	@ResponseBody
+	public int heart(int refChalSeq) {
+		String nickname = (String)session.getAttribute("writerNickname");
+		HeartDTO hdto = new HeartDTO(0,refChalSeq,nickname,1);
+		
 		int result = hService.insertHeart(hdto);
 		return result;
 	}
