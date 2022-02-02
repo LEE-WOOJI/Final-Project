@@ -168,14 +168,14 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-		                     		<img src="\${result[i].oriName}" alt="">
+		                     		<img src="/image/chalModifyLoad?chalSeq=\${result[i].chalSeq}" alt="">
 	                        	</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
 		                        	\${result[i].chalName }
-                           		</a>  
+                           		</a> 
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>
@@ -224,11 +224,11 @@
    			// heartval이 1이면 좋아요가 이미 되있는것이므로 heartOn.png를 출력하는 코드
    			if(heartval>0){
    				console.log(heartval);
-   				$("#heart").prop("src","/resources/assets/img/heartOn.png");
+   				$("#heart").prop("src","/assets/img/heartOn.png");
    				$(".heart").prop("name",heartval);
    			}else{
    				console.log(heartval);
-   				$("#heart").prop("src","/resources/assets/img/heart.png");
+   				$("#heart").prop("src","/assets/img/heart.png");
    				$(".heart").prop("name",heartval);
    			}
    		
@@ -236,7 +236,7 @@
    		$(".heart").on("click",function(){
    			var that = $(".heart");
    			$.ajax({
-   				url : "/heart/fill",
+   				url : "/heart/heart",
    				type : "post",
    				data : {"seq":${dto.seq}, "refChalSeq":${sessionScope.login}},
    				success : function(data){

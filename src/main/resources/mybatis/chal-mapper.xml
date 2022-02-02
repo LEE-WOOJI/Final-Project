@@ -38,13 +38,17 @@
 		update chal set personnel = personnel + 1 where chalSeq = #{value}
 	</update>
 	
+	<update id="addPersonnelJ">
+		update joinChal set personnel = personnel + 1 where refChalSeq = #{value}
+	</update>
+	
 	<insert id="joinChal">
 		insert into joinChal values(joinChal_seq.nextval, #{refChal},#{refNickname},#{chalName},#{startDate},#{endDate},#{personnel},#{chalInfo},#{tag},#{chalStat})
 	</insert>
 	
 	<!-- 특정 챌린지에 대한 정보값 불러오기 -->
 	<select id = "chalInfo" resultType = "kh.spring.dto.ChalDTO">
-		select * from joinChal where chalSeq = #{value}
+		select * from chal where chalSeq = #{value}
 	</select>
 
 	<!-- 어떤 유저가 과거에 참여한 챌린지 조회 -->

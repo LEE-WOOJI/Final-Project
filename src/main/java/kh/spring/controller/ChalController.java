@@ -240,6 +240,7 @@ public class ChalController {
 			Timestamp endDate, Integer  personnel, String chalInfo, String tag, String chalStat) {
 		// 참여자 수 +1 증가
 		cservice.addPersonnel(refChalSeq);
+		cservice.addPJ(refChalSeq);
 		// JoinChal 테이블에 추가
 		cservice.joinChal(refChalSeq,nickname,chalName,startDate,endDate,personnel,chalInfo,tag,chalStat);
 		return "/chal/chalOut";

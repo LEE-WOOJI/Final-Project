@@ -68,7 +68,7 @@
 	<!-- 인증 이미지 불러오기 -->
 	<select id="findCertiImgName"
 		resultType="kh.spring.dto.CertiImgDTO">
-		select * from certiImg where parentSeq = #{value}
+		select * from certiImg where seq = #{value}
 	</select>
 
 	<!-- 인증한 목록 출력 -->

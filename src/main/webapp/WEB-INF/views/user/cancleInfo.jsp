@@ -165,7 +165,7 @@ td {
 					</tr>
 					<tr>
 						<td class="title">참여 기간</td>
-						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }~${endDate }" /></td>
+						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }" /></td>
 					</tr>
 					<tr>
 						<td class="title">신청금</td>

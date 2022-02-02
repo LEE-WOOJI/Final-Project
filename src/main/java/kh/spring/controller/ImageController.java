@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +17,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 
@@ -233,9 +236,13 @@ public class ImageController {
 	}
 
 	@RequestMapping("certiWrite") // 인증 등록시 이미지 업로드.
-	public String certiWrite(CertiDTO dto, MultipartFile file[]) throws Exception {
+	public String certiWrite(CertiDTO dto, MultipartFile file[], RedirectAttributes re) throws Exception {
 		// 인증 정보 등록.
 		int certiSeq = mService.insertCerti(dto);
+		String chalName = dto.getChalName();
+		int refChalSeq = dto.getChalSeq();
+		re.addAttribute("chalName",chalName);
+		re.addAttribute("refChalSeq",refChalSeq);
 		for(MultipartFile mf : file) {
 			if(!file[0].isEmpty()) {
 				String realPath = session.getServletContext().getRealPath("files");
@@ -251,13 +258,13 @@ public class ImageController {
 				mService.insertCertiImg(oriName,sysName,certiSeq);
 			}
 		}
-		return "/user/certi";
+		return "redirect:/mypage/certi";
 	}
 
 	@RequestMapping("certiWriteLoad") // 인증 파일 이미지를 불러오기.
-	public void certiWriteLoad(int parentSeq, HttpServletResponse response) throws Exception {
-		// parentSeq로 CertiImg테이블의 imgName 찾기.
-		CertiImgDTO dto = mService.findCertiImgName(parentSeq);
+	public void certiWriteLoad(int seq, HttpServletResponse response) throws Exception {
+		// seq로 CertiImg테이블의 imgName 찾기.
+		CertiImgDTO dto = mService.findCertiImgName(seq);
 		String oriName = dto.getOriName();
 		String sysName = dto.getSysName();
 		String realPath = session.getServletContext().getRealPath("files");

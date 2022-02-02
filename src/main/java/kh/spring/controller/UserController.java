@@ -278,7 +278,7 @@ public class UserController {
        }
        int result = rservice.insert(new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,rate,nickname,bank,account));
        System.out.println("실행 결과 : " + result);
-       return "/user/mypage";
+       return "/mypage/myChalList";
     }
     
     //유저 환급 신청
@@ -289,7 +289,7 @@ public class UserController {
        int price = 10000;
        int result = rservice.insert(new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,0,nickname,bank,account));
        System.out.println("실행 결과 : " + result);
-       return "/user/mypage";
+       return "/mypage/myChalList";
     }
     
     
