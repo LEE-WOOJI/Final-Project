@@ -224,11 +224,11 @@
    			// heartval이 1이면 좋아요가 이미 되있는것이므로 heartOn.png를 출력하는 코드
    			if(heartval>0){
    				console.log(heartval);
-   				$("#heart").prop("src","/resources/assets/img/heartOn.png");
+   				$("#heart").prop("src","/assets/img/heartOn.png");
    				$(".heart").prop("name",heartval);
    			}else{
    				console.log(heartval);
-   				$("#heart").prop("src","/resources/assets/img/heart.png");
+   				$("#heart").prop("src","/assets/img/heart.png");
    				$(".heart").prop("name",heartval);
    			}
    		
