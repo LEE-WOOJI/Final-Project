@@ -236,7 +236,7 @@
    		$(".heart").on("click",function(){
    			var that = $(".heart");
    			$.ajax({
-   				url : "/heart/fill",
+   				url : "/heart/heart",
    				type : "post",
    				data : {"seq":${dto.seq}, "refChalSeq":${sessionScope.login}},
    				success : function(data){
