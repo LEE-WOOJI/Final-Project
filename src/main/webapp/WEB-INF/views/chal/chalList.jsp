@@ -168,14 +168,14 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-		                     		<img src="\${result[i].oriName}" alt="">
+		                     		<img src="/image/chalModifyLoad?chalSeq=\${result[i].chalSeq}" alt="">
 	                        	</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
 		                        	\${result[i].chalName }
-                           		</a>  
+                           		</a> 
 		                        </h4>
 		                        <img src="/assets/img/heart.png" alt="">
 		                     </div>

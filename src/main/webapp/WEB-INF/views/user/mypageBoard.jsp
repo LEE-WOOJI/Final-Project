@@ -195,7 +195,7 @@ a:hover {
                            </div>
 							
 							<div class="list-group list-group-flush">
-								<a href="/mypage/mypageUserUpdate" class="list-group-item py-1"><span
+								<a href="/mypage/updateForm" class="list-group-item py-1"><span
                            class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
                            a href=/mypage/updateUserInfo>내 정보 </span></a>
 
@@ -212,10 +212,7 @@ a:hover {
                            data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
                               찜한 글피 </span></a> 
                               
-                              <a href="/mypage/delete"
-                           class="list-group-item py-1"><span class="iconify"
-                           data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>회원
-                              탈퇴</span></a>
+                              
 							</div>
 						</div>
 					</div>

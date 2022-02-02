@@ -123,4 +123,9 @@ public class ChalDAO {
 	public int seqSearch(String chalName) {
 		return mybatis.selectOne("Chal.seqSearch", chalName);
 	}
+	
+	//인원추가
+	public int addPJ(int chalSeq) {
+		return mybatis.update("Chal.addPersonnelJ", chalSeq);
+	}
 }
