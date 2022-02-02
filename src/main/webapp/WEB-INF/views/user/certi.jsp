@@ -35,6 +35,7 @@ body {
 	margin-top: 20px;
 	background-color: #f7f7ff;
 }
+
 .card {
 	position: relative;
 	display: flex;
@@ -49,6 +50,7 @@ body {
 	box-shadow: 0 2px 6px 0 rgb(218 218 253/ 65%), 0 2px 6px 0
 		rgb(206 206 238/ 54%);
 }
+
 .fm-file-box {
 	font-size: 25px;
 	background: #e9ecef;
@@ -59,25 +61,31 @@ body {
 	justify-content: center;
 	border-radius: .25rem;
 }
+
 .ms-2 {
 	margin-left: .5rem !important;
 }
+
 .fm-menu .list-group a {
 	font-size: 16px;
 	color: #5f5f5f;
 	display: flex;
 	align-items: center;
 }
+
 .list-group-flush>.list-group-item {
 	border-width: 0 0 1px;
 }
+
 .list-group-item+.list-group-item {
 	border-top-width: 0;
 }
+
 .py-1 {
 	padding-top: .25rem !important;
 	padding-bottom: .25rem !important;
 }
+
 .list-group-item {
 	position: relative;
 	display: block;
@@ -86,9 +94,11 @@ body {
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, .125);
 }
+
 .radius-15 {
 	border-radius: 15px;
 }
+
 .fm-icon-box {
 	font-size: 32px;
 	background: #ffffff;
@@ -99,30 +109,38 @@ body {
 	justify-content: center;
 	border-radius: .25rem;
 }
+
 .font-24 {
 	font-size: 24px;
 }
+
 .ms-auto {
 	margin-left: auto !important;
 }
+
 .font-30 {
 	font-size: 30px;
 }
+
 .user-groups img {
 	margin-left: -14px;
 	border: 1px solid #e4e4e4;
 	padding: 2px;
 	cursor: pointer;
 }
+
 .rounded-circle {
 	border-radius: 50% !important;
 }
+
 #header {
 	margin-bottom: 100px;
 }
+
 a:hover {
 	text-decoration-line: none;
 }
+
 @font-face {
 	font-family: 'yg-jalnan';
 	src:
@@ -131,40 +149,55 @@ a:hover {
 	font-weight: normal;
 	font-style: normal;
 }
+
 .pagination.justify-content-center>li {
 	color: black;
 }
+
 .pagination.justify-content-center>li>a {
 	color: black;
 }
+
 .pagination.justify-content-center>li>a:hover {
 	background-color: black;
 	color: white;
 }
+
 #delBtn {
 	background-color: transparent;
 	border: 1px solid black;
 	border-radius: 3px;
 }
+
 #delBtn:hover {
 	background-color: black;
 	color: white;
 	border: 1px solid black;
 	border-radius: 3px;
 }
+
 #search {
 	background-color: transparent;
 	border: 1px solid transparent;
 	border-radius: 3px;
 }
+
 .td {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	max-width: 130px;
 }
+
 #space {
 	margin-bottom: 151px;
+}
+
+.profile_img {
+	margin-left: 58px;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
 }
 </style>
 </head>
@@ -183,30 +216,29 @@ a:hover {
 						<div class="card-body">
 							<div class="d-grid"></div>
 							<div class="list-group list-group-flush">
-								<a href="/admin/main" class="list-group-item py-1">
+								<a href="/mypage/myChalList" class="list-group-item py-1">
 									<h5 class="my-3"
-										style="font-family: 'yg-jalnan', verdana, tahoma;">관리자
-										페이지</h5>
+										style="font-family: 'yg-jalnan', verdana, tahoma;">마이페이지</h5>
 								</a>
 							</div>
 							<div class="fm-menu">
+								<div class="profile_box">
+									<img class="profile_img"
+										src="/image/board?nickname=${info.refNickname}"> <br>
+								</div>
+
 								<div class="list-group list-group-flush">
-									<a href="/admin/userBlack" class="list-group-item py-1"><span
-										class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span>유저
-											블랙/탈퇴 관리</span></a> <a href="/admin/userGrade"
-										class="list-group-item py-1"><span class="iconify"
-										data-icon="icon-park-outline:gold-medal" data-width="25"></span>&ensp;<span>유저
-											등급변경</span></a> <a href="/admin/userRefund" class="list-group-item py-1"><span
-										class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-											환급</span></a> <a href="/admin/certi" class="list-group-item py-1"><span
-										class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
-											인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
-										class="list-group-item py-1"><span class="iconify"
-										data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>챌린지
-											관리</span></a> <a href="/admin/board?cpage=1"
-										class="list-group-item py-1"><span class="iconify"
-										data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
-											관리</span></a>
+									<a href="/mypage/mypageUserUpdate" class="list-group-item py-1"><span
+										class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
+										a href=/mypage/updateUserInfo>내 정보 </span></a> <a
+										href="/mypage/myChalList" class="list-group-item py-1"><span
+										class="iconify" data-icon="icon-park-outline:gold-medal"
+										data-width="25"></span>&ensp;<span>도전중인 글피</span></a> <a
+										href="/mypage/myBoardAndReply" class="list-group-item py-1"><span
+										class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>작성한
+											글 / 댓글</span></a> <a href="/mypage/zzzim" class="list-group-item py-1"><span
+										class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
+											찜한 글피 </span></a>
 								</div>
 							</div>
 						</div>
@@ -238,8 +270,8 @@ a:hover {
 													style="width: 300px; height: 300px; font-family: 'yg-jalnan', verdana, tahoma; float: left; margin: 5px; text-align: center; padding-bottom: 50px;">
 													제목 : ${list.certiTitle} <img
 														src="/image/certiWriteLoad?seq=${list.seq}" alt=""
-														style="width:90%;height:90%;object-fit:cover;">인증날짜 :
-													${list.certiDate}
+														style="width: 90%; height: 90%; object-fit: cover;">인증날짜
+													: ${list.certiDate}
 												</div>
 											</c:forEach>
 										</c:when>
