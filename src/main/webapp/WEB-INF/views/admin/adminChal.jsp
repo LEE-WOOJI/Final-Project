@@ -302,8 +302,8 @@ a:hover {
 													<td class="td"><a
 														style="color: black; text-decoration: none"
 														href="/admin/chalModifyForm?cpage=${cpage}&chalSeq=${list.chalSeq}&select=${select}&keyword=${keyword}">${list.chalName}</a></td>
-													<td class="td">${list.startDate}</td>
-													<td class="td">${list.endDate}</td>
+													<td class="td">${list.formedStartdate}</td>
+													<td class="td">${list.formedEnddate}</td>
 													<td class="td">${list.personnel}</td>
 													<c:if test="${list.chalStat eq '만료'}">
 														<td class="td" style="color: red;">${list.chalStat}</td>
