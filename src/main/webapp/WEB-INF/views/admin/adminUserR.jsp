@@ -250,7 +250,7 @@ a:hover {
 								<div class="col-3" style="padding: 0px;">${list.account}</div>
 								<div class="col-2" style="padding: 0px;">
 									<a
-										href="/admin/userRefundGo?nickname=${list.nickname}"
+										href="/admin/userRefundGo?nickname=${list.nickname}&chalName=${list.chalName}"
 										style="text-decoration-line: none;"> <input type="button"
 										value="환급" class="btn refundBtn"
 										style="background-color: rgba(245, 188, 188, 0.65);">
@@ -317,10 +317,12 @@ a:hover {
 							</a>
 						</div>
 					</div>`;
-           		if (result[i].seq > 20) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
- 	              $("#more").css("display","none");
- 	            }
-   				}$(content).appendTo("#table");
+           		
+   				}
+   				if (result.length < 5) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
+   	              $("#more").css("display","none");
+   	            }
+   				$(content).appendTo("#table");
    				
    			})
    		});

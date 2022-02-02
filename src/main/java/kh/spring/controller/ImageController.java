@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +17,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 
@@ -28,6 +31,7 @@ import kh.spring.dto.CertiDTO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalDTO;
 import kh.spring.dto.ChalImgDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileDTO;
 import kh.spring.service.AdminService;
 import kh.spring.service.BoardService;
@@ -233,9 +237,13 @@ public class ImageController {
 	}
 
 	@RequestMapping("certiWrite") // 인증 등록시 이미지 업로드.
-	public String certiWrite(CertiDTO dto, MultipartFile file[]) throws Exception {
+	public String certiWrite(CertiDTO dto, MultipartFile file[], RedirectAttributes re) throws Exception {
 		// 인증 정보 등록.
 		int certiSeq = mService.insertCerti(dto);
+		String chalName = dto.getChalName();
+		int refChalSeq = dto.getChalSeq();
+		re.addAttribute("chalName",chalName);
+		re.addAttribute("refChalSeq",refChalSeq);
 		for(MultipartFile mf : file) {
 			if(!file[0].isEmpty()) {
 				String realPath = session.getServletContext().getRealPath("files");
@@ -251,13 +259,13 @@ public class ImageController {
 				mService.insertCertiImg(oriName,sysName,certiSeq);
 			}
 		}
-		return "/user/certi";
+		return "redirect:/mypage/certi";
 	}
 
 	@RequestMapping("certiWriteLoad") // 인증 파일 이미지를 불러오기.
-	public void certiWriteLoad(int parentSeq, HttpServletResponse response) throws Exception {
-		// parentSeq로 CertiImg테이블의 imgName 찾기.
-		CertiImgDTO dto = mService.findCertiImgName(parentSeq);
+	public void certiWriteLoad(int seq, HttpServletResponse response) throws Exception {
+		// seq로 CertiImg테이블의 imgName 찾기.
+		CertiImgDTO dto = mService.findCertiImgName(seq);
 		String oriName = dto.getOriName();
 		String sysName = dto.getSysName();
 		String realPath = session.getServletContext().getRealPath("files");
@@ -275,6 +283,97 @@ public class ImageController {
 			dos.write(fileContents);
 			dos.flush();
 		}
+	}
+	
+	@RequestMapping("mypageLoad") // 마이페이지에서 내 사진 불러오기.
+	public void mypageUpdate(String nickname, HttpServletResponse response) throws Exception {
+		// nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기.
+		int parentSeq = bService.findParentSeq(nickname);
+		// member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기.
+		ProfileDTO dto = bService.findImgName(parentSeq);
+		if(dto==null) {
+			String oriName = "profiledefault.jpg";
+			String sysName = "profiledefault.jpg";
+			String realPath = session.getServletContext().getRealPath("files");
+			File target = new File(realPath+"/"+sysName);
+
+			try(DataInputStream dis = new DataInputStream(new FileInputStream(target));
+					DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
+				byte[] fileContents = new byte[(int) target.length()];
+				dis.readFully(fileContents);
+
+				oriName = new String(oriName.getBytes("utf8"),"ISO-8859-1");
+				response.reset();
+				response.setHeader("Content-Disposition", "attachment; filename="+ oriName);
+
+				dos.write(fileContents);
+				dos.flush();	
+			}
+		}else {
+			String oriName = dto.getOriName();
+			String sysName = dto.getSysName();
+			String realPath = session.getServletContext().getRealPath("files");
+			File target = new File(realPath+"/"+sysName);
+
+			try(DataInputStream dis = new DataInputStream(new FileInputStream(target));
+					DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
+				byte[] fileContents = new byte[(int) target.length()];
+				dis.readFully(fileContents);
+
+				oriName = new String(oriName.getBytes("utf8"),"ISO-8859-1");
+				response.reset();
+				response.setHeader("Content-Disposition", "attachment; filename="+ oriName);
+
+				dos.write(fileContents);
+				dos.flush();	
+			}
+		}
+	}
+	
+	@RequestMapping("mypageUpdate") // 회원정보 수정시 이미지 업로드.
+	public String chalModify(MemberDTO dto, MultipartFile file[]) throws Exception {
+		// 마이페이지 정보 수정.
+		mService.update(dto);
+		int seq = dto.getSeq();
+		System.out.println(seq);
+		// seq로 profile테이블의 imgName 찾기.
+		ProfileDTO ProfileDTO = mService.findProfileImgName(seq);
+		if(ProfileDTO == null) {
+			for(MultipartFile mf : file) {
+				if(!file[0].isEmpty()) {
+					String realPath = session.getServletContext().getRealPath("files");
+
+					File realPathFile = new File(realPath);
+					if(!realPathFile.exists()) {
+						realPathFile.mkdir();	
+					}
+					String oriName = mf.getOriginalFilename();
+					String sysName = UUID.randomUUID()+"_"+oriName;
+					mf.transferTo(new File(realPath+"/"+sysName));
+
+					// 프로필 이미지 등록.
+					mService.insertProfileImg(oriName,sysName,seq);
+				}
+			}
+		}else {
+			for(MultipartFile mf : file) {
+				if(!file[0].isEmpty()) {
+					String realPath = session.getServletContext().getRealPath("files");
+
+					File realPathFile = new File(realPath);
+					if(!realPathFile.exists()) {
+						realPathFile.mkdir();	
+					}
+					String oriName = mf.getOriginalFilename();
+					String sysName = UUID.randomUUID()+"_"+oriName;
+					mf.transferTo(new File(realPath+"/"+sysName));
+
+					// 프로필 이미지 수정.
+					mService.modifyProfileImg(oriName,sysName,seq);
+				}
+			}	
+		}
+		return "redirect:/mypage/myChalList";
 	}
 
 	@ExceptionHandler(Exception.class)

@@ -46,4 +46,21 @@ public class RefundDAO {
 		map.put("account",dto.getAccount());
 		return mybatis.update("Refund.insert", map);
 	}
+	
+	//환급 중복
+	public int refundOk(String nickname, int chalSeq) {
+		System.out.println("DAO" + chalSeq);
+		Map<Object,Object> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("chalSeq", chalSeq);
+		return mybatis.selectOne("Refund.refundOk",map);
+	}
+	
+	//환급 처리
+	public int update(String nickname, String chalName) {
+		Map<Object,Object> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("chalName", chalName);
+		return mybatis.update("Refund.update", map);
+	}
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.JoinChalDTO;
 
 @Repository
 public class ChalDAO {
@@ -101,5 +102,25 @@ public class ChalDAO {
 	//해당 챌린지가 있는지 확인하고, 정보값을 불러옴
 	public ChalDTO chalInfo(int chalSeq) {
 		return mybatis.selectOne("Chal.chalInfo", chalSeq);
+	}
+	
+	//어떤 유저가 과거에 참여한 챌린지 조회
+	public List<JoinChalDTO> myChalListB(String nickname){
+		return mybatis.selectList("Chal.myChalListB", nickname);
+	}
+	
+	//어떤 유저가 참여하고 있는 챌린지 조회
+	public List<JoinChalDTO> myChalListP(String nickname){
+		return mybatis.selectList("Chal.myChalListP", nickname);
+	}
+		
+	//어떤 유저가 참여할 챌린지 조회
+	public List<JoinChalDTO> myChalListF(String nickname){
+		return mybatis.selectList("Chal.myChalListF", nickname);
+	}
+	
+	//시퀀스 찾기
+	public int seqSearch(String chalName) {
+		return mybatis.selectOne("Chal.seqSearch", chalName);
 	}
 }

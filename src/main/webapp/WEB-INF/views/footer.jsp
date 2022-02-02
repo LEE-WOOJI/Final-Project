@@ -50,18 +50,25 @@
 					class="fas fa-file-alt"></i>&ensp;<b>커뮤니티</b></a>&emsp;
 				<c:choose>
 					<c:when test="${loginId == null }">
-						<a href="/user/loginform" style="text-decoration: none; color: black;"><i
+						<a href="/user/loginform"
+							style="text-decoration: none; color: black;"><i
 							class="fas fa-user-alt"></i>&ensp;<b>로그인</b></a>
 					</c:when>
-					<c:when test="${loginId eq 'admin' }">
+					<c:when test="${loginId eq 'admin1234' }">
 						<a href="/admin/main" style="text-decoration: none; color: black;"><i
 							class="fas fa-user-alt"></i>&ensp;<b>관리자페이지</b></a>
+						&ensp;
 					</c:when>
 					<c:otherwise>
 						<a href="#" style="text-decoration: none; color: black;"><i
 							class="fas fa-user-alt"></i>&ensp;<b>마이페이지</b></a>
+						&ensp;
 					</c:otherwise>
 				</c:choose>
+				<c:if test="${loginId != null }">
+					<a href="/user/logout" style="text-decoration: none; color: black;"><i
+						class="fas fa-door-open"></i>&ensp;<b>로그아웃</b></a>
+				</c:if>
 			</div>
 			<div class="col-lg-4 text-lg-end">
 				<div id="top" class="btn btn-dark btn-social mx-2"

@@ -9,7 +9,7 @@
 		<!--<selectKey keyProperty="seq" order="BEFORE" resultType="int"> select 
 			board_seq.nextval from dual </selectKey> -->
 		insert into board values(board_seq.nextval, #{title}, #{contents},
-		#{nickname}, default, sysdate)
+		#{nickname}, 0, current_timestamp)
 	</insert>
 	
 	<!-- 게시글 목록 -->
@@ -78,5 +78,10 @@
 	<select id="findImgName" resultType="kh.spring.dto.ProfileDTO">
 		select * from profile where
 		parentSeq = #{value}
+	</select>
+	
+	<!-- 마이페이지에서 검색 -->
+	<select id = "mySearch" resultType = "kh.spring.dto.BoardDTO">
+		select * from board where nickname = #{nickname} and ${option} like '%'||#{keyword}||'%'
 	</select>
 </mapper>

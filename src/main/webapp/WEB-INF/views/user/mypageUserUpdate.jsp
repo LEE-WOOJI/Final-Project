@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-<title>회원가입</title>
+<title>정보수정</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -156,26 +156,6 @@
 	});
 	//회원가입 시 필수 값 체크
 	function validation() {
-		if ($("#id").val() == '') {
-			alert("ID 를 입력하세요.");
-			$("#id").focus();
-			return false;
-		}
-
-		// 전역 변화 값과 입력값 같으면 pass
-	
-		if (confirmId != $("#id").val()){
-			alert("ID 중복확인 해주세요.");
-			
-			return false;
-		}
-		  var idReg = /^[a-z]+[a-z0-9]{5,11}$/g;
-	        if( !idReg.test( $("input[name=id]").val() ) ) {
-	            alert("아이디는 특수문자를 제외한 영문자 숫자를 혼합하여야합니다.");
-	            return false;
-	        }
-		
-
 	    if ($("#ps").val() == '') {
 			alert("비밀번호를 입력하세요.");
 			$("#ps").focus();
@@ -201,22 +181,6 @@
             alert("비밀번호가 일치하지 않습니다.");
             return false;
         }
-		if ($("#name").val() == '') {
-			alert("이름을 입력하세요.");
-			$("#name").focus();
-			return false;
-		}
-		var name = /^[가-힣]{2,4}$/;
-		if(!name.test($("input[name=name]").val() ) ){
-			alert("이름입력은 영어,숫자,특수문자를 제외한 한글 2~4글자만 입력해주시기 바랍니다.");
-		return false;
-		}
-		
-		if ($("#nickname").val() == '') {
-			alert("사용할 닉네임을 확인해주세요.");
-			$("#nickname").focus();
-			return false;
-		}
 		if ($("#phone").val() == '') {
 			alert("휴대폰 번호를 확인해주세요.");
 			$("#phone").focus();
@@ -232,22 +196,8 @@
 	            alert("이메일 형식을 다시한번 확인해주세요.");
 	            return false;
 	        }
-		if ($("#ad").val() == '') {
-			alert("우편번호를 선택해주세요.");
-			$("#ad").focus();
-			return false;
-		}
-		if ($("#ad1").val() == '') {
-			alert("주소를 입력해주세요.");
-			$("#ad1").focus();
-			return false;
-		}
-		if ($("#ad2").val() == '') {
-			alert("주소를 입력해주세요.");
-			$("#ad2").focus();
-			return false;
-		}
-		var answer=confirm("회원가입을 하시겠습니까?");
+
+		var answer=confirm("정보수정을 하시겠습니까?");
 		if (answer==false){
 			return false
 		}
@@ -333,7 +283,7 @@
 		<div class="container">
 			<div class="col-md-6 text-center mb-5"></div>
 		</div>
-		<form action="signproc" class="signup-form"
+		<form action="/image/mypageUpdate" class="signup-form"
 			onsubmit="return validation()" method="post" enctype="multipart/form-data">
 		<div class="row">
 			<div class="small-12 medium-2 large-2 columns"
@@ -341,7 +291,7 @@
 				<div class="circle">
 					<img class="profile-pic"
 						style="width: 300px; height: 300px; border-radius: 50%;"
-						src="/assets/img/디폴트이미지.jpg">
+						src="/image/mypageLoad?nickname=${dto.nickname }">
 
 				</div>
 
@@ -359,13 +309,12 @@
 		<h3 class="text-center mb-4">회원가입</h3>
 
 			<div class="form-group col-lg-3 mb-3 ">
-				<input type="text" class="form-control" placeholder="아이디" name="id"
-					id="id" maxlength="12"
+				<input type="text" class="form-control" placeholder="${dto.id }" name="id"
+					id="id" maxlength="12" readonly
 					style="width: 68%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
-				<button type="button" id="check" value="중복검사"
-					class="form-control btn btn-primary submit px-2"
-					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
 				<span id="checkResult"></span>
+				<input type="hidden" name="id" value="${dto.id }">
+				<input type="hidden" name="seq" value="${dto.seq }">
 			</div>
 
 			<div class="form-group col-lg-3 mb-3">
@@ -374,7 +323,6 @@
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"> <span
 					id="pwcheck1" style="color: red;"></span>
 			</div>
-
 
 			<div class="form-group col-lg-3 mb-3">
 				<input type="password" id="reps" class="form-control"
@@ -386,36 +334,31 @@
 
 			<div class="form-group col-lg-3 mb-3">
 				<input type="text" name="name" id="name" maxlength="4"
-					class="form-control" placeholder="이름"
+					class="form-control" placeholder="${dto.name }" readonly
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
-
+				<input type="hidden" name="name" value="${dto.name }">
 			</div>
 			<div class="form-group col-lg-3 mb-3">
 				<input type="text" name="nickname" id="nickname" maxlength="10"
-					class="form-control" placeholder="닉네임"
+					class="form-control" placeholder="${dto.nickname }" readonly
 					style="width: 68%;font-size: smaller; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
-				<button type="button" id="niccheck" value="중복검사"
-					class="form-control btn btn-primary submit px-2"
-					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
 				<span id="niccheckResult"></span>
+				<input type="hidden" name="nickname" value="${dto.nickname }">
 			</div>
 
 
 			<div class="form-group col-lg-3 mb-3">
 				<input type="text" name="phone" id="phone" max="9999" maxlength="11"
 					size="28" onKeyup="this.value=this.value.replace(/[^0-9]/g,'')"
-					class="form-control" placeholder="연락처 ex) - 없이 숫자로만 입력해주세요"
+					class="form-control" placeholder="연락처 ex) - 없이 숫자로만 입력해주세요" value="${dto.phone }"
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
 			</div>
 
 
 			<div class="form-group col-lg-3 mb-3">
-				<input type="text" class="form-control" name="email" id="email"
+				<input type="text" class="form-control" name="email" id="email" value="${dto.email }"
 					placeholder="이메일 ex) glorytrophy@gmail.com"
 					style="width: 68%;display: inline-block;font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
-				<button type="button" id="emailcheck" value="중복검사"
-					class="form-control btn btn-primary submit px-2"
-					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
 				<span id="emailcheckResult"></span>
 			</div>
 
@@ -423,7 +366,7 @@
 			<div class="form-group col-lg-3 mb-3">
 				<input type="text" name=zipcode id=zipcode max="99999" maxlength="5"
 					onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" readonly
-					class="form-control" placeholder="우편번호"
+					class="form-control" placeholder="우편번호" value="${dto.zipcode }"
 					style="font-size: smaller;width: 68%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 
 				<button type="button" value="우편번호찾기" id="ad"
@@ -445,27 +388,28 @@
 									</script>
 			</div>
 			<div class="form-group col-lg-3 mb-3">
-				<input type="text" name="address1" id="ad1" class="form-control"
+				<input type="text" name="address1" id="ad1" class="form-control" value="${dto.address1 }"
 					placeholder="주소" style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"
 					readonly>
 			</div>
 			<div class="form-group col-lg-3 mb-3">
-				<input type="text" name="address2" id="ad2" class="form-control"
+				<input type="text" name="address2" id="ad2" class="form-control" value="${dto.address2 }"
 					placeholder="상세주소"
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
 			</div>
 			<div class="form-group col-lg-3 mb-3">
-				<input type="submit" value="가입완료" id="regi"
+				<input type="submit" value="수정완료" id="regi"
 					class="form-control btn btn-primary submit px-3"
 					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
 
 			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="button" value="회원탈퇴" id="leave"
+					class="form-control btn btn-primary submit px-3"
+					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
 
+			</div>
 		</form>
-		<p style="text-align: center;">
-			이미 회원인가요? <a href="/user/loginform"
-				style="color: rgb(228, 72, 72); font-family: 'yg-jalnan', verdana, tahoma;">로그인</a>
-		</p>
 		</div>
 		</div>
 		</div>
@@ -480,4 +424,9 @@
 
 </body>
 
+<script type="text/javascript">
+$("leave").on("click",function(){
+	location.href="/mypage/delete";
+})
+</script>
 </html>

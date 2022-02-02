@@ -3,18 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- 회원정보수정 -->
 <mapper namespace="Mypage">
-	<!-- 닉네임 -->
 	<select id="getUser" resultType="kh.spring.dto.MemberDTO">
 		select * from member
-		where
-		nickname =
+		where seq =
 		#{value}
 	</select>
 
 	<select id="getUserChalList"
 		resultType="kh.spring.dto.JoinChalDTO">
-		select * from joinChal where refnickname = #{value}
+		select j.seq, j.refchalseq , j.refnickname ,
+		c.chalname ,
+		c.startdate , c.enddate , c.personnel ,
+		c.chalinfo , c.tag ,
+		c.chalstat
+		from joinchal j
+		inner join Member m on m.nickname
+		=j.refnickname
+		inner
+		join chal c on c.chalseq = j.refchalseq
+		where
+		m.nickname = #{value}
 	</select>
 
 	<select id="getUserBoard" resultType="kh.spring.dto.BoardDTO">
@@ -23,7 +33,6 @@
 		where
 		board.nickname = #{value}
 	</select>
-
 	<select id="getUserBoardReply"
 		resultType="kh.spring.dto.BoardReplyDTO">
 		select *
@@ -33,18 +42,12 @@
 		#{value}
 	</select>
 
-	<update id="updateUserInfo"
-		parameterType="kh.spring.dto.MemberDTO">
-		update member set pw =#{pw}, email=#{email},
-		address1=#{address1}, address2=#{address2}, phone=#{phone}
-		where nick=
-		#{nickname}
+	<update id="updateUserInfo" parameterType="kh.spring.dto.MemberDTO">
+		update member set pw =#{pw,jdbcType=VARCHAR}, email=#{email,jdbcType=VARCHAR},
+		zipcode=#{zipcode,jdbcType=VARCHAR},
+		address1=#{address1,jdbcType=VARCHAR}, address2=#{address2,jdbcType=VARCHAR},
+		phone=#{phone,jdbcType=VARCHAR} where id=#{id,jdbcType=VARCHAR}
 	</update>
-	
-	<!-- 회원 삭제 -->
-	<delete id="delete">
-		delete from member where nickname = #{value}
-	</delete>
 
 	<!-- 인증 등록 -->
 	<insert id="insertCerti">
@@ -64,29 +67,43 @@
 	<!-- 인증 이미지 불러오기 -->
 	<select id="findCertiImgName"
 		resultType="kh.spring.dto.CertiImgDTO">
-		select * from certiImg where parentSeq = #{value}
+		select * from certiImg where seq = #{value}
 	</select>
 
 	<!-- 인증한 목록 출력 -->
 	<select id="findCertiList" resultType="kh.spring.dto.CertiDTO">
 		select * from certi where
-		chalSeq =#{chalSeq} and chalName =#{chalName} and refNickname =
+		chalSeq = #{chalSeq} and chalName =#{chalName} and refNickname =
 		#{refNickname}
-		</select>
-		
-	<select id="findParentSeq" resultType="int">
-		select seq from member
-		where nickname = #{value}
 	</select>
 
-	<!-- member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기. -->
-	<select id="findImgName" resultType="kh.spring.dto.ProfileDTO">
-		select * from profile where
-		parentSeq = #{value}
+	<!-- 회원 삭제 -->
+	<delete id="delete">
+		delete from member where id=#{value}
+	</delete>
+
+	<!-- 유저 정보 폼 -->
+	<select id="userInfo" resultType="kh.spring.dto.MemberDTO">
+		select * from member where
+		id=#{value}
 	</select>
-	
-	<!-- 글피 디테일  -->
-	<select id="glphyDetail" resultType="kh.spring.dto.mypageDTO">
-		select * from glphydetail where seq =#{value}
+
+	<!-- seq로 profile테이블의 imgName 찾기 -->
+	<select id="findProfileImgName"
+		resultType="kh.spring.dto.ProfileDTO">
+		select * from profile where seq = #{value}
 	</select>
+
+	<!-- 프로필 이미지 등록 -->
+	<insert id="insertProfileImg">
+		insert into profile
+		values(profile_seq.nextval,#{seq},#{oriName},#{sysName})
+	</insert>
+
+	<!-- 프로필 이미지 수정 -->
+	<update id="modifyProfileImg">
+		update profile set oriName = #{oriName}, sysName =
+		#{sysName} where
+		parentSeq = #{seq}
+	</update>
 </mapper>

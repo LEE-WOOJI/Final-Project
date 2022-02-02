@@ -136,12 +136,14 @@ td {
 	<div class="container">
 		<div class="btnBox">
 			<a class="btn_popup" href="javascript:void(0);" onclick="window.open('../refundInfo', 'a', 
-                       'top=140, left=300, width=500, height=600, menubar=no, toolbar=no, location=no, directories=no, status=no, scrollbars=no, copyhistory=no, resizable=no');"> 팝업창 호출</a>
+                       'top=140, left=300, width=500, height=600, menubar=no, 
+                        toolbar=no, location=no, directories=no, status=no, 
+                        scrollbars=no, copyhistory=no, resizable=no');"> 팝업창 호출</a>
 		</div>
 	</div>
 	
 	<!-- 환급 버튼 누를 시 /user/refund 로 파라미터들 보내기  -->
-	<form action="/user/refund" method="post" id="frm">
+	<form action="/user/cancle" method="post" id="frm">
 		<!-- 타이틀 -->
 		<div id="popup">
 			<header class="top">
@@ -163,7 +165,7 @@ td {
 					</tr>
 					<tr>
 						<td class="title">참여 기간</td>
-						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }~${endDate }" /></td>
+						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }" /></td>
 					</tr>
 					<tr>
 						<td class="title">신청금</td>
@@ -213,11 +215,11 @@ td {
 				<input type="text" value="${dto.price}원" placeholder="- 제외한 숫자만 입력해주세요" style="width: 200px; text-align: center; font-family: 'S-CoreDream-4Regular'" readonly>
 				<br>
 
-				<p style="font-size: 13px; font-family: 'S-CoreDream-4Regular'; margin: 10px 0px 0px;">*환급 금액은 따로 지정이 불가합니다.</p>
-				<p style="font-size: 13px; font-family: 'S-CoreDream-4Regular'">환급은 입력하신 계좌로 영업일 기준 2-3일, 최대 7일 내에 입급됩니다.</p>
+				<p style="font-size: 13px; font-family: 'S-CoreDream-4Regular'; margin: 10px 0px 0px;">*결제취소 금액은 따로 지정이 불가합니다.</p>
+				<p style="font-size: 13px; font-family: 'S-CoreDream-4Regular'">결제취소는 입력하신 계좌로 영업일 기준 2-3일, 최대 7일 내에 입급됩니다.</p>
 
 				<!-- 환급 / 취소 버튼 -->
-				<button type="submit" class="btn btn-danger" id="refundOk" style="font-family: 'S-CoreDream-4Regular'">환급</button>
+				<button type="submit" class="btn btn-danger" id="refundOk" style="font-family: 'S-CoreDream-4Regular'">결제취소</button>
 				<button type="button" class="btn btn-danger" id="refundCancle" style="font-family: 'S-CoreDream-4Regular'">취소</button>
 				<br> <br>
 	</form>
@@ -225,13 +227,13 @@ td {
 	</div>
 	<script>
 		$("#refundOk").on("click",function(){
-			if(confirm("입력하신 계좌로 환급 신청을 하시겠습니까?")==true){
+			if(confirm("입력하신 계좌로 취소 신청을 하시겠습니까?")==true){
 				frm.submit();
 			}
 		})
 		
 		$("#refundCancle").on("click",function(){
-			alert("환급신청이 취소됐습니다.");
+			alert("결제취소신청이 취소됐습니다.");
 			location.href="/user/mypage"
 		})
 		
