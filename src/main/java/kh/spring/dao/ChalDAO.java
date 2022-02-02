@@ -123,4 +123,12 @@ public class ChalDAO {
 	public int seqSearch(String chalName) {
 		return mybatis.selectOne("Chal.seqSearch", chalName);
 	}
+	
+	public int alreadyJoined(int seq, String nickname) {
+		Map<Object,Object> map = new HashMap<>();
+		map.put("seq", seq);
+		map.put("nickname", nickname);
+		return mybatis.selectOne("Chal.alreadyJoined", map);
+		
+	}
 }

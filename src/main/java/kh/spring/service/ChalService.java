@@ -93,4 +93,8 @@ public class ChalService {
 	public int seqSearch(String chalName) {
 		return cdao.seqSearch(chalName);
 	}
+	
+	public int alreadyJoined(int seq, String nickname) {
+		return cdao.alreadyJoined(seq,nickname);
+	}
 }
