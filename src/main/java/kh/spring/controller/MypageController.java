@@ -108,7 +108,7 @@ public class MypageController {
 	@RequestMapping(value ="refundOk", produces = "text/html;charset=utf8")
 	public String chalCancel(int chalSeq) {
 		String nickname = (String)session.getAttribute("writerNickname");
-		System.out.println(chalSeq);
+		System.out.println("들어오나" + chalSeq);
 		//중복확인 메서드
 		int num = rservice.refundOk(nickname, chalSeq);
 		System.out.println("결과값" + num);

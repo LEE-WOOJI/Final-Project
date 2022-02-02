@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자</title>
+<title>마이페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -185,7 +185,7 @@ a:hover {
 						<div class="list-group list-group-flush">
 							<a href="/admin/main" class="list-group-item py-1">
 								<h5 class="my-3"
-									style="font-family: 'yg-jalnan', verdana, tahoma;">관리자 페이지</h5>
+									style="font-family: 'yg-jalnan', verdana, tahoma;">마이페이지</h5>
 							</a>
 						</div>
 						<div class="fm-menu">

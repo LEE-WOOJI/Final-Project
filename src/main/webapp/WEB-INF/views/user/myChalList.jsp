@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자</title>
+<title>마이페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
    crossorigin="anonymous"></script>
@@ -46,11 +46,9 @@ body {
 .list {
    font-family: 'yg-jalnan', verdana, tahoma;
 }
-
 .row .col {
    padding: 0px;
 }
-
 .card {
    position: relative;
    display: flex;
@@ -65,7 +63,6 @@ body {
    box-shadow: 0 2px 6px 0 rgb(218 218 253/ 65%), 0 2px 6px 0
       rgb(206 206 238/ 54%);
 }
-
 .fm-file-box {
    font-size: 25px;
    background: #e9ecef;
@@ -76,31 +73,25 @@ body {
    justify-content: center;
    border-radius: .25rem;
 }
-
 .ms-2 {
    margin-left: .5rem !important;
 }
-
 .fm-menu .list-group a {
    font-size: 16px;
    color: #5f5f5f;
    display: flex;
    align-items: center;
 }
-
 .list-group-flush>.list-group-item {
    border-width: 0 0 1px;
 }
-
 .list-group-item+.list-group-item {
    border-top-width: 0;
 }
-
 .py-1 {
    padding-top: .25rem !important;
    padding-bottom: .25rem !important;
 }
-
 .list-group-item {
    position: relative;
    display: block;
@@ -109,11 +100,9 @@ body {
    background-color: #fff;
    border: 1px solid rgba(0, 0, 0, .125);
 }
-
 .radius-15 {
    border-radius: 15px;
 }
-
 .fm-icon-box {
    font-size: 32px;
    background: #ffffff;
@@ -124,38 +113,30 @@ body {
    justify-content: center;
    border-radius: .25rem;
 }
-
 .font-24 {
    font-size: 24px;
 }
-
 .ms-auto {
    margin-left: auto !important;
 }
-
 .font-30 {
    font-size: 30px;
 }
-
 .user-groups img {
    margin-left: -14px;
    border: 1px solid #e4e4e4;
    padding: 2px;
    cursor: pointer;
 }
-
 .rounded-circle {
    border-radius: 50% !important;
 }
-
 #header {
    margin-bottom: 100px;
 }
-
 a:hover {
    text-decoration-line: none;
 }
-
 @font-face {
    font-family: 'yg-jalnan';
    src:
@@ -165,6 +146,45 @@ a:hover {
    font-style: normal;
 }
 </style>
+<script>
+function cancle(chalSeq){
+	let result = confirm("취소신청하시겠습니까?");
+	console.log(chalSeq);
+	if(!result){return false;}
+	$.ajax({
+		url:"/mypage/refundOk",
+		method:"POST",
+		data:{"chalSeq":chalSeq}
+	}).done(function(resp){
+		console.log(resp);
+		if(resp == "true"){
+			alert("이미 취소 신청이 되었습니다")
+		}else{
+			console.log(chalSeq);
+			location.href = "/user/cancleInfo?chalSeq="+chalSeq;
+		}
+	})
+};
+
+function refund(chalSeq){
+	console.log(chalSeq); 
+	let result = confirm("환급신청하시겠습니까?");
+	 if(!result){return false;}
+	 
+	 $.ajax({
+		url:"/mypage/refundOk",
+		method:"POST",
+		data:{"chalSeq":chalSeq}
+	}).done(function(resp){
+		console.log(resp);
+		if(resp == "true"){
+			alert("이미 환급 신청이 되었습니다")
+		}else{
+			location.href = "/user/refundInfo?chalSeq="+chalSeq;
+		}
+	})
+};
+</script>
 </head>
 <body>
    <div class="container">
@@ -287,7 +307,9 @@ a:hover {
                         <fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.endDate}"/>
                         </div>
                         <div class="col-2" style="padding: 0px;">
+                        <a href='javascript:void(0);' onclick="cancle(${list.refChalSeq});">
                         <input type="button" value="취소" class="btn cancle" style="background-color: #f8d2cd;">
+                        </a>
                         <input type="button" value="${list.refChalSeq }" class="btn seq" style="background-color: #f8d2cd; display:none;">
                         </div>
                      </div>
@@ -323,9 +345,10 @@ a:hover {
                         <div class="col-2" style="padding: 0px;">
                         <fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.endDate}"/>
                         </div>
-                           <div class="col-2" style="padding: 0px;"><input type="button"
-                                 value="환급" class="btn refund"
-                                 style="background-color: #f8d2cd;">
+                           <div class="col-2" style="padding: 0px;">
+                           <a href='javascript:void(0);' onclick="refund(${list.refChalSeq});">
+                           <input type="button"  value="환급" class="btn refund" style="background-color: #f8d2cd;">
+                           </a>
                            </div>
                         </div>
                   </c:forEach>
@@ -339,48 +362,7 @@ a:hover {
    <!-- 풋터 -->
    <jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 
-	<script type="text/javascript"
-		src="https://www.gstatic.com/charts/loader.js"></script>
-	<script>
-	
-	
-	let chalSeq = $(".seq").val();
-	$(document).on("click",".cancle",function(e){
-		let result = confirm("취소신청하시겠습니까?");
-		console.log(chalSeq);
-		if(!result){return false;}
-		$.ajax({
-			url:"/mypage/refundOk",
-			method:"POST",
-			data:{"chalSeq":chalSeq}
-		}).done(function(resp){
-			console.log(resp);
-			if(resp == "true"){
-				alert("이미 취소 신청이 되었습니다")
-			}else{
-				console.log(chalSeq);
-				location.href = "/user/cancleInfo?chalSeq="+chalSeq;
-			}
-		})
-	});
-	
-	$(document).on("click",".refund",function(e){
-		 let result = confirm("환급신청하시겠습니까?");
-		 if(!result){return false;}
-		 $.ajax({
-			url:"/mypage/refundOk",
-			method:"POST",
-			data:{"chalSeq":chalSeq}
-		}).done(function(resp){
-			console.log(resp);
-			if(resp == "true"){
-				alert("이미 환급 신청이 되었습니다")
-			}else{
-				location.href = "/user/refundInfo?chalSeq="+chalSeq;
-			}
-		})
-	});
-	</script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body>
 </html>

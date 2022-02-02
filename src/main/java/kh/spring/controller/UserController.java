@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.RefundDTO;
 import kh.spring.service.BoardReplyService;
@@ -228,6 +230,7 @@ public class UserController {
 	//유저 환급 정보
 	@RequestMapping("refundInfo")
 	public String refundInfo(int chalSeq, Model model) {
+		System.out.println("정보입니다" + chalSeq);
 		String nickname = (String)session.getAttribute("writerNickname");
 		ChalDTO chalInfo = cservice.chalInfo(chalSeq);
 		int certiCount = ctservice.certiCount(nickname, chalSeq);
@@ -265,7 +268,9 @@ public class UserController {
 
 	//유저 환급 신청
 	@RequestMapping("refund")
-	public String refund(String nickname, int chalSeq, String bank, String account, Model model) {
+	public String refund(int chalSeq, String bank, String account, Model model) {
+		System.out.println("환급이빈다");
+		String nickname = (String)session.getAttribute("writerNickname");
 		ChalDTO chalInfo = cservice.chalInfo(chalSeq);
 		int certiCount = ctservice.certiCount(nickname, chalSeq);
 		int day = Integer.parseInt(chalInfo.getDay());
@@ -278,18 +283,32 @@ public class UserController {
 		}
 		int result = rservice.insert(new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,rate,nickname,bank,account));
 		System.out.println("실행 결과 : " + result);
-		return "/mypage/myChalList ";
+		List<JoinChalDTO> blist =  cservice.myChalListB(nickname);
+		List<JoinChalDTO> plist =  cservice.myChalListP(nickname);
+		List<JoinChalDTO> flist =  cservice.myChalListF(nickname);
+		model.addAttribute("nickname",nickname);
+		model.addAttribute("blist",blist);
+		model.addAttribute("plist",plist);
+		model.addAttribute("flist",flist);
+		return "/user/myChalList ";
 	}
 
 	//유저 환급 신청
 	@RequestMapping("cancle")
-	public String refund(int chalSeq, String bank, String account, Model model) {
+	public String cancle(int chalSeq, String bank, String account, Model model) {
 		String nickname = (String)session.getAttribute("writerNickname");
 		ChalDTO chalInfo = cservice.chalInfo(chalSeq);
 		int price = 10000;
 		int result = rservice.insert(new RefundDTO(0,chalInfo.getChalSeq(),chalInfo.getChalName(),price,0,nickname,bank,account));
 		System.out.println("실행 결과 : " + result);
-		return "/mypage/myChalList";
+		List<JoinChalDTO> blist =  cservice.myChalListB(nickname);
+		List<JoinChalDTO> plist =  cservice.myChalListP(nickname);
+		List<JoinChalDTO> flist =  cservice.myChalListF(nickname);
+		model.addAttribute("nickname",nickname);
+		model.addAttribute("blist",blist);
+		model.addAttribute("plist",plist);
+		model.addAttribute("flist",flist);
+		return "/user/myChalList";
 	}
 
 }
