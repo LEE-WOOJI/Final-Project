@@ -70,5 +70,10 @@
 	<select id = "seqSearch" resultType = "int">
 		select chalSeq from chal where chalName = #{value}
 	</select>
+	
+	<!-- 참여한 챌린지 인지 중복 검사 -->
+	<select id = "alreadyJoined" resultType = "int">
+		select count(*) from joinchal where refnickname = #{nickname} and refchalseq= #{seq}
+	</select>
 </mapper>
 
