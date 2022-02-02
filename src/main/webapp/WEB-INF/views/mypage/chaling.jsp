@@ -418,7 +418,7 @@ body{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis
-}
+}vhb 
 
 .drive-list-view .type {
     width: 15px

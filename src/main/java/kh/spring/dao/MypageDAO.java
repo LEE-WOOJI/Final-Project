@@ -46,7 +46,7 @@ public class MypageDAO {
 		System.out.println(dto.getPw()+":"+dto.getEmail()+":"+dto.getZipcode()+":"+dto.getAddress1()+":"+dto.getAddress2()+":"+dto.getPhone()+":"+dto.getId());
 		return mybatis.update("Mypage.updateUserInfo",dto);
 	}
-	
+
 	// 인증 등록.
 	public int insertCerti(CertiDTO dto) throws ParseException {
 		mybatis.insert("Mypage.insertCerti",dto);

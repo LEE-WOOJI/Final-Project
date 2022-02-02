@@ -214,6 +214,10 @@ opacity
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="col-md-6">
+<<<<<<< HEAD
+=======
+					<input type=hidden value="${dto.chalSeq}" id="seq">
+>>>>>>> cc1b28b2c9cad278bd036e190f5f28c2c4fd64ec
 					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="">
 				</div>
 				<div class="col-md-6">
@@ -253,7 +257,7 @@ opacity
 					<!-- 2019년 2월 19일인 오늘 <div id="countExpire"></div> -->
 					<div class="d-flex">
 						<c:if test="${member.blacklist ne 'Y'}">
-							<button type="button" id="joinBtn" class="btn btn-warning btn-lg" onClick="location.href='/chal/chalPayment?seq=${dto.chalSeq}'" style="font-family: 'S-CoreDream-4Regular';">참여하기</button>
+							<button type="button" id="joinBtn" class="btn btn-warning btn-lg" style="font-family: 'S-CoreDream-4Regular';">참여하기</button>
 						</c:if>
 					</div>
 				</div>
@@ -410,13 +414,31 @@ opacity
 	</section>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
+	
+	<script>
+	let seq =  $("#seq").val();	
+	
+	$(document).on("click","#joinBtn",function(e){
+		console.log(seq);
+		$.ajax({
+				url:"/chal/alreadyJoined",
+				method:"POST",
+				data:{"seq":seq}
+				
+			}).done(function(resp){
+				if(resp == "중복"){
+					alert("이미 참여중인 글피입니다!");
+				}else{
+					location.href = "/chal/chalPayment?seq=${dto.chalSeq}";
+				}
+			})
+		});
+	</script>
 
 	<script>
  	CountDownTimer('${dto.date} ', 'countdown');
  	CountDownTimer('1/16/2022 5:00 PM', 'HourCountdown');
  	CountDownTimer('1/16/2022', 'countExpire');
-
-	console.log( ${dto.date} );
 	
 	 function CountDownTimer(dt, id) {
      	var end = new Date(dt);
@@ -453,7 +475,7 @@ opacity
      timer = setInterval(showRemaining, 1000);
  }
 	 
-	 $()
+	
  </script>
 </body>
 

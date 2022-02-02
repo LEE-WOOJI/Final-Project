@@ -38,6 +38,10 @@
 		update chal set personnel = personnel + 1 where chalSeq = #{value}
 	</update>
 	
+	<update id="addPersonnelJ">
+		update joinChal set personnel = personnel + 1 where refChalSeq = #{value}
+	</update>
+	
 	<insert id="joinChal">
 		insert into joinChal values(joinChal_seq.nextval, #{refChal},#{refNickname},#{chalName},#{startDate},#{endDate},#{personnel},#{chalInfo},#{tag},#{chalStat})
 	</insert>
@@ -66,5 +70,9 @@
 	<select id = "seqSearch" resultType = "int">
 		select chalSeq from chal where chalName = #{value}
 	</select>
+	
+	<!-- 참여한 챌린지 인지 중복 검사 -->
+	<select id = "alreadyJoined" resultType = "int">
+		select count(*) from joinchal where refnickname = #{nickname} and refchalseq= #{seq}
+	</select>
 </mapper>
-

@@ -171,13 +171,29 @@ public class ChalController {
 		return result;
 	}
 
+	// 참여한 글피인지 중복 검사.
+	@ResponseBody
+	@RequestMapping(value ="alreadyJoined", produces = "text/html;charset=utf8")
+	public String alreadyJoined(int seq) {
+		String nickname = (String)session.getAttribute("writerNickname");
+		//같은 글피에 참여한 적 있는지 중복검사
+		int num = cservice.alreadyJoined(seq,nickname);
+		String result = "중복아님";
+		if(num == 1) {
+			result = "중복";
+		}
+		return result;
+	}
+
 	/* 글피 디테일 페이지로 넘어가기*/
+
 	@RequestMapping("detail")
 	// chalList.jsp 에서 해당'chalSeq'를 받아오기.
 	public String chalDetail(int seq, Model model) {
 
 		//블랙리스트 유무를 위하여 로그인 세션 받아옴
 		String id = (String) session.getAttribute("loginId");
+		String nickname = (String)session.getAttribute("writerNickname");
 
 		if(id != null) {
 			MemberDTO member = brService.searchInfoById(id);
@@ -218,19 +234,17 @@ public class ChalController {
 		model.addAttribute("dto",dto);
 		return "/chal/chalPayment";
 	}
-	
+
 	/*결제 완료 후 보여질 페이지*/
 	@RequestMapping("chalOut")
 	public String chalOut(Integer refChalSeq, String nickname, String chalName, Timestamp startDate, 
-							Timestamp endDate, Integer  personnel, String chalInfo, String tag, String chalStat) {
+			Timestamp endDate, Integer  personnel, String chalInfo, String tag, String chalStat) {
 		// 참여자 수 +1 증가
 		cservice.addPersonnel(refChalSeq);
+		cservice.addPJ(refChalSeq);
 		// JoinChal 테이블에 추가
 		cservice.joinChal(refChalSeq,nickname,chalName,startDate,endDate,personnel,chalInfo,tag,chalStat);
 		return "/chal/chalOut";
 	}
-	
-
-	
-}	
+}
 

@@ -196,5 +196,4 @@ public class MypageController {
 	public String like() {
 		return "/user/like";
 	}
-
 }

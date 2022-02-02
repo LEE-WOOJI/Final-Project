@@ -162,8 +162,12 @@ td {
 						<td style="background-color: white; font-family: 'S-CoreDream-4Regular'">${dto.chalName}</td>
 					</tr>
 					<tr>
-						<td class="title">참여 기간</td>
-						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }~${endDate }" /></td>
+						<td class="title">시작 날짜</td>
+						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }" /></td>
+					</tr>
+					<tr>
+						<td class="title">종료 날짜</td>
+						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${endDate }" /></td>
 					</tr>
 					<tr>
 						<td class="title">신청금</td>
