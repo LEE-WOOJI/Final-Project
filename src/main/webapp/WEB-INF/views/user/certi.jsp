@@ -228,7 +228,7 @@ a:hover {
 								</div>
 
 								<div class="list-group list-group-flush">
-									<a href="/mypage/mypageUserUpdate" class="list-group-item py-1"><span
+									<a href="/mypage/updateForm" class="list-group-item py-1"><span
 										class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
 										a href=/mypage/updateUserInfo>내 정보 </span></a> <a
 										href="/mypage/myChalList" class="list-group-item py-1"><span

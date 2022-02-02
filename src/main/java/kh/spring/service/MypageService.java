@@ -38,6 +38,7 @@ public class MypageService {
 		return mypageDAO.getUserBoardReply(writernickname);
 	}
 	
+	// 회원 정보 수정.
 	public int update(MemberDTO dto) {
 		return mypageDAO.update(dto);
 	}

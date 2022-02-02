@@ -36,6 +36,7 @@ import kh.spring.dto.ProfileDTO;
 import kh.spring.service.AdminService;
 import kh.spring.service.BoardService;
 import kh.spring.service.MypageService;
+import kh.spring.utils.EncrpytionUtils;
 
 @Controller
 @RequestMapping("/image/")
@@ -332,10 +333,11 @@ public class ImageController {
 	
 	@RequestMapping("mypageUpdate") // 회원정보 수정시 이미지 업로드.
 	public String chalModify(MemberDTO dto, MultipartFile file[]) throws Exception {
+		// 비밀번호 sha암호화.
+		dto.setPw(EncrpytionUtils.getSHA512(dto.getPw()));
 		// 마이페이지 정보 수정.
 		mService.update(dto);
 		int seq = dto.getSeq();
-		System.out.println(seq);
 		// seq로 profile테이블의 imgName 찾기.
 		ProfileDTO ProfileDTO = mService.findProfileImgName(seq);
 		if(ProfileDTO == null) {
