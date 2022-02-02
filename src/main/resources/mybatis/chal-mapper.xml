@@ -44,22 +44,27 @@
 	
 	<!-- 특정 챌린지에 대한 정보값 불러오기 -->
 	<select id = "chalInfo" resultType = "kh.spring.dto.ChalDTO">
-		select * from joinChal where chalSeq = #{value}
+		select * from chal where chalSeq = #{value}
 	</select>
 
 	<!-- 어떤 유저가 과거에 참여한 챌린지 조회 -->
-	<select id = "myChalListB" resultType = "kh.spring.dto.ChalDTO">
+	<select id = "myChalListB" resultType = "kh.spring.dto.JoinChalDTO">
 		select * from joinChal where refNickname = #{value} and <![CDATA[endDate < sysdate]]> 
 	</select>
 	
 	<!-- 어떤 유저가 현재 참여한 챌린지 조회 -->
-	<select id = "myChalListP" resultType = "kh.spring.dto.ChalDTO">
+	<select id = "myChalListP" resultType = "kh.spring.dto.JoinChalDTO">
 		select * from joinChal where refNickname = #{value} and <![CDATA[startDate < sysdate and endDate > sysdate]]>
 	</select>
 	
 	<!-- 어떤 유저가 미래에 참여할 챌린지 조회 -->
-	<select id = "myChalListF" resultType = "kh.spring.dto.ChalDTO">
+	<select id = "myChalListF" resultType = "kh.spring.dto.JoinChalDTO">
 		select * from joinChal where refNickname = #{value} and <![CDATA[startDate > sysdate]]>
+	</select>
+	
+	<!-- 챌린지 이름으로 seq 찾기 -->
+	<select id = "seqSearch" resultType = "int">
+		select chalSeq from chal where chalName = #{value}
 	</select>
 </mapper>
 

@@ -28,8 +28,9 @@ public class RefundService {
 	public int insert(RefundDTO dto) {
 		return rdao.insert(dto);
 	}
-	public int refundOk(String nickname, String chalName) {
-		return rdao.refundOk(nickname, chalName);
+	public int refundOk(String nickname, int chalSeq) {
+		System.out.println("서비스" + chalSeq);
+		return rdao.refundOk(nickname, chalSeq);
 	}
 	public int update(String nickname, String chalName) {
 		return rdao.update(nickname, chalName);

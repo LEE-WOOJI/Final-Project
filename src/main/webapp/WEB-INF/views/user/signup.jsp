@@ -361,7 +361,7 @@
 			<div class="form-group col-lg-3 mb-3 ">
 				<input type="text" class="form-control" placeholder="아이디" name="id"
 					id="id" maxlength="12"
-					style="width: 69%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+					style="width: 68%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 				<button type="button" id="check" value="중복검사"
 					class="form-control btn btn-primary submit px-2"
 					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
@@ -393,7 +393,7 @@
 			<div class="form-group col-lg-3 mb-3">
 				<input type="text" name="nickname" id="nickname" maxlength="10"
 					class="form-control" placeholder="닉네임"
-					style="width: 69%;font-size: smaller; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+					style="width: 68%;font-size: smaller; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 				<button type="button" id="niccheck" value="중복검사"
 					class="form-control btn btn-primary submit px-2"
 					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
@@ -412,7 +412,7 @@
 			<div class="form-group col-lg-3 mb-3">
 				<input type="text" class="form-control" name="email" id="email"
 					placeholder="이메일 ex) glorytrophy@gmail.com"
-					style="width: 69%;display: inline-block;font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+					style="width: 68%;display: inline-block;font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
 				<button type="button" id="emailcheck" value="중복검사"
 					class="form-control btn btn-primary submit px-2"
 					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">중복검사</button>
@@ -424,11 +424,11 @@
 				<input type="text" name=zipcode id=zipcode max="99999" maxlength="5"
 					onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" readonly
 					class="form-control" placeholder="우편번호"
-					style="font-size: smaller;width: 70%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+					style="font-size: smaller;width: 68%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 
 				<button type="button" value="우편번호찾기" id="ad"
 					class="form-control btn btn-primary submit px-3"
-					style="text-align: center; width: 26%; font-family: 'yg-jalnan', verdana, tahoma;">
+					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">
 					찾기</input>
 					<script>
 									//카카오 api 우편번호 검색 

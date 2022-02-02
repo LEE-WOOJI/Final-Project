@@ -20,6 +20,7 @@ import kh.spring.dto.BoardDTO;
 import kh.spring.dto.BoardReplyDTO;
 import kh.spring.dto.CertiDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.BoardReplyService;
 import kh.spring.service.BoardService;
@@ -105,9 +106,9 @@ public class MypageController {
 	@RequestMapping("myChalList")
 	public String myChalList(Model model) {
 		String nickname = (String)session.getAttribute("writerNickname");
-		List<ChalDTO> blist =  cservice.myChalListB(nickname);
-		List<ChalDTO> plist =  cservice.myChalListP(nickname);
-		List<ChalDTO> flist =  cservice.myChalListF(nickname);
+		List<JoinChalDTO> blist =  cservice.myChalListB(nickname);
+		List<JoinChalDTO> plist =  cservice.myChalListP(nickname);
+		List<JoinChalDTO> flist =  cservice.myChalListF(nickname);
 		model.addAttribute("nickname",nickname);
 		model.addAttribute("blist",blist);
 		model.addAttribute("plist",plist);
@@ -118,14 +119,16 @@ public class MypageController {
 	//환급 신청되는지 확인
 	@ResponseBody
 	@RequestMapping(value ="refundOk", produces = "text/html;charset=utf8")
-	public String chalCancel(String chalName) {
+	public String chalCancel(int chalSeq) {
+		String nickname = (String)session.getAttribute("writerNickname");
+		System.out.println(chalSeq);
 		//중복확인 메서드
-		int num = rservice.refundOk(chalName, chalName);
-		String result = "중복아님";
+		int num = rservice.refundOk(nickname, chalSeq);
+		System.out.println("결과값" + num);
 		if(num == 1) {
-			result = "중복";
+			return "true";
 		}
-		return result;
+		return "false";
 	}
 	//내가 작성한 글과 댓글
 	@RequestMapping("myBoardAndReply")
@@ -141,10 +144,26 @@ public class MypageController {
 	@RequestMapping("myBARSearch")
 	public String myBoardReply(Model model, String option, String keyword) {
 		String nickname = (String)session.getAttribute("writerNickname");
-		List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
-		List<BoardReplyDTO> boardReplyList = brService.mySearch(nickname, option, keyword);
-		model.addAttribute("blist", boardList);
-		model.addAttribute("rlist", boardReplyList);
+		System.out.println(option + ":" + keyword);
+		if(option.equals("title")) {
+			List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
+			List<BoardReplyDTO> boardReplyList = memberService.getUserBoardReply(nickname);
+			model.addAttribute("nickname",nickname);
+			model.addAttribute("blist", boardList);
+			model.addAttribute("rlist", boardReplyList);
+		}else if(option.equals("contents")) {
+			List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
+			List<BoardReplyDTO> boardReplyList = brService.mySearch(nickname, "repContents", keyword);
+			model.addAttribute("nickname",nickname);
+			model.addAttribute("blist", boardList);
+			model.addAttribute("rlist", boardReplyList);
+		}else if(option.equals("seq")) {
+			List<BoardDTO> boardList = bService.mySearch(nickname, option, keyword);
+			List<BoardReplyDTO> boardReplyList = brService.mySearch(nickname, "refBoardSeq", keyword);
+			model.addAttribute("nickname",nickname);
+			model.addAttribute("blist", boardList);
+			model.addAttribute("rlist", boardReplyList);
+		}
 		return "/user/mypageBoard";
 	}
 
@@ -155,11 +174,17 @@ public class MypageController {
 	}
 
 	@RequestMapping("certi") // 인증 상세목록으로 이동.
-	public String certi(Model model, int chalSeq, String chalName) {
+	public String certi(Model model, String chalName, int refChalSeq) {
+		int chalSeq = refChalSeq;
 		String nickname = (String)session.getAttribute("writerNickname");
 		// 인증한 목록 출력.
 		List<CertiDTO> list = mService.findCertiList(chalSeq, chalName, nickname);
+		CertiDTO info = new CertiDTO();
+		info.setChalSeq(chalSeq);
+		info.setChalName(chalName);
+		info.setRefNickname(nickname);
 		model.addAttribute("list",list);
+		model.addAttribute("info",info);
 		return "/user/certi";
 	}
 
@@ -176,4 +201,11 @@ public class MypageController {
 		e.printStackTrace();
 		return "redirect:/";
 	}
+	
+	@RequestMapping("like") // 인증 작성폼으로 이동.
+	public String like() {
+		return "/user/like";
+	}
+	
+	
 }

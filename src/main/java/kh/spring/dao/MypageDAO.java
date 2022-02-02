@@ -43,7 +43,8 @@ public class MypageDAO {
 	}
 	// 인증 등록.
 	public int insertCerti(CertiDTO dto) throws ParseException {
-		return mybatis.insert("Mypage.insertCerti",dto);
+		mybatis.insert("Mypage.insertCerti",dto);
+		return dto.getChalSeq();
 	}
 	
 	// 인증 이미지 등록.
@@ -56,16 +57,17 @@ public class MypageDAO {
 	}
 	
 	// 인증 이미지 불러오기.
-	public CertiImgDTO findCertiImgName(int parentSeq) {
-		return mybatis.selectOne("Mypage.findCertiImgName",parentSeq);
+	public CertiImgDTO findCertiImgName(int seq) {
+		return mybatis.selectOne("Mypage.findCertiImgName",seq);
 	}
 	
 	// 인증한 목록 출력.
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String,String>();
 		map.put("chalSeq", String.valueOf(chalSeq));
 		map.put("chalName", chalName);
 		map.put("refNickname", refNickname);
 		return mybatis.selectList("Mypage.findCertiList",map);
 	}
+	
 }

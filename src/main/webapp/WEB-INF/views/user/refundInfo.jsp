@@ -136,9 +136,7 @@ td {
 	<div class="container">
 		<div class="btnBox">
 			<a class="btn_popup" href="javascript:void(0);" onclick="window.open('../refundInfo', 'a', 
-                       'top=140, left=300, width=500, height=600, menubar=no, 
-                        toolbar=no, location=no, directories=no, status=no, 
-                        scrollbars=no, copyhistory=no, resizable=no');"> 팝업창 호출</a>
+                       'top=140, left=300, width=500, height=600, menubar=no, toolbar=no, location=no, directories=no, status=no, scrollbars=no, copyhistory=no, resizable=no');"> 팝업창 호출</a>
 		</div>
 	</div>
 	
