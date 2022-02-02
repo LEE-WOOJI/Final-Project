@@ -214,7 +214,10 @@ opacity
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="col-md-6">
+<<<<<<< HEAD
+=======
 					<input type=hidden value="${dto.chalSeq}" id="seq">
+>>>>>>> cc1b28b2c9cad278bd036e190f5f28c2c4fd64ec
 					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="">
 				</div>
 				<div class="col-md-6">

@@ -76,4 +76,3 @@
 		select count(*) from joinchal where refnickname = #{nickname} and refchalseq= #{seq}
 	</select>
 </mapper>
-

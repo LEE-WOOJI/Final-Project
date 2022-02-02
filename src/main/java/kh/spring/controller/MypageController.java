@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,39 +48,24 @@ public class MypageController {
 	private ChalService cservice;
 	@Autowired
 	private RefundService rservice;
-
+	//회원정보
 	@RequestMapping("updateUserInfo")
 	public String  updateUesrInfoPage(Model model, int seq) {
 		MemberDTO memberDTO = memberService.selectBySeq(seq);
 		model.addAttribute("user",memberDTO);
 		return "user/updateUserInfo";
 	}
-
-	@RequestMapping("update")
-	public String update(HttpServletRequest httpServletRequest,Model model) {
-		int seq = Integer.parseInt(httpServletRequest.getParameter("seq"));
-		String phone = httpServletRequest.getParameter("phone");
-		String email = httpServletRequest.getParameter("email");
-		String address1 = httpServletRequest.getParameter("address1");
-		String address2 = httpServletRequest.getParameter("address2");
-		String pw = httpServletRequest.getParameter("pw");
-		MemberDTO memberDTO = memberService.selectBySeq(seq);
-		memberDTO.setPhone(phone);
-		memberDTO.setEmail(email);
-		memberDTO.setAddress1(address1);
-		memberDTO.setAddress2(address2);
-		memberDTO.setPw(pw);
-		model.addAttribute("user",memberDTO);
-		memberService.update(memberDTO);
-		return "user/mypage";
+	//회원정보 폼
+	@RequestMapping("updateForm")
+	public String updateForm(Model model) {
+		String id = (String) session.getAttribute("loginId");
+		MemberDTO memberDTO = memberService.userInfo(id);
+		model.addAttribute("dto",memberDTO);
+		return "user/mypageUserUpdate";
+		
 	}
-
-	@RequestMapping("updateUserProfile")
-	public String updateUserProfile(Model model, int seq) {
-		MemberDTO memberDTO = memberService.selectBySeq(seq);
-		model.addAttribute("user",memberDTO);
-		return "user/updateProfile";
-	}
+	
+	//회원정보 수정은 ImageController에서 구현.
 
 	@RequestMapping("updateUserProfileAction")
 	public String updateUserProfileAction(Model model,HttpServletRequest httpServletRequest, @RequestParam("file") MultipartFile file) throws IOException {
@@ -115,7 +102,7 @@ public class MypageController {
 		model.addAttribute("flist",flist);
 		return "/user/myChalList";
 	}
-	
+
 	//환급 신청되는지 확인
 	@ResponseBody
 	@RequestMapping(value ="refundOk", produces = "text/html;charset=utf8")
@@ -166,11 +153,14 @@ public class MypageController {
 		}
 		return "/user/mypageBoard";
 	}
-
+	//회원정보삭제
 	@RequestMapping("delete")
-	public String deleteUser(int seq) {
-		memberService.delete(seq);
-		return "home";
+	public String deleteUser() {
+		String id = (String) session.getAttribute("loginId");
+		memberService.delete(id);
+		session.invalidate();
+		session.removeAttribute("loginId");
+		return "redirect:/";
 	}
 
 	@RequestMapping("certi") // 인증 상세목록으로 이동.
@@ -201,11 +191,9 @@ public class MypageController {
 		e.printStackTrace();
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("like") // 인증 작성폼으로 이동.
 	public String like() {
 		return "/user/like";
 	}
-	
-	
 }

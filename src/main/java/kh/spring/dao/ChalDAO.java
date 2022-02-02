@@ -123,7 +123,6 @@ public class ChalDAO {
 	public int seqSearch(String chalName) {
 		return mybatis.selectOne("Chal.seqSearch", chalName);
 	}
-	
 
 	//중복참여 방지 
 	public int alreadyJoined(int seq, String nickname) {
@@ -137,6 +136,5 @@ public class ChalDAO {
 	//인원추가
 	public int addPJ(int chalSeq) {
 		return mybatis.update("Chal.addPersonnelJ", chalSeq);
-
 	}
 }

@@ -174,7 +174,7 @@ public class ChalController {
 	// 참여한 글피인지 중복 검사.
 	@ResponseBody
 	@RequestMapping(value ="alreadyJoined", produces = "text/html;charset=utf8")
-		public String alreadyJoined(int seq) {
+	public String alreadyJoined(int seq) {
 		String nickname = (String)session.getAttribute("writerNickname");
 		//같은 글피에 참여한 적 있는지 중복검사
 		int num = cservice.alreadyJoined(seq,nickname);
@@ -208,6 +208,7 @@ public class ChalController {
 
 		// 태그 자르기
 		String[]tag = dto.getTag().split(",");
+		System.out.println(dto.getChalSeq());
 		model.addAttribute("seq",dto.getChalSeq());
 		model.addAttribute("dto",dto);
 		model.addAttribute("list",list);
@@ -245,8 +246,5 @@ public class ChalController {
 		cservice.joinChal(refChalSeq,nickname,chalName,startDate,endDate,personnel,chalInfo,tag,chalStat);
 		return "/chal/chalOut";
 	}
-
-
-
-}	
+}
 

@@ -31,6 +31,7 @@ import kh.spring.dto.CertiDTO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalDTO;
 import kh.spring.dto.ChalImgDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileDTO;
 import kh.spring.service.AdminService;
 import kh.spring.service.BoardService;
@@ -282,6 +283,97 @@ public class ImageController {
 			dos.write(fileContents);
 			dos.flush();
 		}
+	}
+	
+	@RequestMapping("mypageLoad") // 마이페이지에서 내 사진 불러오기.
+	public void mypageUpdate(String nickname, HttpServletResponse response) throws Exception {
+		// nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기.
+		int parentSeq = bService.findParentSeq(nickname);
+		// member테이블 seq(profile테이블의 parentSeq)로 imgName 찾기.
+		ProfileDTO dto = bService.findImgName(parentSeq);
+		if(dto==null) {
+			String oriName = "profiledefault.jpg";
+			String sysName = "profiledefault.jpg";
+			String realPath = session.getServletContext().getRealPath("files");
+			File target = new File(realPath+"/"+sysName);
+
+			try(DataInputStream dis = new DataInputStream(new FileInputStream(target));
+					DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
+				byte[] fileContents = new byte[(int) target.length()];
+				dis.readFully(fileContents);
+
+				oriName = new String(oriName.getBytes("utf8"),"ISO-8859-1");
+				response.reset();
+				response.setHeader("Content-Disposition", "attachment; filename="+ oriName);
+
+				dos.write(fileContents);
+				dos.flush();	
+			}
+		}else {
+			String oriName = dto.getOriName();
+			String sysName = dto.getSysName();
+			String realPath = session.getServletContext().getRealPath("files");
+			File target = new File(realPath+"/"+sysName);
+
+			try(DataInputStream dis = new DataInputStream(new FileInputStream(target));
+					DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
+				byte[] fileContents = new byte[(int) target.length()];
+				dis.readFully(fileContents);
+
+				oriName = new String(oriName.getBytes("utf8"),"ISO-8859-1");
+				response.reset();
+				response.setHeader("Content-Disposition", "attachment; filename="+ oriName);
+
+				dos.write(fileContents);
+				dos.flush();	
+			}
+		}
+	}
+	
+	@RequestMapping("mypageUpdate") // 회원정보 수정시 이미지 업로드.
+	public String chalModify(MemberDTO dto, MultipartFile file[]) throws Exception {
+		// 마이페이지 정보 수정.
+		mService.update(dto);
+		int seq = dto.getSeq();
+		System.out.println(seq);
+		// seq로 profile테이블의 imgName 찾기.
+		ProfileDTO ProfileDTO = mService.findProfileImgName(seq);
+		if(ProfileDTO == null) {
+			for(MultipartFile mf : file) {
+				if(!file[0].isEmpty()) {
+					String realPath = session.getServletContext().getRealPath("files");
+
+					File realPathFile = new File(realPath);
+					if(!realPathFile.exists()) {
+						realPathFile.mkdir();	
+					}
+					String oriName = mf.getOriginalFilename();
+					String sysName = UUID.randomUUID()+"_"+oriName;
+					mf.transferTo(new File(realPath+"/"+sysName));
+
+					// 프로필 이미지 등록.
+					mService.insertProfileImg(oriName,sysName,seq);
+				}
+			}
+		}else {
+			for(MultipartFile mf : file) {
+				if(!file[0].isEmpty()) {
+					String realPath = session.getServletContext().getRealPath("files");
+
+					File realPathFile = new File(realPath);
+					if(!realPathFile.exists()) {
+						realPathFile.mkdir();	
+					}
+					String oriName = mf.getOriginalFilename();
+					String sysName = UUID.randomUUID()+"_"+oriName;
+					mf.transferTo(new File(realPath+"/"+sysName));
+
+					// 프로필 이미지 수정.
+					mService.modifyProfileImg(oriName,sysName,seq);
+				}
+			}	
+		}
+		return "redirect:/mypage/myChalList";
 	}
 
 	@ExceptionHandler(Exception.class)

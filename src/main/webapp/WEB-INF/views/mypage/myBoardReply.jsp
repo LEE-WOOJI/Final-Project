@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>도전중인 글피</title>
+<title>Insert title here</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -15,12 +15,13 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
+</head>
 <style>
 body{
     background:#f9f9fb;    
 }
 .view-account{
-    background:#FFFFFF; 
+    background:#FFFFFF;
     margin-top:20px;
 }
 .view-account .pro-label {
@@ -71,8 +72,8 @@ body{
 
 .view-account .side-bar .side-menu {
     text-align: center
+    
 }
-
 .view-account .side-bar .side-menu .nav {
     display: inline-block;
     margin: 0 auto
@@ -158,14 +159,12 @@ body{
 .view-account .content-panel .content-header-wrapper {
     position: relative;
     margin-bottom: 30px
-    
 }
 
 .view-account .content-panel .content-header-wrapper .actions {
     position: absolute;
     right: 0;
     top: 0
-    
 }
 
 .view-account .content-panel .content-utilities {
@@ -374,33 +373,6 @@ body{
 .theme-4 .drive-wrapper .drive-item-title a:hover {
     color: #ec6952
 }
-
-.drive-wrapper .drive-item-thumb {
-    width: 100px;
-    height: 80px;
-    margin: 0 auto;
-    color: #616670
-}
-
-.drive-wrapper .drive-item-thumb a {
-    -webkit-opacity: .8;
-    -moz-opacity: .8;
-    opacity: .8
-}
-
-.drive-wrapper .drive-item-thumb a:hover {
-    -webkit-opacity: 1;
-    -moz-opacity: 1;
-    opacity: 1
-}
-
-.drive-wrapper .drive-item-thumb .fa {
-    display: inline-block;
-    font-size: 36px;
-    margin: 0 auto;
-    margin-top: 20px
-}
-
 .drive-wrapper .drive-item-footer .utilities {
     margin-bottom: 0
 }
@@ -418,7 +390,7 @@ body{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis
-}vhb 
+}
 
 .drive-list-view .type {
     width: 15px
@@ -601,28 +573,10 @@ body{
         display: inline-block
     }
 }
-.module {
-    border: 1px solid #f3f3f3;
-    border-bottom-width: 2px;
-    background: #fff;
-    margin-bottom: 30px;
-    position: relative;
-    border-radius: 4px;
-    background-clip: padding-box;
-}
-.module .module-footer {
-    background: #fff;
-    border-top: 1px solid #f3f3f7;
-    padding: 15px;
-}
-.module .module-footer a {
-    color: #9499a3;
-}
+
 </style>
-</head>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <body>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 <div class="container">
     <div class="view-account">
         <section class="module">
@@ -631,56 +585,19 @@ body{
                     <div class="user-info">
                         <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
                         <ul class="meta list list-unstyled">
-                            <li class="name">${user.name }
-                                <label class="label label-info">등급</label>
-                            </li>
-                            <li class="email"><a href="#">${user.email }</a></li>
+                            <li class="name">${user.nickname}
+                                <label class="label label-info">${user.grade }</label></li>
+                            <li class="email"><a href="#">${user.email}</a></li>
                         </ul>
                     </div>
                     <nav class="side-menu">
                         <ul class="nav">
-                            <li><a href="#"><span class="fa fa-user"></span> 내정보</a></li>
-                            <li class="active"><a href="#"><span class="fa fa-cog"></span> 도전중인 글피</a></li>
-                            <li><a href="#"><span class="fa fa-credit-card"></span> 작성한글 / 댓글</a></li>
-                            <li><a href="#"><span class="fa fa-envelope"></span> 결재관리</a></li>
-                            <li><a href="user-drive.html"><span class="fa fa-th"></span> 회원탈퇴</a></li>
+                            <li><a href="/mypage/updateUserInfo"><span class="fa fa-user"></span>내정보</a></li>
+                            <li><a href="/mypage/chaling"><span class="fa fa-chaling"></span>도전중인글피</a></li>
+                            <li><a href="/mypage/myBoardReply"><span class="fa fa-myboard"></span></a></li>
+                            <li><a href="/mypage/delete"><span class="userdelete"></span>회원탈퇴</a></li>
                         </ul>
                     </nav>
-                </div>
-                
-                <div class="content-panel">
-                    <div class="content-header-wrapper">
-    
-                    	<h2 class="title">진행중인 챌린지</h2>
-         
-                    </div>
-                    <div class="content-utilities">
-                      
-                    </div>
-                    <div class="drive-wrapper drive-grid-view ">
-                        <div class="grid-items-wrapper">
-                        	<c:forEach var="item" items="${list}">
-                    		     <div class="drive-item module text-center">
-                                <div class="drive-item-inner module-inner">
-                                    <div class="drive-item-title">${item.chalName }<a href="#">${item.chalStat }</a></div>
-                                    <button>인증</button>
-                                    <button>보기</button>
-                                    <div class="drive-item-thumb">
-                                    <!-- 임의로작성 certicontroller 주소몰라서 -->
-                                        <a href="/chaing/certi?chalSeq=${item.seq}&chalName=${item.chalName}&refNickName=${user.nickName}"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="drive-item-footer module-footer">
-                                    <ul class="utilities list-inline">
-                                    </ul>
-                                </div>
-                            </div>
-                           	</c:forEach>
-                        </div>
-                    </div>
-                        </div>
-                    </div>	
-                </div>
             </div>
         </section>
     </div>
@@ -689,7 +606,6 @@ body{
 <script type="text/javascript">
 $(function(){
     $("[data-toggle='tooltip']").tooltip();
-}) 
-</script>
+})
 </script>
 </html>
