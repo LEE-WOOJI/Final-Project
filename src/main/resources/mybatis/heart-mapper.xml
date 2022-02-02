@@ -5,16 +5,16 @@
 <mapper namespace="Heart">
 	<!-- 좋아요 확인 -->
 	<select id="findHeart" resultType="kh.spring.dto.HeartDTO">
-		select * from heart_table where seq=#{seq} and refChalSeq=#{refChalSeq}
+		select * from heart where seq=#{seq} and refChalSeq=#{refChalSeq}
 	</select>
 	<!-- 좋아요 저장 -->
 	<insert id="insertHeart">
-		insert into heart_table(seq, refChalSeq, heart)
-		values(#{seq},
-		#{refChalSeq}, 1)
+		insert into heart(seq, refChalSeq, refNickname, heart)
+		values(heart_seq.nextval,
+		#{refChalSeq}, #{refNickname}, 1)
 	</insert>
 	<!-- 좋아요 삭제 -->
 	<delete id="deleteHeart">
-		delete from heart_table where seq=#{seq} and refChalSeq=#{refChalSeq}
+		delete from heart where seq=#{seq} and refChalSeq=#{refChalSeq}
 	</delete>
 </mapper>
