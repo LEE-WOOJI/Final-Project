@@ -42,7 +42,7 @@ body {
 
 .fm-file-box {
 	font-size: 25px;
-	background: #e9ecef; 
+	background: #e9ecef;
 	width: 44px;
 	height: 44px;
 	display: flex;
@@ -154,97 +154,113 @@ a:hover {
 					<div class="card-body">
 						<div class="d-grid"></div>
 						<div class="list-group list-group-flush">
-							<a href="/admin/main" class="list-group-item py-1">
-								<h5 class="my-3" style="font-family: 'yg-jalnan', verdana, tahoma;">관리자 페이지</h5>
+							<a href="/mypage/myChalList" class="list-group-item py-1">
+								<h5 class="my-3" style="font-family: 'yg-jalnan', verdana, tahoma;">마이페이지</h5>
 							</a>
 						</div>
 						<div class="fm-menu">
+							<div class="profile_box">
+								<img class="profile_img" src="/image/board?nickname=${nickname}"> <br>
+							</div>
+
 							<div class="list-group list-group-flush">
-								<a href="/admin/userBlack" class="list-group-item py-1">
+								<a href="/mypage/mypageUserUpdate" class="list-group-item py-1">
 									<span class="iconify" data-icon="el:ban-circle" data-width="25"></span>
 									&ensp;
-									<span>유저 블랙/탈퇴 관리</span>
+									<span a href=/mypage/updateUserInfo>내 정보 </span>
 								</a>
-								<a href="/admin/userGrade" class="list-group-item py-1">
+
+								<a href="/mypage/myChalList" class="list-group-item py-1">
 									<span class="iconify" data-icon="icon-park-outline:gold-medal" data-width="25"></span>
 									&ensp;
-									<span>유저 등급변경</span>
+									<span>도전중인 글피</span>
 								</a>
-								<a href="/admin/userRefund" class="list-group-item py-1">
+
+								<a href="/mypage/myBoardAndReply" class="list-group-item py-1">
 									<span class="iconify" data-icon="jam:coin" data-width="25"></span>
 									&ensp;
-									<span>유저 환급</span>
+									<span>작성한 글 / 댓글</span>
 								</a>
-								<a href="/admin/certi?cpage=1" class="list-group-item py-1">
+
+								<a href="/mypage/like" class="list-group-item py-1">
 									<span class="iconify" data-icon="clarity:list-line" data-width="25"></span>
 									&ensp;
-									<span>유저 인증 삭제 </span>
+									<span>내가 찜한 글피 </span>
 								</a>
-								<a href="/admin/chal?cpage=1" class="list-group-item py-1">
+
+								<a href="/mypage/delete" id="leave" class="list-group-item py-1">
 									<span class="iconify" data-icon="ant-design:folder-open-outlined" data-width="25"></span>
 									&ensp;
-									<span>챌린지 관리</span>
-								</a>
-								<a href="/admin/board?cpage=1" class="list-group-item py-1">
-									<span class="iconify" data-icon="clarity:note-line" data-width="25"></span>
-									&ensp;
-									<span>자유게시판 관리</span>
+									<span>회원 탈퇴</span>
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="col-12 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
-							<c:forEach var="list" items="${list }">
-								<div class="col-sm-6 col-md-4 col-lg-4">
-									<div class="card shadow-none border radius-15">
-										<div class="card-body">
-											<div class="img-box">
-												<a href="/chal/detail?seq=${list.chalSeq}" style="text-decoration: none;">
-													<img src="/image/chalModifyLoad?chalSeq=${list.chalSeq}" alt="">
-												</a>
-											</div>
-											<div class="detail-box" style="text-align: center;">
-												<h4 id="title">
-													<a href="/chal/detail?seq=${list.chalSeq}" style="text-decoration: none; color: black;"> ${list.chalName} </a>
-												</h4>
-											</div>
-											<div class="category">
-												<hr>
-												<h6>
-													<label>Category : </label>
-													${list.category }
-												</h6>
-											</div>
-											<div class="tag-box">
-												<hr>
-												<h6>
-													<label>Tag : </label>
-													${list.tag }
-												</h6>
-											</div>
-											<div class="startday">
-												<h6>
-													<label>시작일 : </label>
-													<fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value="${list.startDate }" />
-												</h6>
-											</div>
-											<div class="endday">
-												<h6>
-													<label>종료일 : </label>
-													<fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value="${list.endDate }" />
-												</h6>
+							<c:choose>
+								<c:when test="${!empty list }">
+									<c:forEach var="list" items="${list }">
+										<div class="col-sm-6 col-md-4 col-lg-4">
+											<div class="card shadow-none border radius-15">
+												<div class="card-body">
+													<div class="img-box">
+														<a href="/chal/detail?seq=${list.chalSeq}" style="text-decoration: none;">
+															<img src="/image/chalModifyLoad?chalSeq=${list.chalSeq}" alt="">
+														</a>
+													</div>
+													<div class="detail-box" style="text-align: center;">
+														<h4 id="title">
+															<a href="/chal/detail?seq=${list.chalSeq}" style="text-decoration: none; color: black;"> ${list.chalName} </a>
+														</h4>
+													</div>
+													<div class="category">
+														<hr>
+														<h6>
+															<label>Category : </label>
+															${list.category }
+														</h6>
+													</div>
+													<div class="tag-box">
+														<hr>
+														<h6>
+															<label>Tag : </label>
+															${list.tag }
+														</h6>
+													</div>
+													<div class="startday">
+														<h6>
+															<label>시작일 : </label>
+															<fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value="${list.startDate }" />
+														</h6>
+													</div>
+													<div class="endday">
+														<h6>
+															<label>종료일 : </label>
+															<fmt:formatDate pattern="yyyy년 MM월 dd일 hh시" value="${list.endDate }" />
+														</h6>
+													</div>
+												</div>
+												<!-- card-body 끝 -->
 											</div>
 										</div>
-										<!-- card-body 끝 -->
+										<!--  col- 끝 -->
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<br>
+									<br>
+									<div style="font-family: 'yg-jalnan', verdana, tahoma; margin: auto; text-align: center; font-size: 18px;">
+										찜한 글피가 없습니다. <br> <br> <br> <img alt="" src="/assets/img/noimage.jpg" style="max-width: 100%; height: auto;">
 									</div>
-								</div>
-								<!--  col- 끝 -->
-							</c:forEach>
+								</c:otherwise>
+							</c:choose>
+
 						</div>
 					</div>
 				</div>
@@ -255,5 +271,27 @@ a:hover {
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+		$("#leave")
+		function leave() {
+			if (confirm("정말 탈퇴하시겠습니까?")) {
+				if (Kakao.Auth.getAccessToken()) {
+					Kakao.API.request({
+						url : '/v1/user/unlink',
+						success : function(response) {
+							location.href = "leave.mem"; //카카오api 결과값을 받은후 로그아웃 처리
+						},
+						fail : function(error) {
+							location.href = "leave.mem";
+						},
+					})
+					Kakao.Auth.setAccessToken(undefined)
+				} else {
+					location.href = "leave.mem"; //카카오 api를 사용한 로그인이 아니고 일반 로그인인 경우
+				}
+
+			}
+		}
+	</script>
 </body>
 </html>

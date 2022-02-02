@@ -32,7 +32,7 @@ public class HeartController {
 		hdto = hService.findHeart(seq,refChalSeq);
 		// 찾은 정보를 heart로 담아서 보냄
 		model.addAttribute("hdto",hdto);
-		return "member/detail";
+		return "redirect:chal/chalList";
 	}
 	
 	@RequestMapping("/heart")

@@ -94,6 +94,11 @@ public class ChalService {
 		return cdao.seqSearch(chalName);
 	}
 	
+
+	public int alreadyJoined(int seq, String nickname) {
+		return cdao.alreadyJoined(seq,nickname);
+	}
+
 	//인원추가
 	public int addPJ(int chalSeq) {
 		return cdao.addPJ(chalSeq);
