@@ -202,7 +202,7 @@ a:hover {
                            class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>작성한
                               글 / 댓글</span></a> 
                               
-                                <a href="/mypage/zzzim"
+                                <a href="/heart/fill"
                            class="list-group-item py-1"><span class="iconify"
                            data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
                               찜한 글피 </span></a> 
