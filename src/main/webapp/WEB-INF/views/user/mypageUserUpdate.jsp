@@ -310,10 +310,9 @@
 
 			<div class="form-group col-lg-3 mb-3 ">
 				<input type="text" class="form-control" placeholder="${dto.id }" name="id"
-					id="id" maxlength="12" readonly
+					id="id" maxlength="12" readonly value="${dto.id }"
 					style="width: 68%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 				<span id="checkResult"></span>
-				<input type="hidden" name="id" value="${dto.id }">
 				<input type="hidden" name="seq" value="${dto.seq }">
 			</div>
 
@@ -425,8 +424,10 @@
 </body>
 
 <script type="text/javascript">
-$("leave").on("click",function(){
-	location.href="/mypage/delete";
+$("#leave").on("click",function(){
+	if(confirm("정말 탈퇴하시겠습니까?")){
+		location.href="/mypage/delete";	
+	}
 })
 </script>
 </html>

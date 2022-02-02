@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자</title>
+<title>도전 중인 글피</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
    crossorigin="anonymous"></script>
@@ -192,7 +192,7 @@ a:hover {
                            </div>
                      
                      <div class="list-group list-group-flush">
-                        <a href="/mypage/mypageUserUpdate" class="list-group-item py-1"><span
+                        <a href="/mypage/updateForm" class="list-group-item py-1"><span
                            class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
                            a href=/mypage/updateUserInfo>내 정보 </span></a>
 
