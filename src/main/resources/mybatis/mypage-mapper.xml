@@ -42,6 +42,7 @@
 		#{value}
 	</select>
 
+	<!-- 회원 정보 수정 -->
 	<update id="updateUserInfo" parameterType="kh.spring.dto.MemberDTO">
 		update member set pw =#{pw,jdbcType=VARCHAR}, email=#{email,jdbcType=VARCHAR},
 		zipcode=#{zipcode,jdbcType=VARCHAR},
@@ -91,7 +92,7 @@
 	<!-- seq로 profile테이블의 imgName 찾기 -->
 	<select id="findProfileImgName"
 		resultType="kh.spring.dto.ProfileDTO">
-		select * from profile where seq = #{value}
+		select * from profile where parentSeq = #{value}
 	</select>
 
 	<!-- 프로필 이미지 등록 -->

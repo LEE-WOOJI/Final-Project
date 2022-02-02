@@ -42,8 +42,8 @@ public class MypageDAO {
 		return mybatis.selectList("Mypage.getUserBoardReply",writernickname);
 	}
 	
+	// 회원 정보 수정.
 	public int update(MemberDTO dto) {
-		System.out.println(dto.getPw()+":"+dto.getEmail()+":"+dto.getZipcode()+":"+dto.getAddress1()+":"+dto.getAddress2()+":"+dto.getPhone()+":"+dto.getId());
 		return mybatis.update("Mypage.updateUserInfo",dto);
 	}
 
