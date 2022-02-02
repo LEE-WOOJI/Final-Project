@@ -390,7 +390,7 @@ button:hover {
 			</c:if>
 
 			<!-- 댓글 작성 칸 -->
-			<c:if test="${writerNickname != null or loginId=='admin1234'}">
+			<c:if test="${writerNickname != null && blackList == 'N' or loginId=='admin1234'}">
 			<form
 				action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
 				method="post">

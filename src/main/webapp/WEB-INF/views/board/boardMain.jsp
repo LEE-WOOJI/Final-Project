@@ -284,11 +284,14 @@ a {
 	<script>
 		// 글쓰기 버튼 클릭 시.
 		$("#writeBtn").on("click", function() {
-			if(${loginId != null}){
+			if(${loginId != null && blackList == 'N'}){
 				location.href = "/board/write";	
-			}else{
+			}else if(${loginId == null}){
 				alert("로그인 후 이용 가능합니다.");
 				location.href = "/user/loginform";
+			}else if(${blackList == 'Y'}){
+				alert("사용이 제한된 계정입니다.");
+				location.href = "/";
 			}
 		})
 

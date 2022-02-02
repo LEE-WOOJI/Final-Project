@@ -1,6 +1,7 @@
 package kh.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ChalDTO {
 	private int chalSeq;
@@ -99,5 +100,17 @@ public class ChalDTO {
 
 	public void setChalStat(String chalStat) {
 		this.chalStat = chalStat;
+	}
+	
+	// 시작 날짜 가공해서 출력.
+	public String getFormedStartdate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		return sdf.format(startDate.getTime());
+	}
+	
+	// 종료 날짜 가공해서 출력.
+	public String getFormedEnddate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		return sdf.format(endDate.getTime());
 	}
 }
