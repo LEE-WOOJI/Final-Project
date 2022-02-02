@@ -85,7 +85,7 @@ function logout() {
                      	</c:if>
                      	<c:if test = "${loginId != 'admin1234' }">
 
-                     		<li class="nav-item"><a class="nav-link" href="#My page"><span id = "mypage">My Page</span></a></li>
+                     		<li class="nav-item"><a class="nav-link" href="/mypage/myChalList"><span id = "mypage">My Page</span></a></li>
                             <li class="nav-item"><a class="nav-link" href ="javascript:logout();"><span id = "logout">Logout</span></a><li>
 
                      	</c:if>

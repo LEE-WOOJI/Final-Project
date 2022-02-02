@@ -209,10 +209,7 @@ a:hover {
                            data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
                               찜한 글피 </span></a> 
                               
-                              <a href="/mypage/delete"
-                           class="list-group-item py-1"><span class="iconify"
-                           data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>회원
-                              탈퇴</span></a>
+                              
 							</div>
 						</div>
 					</div>
@@ -345,6 +342,8 @@ a:hover {
 	<script type="text/javascript"
 		src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
+	
+	
 	let chalSeq = $(".seq").val();
 	$(document).on("click",".cancle",function(e){
 		let result = confirm("취소신청하시겠습니까?");

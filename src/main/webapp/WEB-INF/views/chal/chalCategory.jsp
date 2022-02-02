@@ -149,7 +149,7 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-	                     			<img src="\${result[i].oriName}" alt="">
+	                     			<img src="/image/chalModifyLoad?chalSeq=\${result[i].chalSeq}" alt="">
                      			</a>
 		                     </div>
 		                     <div class="detail-box">

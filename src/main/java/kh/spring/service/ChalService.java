@@ -93,4 +93,9 @@ public class ChalService {
 	public int seqSearch(String chalName) {
 		return cdao.seqSearch(chalName);
 	}
+	
+	//인원추가
+	public int addPJ(int chalSeq) {
+		return cdao.addPJ(chalSeq);
+	}
 }
