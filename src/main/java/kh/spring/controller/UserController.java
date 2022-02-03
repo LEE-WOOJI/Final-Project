@@ -55,7 +55,7 @@ public class UserController {
      // 메인jsp에서 로그인 버튼을 눌렀을떄
     @RequestMapping("loginform")
     public String login() {
-
+    	session.setAttribute("loginFailId", null);
         return "/user/login";
     }
    
@@ -69,15 +69,18 @@ public class UserController {
 		if(result>0) { // 로그인에 성공했을 경우
 			HttpSession session = request.getSession(); // 서버쪽 세션 금고에
 			session.setAttribute("loginId", id); // loginID라는 키값으로 사용자 ID를 저장
-			
+			session.setAttribute("loginFailId", null);//로그인에 성공했을때 아이디를 지워준다
 	        // 아이디값으로 댓글 정보 찾기.
 	        MemberDTO info = brService.searchInfoById(id);
 	        String writerNickname = info.getNickname();
 	        // 닉네임 세션값 저장.
 	        session.setAttribute("writerNickname", writerNickname);
 			System.out.println("로그인에 성공했습니다.");
+			return "redirect: /";
+		}else {
+			session.setAttribute("loginFailId", id);
+			return "/user/login";
 		}
-	return "redirect:/";
 	}
     		
 	// 로그아웃 버튼을 눌렀을떄
@@ -195,7 +198,7 @@ public class UserController {
             }
          }
        
-       return "redirect:/user/loginform";
+       return "/user/login";
    }
     
     //카카오 로그인 버튼을 눌렀을떄

@@ -212,16 +212,35 @@
 		return false;
 		}
 		
-		if ($("#nickname").val() == '') {
-			alert("사용할 닉네임을 확인해주세요.");
+	    if ($("#nickname").val() == '') {
+			alert("닉네임을 확인해주세요.");
 			$("#nickname").focus();
 			return false;
 		}
+		// var nick = $("input[name=nickname]").val()
+		// var pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/g;
+		// var spa = /\s/ != -1;
+		// if( !pattern.test( $("input[name=nickname]").val() ) ) {
+	           // alert("닉네임 형식을 다시한번 확인해주세요.");
+	           // return false;
+		//}
+		// var nick = $("input[name=nickname]").val()
+		// var spa = /[\s]/g;
+		// var spa = /\s/ != -1;
+		// if( !spa.test( $("input[name=nickname]").val() ) ) {
+	       //     alert("닉네임 형식을 다시한번 확인해주세요.");
+	         //   return false;
+	//	}
 		if ($("#phone").val() == '') {
 			alert("휴대폰 번호를 확인해주세요.");
 			$("#phone").focus();
 			return false;
 		}
+		  var phoneReg = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/g;
+	        if( !phoneReg.test( $("input[name=phone]").val() ) ) {
+	            alert("휴대폰 형식을 다시한번 확인해주세요.");
+	            return false;
+	    }
 		if ($("#email").val() == '') {
 			alert("이메일을 확인해주세요.");
 			$("#email").focus();

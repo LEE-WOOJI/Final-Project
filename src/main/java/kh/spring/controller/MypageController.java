@@ -102,6 +102,7 @@ public class MypageController {
 		return "/user/mypage";
 
 	}
+
 	//참여중인 목록
 	@RequestMapping("myChalList")
 	public String myChalList(Model model) {
