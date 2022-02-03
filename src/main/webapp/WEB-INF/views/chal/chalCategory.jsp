@@ -88,9 +88,14 @@
 		                           		${list.chalName }
 		                           </a>
 		                        </h4>
-		                        <button class="heart">
-		                        	<img src="/assets/img/heart.png" alt="" id="heart">
-		                     	</button>
+		                        <c:choose>
+										<c:when test="${list.heart == 1}">
+											<img src="/assets/img/heartOn.png" alt="" id=heart>
+										</c:when>
+										<c:when test="${list.heart != 1}">
+											<img src="/assets/img/heart.png" alt="" id=heart>
+										</c:when>
+								</c:choose>
 		                     </div>
 		                     <div class = "category">
 		                        <hr>

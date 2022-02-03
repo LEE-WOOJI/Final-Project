@@ -14,9 +14,10 @@ public class ChalingService {
 	@Autowired
 	private ChalDAO cdao;
 	
-	public List<ChalBasicDTO> listBount(int start, int end) {
-		return cdao.listBound(start, end);
-	}
+	/*
+	 * public List<ChalBasicDTO> listBount(int start, int end) { return
+	 * cdao.listBound(start, end); }
+	 */
 
 	public List<ChalDTO> chaling(int seq) {
 		// TODO Auto-generated method stub
