@@ -70,7 +70,7 @@ function logout() {
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
-                <c:if test="${loginId != null }"><div style = "color:white;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginId}님 환영합니다!</div></c:if>
+                <c:if test="${loginId != null }"><div style = "color:white; font-family: 'yg-jalnan', verdana, tahoma; padding-top: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${writerNickname}님 환영합니다!</div></c:if>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="/chal/list"><span id = "glphy">Glphy</span></a></li>
