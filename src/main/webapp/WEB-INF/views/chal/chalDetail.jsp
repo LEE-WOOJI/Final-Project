@@ -165,7 +165,7 @@ opacity
 				<div class="col-md-6">
 
 					<input type=hidden value="${dto.chalSeq}" id="seq">
-					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="">
+					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="" style = "width:100%;height:100%;s">
 				</div>
 				<div class="col-md-6">
 					<div class="chalTag" style="margin: 20px 0px 20px;">

@@ -231,7 +231,7 @@ a:hover {
 							<div class="col-3 list" style="padding: 0px;">아이디</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
 							<div class="col-2 list" style="padding: 0px;">등급</div>
-							<div class="col-1 list" style="padding: 0px;">블랙</div>
+							<div class="col-1 list" style="padding: 0px;">블랙 여부</div>
 							<div class="col-2 list" style="padding: 0px;">실버</div>
 							<div class="col-2 list" style="padding: 0px;">골드</div>
 						</div>
@@ -272,7 +272,7 @@ a:hover {
 							<div class="col-3 list" style="padding: 0px;">아이디</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
 							<div class="col-2 list" style="padding: 0px;">등급</div>
-							<div class="col-1 list" style="padding: 0px;">블랙</div>
+							<div class="col-1 list" style="padding: 0px;">블랙 여부</div>
 							<div class="col-2 list" style="padding: 0px;">브론즈</div>
 							<div class="col-2 list" style="padding: 0px;">골드</div>
 						</div>
