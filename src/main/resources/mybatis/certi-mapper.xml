@@ -5,6 +5,6 @@
 
 <mapper namespace="Certi">
 	<select id = "certiCount" resultType = "int">
-		select count(*) from certi where nickname = #{nickname} and chalSeq = #{chalSeq}
+		select count(*) from certi where refNickname = #{nickname} and chalSeq = #{chalSeq}
 	</select>
 </mapper>
