@@ -60,7 +60,7 @@
 						&ensp;
 					</c:when>
 					<c:otherwise>
-						<a href="#" style="text-decoration: none; color: black;"><i
+						<a href="/mypage/myChalList" style="text-decoration: none; color: black;"><i
 							class="fas fa-user-alt"></i>&ensp;<b>마이페이지</b></a>
 						&ensp;
 					</c:otherwise>

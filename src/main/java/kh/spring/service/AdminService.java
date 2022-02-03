@@ -44,12 +44,12 @@ public class AdminService {
 	public AdminUtilsDTO getGradeCount() {
 		return adao.getGradeCount();
 	}
-	
+
 	// 관리자 페이지 메인에서 유저수 추이의 날짜 출력.
 	public AdminUtilsDTO getDate() {
 		return adao.getDate();
 	}
-	
+
 	// 관리자 페이지 메인에서 유저수 추이의 누적 가입자 수 출력.
 	public AdminUtilsDTO getSignUpAccumCount(){
 		return adao.getSignUpAccumCount();
@@ -59,7 +59,7 @@ public class AdminService {
 	public AdminUtilsDTO getSignUpDailyCount(){
 		return adao.getSignUpDailyCount();
 	}
-	
+
 	// 관리자 페이지 메인에서 등급별 결제 수 출력.	
 	public AdminUtilsDTO getPayCountByGrade(){
 		return adao.getPayCountByGrade();
@@ -111,12 +111,12 @@ public class AdminService {
 		dto.setDay(day);
 		return adao.insertChal(dto);
 	}
-	
+
 	// 관리자 페이지 챌린지 관리에서 챌린지 등록시 이미지 업로드.
 	public int insertChalImg(String oriName, String sysName,int chalSeq) {
 		return adao.insertChalImg(oriName,sysName,chalSeq);
 	}
-	
+
 	// chalSeq로 ChalImg테이블의 imgName 찾기.
 	public ChalImgDTO findChalImgName(int chalSeq) {
 		return adao.findChalImgName(chalSeq);
@@ -159,7 +159,7 @@ public class AdminService {
 			return adao.modifyChal(dto);
 		}
 	}
-	
+
 	// 관리자 페이지 챌린지 관리에서 챌린지 수정시 이미지 업로드.
 	public int modifyChalImg(String oriName, String sysName,int chalSeq) {
 		return adao.modifyChalImg(oriName,sysName,chalSeq);
@@ -388,17 +388,17 @@ public class AdminService {
 
 		return pageNavi;
 	}
-	
+
 	//관리자 인증관리 페이지에서 인증 수 출력
 	public int getCertiCount(){
 		return adao.getCertiCount();
 	}
-	
+
 	// 관리자 인증관리 관리에서 인증 목록 출력.
 	public List<CertiDTO> selectCertiAll(int start, int end){
 		return adao.selectCertiAll(start, end);
 	}
-	
+
 	//인증 관리 페이지 현재 페이지 검사
 	public Map<String,String> certiPageCheck(int currentPage) throws Exception{
 		if(currentPage < 1){
@@ -417,7 +417,7 @@ public class AdminService {
 
 		return map;
 	}
-	
+
 	//인증 관리 페이지 인증 관리 페이지
 	public int getCertiPageTotalCount() throws Exception{
 		int recordTotalCount = this.getCertiCount();
@@ -430,16 +430,16 @@ public class AdminService {
 		}
 		return pageTotalCount;
 	}
-	
+
 	//인증 관리 페이지 인증 관리 내비
 	public String getCertiPageNavi(int currentPage) throws Exception{
 		int recordTotalCount = this.getCertiCount();
-		
+
 		int pageTotalCount = 0;
 		if(recordTotalCount%Static.RECORD_COUNT_PER_PAGE==0) {
-				pageTotalCount = recordTotalCount/Static.RECORD_COUNT_PER_PAGE;
-			}else {
-				pageTotalCount = recordTotalCount/Static.RECORD_COUNT_PER_PAGE+1;
+			pageTotalCount = recordTotalCount/Static.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/Static.RECORD_COUNT_PER_PAGE+1;
 		}
 		System.out.println(pageTotalCount + " : " + recordTotalCount );
 		int startNavi = (currentPage-1)/Static.NAVI_COUNT_PER_PAGE*Static.NAVI_COUNT_PER_PAGE+1;
@@ -476,9 +476,9 @@ public class AdminService {
 					+ "								</a></li>";
 		}
 
-			return pageNavi;
-		}
-	
+		return pageNavi;
+	}
+
 	//관리자 페이지 인증 관리에서 삭제
 	public int certiDelete(int seq) {
 		return adao.certiDelete(seq);
@@ -529,12 +529,12 @@ public class AdminService {
 
 		return pageNavi;
 	}
-	
+
 	// 관리자 페이지 인증 관리에서 검색 시 이증 수 출력.
 	public int getCertiCountSearch(String select, String keyword) {
 		return adao.getCertiCountSearch(select,keyword);
 	}
-	
+
 	// 관리자 페이지 챌린지 관리에서 검색 시 챌린지 목록 출력.
 	public List<CertiDTO> selectCertiAllSearch(int start, int end, String select, String keyword){
 		return adao.selectCertiAllSearch(start, end, select, keyword);

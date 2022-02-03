@@ -15,6 +15,7 @@ import kh.spring.dto.CertiDTO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.ProfileDTO;
 
 @Repository
 public class MypageDAO {
@@ -32,20 +33,26 @@ public class MypageDAO {
 	public List<BoardDTO> getUserBoard(String nickname){
 		return mybatis.selectList("Mypage.getUserBoard",nickname);
 	}
-	public int delete(int seq) {
-		return mybatis.delete("Mypage.delete",seq);
+	
+	public int delete(String id) {
+		return mybatis.delete("Mypage.delete",id);
 	}
+	
 	public List<BoardReplyDTO> getUserBoardReply(String writernickname){
 		return mybatis.selectList("Mypage.getUserBoardReply",writernickname);
 	}
-	public int update(MemberDTO memberDTO) {
-		return mybatis.update("Mypage.updateUserInfo",memberDTO);
+	
+	// 회원 정보 수정.
+	public int update(MemberDTO dto) {
+		return mybatis.update("Mypage.updateUserInfo",dto);
 	}
+
 	// 인증 등록.
 	public int insertCerti(CertiDTO dto) throws ParseException {
-		return mybatis.insert("Mypage.insertCerti",dto);
+		mybatis.insert("Mypage.insertCerti",dto);
+		return dto.getChalSeq();
 	}
-	
+
 	// 인증 이미지 등록.
 	public int insertCertiImg(String oriName, String sysName,int certiSeq) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -54,20 +61,46 @@ public class MypageDAO {
 		map.put("certiSeq", String.valueOf(certiSeq));
 		return mybatis.insert("Mypage.insertCertiImg",map);
 	}
-	
+
 	// 인증 이미지 불러오기.
-	public CertiImgDTO findCertiImgName(int parentSeq) {
-		return mybatis.selectOne("Mypage.findCertiImgName",parentSeq);
+	public CertiImgDTO findCertiImgName(int seq) {
+		return mybatis.selectOne("Mypage.findCertiImgName",seq);
 	}
-	
+
 	// 인증한 목록 출력.
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {
 		Map<String, String> map = new HashMap<String,String>();
-		System.out.println("잘 들어오는지?" + chalSeq);
 		map.put("chalSeq", String.valueOf(chalSeq));
 		map.put("chalName", chalName);
 		map.put("refNickname", refNickname);
 		return mybatis.selectList("Mypage.findCertiList",map);
 	}
 	
+	//유저 폼
+	public MemberDTO userInfo (String id) {
+		return mybatis.selectOne("Mypage.userInfo", id);
+	}
+
+	// seq로 profile테이블의 imgName 찾기.
+	public ProfileDTO findProfileImgName(int seq) {
+		return mybatis.selectOne("Mypage.findProfileImgName", seq);
+	}
+	
+	// 프로필 이미지 등록.
+	public int insertProfileImg(String oriName,String sysName,int seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("oriName", oriName);
+		map.put("sysName", sysName);
+		map.put("seq", String.valueOf(seq));
+		return mybatis.insert("Mypage.insertProfileImg", map);
+	}
+	
+	// 프로필 이미지 수정.
+	public int modifyProfileImg(String oriName,String sysName,int seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("oriName", oriName);
+		map.put("sysName", sysName);
+		map.put("seq", String.valueOf(seq));
+		return mybatis.update("Mypage.modifyProfileImg", map);
+	}
 }

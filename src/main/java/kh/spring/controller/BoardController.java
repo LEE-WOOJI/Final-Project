@@ -29,6 +29,14 @@ public class BoardController {
 	
 	@RequestMapping("main") // 메인으로 이동.
 	public String main(Model model, int cpage, HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		// 아이디 세션값을 꺼내기.
+		String id = (String) session.getAttribute("loginId");
+		if(id!=null) {
+			String blackList = brService.searchInfoById(id).getBlacklist();
+			model.addAttribute("blackList",blackList);	
+		}
+		
 		Map<String,String> map = bService.pageCheck(cpage);
 		int currentPage = Integer.parseInt(map.get("currentPage"));
 		int start = Integer.parseInt(map.get("start"));
@@ -36,6 +44,7 @@ public class BoardController {
 		
 		String navi = bService.getPageNavi(currentPage);
 		List<BoardDTO> list = bService.selectAll(start,end);
+		
 		model.addAttribute("cpage",cpage);
 		model.addAttribute("navi",navi);
 		model.addAttribute("list",list);
@@ -60,11 +69,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping("write") // 글쓰기 페이지로 이동.
-	public String boardWrite(Model model, HttpServletRequest request) {
+	public String boardWrite(Model model, HttpServletRequest request, int cpage, String select, String keyword) {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("loginId");
 		MemberDTO info = brService.searchInfoById(id);
 		model.addAttribute("nickname", info.getNickname());
+		model.addAttribute("cpage",cpage);
+		model.addAttribute("select",select);
+		model.addAttribute("keyword",keyword);
 		return "/board/boardWrite";
 	}
 	@RequestMapping("writeProc") // 글 삽입.
@@ -75,7 +87,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping("detail") // 글 클릭시 글 세부내용으로 이동.
-	public String boardDetail(Model model, int cpage, int seq, String select, String keyword) throws Exception {
+	public String boardDetail(Model model, int cpage, int seq, String select, String keyword, HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		// 아이디 세션값을 꺼내기.
+		String id = (String) session.getAttribute("loginId");
+		if(id!=null) {
+			String blackList = brService.searchInfoById(id).getBlacklist();
+			model.addAttribute("blackList",blackList);	
+		}
 		// 조휘수 증가.
 		bService.addViewCount(seq);
 		// 댓글 가져가기.

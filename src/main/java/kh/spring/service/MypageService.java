@@ -13,6 +13,7 @@ import kh.spring.dto.CertiDTO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.ProfileDTO;
 
 @Service
 public class MypageService {
@@ -30,14 +31,16 @@ public class MypageService {
 	public List<BoardDTO> getUserBoard(String nickname){
 		return mypageDAO.getUserBoard(nickname);
 	}
-	public int delete(int seq) {
-		return mypageDAO.delete(seq);
+	public int delete(String id) {
+		return mypageDAO.delete(id);
 	}
 	public List<BoardReplyDTO> getUserBoardReply(String writernickname){
 		return mypageDAO.getUserBoardReply(writernickname);
 	}
-	public int update(MemberDTO memberDTO) {
-		return mypageDAO.update(memberDTO);
+	
+	// 회원 정보 수정.
+	public int update(MemberDTO dto) {
+		return mypageDAO.update(dto);
 	}
 	// 인증 등록.
 	public int insertCerti(CertiDTO dto) throws ParseException {
@@ -50,12 +53,33 @@ public class MypageService {
 	}
 
 	// 인증 이미지 불러오기.
-	public CertiImgDTO findCertiImgName(int parentSeq) {
-		return mypageDAO.findCertiImgName(parentSeq);
+	public CertiImgDTO findCertiImgName(int seq) {
+		return mypageDAO.findCertiImgName(seq);
 	}
 
 	// 인증한 목록 출력.
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {
 		return mypageDAO.findCertiList(chalSeq,chalName,refNickname);
+	}
+	
+	//유저 정보 폼
+	public MemberDTO userInfo(String id) {
+		return mypageDAO.userInfo(id);
+		
+	}
+	
+	// seq로 profile테이블의 imgName 찾기.
+	public ProfileDTO findProfileImgName(int seq) {
+		return mypageDAO.findProfileImgName(seq);
+	}
+	
+	// 프로필 이미지 등록.
+	public int insertProfileImg(String oriName,String sysName,int seq) {
+		return mypageDAO.insertProfileImg(oriName,sysName,seq);
+	}
+	
+	// 프로필 이미지 수정.
+	public int modifyProfileImg(String oriName,String sysName,int seq) {
+		return mypageDAO.modifyProfileImg(oriName,sysName,seq);
 	}
 }

@@ -31,6 +31,7 @@
 	
 	<!-- 마이페이지에서 검색 -->
 	<select id = "mySearch" resultType = "kh.spring.dto.BoardReplyDTO">
-		select boardReply.* from boardReply join board on boardReply.refBoardseq = board.seq where board.nickname = #{nickname} and board.${option} like '%'||#{keyword}||'%'
+		select * from boardReply where writerNickname = #{nickname} and ${option} like '%'||#{keyword}||'%'
+		<!-- select boardReply.* from boardReply join board on boardReply.refBoardseq = board.seq where board.nickname = #{nickname} and board.${option} like '%'||#{keyword}||'%'-->
 	</select>
 </mapper>

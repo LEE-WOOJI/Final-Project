@@ -39,24 +39,24 @@
 Kakao.init('280f4b845b98a0adf26878c0048c5ade'); //발급받은 키 중 javascript키를 사용해준다.
 
 function logout() {
-		if (confirm("정말 로그아웃 하시겠습니까?")) {
-			if (Kakao.Auth.getAccessToken()) {
-				Kakao.API.request({
-					url : '/v1/user/unlink',
-					success : function(response) {
-						location.href = "/user/logout"; //카카오api 결과값을 받은후 로그아웃 처리
-					},
-					fail : function(error) {
-						location.href = "/user/logout";
-					},
-				})
-				Kakao.Auth.setAccessToken(undefined)
-			} else {
-				location.href = "/user/logout"; //카카오 api를 사용한 로그인이 아니고 일반 로그인인 경우
-			}
+      if (confirm("정말 로그아웃 하시겠습니까?")) {
+         if (Kakao.Auth.getAccessToken()) {
+            Kakao.API.request({
+               url : '/v1/user/unlink',
+               success : function(response) {
+                  location.href = "/user/logout"; //카카오api 결과값을 받은후 로그아웃 처리
+               },
+               fail : function(error) {
+                  location.href = "/user/logout";
+               },
+            })
+            Kakao.Auth.setAccessToken(undefined)
+         } else {
+            location.href = "/user/logout"; //카카오 api를 사용한 로그인이 아니고 일반 로그인인 경우
+         }
 
-		}
-	}
+      }
+   }
 </script>
 </head>
 <!-- header -->
@@ -70,7 +70,7 @@ function logout() {
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
-                <c:if test="${loginId != null }"><div style = "color:white;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginId}님 환영합니다!</div></c:if>
+                <c:if test="${loginId != null }"><div style = "color:white; font-family: 'yg-jalnan', verdana, tahoma; padding-top: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${writerNickname}님 환영합니다!</div></c:if>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="/chal/list"><span id = "glphy">Glphy</span></a></li>
@@ -79,16 +79,16 @@ function logout() {
                      <li class="nav-item"><a class="nav-link" href="/user/loginform"><span id = "login">login</span></a></li>
                   </c:if>
                   <c:if test="${loginId != null}" >
-                     	<c:if test = "${loginId == 'admin1234' }">
-                     		<li class="nav-item"><a class="nav-link" href="/admin/main"><span id = "mypage">Admin Page</span></a></li>
-                         	<li class="nav-item"><a class="nav-link" href ="/user/logout"><span id = "logout">Logout</span></a><li>
-                     	</c:if>
-                     	<c:if test = "${loginId != 'admin1234' }">
+                        <c:if test = "${loginId == 'admin1234' }">
+                           <li class="nav-item"><a class="nav-link" href="/admin/main"><span id = "mypage">Admin Page</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href ="/user/logout"><span id = "logout">Logout</span></a><li>
+                        </c:if>
+                        <c:if test = "${loginId != 'admin1234' }">
 
-                     		<li class="nav-item"><a class="nav-link" href="#My page"><span id = "mypage">My Page</span></a></li>
+                     		<li class="nav-item"><a class="nav-link" href="/mypage/myChalList"><span id = "mypage">My Page</span></a></li>
                             <li class="nav-item"><a class="nav-link" href ="javascript:logout();"><span id = "logout">Logout</span></a><li>
 
-                     	</c:if>
+                        </c:if>
                   </c:if>
                   
                     </ul>

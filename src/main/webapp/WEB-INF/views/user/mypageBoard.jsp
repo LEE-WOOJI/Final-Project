@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자</title>
+<title>마이페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -44,7 +44,7 @@ body {
    height: 150px;
 }
 
-#boaCon, #repCon{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.repCon, .title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
 .list {
 	font-family: 'yg-jalnan', verdana, tahoma;
@@ -185,7 +185,7 @@ a:hover {
 						<div class="list-group list-group-flush">
 							<a href="/admin/main" class="list-group-item py-1">
 								<h5 class="my-3"
-									style="font-family: 'yg-jalnan', verdana, tahoma;">관리자 페이지</h5>
+									style="font-family: 'yg-jalnan', verdana, tahoma;">마이페이지</h5>
 							</a>
 						</div>
 						<div class="fm-menu">
@@ -195,7 +195,7 @@ a:hover {
                            </div>
 							
 							<div class="list-group list-group-flush">
-								<a href="/mypage/mypageUserUpdate" class="list-group-item py-1"><span
+								<a href="/mypage/updateForm" class="list-group-item py-1"><span
                            class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
                            a href=/mypage/updateUserInfo>내 정보 </span></a>
 
@@ -212,10 +212,7 @@ a:hover {
                            data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
                               찜한 글피 </span></a> 
                               
-                              <a href="/mypage/delete"
-                           class="list-group-item py-1"><span class="iconify"
-                           data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>회원
-                              탈퇴</span></a>
+                              
 							</div>
 						</div>
 					</div>
@@ -252,8 +249,7 @@ a:hover {
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#e6e5e4;">
 							<div class="col-2 list" style="padding: 0px;">글번호</div>
-							<div class="col-3 list" style="padding: 0px;">제목</div>
-							<div class="col-2 list" style="padding: 0px;">내용</div>
+							<div class="col-5 list" style="padding: 0px;">제목</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
 							<div class="col-1 list" style="padding: 0px;">조회수</div>
 							<div class="col-2 list" style="padding: 0px;">작성일</div>
@@ -262,9 +258,8 @@ a:hover {
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
 								<div class="col-2" style="padding: 0px;">${list.seq}</div>
-								<div class="col-3" style="padding: 0px;"><a href="/board/detail?cpage=1&seq=${list.seq}" class="text-big" data-abc="true"
+								<div class="col-5 title" style="padding: 0px;"><a href="/board/detail?cpage=1&seq=${list.seq}" class="text-big" data-abc="true"
 									style="color: black;">${list.title}</a></div>
-								<div class="col-2" style="padding: 0px;" id = "boaCon">${list.contents}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
 								<div class="col-1" style="padding: 0px;">${list.view_count}</div>
 								<div class="col-2" style="padding: 0px;">
@@ -296,7 +291,7 @@ a:hover {
 								<div class="col-2" style="padding: 0px;">
 								<fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.write_date}"/>
 								</div>
-								<div class="col-4" style="padding: 0px;" id = "repCon"><a href="/board/detail?cpage=1&seq=${list.refBoardSeq}" class="text-big" data-abc="true"
+								<div class="col-4 repCon" style="padding: 0px;"><a href="/board/detail?cpage=1&seq=${list.refBoardSeq}" class="text-big" data-abc="true"
 									style="color: black;">${list.repContents}</a></div>
 								</div>
 						</c:forEach>

@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
    <head>
+   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
       <!-- Basic -->
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,7 +18,7 @@
       <meta name="author" content="" />
       <link rel="shortcut icon" href="/assets/favicon.ico" type="">
       <title>Glphy</title>
-      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      
       <!-- bootstrap core css -->
       <link href="/css/chalboot.css" rel="stylesheet" />
       <!-- css -->
@@ -40,6 +41,25 @@
 		#searchBtn, #option, #moreBtn, #title, #chalTitle, #more{font-family: 'yg-jalnan', verdana, tahoma;}
       </style>
       
+      <script>
+      	function like(chalSeq){
+      		const $heart = $(this);
+      		console.log(chalSeq)
+      		console.log($heart)
+      		$.ajax({
+      			url:"/heart/heart",
+      			method:"POST",
+      			data:{"refChalSeq":chalSeq}
+      		}).done(function(resp){
+      			console.log(resp);
+				if(resp==1){
+					$heart.attr("src","/assets/img/heartOn.png");
+				}else if(resp==0){
+					$heart.attr("src","/assets/img/heart.png");
+				}
+      		})
+      	};
+      </script>
    </head>
    	
     <!-- contents -->
@@ -94,9 +114,15 @@
 		                           		${list.chalName}
 		                           </a>
 		                        </h4>
-		                        <button class=heart>
-		                        	<img src="/assets/img/heart.png" alt="" id=heart>
-		                     	</button>
+		                        	<c:choose>
+										<c:when test="${list.heart == 1}">
+											<img src="/assets/img/heartOn.png" alt="" id=heart>
+										</c:when>
+										<c:when test="${list.heart != 1}">
+											<img src="/assets/img/heart.png" alt="" id=heart>
+										</c:when>
+									</c:choose>
+		                     	
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -168,16 +194,16 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-		                     		<img src="\${result[i].oriName}" alt="">
+		                     		<img src="/image/chalModifyLoad?chalSeq=\${result[i].chalSeq}" alt="">
 	                        	</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
 		                        	\${result[i].chalName }
-                           		</a>  
+                           		</a> 
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        	<img src="/assets/img/\${result[i].heart}.png" alt="">
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -218,37 +244,6 @@
    		});
    </script>
    <script>
-   		$(document).ready(function(){
-   			// 좋아요가 있는지 확인한 값을 heartval에 저장
-   			var heartval = ${heart.heart}
-   			// heartval이 1이면 좋아요가 이미 되있는것이므로 heartOn.png를 출력하는 코드
-   			if(heartval>0){
-   				console.log(heartval);
-   				$("#heart").prop("src","/resources/assets/img/heartOn.png");
-   				$(".heart").prop("name",heartval);
-   			}else{
-   				console.log(heartval);
-   				$("#heart").prop("src","/resources/assets/img/heart.png");
-   				$(".heart").prop("name",heartval);
-   			}
    		
-   		// 좋아요 버튼을 클릭 시 실행되는 코드
-   		$(".heart").on("click",function(){
-   			var that = $(".heart");
-   			$.ajax({
-   				url : "/heart/fill",
-   				type : "post",
-   				data : {"seq":${dto.seq}, "refChalSeq":${sessionScope.login}},
-   				success : function(data){
-   					that.prop("name",data);
-   					if(data==1){
-   						$("#heart").prop("src","/resources/assets/img/heartOn.png");
-   					}else{
-   						$("#heart").prop("src","/resources/assets/img/heart.png");
-   					}
-   				}
-   			});
-   		});
-   	});
    </script>
 </html>

@@ -94,7 +94,14 @@
 		                           		${list.chalName }
 		                           </a>
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        <c:choose>
+										<c:when test="${list.heart == 1}">
+											<img src="/assets/img/heartOn.png" alt="" id=heart>
+										</c:when>
+										<c:when test="${list.heart != 1}">
+											<img src="/assets/img/heart.png" alt="" id=heart>
+										</c:when>
+									</c:choose>
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -172,11 +179,11 @@
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
-		                        	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
-	                        			\${result[i].chalName }
-                       				</a>
+		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
+		                        	\${result[i].chalName }
+                        		</a> 
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        	<img src="/assets/img/\${result[i].heart}.png" alt="">
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -215,6 +222,27 @@
    				
    			})
    		});
+   
 		
+		// 좋아요 버튼을 클릭 시 실행되는 코드
+		$(".heart").on("click",function(){
+			let seq = $(".like").val();
+			var that = $(".heart");
+			$.ajax({
+				url : "/heart/heart",
+				type : "post",
+				data : {"refChalSeq":seq},
+				success : function(data){
+					that.prop("name",data);
+					if(data==1){
+						$("#heart").prop("src","/assets/img/heartOn.png");
+					}else{
+						$("#heart").prop("src","/assets/img/heart.png");
+					}
+				}
+			});
+		});
+	});
+
    </script>
 </html>

@@ -164,7 +164,7 @@ a {
 }
 #write{
 	border-style:none;
-	margin:20px;
+	margin:10px;
 	padding:10px;
 	border-radius:5px;
 }
@@ -178,6 +178,13 @@ a {
 }
 #field{
 	padding-left:10px;
+}
+#back{
+	border-style:none;
+	margin:10px;
+	margin-right:0px;
+	padding:10px;
+	border-radius:5px;
 }
 </style>
 <body>
@@ -273,8 +280,8 @@ a {
 	</script>
 			</div>
 			<div align=right id=write>
+				<input type="button" id="back" value="목록으로">
 				<button id="write" style="float:right;">글쓰기</button>
-				
 			</div>
 		
 			</form>
@@ -287,9 +294,16 @@ a {
 	<!-- 풋터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script>
-	
-	
-	</script>
+        // 목록으로 버튼 클릭 시.
+        $("#back").on("click", function() {
+            <c:if test="${select==''}">
+                location.href = "/board/main?cpage=${cpage}&select=${select}&keyword=${keyword}";
+            </c:if>
+            <c:if test="${select!=''}">
+                location.href = "/board/search?cpage=${cpage}&select=${select}&keyword=${keyword}";
+            </c:if>
+        });
+    </script>
 	</div>
 	
 </body>

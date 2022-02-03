@@ -10,6 +10,7 @@ import kh.spring.dao.ChalDAO;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.ChalLikeDTO;
 import kh.spring.dto.JoinChalDTO;
 
 @Service
@@ -18,28 +19,28 @@ public class ChalService {
 	private ChalDAO cdao;
 	
 	//전체조회
-	public List<ChalBasicDTO> listBound(int start, int end){
+	public List<ChalLikeDTO> listBound(int start, int end){
 		return cdao.listBound(start, end);
 	}
 	
 	//검색 1.키워드
-	public List<ChalBasicDTO> searchK(int start, int end, String keyword){
+	public List<ChalLikeDTO> searchK(int start, int end, String keyword){
 		return cdao.searchK(start,end,keyword);
 	}
 	
 	//검색 2.태그
-	public List<ChalBasicDTO> searchT(int start, int end, String keyword){
+	public List<ChalLikeDTO> searchT(int start, int end, String keyword){
 		return cdao.searchT(start,end,keyword);
 	}
 	
 	//검색 3.일수
-	public List<ChalBasicDTO> searchD(int start, int end, String keyword){
+	public List<ChalLikeDTO> searchD(int start, int end, String keyword){
 		return cdao.searchD(start,end,keyword);
 	}
 	
 
 	// 챌린지 디테일 불러오기
-	public ChalBasicDTO selectBySeq(int seq) {
+	public ChalLikeDTO selectBySeq(int seq) {
 		return cdao.selectBySeq(seq);
 	}
 	
@@ -51,12 +52,12 @@ public class ChalService {
 	
 
 	//카테고리
-	public List<ChalBasicDTO> listCategory(String category){
+	public List<ChalLikeDTO> listCategory(String category){
 		return cdao.listCategory(category);
 	}
 	
 	//카테고리 정렬
-	public List<ChalBasicDTO> categoryFilter(String category, String filter){
+	public List<ChalLikeDTO> categoryFilter(String category, String filter){
 		return cdao.categoryFilter(category, filter);
 	}
 	
@@ -92,5 +93,14 @@ public class ChalService {
 	//시퀀스찾기
 	public int seqSearch(String chalName) {
 		return cdao.seqSearch(chalName);
+	}
+
+	public int alreadyJoined(int seq, String nickname) {
+		return cdao.alreadyJoined(seq,nickname);
+	}
+
+	//인원추가
+	public int addPJ(int chalSeq) {
+		return cdao.addPJ(chalSeq);
 	}
 }

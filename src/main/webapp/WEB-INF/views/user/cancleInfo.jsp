@@ -25,7 +25,6 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
 @font-face {
 	font-family: 'S-CoreDream-4Regular';
 	src:
@@ -34,19 +33,16 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
 * {
 	padding: 0;
 	margin: 0;
 }
-
 #pop_container {
 	font-family: 'NotoSans', '맑은 고딕', 'Malgun Gothic', "돋움", dotum, arial,
 		sans-serif;
 	text-align: center;
 	position: relative;
 }
-
 .top {
 	position: relative;
 	display: flex;
@@ -55,77 +51,63 @@
 	background-color: rgb(228, 72, 72);
 	vertical-align: middle;
 }
-
 h1.infoTit {
 	font-size: 20px;
 	color: #ffffff;
 }
-
 main.textBox {
 	padding-top: 2em;
 	text-align: center;
 }
-
 h2.tit {
 	font-size: 1.6em;
 	letter-spacing: -2px;
 	font-weight: bold;
 	line-height: 1.5em;
 }
-
 p {
 	line-height: 1.8em;
 }
-
 p.textContents {
 	margin: 1.5em 1.8em;
 	font-size: 1.1em;
 	font-weight: 200;
 }
-
 table {
 	margin-left: auto;
 	margin-right: auto;
 }
-
 footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	background-color: #dddddd;
 }
-
 footer.btnBox_todayClose {
 	padding: 0.5rem 0 0.7rem;
 	display: flex;
 	justify-content: flex-end;
 }
-
 form {
 	padding-right: 2rem;
 }
-
 input#chkday {
 	width: 17px;
 	height: 17px;
 	vertical-align: middle;
 }
-
 label {
 	vertical-align: middle;
 }
-
 table {
 	width: 100%;
 	border: 1px solid #333333;
 	border-collapse: collapse;
 }
-
 td {
 	padding: 10px;
 	border: 2px solid #333333;
 }
-
 .title {
 	background-color: rgba(128, 128, 128, 0.068);
 	font-family: 'yg-jalnan', verdana, tahoma;
@@ -165,7 +147,7 @@ td {
 					</tr>
 					<tr>
 						<td class="title">참여 기간</td>
-						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }~${endDate }" /></td>
+						<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${startDate }" /></td>
 					</tr>
 					<tr>
 						<td class="title">신청금</td>

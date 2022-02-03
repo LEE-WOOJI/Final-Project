@@ -26,7 +26,7 @@
       <link href="/css/chalrepcss.css" rel="stylesheet" />
       <!-- Date -->
       <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-      
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
       
       <style>
       	#header{margin-bottom:110px;}
@@ -77,6 +77,7 @@
                		<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
+		                     	<input type = "text" class = "like" value  = "${list.chalSeq}" style = "display:none;">
 		                        <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
 		                        	<img src="/image/chalModifyLoad?chalSeq=${list.chalSeq}" alt="">
 		                        </a>
@@ -87,7 +88,14 @@
 		                           		${list.chalName }
 		                           </a>
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        <c:choose>
+										<c:when test="${list.heart == 1}">
+											<img src="/assets/img/heartOn.png" alt="" id=heart>
+										</c:when>
+										<c:when test="${list.heart != 1}">
+											<img src="/assets/img/heart.png" alt="" id=heart>
+										</c:when>
+									</c:choose>
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -145,11 +153,13 @@
    				for(let i = 0; i < result.length; i++){ //이게 안굴러감 미친년
    					console.log("회차 : " + i);
    					console.log(result[i].chalName);
+   					let start = moment(result[i].startDate).format("YYYY년 MM월 DD일 hh시")
+   					let end = moment(result[i].endDate).format("YYYY년 MM월 DD일 hh시")
    					content += `<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-	                     			<img src="\${result[i].oriName}" alt="">
+	                     			<img src="/image/chalModifyLoad?chalSeq=\${result[i].chalSeq}" alt="">
                      			</a>
 		                     </div>
 		                     <div class="detail-box">
@@ -158,7 +168,7 @@
 	                        			\${result[i].chalName }
                        				</a>
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        <img src="/assets/img/\${result[i].heart}.png" alt="">
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -177,14 +187,14 @@
 		                     <div class = "startday">
 		                        <h6>
 		                           <label>시작일 : </label>
-		                           \${result[i].startDate }
+		                           \${start}
 		                           
 		                        </h6>
 		                     </div>
 		                     <div class = "endday">
 		                        <h6>
 		                           <label>종료일 : </label>
-		                           \${result[i].endDate }
+		                           \${end}
 		                        </h6>
 		                     </div>
 		                  </div>
@@ -192,6 +202,26 @@
    				}$(content).appendTo("#listLine");
    			})
    		});
+   
 		
+		
+		// 좋아요 버튼을 클릭 시 실행되는 코드
+		$(".heart").on("click",function(){
+			let seq = $(".like").val();
+			var that = $(".heart");
+			$.ajax({
+				url : "/heart/heart",
+				type : "post",
+				data : {"refChalSeq":seq},
+				success : function(data){
+					that.prop("name",data);
+					if(data==1){
+						$("#heart").prop("src","/assets/img/heartOn.png");
+					}else{
+						$("#heart").prop("src","/assets/img/heart.png");
+					}
+				}
+			});
+		});
    </script>
 </html>

@@ -12,10 +12,8 @@ public class HeartDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public HeartDTO findHeart(Map<String, Integer> map) {
-		return mybatis.selectOne("Heart.findHeart",map); 
-	}
-	public HeartDTO findHeart(HeartDTO hdto) {
+	
+	public int findHeart(HeartDTO hdto) {
 		return mybatis.selectOne("Heart.findHeart",hdto);
 	}
 
@@ -25,8 +23,8 @@ public class HeartDAO {
 	}
 
 	// 좋아요 삭제
-	public void deleteHeart(HeartDTO hdto) {
-		mybatis.delete("Heart.deleteHeart",hdto);
+	public int deleteHeart(HeartDTO hdto) {
+		return mybatis.delete("Heart.deleteHeart",hdto);
 	}
 
 }

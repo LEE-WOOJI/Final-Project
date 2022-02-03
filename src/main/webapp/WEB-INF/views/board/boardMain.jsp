@@ -128,6 +128,8 @@ a {
 	background-color: transparent;
 	border: 1px solid black;
 	border-radius: 3px;
+	width: 62px;
+	height: 28px;
 }
 
 #writeBtn:hover {
@@ -230,10 +232,10 @@ a {
 							</div>
 							<div class="col-4 text-muted">
 								<div class="row no-gutters align-items-center">
-									<img src="/image/board?nickname=${list.nickname}" alt="" class="d-block ui-w-30 rounded-circle" style="width: 50px; height: 40px;">
+									<img src="/image/board?nickname=${list.nickname}" alt="" class="d-block ui-w-30 rounded-circle" style="width: 50px; height: 30px;">
 									<div class="d-none d-md-block col-4">${list.nickname}</div>
 									<div class="d-md-none col-12">${list.nickname}</div>
-									<div class="d-none d-md-block col-4">${list.write_date}</div>
+									<div class="d-none d-md-block col-4">${list.detailDate}</div>
 									<div class="d-none d-md-block col-2">${list.view_count}</div>
 								</div>
 							</div>
@@ -282,11 +284,14 @@ a {
 	<script>
 		// 글쓰기 버튼 클릭 시.
 		$("#writeBtn").on("click", function() {
-			if(${loginId != null}){
-				location.href = "/board/write";	
-			}else{
+			if(${loginId != null && blackList == 'N'}){
+				location.href = "/board/write?cpage=${cpage}&select=${select}&keyword=${keyword}";	
+			}else if(${loginId == null}){
 				alert("로그인 후 이용 가능합니다.");
 				location.href = "/user/loginform";
+			}else if(${blackList == 'Y'}){
+				alert("사용이 제한된 계정입니다.");
+				location.href = "/";
 			}
 		})
 

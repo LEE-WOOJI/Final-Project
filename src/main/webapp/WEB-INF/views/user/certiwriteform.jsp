@@ -350,7 +350,7 @@ label:hover {
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea name="chalInfo" id="certiContents"
+							<textarea name="certiContents" id="certiContents"
 								style="min-height: 200px; overflow: hidden;"
 								placeholder="인증 내용을 입력하세요."></textarea>
 						</div>
@@ -388,7 +388,7 @@ label:hover {
 	<script>
 		// 목록으로가기.
 		$("#chalList").on("click", function() {
-			location.href = "/mypage/certi?chalSeq=${list.seq}&chalName=${list.chalName}&refNickname=${refNickname}";
+			location.href = "/mypage/certi?refChalSeq=${list.chalSeq}&chalName=${list.chalName}";
 		})
 	</script>
 
@@ -399,7 +399,7 @@ label:hover {
 				alert("인증 제목을 입력하세요.");
 				return false;
 			}
-			if ($("#chalInfo").val() == "") {
+			if ($("#certiContents").val() == "") {
 				alert("인증 내용을 입력하세요.");
 				return false;
 			}

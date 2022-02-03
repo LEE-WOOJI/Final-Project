@@ -192,6 +192,13 @@ a:hover {
 #space {
 	margin-bottom: 151px;
 }
+
+.profile_img {
+	margin-left: 58px;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+}
 </style>
 </head>
 <body>
@@ -209,30 +216,29 @@ a:hover {
 						<div class="card-body">
 							<div class="d-grid"></div>
 							<div class="list-group list-group-flush">
-								<a href="/admin/main" class="list-group-item py-1">
+								<a href="/mypage/myChalList" class="list-group-item py-1">
 									<h5 class="my-3"
-										style="font-family: 'yg-jalnan', verdana, tahoma;">관리자
-										페이지</h5>
+										style="font-family: 'yg-jalnan', verdana, tahoma;">마이페이지</h5>
 								</a>
 							</div>
 							<div class="fm-menu">
+								<div class="profile_box">
+									<img class="profile_img"
+										src="/image/board?nickname=${info.refNickname}"> <br>
+								</div>
+
 								<div class="list-group list-group-flush">
-									<a href="/admin/userBlack" class="list-group-item py-1"><span
-										class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span>유저
-											블랙/탈퇴 관리</span></a> <a href="/admin/userGrade"
-										class="list-group-item py-1"><span class="iconify"
-										data-icon="icon-park-outline:gold-medal" data-width="25"></span>&ensp;<span>유저
-											등급변경</span></a> <a href="/admin/userRefund" class="list-group-item py-1"><span
-										class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-											환급</span></a> <a href="/admin/certi" class="list-group-item py-1"><span
-										class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
-											인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
-										class="list-group-item py-1"><span class="iconify"
-										data-icon="ant-design:folder-open-outlined" data-width="25"></span>&ensp;<span>챌린지
-											관리</span></a> <a href="/admin/board?cpage=1"
-										class="list-group-item py-1"><span class="iconify"
-										data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>자유게시판
-											관리</span></a>
+									<a href="/mypage/updateForm" class="list-group-item py-1"><span
+										class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
+										a href=/mypage/updateUserInfo>내 정보 </span></a> <a
+										href="/mypage/myChalList" class="list-group-item py-1"><span
+										class="iconify" data-icon="icon-park-outline:gold-medal"
+										data-width="25"></span>&ensp;<span>도전중인 글피</span></a> <a
+										href="/mypage/myBoardAndReply" class="list-group-item py-1"><span
+										class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>작성한
+											글 / 댓글</span></a> <a href="/mypage/zzzim" class="list-group-item py-1"><span
+										class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
+											찜한 글피 </span></a>
 								</div>
 							</div>
 						</div>
@@ -243,13 +249,12 @@ a:hover {
 						<div class="card-body">
 							<div class="row mt-3">
 								<h2 class="title"
-									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; font-size: 23px;">내
-									글피${list[0].chalName}</h2>
+									style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; font-size: 23px;">${info.chalName}</h2>
 								<div class="actions">
-									<input type="hidden" name="chalSeq" value="${list.chalSeq}">
-									<input type="hidden" name="chalName" value="${list.chalName}">
+									<input type="hidden" name="chalSeq" value="${info.chalSeq}">
+									<input type="hidden" name="chalName" value="${info.chalName}">
 									<input type="hidden" name="refNickname"
-										value="${list.refNickname}">
+										value="${info.refNickname}">
 									<button class="btn btn-danger"
 										style="font-family: 'yg-jalnan', verdana, tahoma; float: right;">
 										<i class="fa fa-plus"></i> 인증하기
@@ -258,17 +263,15 @@ a:hover {
 							</div>
 							<div class="drive-wrapper drive-grid-view">
 								<div class="grid-items-wrapper">
-									<br>
 									<c:choose>
 										<c:when test="${!empty list}">
 											<c:forEach var="list" items="${list}">
-												<br>
-												<div
-													style="width: 300px; height: 300px; font-family: 'yg-jalnan', verdana, tahoma; float: left; margin: 5px; text-align: center;">
+												<div class="row"
+													style="width: 300px; height: 300px; font-family: 'yg-jalnan', verdana, tahoma; float: left; margin: 5px; text-align: center; padding-bottom: 50px;">
 													제목 : ${list.certiTitle} <img
-														src="/image/certiWriteLoad?parentSeq=${list.seq}" alt=""
-														style="max-width: 100%; height: auto;">인증날짜 :
-													${list.certiDate}
+														src="/image/certiWriteLoad?seq=${list.seq}" alt=""
+														style="width: 90%; height: 90%; object-fit: cover;">인증날짜
+													: ${list.certiDate}
 												</div>
 											</c:forEach>
 										</c:when>
