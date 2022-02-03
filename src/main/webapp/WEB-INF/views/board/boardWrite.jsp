@@ -280,7 +280,7 @@ a {
 	</script>
 			</div>
 			<div align=right id=write>
-				<button id="back" style="">목록으로</button>
+				<input type="button" id="back" value="목록으로">
 				<button id="write" style="float:right;">글쓰기</button>
 			</div>
 		

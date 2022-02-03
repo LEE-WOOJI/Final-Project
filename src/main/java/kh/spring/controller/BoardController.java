@@ -69,11 +69,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping("write") // 글쓰기 페이지로 이동.
-	public String boardWrite(Model model, HttpServletRequest request) {
+	public String boardWrite(Model model, HttpServletRequest request, int cpage, String select, String keyword) {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("loginId");
 		MemberDTO info = brService.searchInfoById(id);
 		model.addAttribute("nickname", info.getNickname());
+		model.addAttribute("cpage",cpage);
+		model.addAttribute("select",select);
+		model.addAttribute("keyword",keyword);
 		return "/board/boardWrite";
 	}
 	@RequestMapping("writeProc") // 글 삽입.
