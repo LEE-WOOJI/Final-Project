@@ -38,16 +38,23 @@
 	<!-- 관리자 페이지 메인에서 유저수 추이의 날짜 출력 -->
 	<select id="getDate" resultType="kh.spring.dto.AdminUtilsDTO">
 		select
-		to_char(sysdate, 'dy')
+		to_char(sysdate,
+		'dy','NLS_DATE_LANGUAGE=korean')
 		today,
-		to_char(sysdate-1, 'dy') today_1,
-		to_char(sysdate-2, 'dy')
+		to_char(sysdate-1,
+		'dy','NLS_DATE_LANGUAGE=korean') today_1,
+		to_char(sysdate-2,
+		'dy','NLS_DATE_LANGUAGE=korean')
 		today_2,
-		to_char(sysdate-3, 'dy') today_3,
-		to_char(sysdate-4, 'dy')
+		to_char(sysdate-3,
+		'dy','NLS_DATE_LANGUAGE=korean') today_3,
+		to_char(sysdate-4,
+		'dy','NLS_DATE_LANGUAGE=korean')
 		today_4,
-		to_char(sysdate-5, 'dy') today_5,
-		to_char(sysdate-6, 'dy')
+		to_char(sysdate-5,
+		'dy','NLS_DATE_LANGUAGE=korean') today_5,
+		to_char(sysdate-6,
+		'dy','NLS_DATE_LANGUAGE=korean')
 		today_6
 		from dual
 	</select>
