@@ -1,7 +1,7 @@
 package kh.spring.dto;
 
 public class HeartDTO {
-	private int seq;
+	private int hseq;
 	private int refChalSeq;
 	private String refNickname;
 	private int heart;
@@ -9,18 +9,18 @@ public class HeartDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public HeartDTO(int seq, int refChalSeq, String refNickname, int heart) {
+	public HeartDTO(int hseq, int refChalSeq, String refNickname, int heart) {
 		super();
-		this.seq = seq;
+		this.hseq = hseq;
 		this.refChalSeq = refChalSeq;
 		this.refNickname = refNickname;
 		this.heart = heart;
 	}
-	public int getSeq() {
-		return seq;
+	public int gethseq() {
+		return hseq;
 	}
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void sethseq(int hseq) {
+		this.hseq = hseq;
 	}
 	public int getRefChalSeq() {
 		return refChalSeq;

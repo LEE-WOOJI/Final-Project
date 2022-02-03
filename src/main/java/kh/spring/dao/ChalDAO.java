@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import kh.spring.dto.CertiImgDTO;
 import kh.spring.dto.ChalBasicDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.ChalLikeDTO;
 import kh.spring.dto.JoinChalDTO;
 
 @Repository
@@ -20,7 +21,7 @@ public class ChalDAO {
 	private SqlSessionTemplate mybatis;
 	
 	//전체 조회하기
-	public List<ChalBasicDTO> listBound(int start, int end){
+	public List<ChalLikeDTO> listBound(int start, int end){
 		Map<Object,Object> map = new HashMap<>();
 		map.put("start",start);
 		map.put("end", end);		
@@ -28,7 +29,7 @@ public class ChalDAO {
 	}
 	
 	//검색하기 1.제목
-	public List<ChalBasicDTO> searchK(int start, int end, String keyword){
+	public List<ChalLikeDTO> searchK(int start, int end, String keyword){
 		Map<Object,Object> map = new HashMap<>();
 		map.put("start",start);
 		map.put("end", end);
@@ -37,7 +38,7 @@ public class ChalDAO {
 	}
 	
 	//검색하기 2.태그
-		public List<ChalBasicDTO> searchT(int start, int end, String keyword){
+		public List<ChalLikeDTO> searchT(int start, int end, String keyword){
 			Map<Object,Object> map = new HashMap<>();
 			map.put("start",start);
 			map.put("end", end);
@@ -46,7 +47,7 @@ public class ChalDAO {
 	}
 	
 	//검색하기 3.일수
-	public List<ChalBasicDTO> searchD(int start, int end, String keyword){
+	public List<ChalLikeDTO> searchD(int start, int end, String keyword){
 		Map<Object,Object> map = new HashMap<>();
 		map.put("start",start);
 		map.put("end", end);
@@ -55,12 +56,12 @@ public class ChalDAO {
 	}
 
 	//카테고리
-	public List<ChalBasicDTO> listCategory(String category){
+	public List<ChalLikeDTO> listCategory(String category){
 		return mybatis.selectList("Chal.listCategory", category);
 	}
 	
 	//카테고리 정렬
-	public List<ChalBasicDTO> categoryFilter(String category, String filter){
+	public List<ChalLikeDTO> categoryFilter(String category, String filter){
 		Map<Object,Object> map = new HashMap<>();
 		map.put("category", category);
 		map.put("filter", filter);
@@ -68,7 +69,7 @@ public class ChalDAO {
 	}
 	
 	//디테일 페이지로 가져갈, 해당 chalSeq로 관련 정보 select
-	public ChalBasicDTO selectBySeq(int seq) {
+	public ChalLikeDTO selectBySeq(int seq) {
 		return mybatis.selectOne("Chal.selectBySeq",seq);
 	}
 	

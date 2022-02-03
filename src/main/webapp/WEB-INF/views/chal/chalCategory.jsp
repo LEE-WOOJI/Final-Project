@@ -26,7 +26,7 @@
       <link href="/css/chalrepcss.css" rel="stylesheet" />
       <!-- Date -->
       <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-      
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
       
       <style>
       	#header{margin-bottom:110px;}
@@ -88,9 +88,14 @@
 		                           		${list.chalName }
 		                           </a>
 		                        </h4>
-		                        <button class="heart">
-		                        	<img src="/assets/img/heart.png" alt="" id="heart">
-		                     	</button>
+		                        <c:choose>
+										<c:when test="${list.heart == 1}">
+											<img src="/assets/img/heartOn.png" alt="" id=heart>
+										</c:when>
+										<c:when test="${list.heart != 1}">
+											<img src="/assets/img/heart.png" alt="" id=heart>
+										</c:when>
+									</c:choose>
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -148,6 +153,8 @@
    				for(let i = 0; i < result.length; i++){ //이게 안굴러감 미친년
    					console.log("회차 : " + i);
    					console.log(result[i].chalName);
+   					let start = moment(result[i].startDate).format("YYYY년 MM월 DD일 hh시")
+   					let end = moment(result[i].endDate).format("YYYY년 MM월 DD일 hh시")
    					content += `<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
@@ -161,7 +168,7 @@
 	                        			\${result[i].chalName }
                        				</a>
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        <img src="/assets/img/\${result[i].heart}.png" alt="">
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -180,14 +187,14 @@
 		                     <div class = "startday">
 		                        <h6>
 		                           <label>시작일 : </label>
-		                           \${result[i].startDate }
+		                           \${start}
 		                           
 		                        </h6>
 		                     </div>
 		                     <div class = "endday">
 		                        <h6>
 		                           <label>종료일 : </label>
-		                           \${result[i].endDate }
+		                           \${end}
 		                        </h6>
 		                     </div>
 		                  </div>

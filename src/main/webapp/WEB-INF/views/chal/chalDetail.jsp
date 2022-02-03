@@ -41,7 +41,6 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
 @font-face {
 	font-family: 'S-CoreDream-4Regular';
 	src:
@@ -50,90 +49,31 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
 #countdown, #HourCountdown, #countExpire {
 	display: inline;
 	color: rgb(0, 0, 0);
 	font-weight: bold;
 }
-
 h1 {
 	font-size: 2rem;
 	font-weight: 500;
 }
-
 @
 keyframes open { 0% {
 	opacity: 0;
 }
-
 100
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %
 {
 opacity
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 :
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 1
-
-
-
-
-
-
-
-
-
-
-
-
 ;
 }
 }
 .detail summary::-webkit-details-marker {
 	display: none;
 }
-
 .detail summary {
 	width: 100%;
 	padding: 0.5rem 0;
@@ -144,7 +84,6 @@ opacity
 	font-weight: 300;
 	list-style: none;
 }
-
 .detail summary:after {
 	content: "+";
 	color: black;
@@ -157,35 +96,29 @@ opacity
 	transform-origin: center;
 	transition: 200ms linear;
 }
-
 .detail[open] summary:after {
 	transform: rotate(45deg);
 	font-size: 2rem;
 }
-
 .detail summary {
 	outline: 0;
 }
-
 .detail p {
 	font-size: 0.95rem;
 	margin: 0 0 1rem;
 	padding-top: 1rem;
 }
-
 .certiImg {
 	width: 100%;
 	height: 400px;
 	padding: 10px;
 }
-
 /*케러샐*/
 .blog .carousel-indicators {
 	left: 0;
 	top: auto;
 	bottom: -40px;
 }
-
 /* The colour of the indicators */
 .blog .carousel-indicators li {
 	background: #a3a3a3;
@@ -193,17 +126,33 @@ opacity
 	width: 8px;
 	height: 8px;
 }
-
 /*점박이 컬러*/
 .blog .carousel-indicators .active {
 	background: #b61717;
 }
-
 .thumbnail img {
 	width: 250px;
 	height: 200px;
 }
 </style>
+
+<script>
+	function like(chalSeq){
+		console.log(chalSeq)
+		$.ajax({
+			url:"/heart/heart",
+			method:"POST",
+			data:{"refChalSeq":chalSeq}
+		}).done(function(resp){
+			console.log(resp);
+		if(resp==1){
+			$("#heart").attr("src","/assets/img/heartOn.png");
+		}else if(resp==0){
+			$("#heart").attr("src","/assets/img/heart.png");
+		}
+		})
+	};
+</script>
 </head>
 
 
@@ -214,11 +163,9 @@ opacity
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="col-md-6">
-<<<<<<< HEAD
-=======
+
 					<input type=hidden value="${dto.chalSeq}" id="seq">
->>>>>>> cc1b28b2c9cad278bd036e190f5f28c2c4fd64ec
-					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="">
+					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="" style = "width:100%;height:100%;s">
 				</div>
 				<div class="col-md-6">
 					<div class="chalTag" style="margin: 20px 0px 20px;">
@@ -226,9 +173,23 @@ opacity
 						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag2}</span>
 						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag3}</span> 
 					</div>
-					<h1 class="display-5 fw-bolder" style="font-family: 'yg-jalnan', verdana, tahoma; margin-bottom: 20px;">${dto.chalName}</h1>
-
-
+					<h1 class="display-5 fw-bolder" style="font-family: 'yg-jalnan', verdana, tahoma; margin-bottom: 20px;">${dto.chalName}
+					&nbsp;&nbsp;
+					<c:choose>
+							<c:when test="${dto.heart == 1}">
+								<a href='javascript:void(0);' onclick="like(${dto.chalSeq})">
+								<img src="/assets/img/heartOn.png" alt="" id=heart>
+								</a>
+							</c:when>
+							<c:when test="${dto.heart != 1}">
+								<a href='javascript:void(0);' onclick="like(${dto.chalSeq})">
+								<img src="/assets/img/heart.png" alt="" id=heart>
+								</a>
+							</c:when>
+						</c:choose>
+					</h1>
+					
+					
 					<i class="bi bi-people-fill"></i>
 					<!-- 사람 아이콘 -->
 					<span style="font-family: 'S-CoreDream-4Regular'">&nbsp;&nbsp;현재 ${dto.personnel}명 참여중</span>
@@ -259,6 +220,7 @@ opacity
 						<c:if test="${member.blacklist ne 'Y'}">
 							<button type="button" id="joinBtn" class="btn btn-warning btn-lg" style="font-family: 'S-CoreDream-4Regular';">참여하기</button>
 						</c:if>
+						
 					</div>
 				</div>
 			</div>
@@ -447,12 +409,9 @@ opacity
      	var _hour = _minute * 60;
      	var _day = _hour * 24;
      	var timer;
-
      function showRemaining() {
          var now = new Date();
          var distance = end - now;
-
-
          // 시간 종료 시 뜨는 문구
          if (distance < 0) {
              clearInterval(timer);
@@ -460,17 +419,14 @@ opacity
              $("#joinBtn").css("display", "none");
              return;
          }
-
          var days = Math.floor(distance / _day);
          var hours = Math.floor((distance % _day) / _hour);
          var minutes = Math.floor((distance % _hour) / _minute);
          var seconds = Math.floor((distance % _minute) / _second);
-
          document.getElementById(id).innerHTML = days + '일 ';
          document.getElementById(id).innerHTML += hours + '시간 ';
          document.getElementById(id).innerHTML += minutes + '분 ';
          document.getElementById(id).innerHTML += seconds + '초';
-
      }
      timer = setInterval(showRemaining, 1000);
  }
