@@ -36,22 +36,25 @@ import kh.spring.utils.EncrpytionUtils;
 @RequestMapping("/user/")
 @Controller
 public class UserController {
-	@Autowired
-	UserService userService;
-	@Autowired
-	MemberService memberService;
-	@Autowired
-	private HttpSession session;
-	@Autowired
-	BoardReplyService brService;
-	@Autowired
-	private ChalService cservice;
 
-	@Autowired
-	private CertiService ctservice;
-
-	@Autowired
-	private RefundService rservice;
+   @Autowired
+   UserService userService;
+   @Autowired
+   MemberService memberService;
+   @Autowired
+   private HttpSession session;
+   @Autowired
+    BoardReplyService brService;
+   @Autowired
+   private ChalService cservice;
+   
+   @Autowired
+   private CertiService ctservice;
+   
+   @Autowired
+   private RefundService rservice;
+   
+   
 
 
 	// 메인jsp에서 로그인 버튼을 눌렀을떄
@@ -68,18 +71,27 @@ public class UserController {
 
 		int result = memberService.isLoginAllowed(id,EncrpytionUtils.getSHA512(pw));	
 
+
 		if(result>0) { // 로그인에 성공했을 경우
 			HttpSession session = request.getSession(); // 서버쪽 세션 금고에
 			session.setAttribute("loginId", id); // loginID라는 키값으로 사용자 ID를 저장
-
+			session.setAttribute("loginFailId", null);//로그인에 성공했을때 아이디를 지워준다
+	        
 			// 아이디값으로 댓글 정보 찾기.
-			MemberDTO info = brService.searchInfoById(id);
-			String writerNickname = info.getNickname();
-			// 닉네임 세션값 저장.
-			session.setAttribute("writerNickname", writerNickname);
-			System.out.println("로그인에 성공했습니다.");
+	        MemberDTO info = brService.searchInfoById(id);
+	        String writerNickname = info.getNickname();
+	        
+	        // 닉네임 세션값 저장.
+	        session.setAttribute("writerNickname", writerNickname);
+	        System.out.println("로그인에 성공했습니다.");
+			return "redirect: /";
+			
+		}else {
+			
+			session.setAttribute("loginFailId", id);
+			return "/user/login";
 		}
-		return "redirect:/";
+
 	}
 
 	// 로그아웃 버튼을 눌렀을떄
@@ -180,44 +192,46 @@ public class UserController {
 	@RequestMapping("signproc")
 	public String signup(Model model, MemberDTO dto, MultipartFile file[]) throws Exception {
 		int memSeq = memberService.insertMember(dto);
+				
+		 for(MultipartFile mf : file) {
+	         if(!file[0].isEmpty()) {
+	            String realPath = session.getServletContext().getRealPath("files");
 
-		for(MultipartFile mf : file) {
-			if(!file[0].isEmpty()) {
-				String realPath = session.getServletContext().getRealPath("files");
+               File realPathFile = new File(realPath);
+               if(!realPathFile.exists()) {
+                  realPathFile.mkdir();   
+               }
+               String oriName = mf.getOriginalFilename();
+               String sysName = UUID.randomUUID()+"_"+oriName;
+               mf.transferTo(new File(realPath+"/"+sysName));
+               // member image insert
+               memberService.insertMemberImg(oriName,sysName,memSeq);
+            }
+         }
+       
+       return "/user/login";
+   }
+    
+    //카카오 로그인 버튼을 눌렀을떄
+    @RequestMapping("kakaologin")
+    public String kakaologin(Model model,String nickname,String email,HttpServletRequest request) {
+       
+      boolean result = memberService.kakaoInsert(nickname,email);
+      if(result) {
+         //로그인처리
+         HttpSession session = request.getSession(); // 서버쪽 세션 금고에
+         session.setAttribute("loginId", email); // loginID라는 키값으로 사용자 ID를 저장
+      }else {
+         //로그인처리
+         HttpSession session = request.getSession(); // 서버쪽 세션 금고에
+         session.setAttribute("loginFailId", email); // loginID라는 키값으로 사용자 ID를 저장
+         
+         System.out.println("로그인에 성공했습니다.");
+      }
+      return "redirect:/";
+   }
 
-				File realPathFile = new File(realPath);
-				if(!realPathFile.exists()) {
-					realPathFile.mkdir();   
-				}
-				String oriName = mf.getOriginalFilename();
-				String sysName = UUID.randomUUID()+"_"+oriName;
-				mf.transferTo(new File(realPath+"/"+sysName));
-				// member image insert
-				memberService.insertMemberImg(oriName,sysName,memSeq);
-			}
-		}
 
-		return "redirect:/user/loginform";
-	}
-
-	//카카오 로그인 버튼을 눌렀을떄
-	@RequestMapping("kakaologin")
-	public String kakaologin(Model model,String nickname,String email,HttpServletRequest request) {
-
-		boolean result = memberService.kakaoInsert(nickname,email);
-		if(result) {
-			//로그인처리
-			HttpSession session = request.getSession(); // 서버쪽 세션 금고에
-			session.setAttribute("loginId", email); // loginID라는 키값으로 사용자 ID를 저장
-		}else {
-			//로그인처리
-			HttpSession session = request.getSession(); // 서버쪽 세션 금고에
-			session.setAttribute("loginFailId", email); // loginID라는 키값으로 사용자 ID를 저장
-
-			System.out.println("로그인에 성공했습니다.");
-		}
-		return "redirect:/";
-	}
 
 	//예외 처리 
 	@ExceptionHandler(Exception.class)
@@ -292,7 +306,7 @@ public class UserController {
 		model.addAttribute("flist",flist);
 		return "/user/myChalList ";
 	}
-
+	
 	//유저 환급 신청
 	@RequestMapping("cancle")
 	public String cancle(int chalSeq, String bank, String account, Model model) {
@@ -310,5 +324,6 @@ public class UserController {
 		model.addAttribute("flist",flist);
 		return "/user/myChalList";
 	}
+
 
 }
