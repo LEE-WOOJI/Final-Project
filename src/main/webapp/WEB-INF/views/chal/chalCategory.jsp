@@ -95,7 +95,7 @@
 										<c:when test="${list.heart != 1}">
 											<img src="/assets/img/heart.png" alt="" id=heart>
 										</c:when>
-								</c:choose>
+									</c:choose>
 		                     </div>
 		                     <div class = "category">
 		                        <hr>
@@ -166,7 +166,7 @@
 	                        			\${result[i].chalName }
                        				</a>
 		                        </h4>
-		                        <img src="/assets/img/heart.png" alt="">
+		                        <img src="/assets/img/\${result[i].heart}.png" alt="">
 		                     </div>
 		                     <div class = "category">
 		                        <hr>

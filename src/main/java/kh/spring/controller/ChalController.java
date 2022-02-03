@@ -355,14 +355,13 @@ public class ChalController {
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
 		for(ChalLikeDTO c : list) {
 			HeartDTO input = new HeartDTO(0,c.getChalSeq(),nickname,0);
-			System.out.println("더보기라네" + nickname + ":" + input.getRefChalSeq());
+			System.out.println("정렬" + nickname + ":" + input.getRefChalSeq());
 			int check = hService.findHeart(input);
 			if(check==1) {
 				heartlist.add(new ChalLikeDTO(c.getChalSeq(),c.getChalName(),c.getStartDate(),c.getEndDate(),c.getPersonnel(),c.getChalInfo(),c.getTag(),c.getPrice(),c.getDay(),c.getCategory(),c.getSeq(),c.getOriName(),c.getSysName(),c.getHseq(),c.getRefChalSeq(),c.getRefNickname(),1));
 			}else {
 				heartlist.add(new ChalLikeDTO(c.getChalSeq(),c.getChalName(),c.getStartDate(),c.getEndDate(),c.getPersonnel(),c.getChalInfo(),c.getTag(),c.getPrice(),c.getDay(),c.getCategory(),c.getSeq(),c.getOriName(),c.getSysName(),c.getHseq(),c.getRefChalSeq(),c.getRefNickname(),0));
 			}
-			System.out.println(check);
 		}
 		String result = glist.toJson(heartlist);
 		System.out.println(list.get(0).getChalName() + list.size());
