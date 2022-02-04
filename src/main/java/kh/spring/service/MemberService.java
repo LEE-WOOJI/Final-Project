@@ -47,7 +47,7 @@ public class MemberService {
 		}
 	//비밀번호 찾기
 		public boolean searchPw(String id) {
-			MemberDTO memberInfo = mdao.isIDExist(id);
+			MemberDTO memberInfo = mdao.isEMAILExist(id);
 			if(memberInfo != null) {
 				String email = memberInfo.getEmail();
 				

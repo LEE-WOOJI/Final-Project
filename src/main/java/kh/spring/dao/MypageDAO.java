@@ -66,6 +66,12 @@ public class MypageDAO {
 	public CertiImgDTO findCertiImgName(int seq) {
 		return mybatis.selectOne("Mypage.findCertiImgName",seq);
 	}
+	
+	// 글피디테일 인증 사진 불러오기
+	public CertiImgDTO findCertiImgForDetail(int chalSeq) {
+		return mybatis.selectOne("Mypage.findCertiImgName",chalSeq);
+	}
+
 
 	// 인증한 목록 출력.
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {

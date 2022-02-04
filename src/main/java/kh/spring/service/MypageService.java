@@ -56,6 +56,12 @@ public class MypageService {
 	public CertiImgDTO findCertiImgName(int seq) {
 		return mypageDAO.findCertiImgName(seq);
 	}
+	
+	// 글피 디테일에서 인증 사진 불러오기
+	public CertiImgDTO findCertiImgForDetail(int chalSeq) {
+		return mypageDAO.findCertiImgForDetail(chalSeq);
+	}
+
 
 	// 인증한 목록 출력.
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {

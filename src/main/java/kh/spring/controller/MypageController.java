@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.spring.dto.BoardDTO;
 import kh.spring.dto.BoardReplyDTO;
 import kh.spring.dto.CertiDTO;
+import kh.spring.dto.ChalDTO;
+import kh.spring.dto.HeartDTO;
 import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.BoardReplyService;
@@ -50,6 +52,7 @@ public class MypageController {
 	@Autowired
 	private HeartService hservice;
 	
+
 	//회원정보
 	@RequestMapping("updateUserInfo")
 	public String  updateUesrInfoPage(Model model, int seq) {
@@ -91,6 +94,7 @@ public class MypageController {
 		return "/user/mypage";
 
 	}
+
 	//참여중인 목록
 	@RequestMapping("myChalList")
 	public String myChalList(Model model) {
@@ -185,6 +189,24 @@ public class MypageController {
 		model.addAttribute("list",dto);
 		return "/user/certiwriteform";
 	}
+	
+	@RequestMapping("like") // 찜 페이지로 이동
+    public String like(Model model) {
+		// 닉네임값 꺼내기.
+        String nickname = (String)session.getAttribute("writerNickname");
+		// 닉네임으로 찜 목록 출력.
+        List<HeartDTO> result = hservice.selectRefSeq(nickname);
+        List<ChalDTO> list = new ArrayList<ChalDTO>();
+        for(int i=0; i<result.size(); i++) {
+        	int chalSeq = result.get(i).getRefChalSeq();
+    		// 글피 정보 출력.
+        	ChalDTO rs = hservice.selectByChalSeq(chalSeq);
+        	list.add(rs);
+        }
+        model.addAttribute("list",list);
+
+        return "/user/like";
+    }
 
 	// 인증 작성은 ImageController에서 구현.
 
@@ -194,22 +216,4 @@ public class MypageController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("like") // 찜 페이지로 이동
-	public String like() {
-		String nickname = (String)session.getAttribute("writerNickname");
-		// 닉네임으로 찜한 글피 seq 값 뽑기.
-		List<Integer> list =  new ArrayList<Integer>();
-		list = hservice.selectRefSeq(nickname);
-		
-		for(int i=0; i < list.size(); i++) {
-		         			
-		        }
-		
-//		
-//		for(~){
-//			리스트에 담겨진 chalSeq값 하나씩 뽑아서 chalInfo()안에 넣고 그 정보값을 ChalLikeDTO에 저장하는 내용
-//			}
-		
-		return "/user/like";
-	}
 }

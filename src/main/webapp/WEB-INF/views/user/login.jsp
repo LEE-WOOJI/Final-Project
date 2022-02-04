@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
  <head>
   	<title>Login</title>
@@ -58,6 +59,12 @@
 		            	<label class="label" for="password" style="font-family: 'yg-jalnan', verdana, tahoma;">비밀번호</label>
 		              <input type="password" name="pw" class="form-control" placeholder="Password" required>
 		            </div>
+		            <p class="idsave" style="color: red">
+		            		<c:if test="${loginFailId != null}">
+							아이디 또는 비밀번호가 잘못되었습니다.
+							</c:if>
+												
+						</p>
 		            <div class="form-group">
 		            	<button type="submit" class="form-control btn btn-primary submit px-3" style="font-family: 'yg-jalnan', verdana, tahoma;">로그인</button>
 		            </div>
