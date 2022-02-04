@@ -70,6 +70,12 @@
 		resultType="kh.spring.dto.CertiImgDTO">
 		select * from certiImg where seq = #{value}
 	</select>
+	
+	<!-- chalDetail.jsp 인증 이미지 불러오기 -->
+	<select id="findCertiImgForDetail"
+		resultType="kh.spring.dto.CertiImgDTO">
+		select * from certiImg where parentseq = #{value}
+	</select>
 
 	<!-- 인증한 목록 출력 -->
 	<select id="findCertiList" resultType="kh.spring.dto.CertiDTO">

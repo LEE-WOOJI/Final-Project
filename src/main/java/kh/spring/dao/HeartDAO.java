@@ -1,12 +1,11 @@
 package kh.spring.dao;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import kh.spring.dto.ChalLikeDTO;
 import kh.spring.dto.ChalDTO;
 import kh.spring.dto.HeartDTO;
 @Repository
@@ -29,6 +28,7 @@ public class HeartDAO {
 		return mybatis.delete("Heart.deleteHeart",hdto);
 	}
 	
+
 	// 닉네임으로 찜 목록 출력.
 	public List<HeartDTO> selectRefSeq(String nickname) {
 		return mybatis.selectList("Heart.selectRefSeq", nickname);
