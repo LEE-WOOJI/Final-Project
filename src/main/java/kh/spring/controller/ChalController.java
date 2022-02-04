@@ -41,7 +41,7 @@ public class ChalController {
 	@RequestMapping("list")
 	public String chalList(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
-		
+		if(nickname == null) {nickname = "비회원009812436";}
 		int start = 1;
 		int end = start + 5;
 		List<ChalLikeDTO> list = cservice.listBound(start, end);
@@ -68,6 +68,7 @@ public class ChalController {
 	@RequestMapping(value = "more", produces = "text/html;charset=utf8")
 	public String chalMore(int moreNum) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		int start = moreNum;
 		int end = start + 5;
 		System.out.println(end);
@@ -93,6 +94,7 @@ public class ChalController {
 	@RequestMapping("search")
 	public String chalSearch(String option, String searchText, Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		System.out.println(option + ":" + searchText);
 		int start = 1;
 		int end = start + 2;
@@ -158,6 +160,7 @@ public class ChalController {
 	@RequestMapping(value = "searchMore", produces = "text/html;charset=utf8")
 	public String searchMore(String opt, String key,int moreNum) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		int start = moreNum;
 		int end = moreNum + 2;
 		System.out.println(start + ":" + end);
@@ -166,7 +169,7 @@ public class ChalController {
 		System.out.println(end);
 		System.out.println(opt + ":" + key);
 		if(opt.equals("name")) {
-			List<ChalLikeDTO> klist = cservice.searchK(1, 3, key);
+			List<ChalLikeDTO> klist = cservice.searchK(start, end, key);
 			System.out.println(key);
 			List<ChalLikeDTO> heartlist = new ArrayList<>();
 			for(ChalLikeDTO c : klist) {
@@ -218,6 +221,7 @@ public class ChalController {
 	@RequestMapping("health")
 	public String chalHealth(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "건강";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -240,6 +244,7 @@ public class ChalController {
 	@RequestMapping("hobby")
 	public String chalHobby(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "취미";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -262,6 +267,7 @@ public class ChalController {
 	@RequestMapping("finance")
 	public String chalFinance(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "금융";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -284,6 +290,7 @@ public class ChalController {
 	@RequestMapping("study")
 	public String chalStudy(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "공부";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -306,6 +313,7 @@ public class ChalController {
 	@RequestMapping("life")
 	public String chalLife(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "생활";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -328,6 +336,7 @@ public class ChalController {
 	@RequestMapping("pet")
 	public String chalPet(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "펫/환경";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -352,6 +361,7 @@ public class ChalController {
 	@RequestMapping(value = "filter", produces = "text/html;charset=utf8")
 	public String filter(String category, String filter, Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		System.out.println(category + ":" + filter);
 		Gson glist = new Gson();
 		List<ChalLikeDTO> list = cservice.categoryFilter(category, filter);
@@ -395,6 +405,7 @@ public class ChalController {
 		//블랙리스트 유무를 위하여 로그인 세션 받아옴
 		String id = (String) session.getAttribute("loginId");
 		String nickname = (String)session.getAttribute("writerNickname");
+		if(nickname == null) {return "redirect:/user/loginform";}
 
 		if(id != null) {
 			MemberDTO member = brService.searchInfoById(id);

@@ -158,7 +158,7 @@
    		$("#more").on("click",function(){
    			moreNum += 3;
    			$.ajax({
-   				url:"/chal/more",
+   				url:"/chal/searchMore",
    				method:"POST",
    				data:{"moreNum":moreNum,"opt":opt,"key":key}
    			}).done(function(resp){
