@@ -2,6 +2,7 @@ package kh.spring.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,12 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.spring.dto.BoardDTO;
 import kh.spring.dto.BoardReplyDTO;
 import kh.spring.dto.CertiDTO;
-import kh.spring.dto.ChalDTO;
 import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.BoardReplyService;
 import kh.spring.service.BoardService;
 import kh.spring.service.ChalService;
+import kh.spring.service.HeartService;
 import kh.spring.service.MypageService;
 import kh.spring.service.RefundService;
 
@@ -48,6 +47,9 @@ public class MypageController {
 	private ChalService cservice;
 	@Autowired
 	private RefundService rservice;
+	@Autowired
+	private HeartService hservice;
+	
 	//회원정보
 	@RequestMapping("updateUserInfo")
 	public String  updateUesrInfoPage(Model model, int seq) {
@@ -192,8 +194,22 @@ public class MypageController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("like") // 인증 작성폼으로 이동.
+	@RequestMapping("like") // 찜 페이지로 이동
 	public String like() {
+		String nickname = (String)session.getAttribute("writerNickname");
+		// 닉네임으로 찜한 글피 seq 값 뽑기.
+		List<Integer> list =  new ArrayList<Integer>();
+		list = hservice.selectRefSeq(nickname);
+		
+		for(int i=0; i < list.size(); i++) {
+		         			
+		        }
+		
+//		
+//		for(~){
+//			리스트에 담겨진 chalSeq값 하나씩 뽑아서 chalInfo()안에 넣고 그 정보값을 ChalLikeDTO에 저장하는 내용
+//			}
+		
 		return "/user/like";
 	}
 }
