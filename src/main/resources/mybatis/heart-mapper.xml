@@ -17,4 +17,14 @@
 	<delete id="deleteHeart">
 		delete from heart where refNickname = #{refNickname} and refChalSeq=#{refChalSeq}
 	</delete>
+	
+	<!-- 닉네임으로 찜 목록 출력. -->
+	<select id="selectRefSeq" resultType="kh.spring.dto.HeartDTO">
+	select * from heart where refnickname = #{value}
+	</select>
+	
+	<!-- 글피 정보 출력 -->
+	<select id="selectByChalSeq" resultType="kh.spring.dto.ChalDTO">
+	select * from chal where chalSeq = #{value}
+	</select>
 </mapper> 
