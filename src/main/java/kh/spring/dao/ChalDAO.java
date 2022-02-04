@@ -136,6 +136,6 @@ public class ChalDAO {
 
 	//인원추가
 	public int addPJ(int chalSeq) {
-		return mybatis.update("Chal.addPersonnelJ", chalSeq);
+		return mybatis.update("Chal.addPJ", chalSeq);
 	}
 }
