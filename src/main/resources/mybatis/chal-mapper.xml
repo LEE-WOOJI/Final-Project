@@ -38,7 +38,7 @@
 		update chal set personnel = personnel + 1 where chalSeq = #{value}
 	</update>
 	
-	<update id="addPersonnelJ">
+	<update id="addPJ">
 		update joinChal set personnel = personnel + 1 where refChalSeq = #{value}
 	</update>
 	
