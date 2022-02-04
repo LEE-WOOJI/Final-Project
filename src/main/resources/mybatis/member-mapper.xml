@@ -110,7 +110,7 @@
 	<update id="updateTempPassword" parameterType="kh.spring.dto.MemberDTO">
 		UPDATE member
 		   set pw = #{pw          , jdbcType=VARCHAR}
-		 where id = #{id          , jdbcType=VARCHAR}
+		 where email = #{email         , jdbcType=VARCHAR}
 	</update>
 
 	<!-- 관리자 페이지 챌린지 관리에서 챌린지 등록시 이미지 업로드 -->

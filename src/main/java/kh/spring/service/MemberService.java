@@ -46,20 +46,20 @@ public class MemberService {
 			return mdao.insertMemberImg(oriName,sysName,chalSeq);
 		}
 	//비밀번호 찾기
-		public boolean searchPw(String id) {
-			MemberDTO memberInfo = mdao.isEMAILExist(id);
+		public boolean searchPw(String email) {
+			MemberDTO memberInfo = mdao.isEMAILExist(email);
 			if(memberInfo != null) {
-				String email = memberInfo.getEmail();
+				String memail = memberInfo.getEmail();
 				
-				if(email == "") return false;
+				if(memail == "") return false;
 				
 				String env_temp_pw =EncrpytionUtils.getSHA512(Static.TEMP_PASSWORD);
 				MemberDTO sendSearchPwInfo = new MemberDTO();
 				
-				sendSearchPwInfo.setId(id);
+				sendSearchPwInfo.setEmail(memail);
 				sendSearchPwInfo.setPw(env_temp_pw);
 				mdao.updateTempPassword(sendSearchPwInfo);
-				CommonUtils.sendMail(email,Static.TEMP_PASSWORD);
+				CommonUtils.sendMail(memail,Static.TEMP_PASSWORD);
 			}
 			return true;
 		}
