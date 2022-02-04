@@ -163,45 +163,6 @@ a:hover {
 	color: white;
 }
 
-#delBtn {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#delBtn:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#writeBtn {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#writeBtn:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#renewBtn {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#renewBtn:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
 #search {
 	background-color: transparent;
 	border: 1px solid transparent;
@@ -214,6 +175,16 @@ a:hover {
 	text-overflow: ellipsis;
 	max-width: 130px;
 }
+
+@font-face {
+	font-family: 'yg-jalnan';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 </style>
 </head>
 <body>
@@ -339,9 +310,9 @@ a:hover {
 												<i class="fas fa-search"></i>
 											</button>
 										</td>
-										<td><input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기"></td>
-										<td><input type="button" id="renewBtn" onclick="return submit3(this.form)" value="갱신하기"></td>
-										<td><input type="button" id="writeBtn" value="등록하기"></td>
+										<td><input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기" class="btn btn-danger" style="font-family: 'yg-jalnan';"></td>
+										<td><input type="button" id="renewBtn" onclick="return submit3(this.form)" value="갱신하기" class="btn btn-danger" style="font-family: 'yg-jalnan';"></td>
+										<td><input type="button" id="writeBtn" value="등록하기" class="btn btn-danger" style="font-family: 'yg-jalnan';"></td>
 									</tr>
 								</table>
 							</form>

@@ -163,19 +163,6 @@ a:hover {
 	color: white;
 }
 
-#delBtn {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#delBtn:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
 #search {
 	background-color: transparent;
 	border: 1px solid transparent;
@@ -218,7 +205,7 @@ a:hover {
 									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="/admin/userRefund"
 									class="list-group-item py-1"><span class="iconify"
 									data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-										환급</span></a> <a href="/admin/certi?cpage=1" class="list-group-item py-1"><span
+										환급</span></a> <a href="/admin/certi" class="list-group-item py-1"><span
 									class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
 										인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
 									class="list-group-item py-1"><span class="iconify"
@@ -305,7 +292,7 @@ a:hover {
 											</button>
 										</td>
 										<td>
-											<input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기">
+											<input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기" class="btn btn-danger"style="font-family: 'yg-jalnan';">
 										</td>
 									</tr>
 								</table>
