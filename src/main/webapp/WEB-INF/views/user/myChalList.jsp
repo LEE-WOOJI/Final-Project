@@ -225,7 +225,7 @@ function refund(chalSeq){
                            class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>작성한
                               글 / 댓글</span></a> 
                               
-                                <a href="/mypage/zzzim"
+                                <a href="/mypage/like"
                            class="list-group-item py-1"><span class="iconify"
                            data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
                               찜한 글피 </span></a> 
@@ -242,9 +242,8 @@ function refund(chalSeq){
                   <h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; color : #f86b58;">진행 중인 글피!</h6>
                   <br>
                   <div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
-                     <div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
-                     <div class="col-2 list" style="padding: 0px;">태그</div>
-                     <div class="col-2 list" style="padding: 0px;">인원</div>
+                     <div class="col-3 list" style="padding: 0px;">챌린지 이름</div>
+                     <div class="col-3 list" style="padding: 0px;">태그</div>
                      <div class="col-2 list" style="padding: 0px;">시작일</div>
                      <div class="col-2 list" style="padding: 0px;">종료일</div>
                      <div class="col-2 list" style="padding: 0px;">인증</div>
@@ -252,13 +251,12 @@ function refund(chalSeq){
                   <c:forEach var="list" items="${plist}">
                      <br>
                      <div class="row" style="text-align: center; line-height: 30px; border: none;">
-                        <div class="col-2" style="padding: 0px;">
+                        <div class="col-3" style="padding: 0px;">
                         <a href = "/chal/detail?seq=${list.refChalSeq}" style = "text-decoration : none; color:black;">
                         ${list.chalName}
                         </a>
                         </div>
-                        <div class="col-2" style="padding: 0px;">${list.tag}</div>
-                        <div class="col-2" style="padding: 0px;">${list.personnel}명</div>
+                        <div class="col-3" style="padding: 0px;">${list.tag}</div>
                         <div class="col-2" style="padding: 0px;">
                         <fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.startDate}"/>
                         </div>
@@ -284,9 +282,8 @@ function refund(chalSeq){
                   <h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; color : #f86b58;">진행 예정 글피!</h6>
                   <br>
                   <div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
-                     <div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
-                     <div class="col-2 list" style="padding: 0px;">태그</div>
-                     <div class="col-2 list" style="padding: 0px;">인원</div>
+                     <div class="col-3 list" style="padding: 0px;">챌린지 이름</div>
+                     <div class="col-3 list" style="padding: 0px;">태그</div>
                      <div class="col-2 list" style="padding: 0px;">시작일</div>
                      <div class="col-2 list" style="padding: 0px;">종료일</div>
                      <div class="col-2 list" style="padding: 0px;">취소</div>
@@ -294,13 +291,12 @@ function refund(chalSeq){
                   <c:forEach var="list" items="${flist}">
                      <br>
                      <div class="row" style="text-align: center; line-height: 30px; border: none;">
-                        <div class="col-2 name" style="padding: 0px;" >
+                        <div class="col-3 name" style="padding: 0px;" >
                         <a href = "/chal/detail?seq=${list.refChalSeq}" style = "text-decoration : none; color:black;">
                         ${list.chalName}
                         </a>
                         </div>
-                        <div class="col-2" style="padding: 0px;">${list.tag}</div>
-                        <div class="col-2" style="padding: 0px;">${list.personnel}명</div>
+                        <div class="col-3" style="padding: 0px;">${list.tag}</div>
                         <div class="col-2" style="padding: 0px;">
                         <fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.startDate}"/>
                         </div>
@@ -324,9 +320,8 @@ function refund(chalSeq){
                   <h6 class="mt-3 mb-0" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma; color : #f86b58;">완료한 글피 리스트</h6>
                   <br>
                   <div class="row" style="text-align: center; line-height: 30px; border: none; background-color:#f8e8e6;">
-                     <div class="col-2 list" style="padding: 0px;">챌린지 이름</div>
-                     <div class="col-2 list" style="padding: 0px;">태그</div>
-                     <div class="col-2 list" style="padding: 0px;">인원</div>
+                     <div class="col-3 list" style="padding: 0px;">챌린지 이름</div>
+                     <div class="col-3 list" style="padding: 0px;">태그</div>
                      <div class="col-2 list" style="padding: 0px;">시작일</div>
                      <div class="col-2 list" style="padding: 0px;">종료일</div>
                      <div class="col-2 list" style="padding: 0px;">환급</div>
@@ -334,12 +329,11 @@ function refund(chalSeq){
                   <c:forEach var="list" items="${blist}">
                      <br>
                      <div class="row" style="text-align: center; line-height: 30px; border: none; ">
-                        <div class="col-2" style="padding: 0px;" style = "text-decoration : none; color:black;">
+                        <div class="col-3" style="padding: 0px;" style = "text-decoration : none; color:black;">
                         <a href = "/chal/detail?seq=${list.refChalSeq}" style = "text-decoration : none; color:black;">
                         ${list.chalName}
                         </a></div>
-                        <div class="col-2" style="padding: 0px;">${list.tag}</div>
-                        <div class="col-2" style="padding: 0px;">${list.personnel}명</div>
+                        <div class="col-3" style="padding: 0px;">${list.tag}</div>
                         <div class="col-2" style="padding: 0px;">
                         <fmt:formatDate pattern="yyyy년 MM월 dd일" value = "${list.startDate}"/>
                         </div>

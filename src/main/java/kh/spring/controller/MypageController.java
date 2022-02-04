@@ -2,6 +2,7 @@ package kh.spring.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,11 +21,13 @@ import kh.spring.dto.BoardDTO;
 import kh.spring.dto.BoardReplyDTO;
 import kh.spring.dto.CertiDTO;
 import kh.spring.dto.ChalDTO;
+import kh.spring.dto.HeartDTO;
 import kh.spring.dto.JoinChalDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.BoardReplyService;
 import kh.spring.service.BoardService;
 import kh.spring.service.ChalService;
+import kh.spring.service.HeartService;
 import kh.spring.service.MypageService;
 import kh.spring.service.RefundService;
 
@@ -48,6 +49,10 @@ public class MypageController {
 	private ChalService cservice;
 	@Autowired
 	private RefundService rservice;
+	@Autowired
+	private HeartService hservice;
+	
+
 	//회원정보
 	@RequestMapping("updateUserInfo")
 	public String  updateUesrInfoPage(Model model, int seq) {
@@ -184,6 +189,24 @@ public class MypageController {
 		model.addAttribute("list",dto);
 		return "/user/certiwriteform";
 	}
+	
+	@RequestMapping("like") // 찜 페이지로 이동
+    public String like(Model model) {
+		// 닉네임값 꺼내기.
+        String nickname = (String)session.getAttribute("writerNickname");
+		// 닉네임으로 찜 목록 출력.
+        List<HeartDTO> result = hservice.selectRefSeq(nickname);
+        List<ChalDTO> list = new ArrayList<ChalDTO>();
+        for(int i=0; i<result.size(); i++) {
+        	int chalSeq = result.get(i).getRefChalSeq();
+    		// 글피 정보 출력.
+        	ChalDTO rs = hservice.selectByChalSeq(chalSeq);
+        	list.add(rs);
+        }
+        model.addAttribute("list",list);
+
+        return "/user/like";
+    }
 
 	// 인증 작성은 ImageController에서 구현.
 
@@ -193,8 +216,4 @@ public class MypageController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("like") // 인증 작성폼으로 이동.
-	public String like() {
-		return "/user/like";
-	}
 }

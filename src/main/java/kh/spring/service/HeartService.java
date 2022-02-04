@@ -1,12 +1,13 @@
 package kh.spring.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import kh.spring.dao.HeartDAO;
+import kh.spring.dto.ChalLikeDTO;
+import kh.spring.dto.ChalDTO;
 import kh.spring.dto.HeartDTO;
 
 @Service
@@ -36,4 +37,15 @@ public class HeartService {
 		return hdao.deleteHeart(hdto);
 	}
 	
+	// 닉네임으로 찜 목록 출력.
+	public List<HeartDTO> selectRefSeq(String nickname) {
+		return hdao.selectRefSeq(nickname);
+	}
+	
+	// 글피 정보 출력.
+	public ChalDTO selectByChalSeq(int chalSeq) {
+		return hdao.selectByChalSeq(chalSeq);
+	}
+
+
 }
