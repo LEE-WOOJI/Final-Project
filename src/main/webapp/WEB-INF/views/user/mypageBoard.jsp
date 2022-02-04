@@ -183,7 +183,7 @@ a:hover {
 					<div class="card-body">
 						<div class="d-grid"></div>
 						<div class="list-group list-group-flush">
-							<a href="/admin/main" class="list-group-item py-1">
+							<a href="/mypage/myChalList" class="list-group-item py-1">
 								<h5 class="my-3"
 									style="font-family: 'yg-jalnan', verdana, tahoma;">마이페이지</h5>
 							</a>
@@ -196,23 +196,17 @@ a:hover {
 							
 							<div class="list-group list-group-flush">
 								<a href="/mypage/updateForm" class="list-group-item py-1"><span
-                           class="iconify" data-icon="el:ban-circle" data-width="25"></span>&ensp;<span
-                           a href=/mypage/updateUserInfo>내 정보 </span></a>
-
-                           		<a href="/mypage/myChalList" class="list-group-item py-1"><span
-                           class="iconify" data-icon="icon-park-outline:gold-medal"
-                           data-width="25"></span>&ensp;<span>도전중인 글피</span></a>
-                           
-                            	<a href="/mypage/myBoardAndReply" class="list-group-item py-1"><span
-                           class="iconify" data-icon="jam:coin" data-width="25"></span>&ensp;<span>작성한
-                              글 / 댓글</span></a> 
-                              
-                                <a href="/mypage/like"
-                           class="list-group-item py-1"><span class="iconify"
-                           data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>내가
-                              찜한 글피 </span></a> 
-                              
-                              
+									class="iconify" data-icon="icon-park-outline:people-search-one"
+									data-width="25"></span>&ensp;<span a
+									href=/mypage/updateUserInfo>내 정보 </span></a> <a
+									href="/mypage/myChalList" class="list-group-item py-1"><span
+									class="iconify" data-icon="icon-park-outline:gold-medal"
+									data-width="25"></span>&ensp;<span>도전중인 글피</span></a> <a
+									href="/mypage/myBoardAndReply" class="list-group-item py-1"><span
+									class="iconify" data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>작성한
+										글 / 댓글</span></a> <a href="/mypage/like" class="list-group-item py-1"><span
+									class="iconify" data-icon="bi:balloon-heart-fill"
+									data-width="25"></span>&ensp;<span>내가 찜한 글피 </span></a>
 							</div>
 						</div>
 					</div>

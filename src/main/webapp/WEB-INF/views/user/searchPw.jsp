@@ -25,20 +25,25 @@ function searchPw() {
 	}
 	ingSearchPw = true;
 	if ($("#id").val() == '') {
-		alert("ID 를 입력하세요.");
+		alert("이메일 를 입력하세요.");
 		$("#id").focus();
 		return false;
 	}
+	var emailReg = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/g;
+    if( !emailReg.test( $("#id").val() ) ) {
+        alert("이메일 형식을 다시한번 확인해주세요.");
+        return false;
+    }
 	$.ajax({
 		url : "/user/searchPw",
 		data : {
-			id : $("#id").val()
+			email : $("#id").val()
 		}
 	}).done(function(resp) {
 		if (resp == true) {
 			alert("가입하신 이메일로 임시비밀번호가 전송되었습니다.")
 		} else {
-			alert("전송에 실패했습니다 아아디를 확인해주세요.")
+			alert("전송에 실패했습니다 이메일를 확인해주세요.")
 		}
 		ingSearchPw = false;
 	})
@@ -76,7 +81,7 @@ function searchPw() {
 					id="id" style="width: 69%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 				<button type="button" id="searchPw" value="중복검사"
 					class="form-control btn btn-primary submit px-2"
-					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;"onclick="searchPw()">찾기</button>
+					style="text-align: center; width: 29%; font-family: 'yg-jalnan', verdana, tahoma;"onclick="searchPw()">찾기</button>
 				<span id="seachidcheckResult"></span>
 			</div>
 
