@@ -325,7 +325,7 @@ public class ChalController {
 	@RequestMapping("pet")
 	public String chalPet(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
-		String category = "펫/에코";
+		String category = "펫/환경";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
 		for(ChalLikeDTO c : list) {
