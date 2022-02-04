@@ -85,7 +85,7 @@
 		                  <div class="box">
 		                     <div class="img-box">
 		                        <a href="/chal/detail?seq=${list.chalSeq}" style = "text-decoration : none;">
-		                        	<img src=${list.oriName} alt="">
+		                        	<img src="/image/chalModifyLoad?chalSeq=${list.chalSeq}" alt="">
 		                        </a>
 		                     </div>
 		                     <div class="detail-box">
@@ -152,36 +152,36 @@
    </body>
    
    <script>
-   		let moreNum = 1;
    		let opt = "${option}";
    		let key = "${searchText}";
+   		let moreNum = 1;
    		$("#more").on("click",function(){
-   			moreNum += 2;
-   			console.log(opt);
+   			moreNum += 3;
    			$.ajax({
-   				url:"/chal/searchMore",
+   				url:"/chal/more",
    				method:"POST",
    				data:{"moreNum":moreNum,"opt":opt,"key":key}
    			}).done(function(resp){
    				let result = JSON.parse(resp);
    				let content = "";
+   				
    				for(let i = 0; i < result.length; i++){
-   					console.log("회차 : " + i);
-   					console.log(result[i].chalName);
+   					console.log("회차 : " + i + result[i].chalName);
    					let start = moment(result[i].startDate).format("YYYY년 MM월 DD일 hh시")
    					let end = moment(result[i].endDate).format("YYYY년 MM월 DD일 hh시")
+   					console.log(start);
    					content += `<div class="col-sm-6 col-md-4 col-lg-4">
 		                  <div class="box">
 		                     <div class="img-box">
 		                     	<a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none;">
-	                     			<img src="\${result[i].oriName}" alt="">
-                     			</a>
+		                     		<img src="/image/chalModifyLoad?chalSeq=\${result[i].chalSeq}" alt="">
+	                        	</a>
 		                     </div>
 		                     <div class="detail-box">
 		                        <h4 id = "title">
 		                        <a href="/chal/detail?seq=\${result[i].chalSeq}" style = "text-decoration : none; color: black;">
 		                        	\${result[i].chalName }
-                        		</a> 
+                           		</a> 
 		                        </h4>
 		                        	<img src="/assets/img/\${result[i].heart}.png" alt="">
 		                     </div>
@@ -213,9 +213,9 @@
 		                     </div>
 		                  </div>
            		</div>`;
-           			
+           		
    				}
-   				if (result.length < 6) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
+   				if (result.length < 3) { // 더이상 불러올 것이 없다면 더보기 버튼 삭제
      	              $("#more").css("display","none");
      	            }
    				$(content).appendTo("#listLine");
@@ -224,25 +224,7 @@
    		});
    
 		
-		// 좋아요 버튼을 클릭 시 실행되는 코드
-		$(".heart").on("click",function(){
-			let seq = $(".like").val();
-			var that = $(".heart");
-			$.ajax({
-				url : "/heart/heart",
-				type : "post",
-				data : {"refChalSeq":seq},
-				success : function(data){
-					that.prop("name",data);
-					if(data==1){
-						$("#heart").prop("src","/assets/img/heartOn.png");
-					}else{
-						$("#heart").prop("src","/assets/img/heart.png");
-					}
-				}
-			});
-		});
-	});
+		
 
    </script>
 </html>

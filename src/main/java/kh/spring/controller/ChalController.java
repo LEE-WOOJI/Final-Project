@@ -41,6 +41,7 @@ public class ChalController {
 	@RequestMapping("list")
 	public String chalList(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		
 		int start = 1;
 		int end = start + 5;
 		List<ChalLikeDTO> list = cservice.listBound(start, end);
@@ -112,6 +113,7 @@ public class ChalController {
 			model.addAttribute("option",option);
 			model.addAttribute("searchText",searchText);
 			model.addAttribute("list",heartlist);
+			
 		}else if(option.equals("tag")) {
 			List<ChalLikeDTO> tlist = cservice.searchT(start, end, searchText);
 			List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -129,6 +131,7 @@ public class ChalController {
 			model.addAttribute("option",option);
 			model.addAttribute("searchText",searchText);
 			model.addAttribute("list",heartlist);
+			
 		}else if(option.equals("day")) {
 			List<ChalLikeDTO> dlist = cservice.searchD(start, end, searchText);
 			List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -156,18 +159,18 @@ public class ChalController {
 	public String searchMore(String opt, String key,int moreNum) {
 		String nickname = (String) session.getAttribute("writerNickname");
 		int start = moreNum;
-		int end = start + 2;
+		int end = moreNum + 2;
+		System.out.println(start + ":" + end);
 		Gson glist = new Gson();
 		String result = null;
 		System.out.println(end);
 		System.out.println(opt + ":" + key);
 		if(opt.equals("name")) {
-			List<ChalLikeDTO> klist = cservice.searchK(start, end, key);
+			List<ChalLikeDTO> klist = cservice.searchK(1, 3, key);
 			System.out.println(key);
 			List<ChalLikeDTO> heartlist = new ArrayList<>();
 			for(ChalLikeDTO c : klist) {
 				HeartDTO input = new HeartDTO(0,c.getChalSeq(),nickname,0);
-				System.out.println("더보기라네" + nickname + ":" + input.getRefChalSeq());
 				int check = hService.findHeart(input);
 				if(check==1) {
 					heartlist.add(new ChalLikeDTO(c.getChalSeq(),c.getChalName(),c.getStartDate(),c.getEndDate(),c.getPersonnel(),c.getChalInfo(),c.getTag(),c.getPrice(),c.getDay(),c.getCategory(),c.getSeq(),c.getOriName(),c.getSysName(),c.getHseq(),c.getRefChalSeq(),c.getRefNickname(),1));
