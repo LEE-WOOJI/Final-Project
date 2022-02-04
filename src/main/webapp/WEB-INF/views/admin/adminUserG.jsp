@@ -149,6 +149,8 @@ a:hover {
 	text-decoration-line: none;
 }
 
+#searchBtn, #option{font-family: 'yg-jalnan', verdana, tahoma;}
+
 @font-face {
 	font-family: 'yg-jalnan';
 	src:

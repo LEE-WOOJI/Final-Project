@@ -177,6 +177,8 @@ a:hover {
 	text-overflow: ellipsis;
 	max-width: 130px;
 }
+
+#delBtn, #option{font-family: 'yg-jalnan', verdana, tahoma;}
 </style>
 </head>
 <body>
@@ -268,7 +270,7 @@ a:hover {
 								<table class="table-sm mb-0" align=right>
 									<tr>
 										<td>
-											<select class="form-select btn btn-danger" aria-label="Default select example" id = "select" name = "select" style = "backgroud-color:#f8e8e6;">
+											<select class="form-select btn btn-danger" aria-label="Default select example" id = "select" name = "select" style = "backgroud-color:#f8e8e6; font-family: 'yg-jalnan', verdana, tahoma;">
 					  							<option selected>옵션</option>
 					  							<option value="chalName">챌린지 이름</option>
 					  							<option value="nickname">닉네임</option>

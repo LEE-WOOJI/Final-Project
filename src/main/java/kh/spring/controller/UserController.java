@@ -220,13 +220,14 @@ public class UserController {
       if(result) {
          //로그인처리
          HttpSession session = request.getSession(); // 서버쪽 세션 금고에
-         session.setAttribute("loginId", nickname); // loginID라는 키값으로 사용자 ID를 저장
+         session.setAttribute("loginId", email); // loginID라는 키값으로 사용자 ID를 저장
+         session.setAttribute("writerNickname", nickname);
       }else {
          //로그인처리
          HttpSession session = request.getSession(); // 서버쪽 세션 금고에
-         session.setAttribute("loginFailId", nickname); // loginID라는 키값으로 사용자 ID를 저장
-         
-         System.out.println("로그인에 성공했습니다.");
+         session.setAttribute("loginFailId", email); // loginID라는 키값으로 사용자 ID를 저장
+         session.setAttribute("writerNickname", nickname);
+	    
       }
       return "redirect:/";
    }
