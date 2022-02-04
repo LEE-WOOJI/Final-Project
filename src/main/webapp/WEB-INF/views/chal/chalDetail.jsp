@@ -267,30 +267,22 @@ opacity
 									<div class="row">
 										<div class="thumbnail col-md-3 col-sm-12">
 											<c:forEach var="i" items="${list}" begin="1" end="1" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+													<img src="/image/certiWriteLoad?seq=1" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="2" end="2" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+												<img src="/image/certiWriteLoad?seq=2" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="3" end="3" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+												<img src="/image/certiWriteLoad?seq=3" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="4" end="4" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 									</div>
@@ -300,30 +292,22 @@ opacity
 									<div class="row">
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="5" end="5" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="6" end="6" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="7" end="7" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="8" end="8" varStatus="status">
-												<a href="/chal/certiImg?seq=${i.parentSeq}">
-													<img src="${i.oriName} " style="max-width: 100%;">
-												</a>
+												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 									</div>
@@ -415,7 +399,7 @@ opacity
          // 시간 종료 시 뜨는 문구
          if (distance < 0) {
              clearInterval(timer);
-             document.getElementById(id).innerHTML = '이미 시잔된 챌린지에요';
+             document.getElementById(id).innerHTML = '이미 시작된 챌린지에요 ! ';
              $("#joinBtn").css("display", "none");
              return;
          }

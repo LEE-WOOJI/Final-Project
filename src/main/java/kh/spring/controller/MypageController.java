@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,7 +50,9 @@ public class MypageController {
 	@Autowired
 	private RefundService rservice;
 	@Autowired
-	private HeartService hService;
+	private HeartService hservice;
+	
+
 	//회원정보
 	@RequestMapping("updateUserInfo")
 	public String  updateUesrInfoPage(Model model, int seq) {
@@ -195,12 +195,12 @@ public class MypageController {
 		// 닉네임값 꺼내기.
         String nickname = (String)session.getAttribute("writerNickname");
 		// 닉네임으로 찜 목록 출력.
-        List<HeartDTO> result = hService.selectRefSeq(nickname);
+        List<HeartDTO> result = hservice.selectRefSeq(nickname);
         List<ChalDTO> list = new ArrayList<ChalDTO>();
         for(int i=0; i<result.size(); i++) {
         	int chalSeq = result.get(i).getRefChalSeq();
     		// 글피 정보 출력.
-        	ChalDTO rs = hService.selectByChalSeq(chalSeq);
+        	ChalDTO rs = hservice.selectByChalSeq(chalSeq);
         	list.add(rs);
         }
         model.addAttribute("list",list);
@@ -215,4 +215,5 @@ public class MypageController {
 		e.printStackTrace();
 		return "redirect:/";
 	}
+
 }

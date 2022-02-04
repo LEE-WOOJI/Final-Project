@@ -286,6 +286,30 @@ public class ImageController {
 		}
 	}
 	
+	@RequestMapping("certiImgLoad") // 인증 파일 이미지를 불러오기.
+	public void certiImgLoad(int chalSeq, HttpServletResponse response) throws Exception {
+		// chalSeq로 CertiImg테이블의 imgName 찾기.
+		CertiImgDTO dto = mService.findCertiImgForDetail(chalSeq);
+		String oriName = dto.getOriName();
+		String sysName = dto.getSysName();
+		String realPath = session.getServletContext().getRealPath("files");
+		File target = new File(realPath+"/"+sysName);
+
+		try(DataInputStream dis = new DataInputStream(new FileInputStream(target));
+				DataOutputStream dos = new DataOutputStream(response.getOutputStream());){
+			byte[] fileContents = new byte[(int) target.length()];
+			dis.readFully(fileContents);
+
+			oriName = new String(oriName.getBytes("utf8"),"ISO-8859-1");
+			response.reset();
+			response.setHeader("Content-Disposition", "attachment; filename="+ oriName);
+
+			dos.write(fileContents);
+			dos.flush();
+		}
+	}
+	
+	
 	@RequestMapping("mypageLoad") // 마이페이지에서 내 사진 불러오기.
 	public void mypageUpdate(String nickname, HttpServletResponse response) throws Exception {
 		// nickname으로 member테이블 seq(profile테이블의 parentSeq)찾기.
