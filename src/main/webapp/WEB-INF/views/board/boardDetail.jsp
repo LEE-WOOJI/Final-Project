@@ -365,7 +365,7 @@ body {
 							<div class="row">
 								<div class="col-sm-12">
 									<textarea class="contents" name="repContents" readonly
-										style="height: auto; font-family: 'S-CoreDream-4Regular';">${rList.repContents}</textarea>
+										style="height: auto; font-family: 'S-CoreDream-4Regular'; resize: none; overflow: hidden;">${rList.repContents}</textarea>
 								</div>
 							</div>
 							<div class="row">
@@ -415,7 +415,7 @@ body {
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea id="rpContents" cols=170 rows=4 name="repContents"></textarea>
+							<textarea id="rpContents" cols=170 rows=4 name="repContents" style="resize: none;"></textarea>
 						</div>
 					</div>
 					<div class="row">
@@ -470,13 +470,8 @@ body {
             focus: true,
             toolbar: [
 			    // [groupName, [list of button]]
-			    ['fontname', ['fontname']],
-			    ['fontsize', ['fontsize']],
 			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			    ['color', ['forecolor','color']],
-			    ['table', ['table']],
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    ['height', ['height']],
+			    ['para', ['ul', 'ol']],
 			    ['insert',['picture','link','video']],
 			    ['view', ['fullscreen', 'help']]
 			  ],
@@ -549,6 +544,27 @@ body {
    			location.href="/board/delRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}&rseq="+rseq;
    		}
    	});
+	</script>
+	
+	<script type="text/javascript">
+	autosize();
+	function autosize(){
+	    var text = $('.contents');
+
+	    text.each(function(){
+	        $(this).attr('rows',1);
+	        resize($(this));
+	    });
+
+	    text.on('input', function(){
+	        resize($(this));
+	    });
+	    
+	    function resize ($text) {
+	        $text.css('height', 'auto');
+	        $text.css('height', $text[0].scrollHeight+'px');
+	    }
+	}
 	</script>
 </body>
 </html>

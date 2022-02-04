@@ -205,7 +205,7 @@ a:hover {
 									data-width="25"></span>&ensp;<span>유저 등급변경</span></a> <a href="/admin/userRefund"
 									class="list-group-item py-1"><span class="iconify"
 									data-icon="jam:coin" data-width="25"></span>&ensp;<span>유저
-										환급</span></a> <a href="/admin/certi" class="list-group-item py-1"><span
+										환급</span></a> <a href="/admin/certi?cpage=1" class="list-group-item py-1"><span
 									class="iconify" data-icon="clarity:list-line" data-width="25"></span>&ensp;<span>유저
 										인증 삭제 </span></a> <a href="/admin/chal?cpage=1"
 									class="list-group-item py-1"><span class="iconify"
