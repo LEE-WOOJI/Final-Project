@@ -81,7 +81,7 @@ function searchPw() {
 					id="id" style="width: 69%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
 				<button type="button" id="searchPw" value="중복검사"
 					class="form-control btn btn-primary submit px-2"
-					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;"onclick="searchPw()">찾기</button>
+					style="text-align: center; width: 29%; font-family: 'yg-jalnan', verdana, tahoma;"onclick="searchPw()">찾기</button>
 				<span id="seachidcheckResult"></span>
 			</div>
 
