@@ -32,8 +32,10 @@ public class BoardController {
 		HttpSession session = request.getSession();
 		// 아이디 세션값을 꺼내기.
 		String id = (String) session.getAttribute("loginId");
+		
 		if(id!=null) {
 			String blackList = brService.searchInfoById(id).getBlacklist();
+			
 			model.addAttribute("blackList",blackList);	
 		}
 		
