@@ -34,10 +34,20 @@ public class AdminService {
 	public int getBoardCount() {
 		return adao.getBoardCount();
 	}
+	
+	// 관리자 페이지 자유게시판 관리에서 검색한 자유게시판 글 수 출력.
+	public int getSearchBoardCount(String select,String keyword) {
+		return adao.getSearchBoardCount(select,keyword);
+	}
 
 	// 관리자 페이지 메인에서 챌린지 수 출력.
 	public int getChalCount() {
 		return adao.getChalCount();
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 검색한 챌린지 글 수 출력.
+	public int getSearchChalCount(String select, String keyword) {
+		return adao.getSearchChalCount(select,keyword);
 	}
 
 	// 관리자 페이지 메인에서 등급 출력.

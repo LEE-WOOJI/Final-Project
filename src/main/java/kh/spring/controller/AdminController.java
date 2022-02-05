@@ -92,6 +92,9 @@ public class AdminController {
 
 	@RequestMapping("boardSearch") // 자유게시판 관리에서 글 검색.
 	public String boardSearch(Model model, int cpage, String select, String keyword) throws Exception {
+		// 자유게시판 검색한 글 수 출력.
+		int boardResult = aService.getSearchBoardCount(select,keyword);
+		// 자유게시판 검색한 글 목록 출력.
 		Map<String,String> map = bService.pageCheck(cpage);
 		int currentPage = Integer.parseInt(map.get("currentPage"));
 		int start = Integer.parseInt(map.get("start"));
@@ -104,6 +107,7 @@ public class AdminController {
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("navi",navi);
 		model.addAttribute("list",list);
+		model.addAttribute("boardResult",boardResult);
 		return "/admin/adminBoardSearch";
 	}
 
@@ -151,6 +155,9 @@ public class AdminController {
 
 	@RequestMapping("chalSearch") // 챌린지 관리에서 글 검색.
 	public String chalSearch(Model model, int cpage, String select, String keyword) throws Exception {
+		// 챌린지 검색한 글 수 출력.
+		int chalResult = aService.getSearchChalCount(select,keyword);
+		// 챌린지 검색한 글 목록 출력.
 		Map<String,String> map = aService.chalPageCheck(cpage);
 		int currentPage = Integer.parseInt(map.get("currentPage"));
 		int start = Integer.parseInt(map.get("start"));
@@ -163,6 +170,7 @@ public class AdminController {
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("navi",navi);
 		model.addAttribute("list",list);
+		model.addAttribute("chalResult",chalResult);
 		return "/admin/adminChalSearch";
 	}
 
