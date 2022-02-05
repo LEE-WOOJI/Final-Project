@@ -106,8 +106,8 @@ public class ImageController {
 		// 내부경로로 저장
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
 		System.out.println(contextRoot);
-		String fileRoot = "D:\\Springworkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Final-Project\\resources\\boardImg\\";
-
+//		String fileRoot = "D:\\Springworkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Final-Project\\resources\\boardImg\\";
+		String fileRoot = "C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\Final-Project\\resources\\boardImg\\";
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명

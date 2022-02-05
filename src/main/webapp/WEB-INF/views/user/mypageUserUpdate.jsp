@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- 태그 라이브러리 -->
 <!doctype html>
 <html lang="en">
 
@@ -315,26 +317,32 @@
 				<span id="checkResult"></span>
 				<input type="hidden" name="seq" value="${dto.seq }">
 			</div>
-
+			
+			<c:if test="${dto.name != null}">
 			<div class="form-group col-lg-3 mb-3">
 				<input type="password" name="pw" id="ps" class="form-control"
 					placeholder="비밀번호 특수문자 포함 8~20자리" onblur="pwcheck(this);"
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"> <span
 					id="pwcheck1" style="color: red;"></span>
 			</div>
+			</c:if>
 
+			<c:if test="${dto.name != null}">
 			<div class="form-group col-lg-3 mb-3">
 				<input type="password" id="reps" class="form-control"
 					placeholder="비밀번호 확인" onblur="pwcheck(this);"
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"> <span
 					id="pwcheck2" style="color: red;"></span>
 			</div>
+			</c:if>
 
 
 			<div class="form-group col-lg-3 mb-3">
+			<c:if test="${dto.name != null}">
 				<input type="text" name="name" id="name" maxlength="4"
 					class="form-control" placeholder="${dto.name }" readonly
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+			</c:if>
 				<input type="hidden" name="name" value="${dto.name }">
 			</div>
 			<div class="form-group col-lg-3 mb-3">
@@ -408,6 +416,12 @@
 					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
 
 			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="button" value="목록으로" id="back"
+					class="form-control btn btn-primary submit px-3"
+					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
+
+			</div>
 		</form>
 		</div>
 		</div>
@@ -429,5 +443,11 @@ $("#leave").on("click",function(){
 		location.href="/mypage/delete";	
 	}
 })
+</script>
+<script type="text/javascript">
+$("#back").on("click",function(){
+	location.href="/mypage/myChalList";
+})
+	
 </script>
 </html>
