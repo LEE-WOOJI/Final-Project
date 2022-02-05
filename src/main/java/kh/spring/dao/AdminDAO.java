@@ -29,9 +29,25 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.getBoardCount");
 	}
 	
+	// 관리자 페이지 자유게시판 관리에서 검색한 자유게시판 글 수 출력.
+	public int getSearchBoardCount(String select,String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("select", select);
+		map.put("keyword", keyword);
+		return mybatis.selectOne("Admin.getSearchBoardCount",map);
+	}
+	
 	// 관리자 페이지 메인에서 챌린지 수 출력.
 	public int getChalCount() {
 		return mybatis.selectOne("Admin.getChalCount");
+	}
+	
+	// 관리자 페이지 챌린지 관리에서 검색한 챌린지 글 수 출력.
+	public int getSearchChalCount(String select, String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("select", select);
+		map.put("keyword", keyword);
+		return mybatis.selectOne("Admin.getSearchChalCount",map);
 	}
 	
 	// 관리자 페이지 메인에서 등급 출력.

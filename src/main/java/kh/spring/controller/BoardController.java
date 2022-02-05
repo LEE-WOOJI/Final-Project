@@ -32,8 +32,10 @@ public class BoardController {
 		HttpSession session = request.getSession();
 		// 아이디 세션값을 꺼내기.
 		String id = (String) session.getAttribute("loginId");
+		
 		if(id!=null) {
 			String blackList = brService.searchInfoById(id).getBlacklist();
+			
 			model.addAttribute("blackList",blackList);	
 		}
 		
@@ -52,7 +54,17 @@ public class BoardController {
 	}
 	
 	@RequestMapping("search") // 메인에서 글 검색.
-	public String boardSearch(Model model, int cpage, String select, String keyword) throws Exception {
+	public String boardSearch(Model model, int cpage, String select, String keyword, HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		// 아이디 세션값을 꺼내기.
+		String id = (String) session.getAttribute("loginId");
+		
+		if(id!=null) {
+			String blackList = brService.searchInfoById(id).getBlacklist();
+			
+			model.addAttribute("blackList",blackList);	
+		}
+		
 		Map<String,String> map = bService.pageCheck(cpage);
 		int currentPage = Integer.parseInt(map.get("currentPage"));
 		int start = Integer.parseInt(map.get("start"));

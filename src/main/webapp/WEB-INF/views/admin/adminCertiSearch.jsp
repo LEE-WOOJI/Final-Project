@@ -36,6 +36,8 @@ body {
 	background-color: #f7f7ff;
 }
 
+#delBtn, #option{font-family: 'yg-jalnan', verdana, tahoma;}
+
 .card {
 	position: relative;
 	display: flex;

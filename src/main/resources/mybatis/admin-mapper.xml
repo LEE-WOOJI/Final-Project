@@ -14,10 +14,20 @@
 	<select id="getBoardCount" resultType="int">
 		select count(*) from board
 	</select>
+	
+	<!-- 관리자 페이지 자유게시판 관리에서 검색한 자유게시판 글 수 출력 -->
+	<select id="getSearchBoardCount" resultType="int">
+		select count(*) from board where ${select} like '%'||#{keyword}||'%'
+	</select>
 
 	<!-- 관리자 페이지 메인에서 챌린지 수 출력 -->
 	<select id="getChalCount" resultType="int">
 		select count(*) from chal
+	</select>
+	
+	<!-- 관리자 페이지 챌린지 관리에서 검색한 챌린지 글 수 출력 -->
+	<select id="getSearchChalCount" resultType="int">
+		select count(*) from chal where ${select} like '%'||#{keyword}||'%'
 	</select>
 
 	<!-- 관리자 페이지 메인에서 등급 출력 -->

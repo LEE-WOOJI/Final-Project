@@ -173,6 +173,7 @@
    </body>
    
    <script>
+   
    		let moreNum = 1;
    		$("#more").on("click",function(){
    			moreNum += 6;

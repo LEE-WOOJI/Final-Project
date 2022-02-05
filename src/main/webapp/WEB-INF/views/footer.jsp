@@ -80,7 +80,7 @@
 	</div>
 </footer>
 <div id="bot" class="text-center p-4"
-	style="background-color: #cf3131; color: white">Copyright 2022.
+	style="background-color: rgb(228, 72, 72); color: white">Copyright 2022.
 	&copy; Glply All rights reserved.</div>
 <!-- Copyright -->
 <!-- Bootstrap core JS-->

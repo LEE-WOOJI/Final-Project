@@ -163,19 +163,6 @@ a:hover {
 	color: white;
 }
 
-#delBtn {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#delBtn:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
 #search {
 	background-color: transparent;
 	border: 1px solid transparent;
@@ -305,7 +292,7 @@ a:hover {
 											</button>
 										</td>
 										<td>
-											<input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기">
+											<input type="button" id="delBtn" onclick="return submit2(this.form)" value="삭제하기" class="btn btn-danger"style="font-family: 'yg-jalnan';">
 										</td>
 									</tr>
 								</table>
