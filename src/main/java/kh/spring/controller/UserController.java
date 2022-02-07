@@ -215,20 +215,37 @@ public class UserController {
     //카카오 로그인 버튼을 눌렀을떄
     @RequestMapping("kakaologin")
     public String kakaologin(Model model,String nickname,String email,HttpServletRequest request) {
-       
-      boolean result = memberService.kakaoInsert(nickname,email);
-      if(result) {
-         //로그인처리
-         HttpSession session = request.getSession(); // 서버쪽 세션 금고에
-         session.setAttribute("loginId", email); // loginID라는 키값으로 사용자 ID를 저장
-         session.setAttribute("writerNickname", nickname);
-      }else {
-         //로그인처리
-         HttpSession session = request.getSession(); // 서버쪽 세션 금고에
-         session.setAttribute("loginFailId", email); // loginID라는 키값으로 사용자 ID를 저장
-         session.setAttribute("writerNickname", nickname);
-	    
-      }
+      
+    if(email.equals("")) {
+    	email = UUID.randomUUID().toString().substring(0,10)+"@glphy.com";
+        boolean result = memberService.kakaoInsert(nickname,email);
+        if(result) {
+           //로그인처리
+           HttpSession session = request.getSession(); // 서버쪽 세션 금고에
+           session.setAttribute("loginId", email); // loginID라는 키값으로 사용자 ID를 저장
+           session.setAttribute("writerNickname", nickname);
+        }else {
+           //로그인처리
+           HttpSession session = request.getSession(); // 서버쪽 세션 금고에
+           session.setAttribute("loginFailId", email); // loginID라는 키값으로 사용자 ID를 저장
+           session.setAttribute("writerNickname", nickname);
+  	    
+        }
+    }else {
+        boolean result = memberService.kakaoInsert(nickname,email);
+        if(result) {
+           //로그인처리
+           HttpSession session = request.getSession(); // 서버쪽 세션 금고에
+           session.setAttribute("loginId", email); // loginID라는 키값으로 사용자 ID를 저장
+           session.setAttribute("writerNickname", nickname);
+        }else {
+           //로그인처리
+           HttpSession session = request.getSession(); // 서버쪽 세션 금고에
+           session.setAttribute("loginFailId", email); // loginID라는 키값으로 사용자 ID를 저장
+           session.setAttribute("writerNickname", nickname);
+  	    
+        }
+    }
       return "redirect:/";
    }
 
