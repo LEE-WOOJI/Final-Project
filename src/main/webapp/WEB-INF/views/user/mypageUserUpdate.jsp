@@ -17,7 +17,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
+
 
 	var confirmId = ""; // 중복확인 후 전역변수에 확인한 ID 대입.
 	$(function() {
@@ -198,6 +200,21 @@
 	            alert("이메일 형식을 다시한번 확인해주세요.");
 	            return false;
 	        }
+			if ($("#ad").val() == '') {
+				alert("우편번호를 선택해주세요.");
+				$("#ad").focus();
+				return false;
+			}
+			if ($("#ad1").val() == '') {
+				alert("주소를 입력해주세요.");
+				$("#ad1").focus();
+				return false;
+			}
+			if ($("#ad2").val() == '') {
+				alert("주소를 입력해주세요.");
+				$("#ad2").focus();
+				return false;
+			}
 
 		var answer=confirm("정보수정을 하시겠습니까?");
 		if (answer==false){
@@ -264,6 +281,53 @@
 				
 		}
 	</script>
+	<script type="text/javascript">
+	//회원가입 시 필수 값 체크
+	function validation2() {
+		if ($("#phone").val() == '') {
+			alert("휴대폰 번호를 확인해주세요.");
+			$("#phone").focus();
+			return false;
+		}
+		  var phoneReg = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/g;
+	        if( !phoneReg.test( $("input[name=phone]").val() ) ) {
+	            alert("휴대폰 형식을 다시한번 확인해주세요.");
+	            return false;
+	    }
+		if ($("#email").val() == '') {
+			alert("이메일을 확인해주세요.");
+			$("#email").focus();
+			return false;
+		}
+		  var emailReg = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/g;
+	        if( !emailReg.test( $("input[name=email]").val() ) ) {
+	            alert("이메일 형식을 다시한번 확인해주세요.");
+	            return false;
+	        }
+			if ($("#ad").val() == '') {
+				alert("우편번호를 선택해주세요.");
+				$("#ad").focus();
+				return false;
+			}
+			if ($("#ad1").val() == '') {
+				alert("주소를 입력해주세요.");
+				$("#ad1").focus();
+				return false;
+			}
+			if ($("#ad2").val() == '') {
+				alert("주소를 입력해주세요.");
+				$("#ad2").focus();
+				return false;
+			}
+		var answer=confirm("정보수정을 하시겠습니까?");
+		if (answer==false){
+			return false
+		}
+		return true;
+			
+		
+	    }
+	</script>
 
 <style type="text/css">
 @font-face {
@@ -279,6 +343,7 @@
 
 </head>
 
+<c:if test="${dto.name != null }">
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 	<section class="ftco-section">
@@ -318,31 +383,25 @@
 				<input type="hidden" name="seq" value="${dto.seq }">
 			</div>
 			
-			<c:if test="${dto.name != null}">
 			<div class="form-group col-lg-3 mb-3">
 				<input type="password" name="pw" id="ps" class="form-control"
 					placeholder="비밀번호 특수문자 포함 8~20자리" onblur="pwcheck(this);"
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"> <span
 					id="pwcheck1" style="color: red;"></span>
 			</div>
-			</c:if>
 
-			<c:if test="${dto.name != null}">
 			<div class="form-group col-lg-3 mb-3">
 				<input type="password" id="reps" class="form-control"
 					placeholder="비밀번호 확인" onblur="pwcheck(this);"
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"> <span
 					id="pwcheck2" style="color: red;"></span>
 			</div>
-			</c:if>
 
 
 			<div class="form-group col-lg-3 mb-3">
-			<c:if test="${dto.name != null}">
 				<input type="text" name="name" id="name" maxlength="4"
 					class="form-control" placeholder="${dto.name }" readonly
 					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
-			</c:if>
 				<input type="hidden" name="name" value="${dto.name }">
 			</div>
 			<div class="form-group col-lg-3 mb-3">
@@ -411,10 +470,7 @@
 
 			</div>
 			<div class="form-group col-lg-3 mb-3">
-				<input type="button" value="회원탈퇴" id="leave"
-					class="form-control btn btn-primary submit px-3"
-					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
-
+			<div><a href="javascript:leave();" class="member" id="leave"><button type="button" class="form-control btn btn-primary submit px-3" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">회원탈퇴</button></a></div>
 			</div>
 			<div class="form-group col-lg-3 mb-3">
 				<input type="button" value="목록으로" id="back"
@@ -436,13 +492,158 @@
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 
 </body>
+</c:if>
+<c:if test="${dto.name == null }">
+<body>
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<section class="ftco-section">
+		<div class="container">
+			<div class="col-md-6 text-center mb-5"></div>
+		</div>
+		<form action="/image/mypageUpdate" class="signup-form"
+			onsubmit="return validation2()" method="post" enctype="multipart/form-data">
+		<div class="row">
+			<div class="small-12 medium-2 large-2 columns"
+				style="text-align: center">
+				<div class="circle">
+					<img class="profile-pic"
+						style="width: 300px; height: 300px; border-radius: 50%;"
+						src="/image/mypageLoad?nickname=${dto.nickname }">
+
+				</div>
+
+				<div class="p-image">
+					<i class="fa fa-camera upload-button"></i> 
+					<!-- <input class="file-upload" type="file" accept="image/*" style="width: 220px" > -->
+					<label id="fileUpload">사진 선택<input type="file" name="file" accept="image/*" class="file-upload"
+						id="file" accept="jpg,jpeg,png" style="display: none;">
+					</label>
+				</div>
+			</div>
+		</div>
+		&nbsp;
+		&nbsp;
+		<h3 class="text-center mb-4">회원가입</h3>
+
+			<div class="form-group col-lg-3 mb-3 ">
+				<input type="text" class="form-control" placeholder="${dto.id }" name="id"
+					id="id" maxlength="12" readonly value="${dto.id }"
+					style="width: 68%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+				<span id="checkResult"></span>
+				<input type="hidden" name="seq" value="${dto.seq }">
+			</div>
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="nickname" id="nickname" maxlength="10"
+					class="form-control" placeholder="${dto.nickname }" readonly
+					style="width: 68%;font-size: smaller; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+				<span id="niccheckResult"></span>
+				<input type="hidden" name="nickname" value="${dto.nickname }">
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="phone" id="phone" max="9999" maxlength="11"
+					size="28" onKeyup="this.value=this.value.replace(/[^0-9]/g,'')"
+					class="form-control" placeholder="연락처 ex) - 없이 숫자로만 입력해주세요" value="${dto.phone }"
+					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" class="form-control" name="email" id="email" value="${dto.email }"
+					placeholder="이메일 ex) glorytrophy@gmail.com"
+					style="width: 68%;display: inline-block;font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+				<span id="emailcheckResult"></span>
+			</div>
+
+
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name=zipcode id=zipcode max="99999" maxlength="5"
+					onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" readonly
+					class="form-control" placeholder="우편번호" value="${dto.zipcode }"
+					style="font-size: smaller;width: 68%; display: inline-block; font-family: 'yg-jalnan', verdana, tahoma;">
+
+				<button type="button" value="우편번호찾기" id="ad"
+					class="form-control btn btn-primary submit px-3"
+					style="text-align: center; width: 30%; font-family: 'yg-jalnan', verdana, tahoma;">
+					찾기</input>
+					<script>
+									//카카오 api 우편번호 검색 
+									document.getElementById("ad").onclick = function(){
+									      new daum.Postcode({
+									          oncomplete: function(data) {
+									               // 우편번호와 주소 정보를 해당 필드에 넣는다.
+									               document.getElementById('zipcode').value = data.zonecode;
+									               document.getElementById("ad1").value = data.roadAddress;
+									              
+									               }
+									           }).open();
+									}
+									</script>
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="address1" id="ad1" class="form-control" value="${dto.address1 }"
+					placeholder="주소" style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;"
+					readonly>
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="text" name="address2" id="ad2" class="form-control" value="${dto.address2 }"
+					placeholder="상세주소"
+					style="font-size: smaller;font-family: 'yg-jalnan', verdana, tahoma;">
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="submit" value="수정완료" id="regi"
+					class="form-control btn btn-primary submit px-3"
+					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
+
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+			<div><a href="javascript:leave();" class="member" id="leave"><button type="button" class="form-control btn btn-primary submit px-3" style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;">회원탈퇴</button></a></div>
+			</div>
+			<div class="form-group col-lg-3 mb-3">
+				<input type="button" value="목록으로" id="back"
+					class="form-control btn btn-primary submit px-3"
+					style="text-align: center; font-family: 'yg-jalnan', verdana, tahoma;" />
+
+			</div>
+		</form>
+		</div>
+		</div>
+		</div>
+		</div>
+	</section>
+
+	<script src="/js/signup/jquery.min.js"></script>
+	<script src="/js/signup/popper.js"></script>
+	<script src="/js/signup/bootstrap.min.js"></script>
+	<script src="/js/signup/main.js"></script>
+	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+
+</body>
+</c:if>
 
 <script type="text/javascript">
-$("#leave").on("click",function(){
-	if(confirm("정말 탈퇴하시겠습니까?")){
-		location.href="/mypage/delete";	
-	}
-})
+Kakao.init('280f4b845b98a0adf26878c0048c5ade'); //발급받은 키 중 javascript키를 사용해준다.
+function leave() {
+      if (confirm("정말 탈퇴하시겠습니까?")) {
+         if (Kakao.Auth.getAccessToken()) {
+            Kakao.API.request({
+               url : '/v1/user/unlink',
+               success : function(response) {
+                  location.href = "/mypage/delete"; //카카오api 결과값을 받은후 로그아웃 처리
+               },
+               fail : function(error) {
+                  location.href = "/mypage/delete";
+               },
+            })
+            Kakao.Auth.setAccessToken(undefined)
+         } else {
+            location.href = "/mypage/delete"; //카카오 api를 사용한 로그인이 아니고 일반 로그인인 경우
+         }
+
+      }
+   }
 </script>
 <script type="text/javascript">
 $("#back").on("click",function(){
