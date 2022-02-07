@@ -190,6 +190,11 @@
 			$("#phone").focus();
 			return false;
 		}
+		  var phoneReg = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/g;
+	        if( !phoneReg.test( $("input[name=phone]").val() ) ) {
+	            alert("휴대폰 형식을 다시한번 확인해주세요.");
+	            return false;
+	    }
 		if ($("#email").val() == '') {
 			alert("이메일을 확인해주세요.");
 			$("#email").focus();
