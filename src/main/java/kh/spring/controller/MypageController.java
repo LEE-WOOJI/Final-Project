@@ -204,6 +204,7 @@ public class MypageController {
         	list.add(rs);
         }
         model.addAttribute("list",list);
+        model.addAttribute("nickname",nickname);
 
         return "/user/like";
     }

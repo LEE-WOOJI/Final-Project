@@ -124,19 +124,6 @@ a {
 	height: auto
 }
 
-#writeBtn {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#writeBtn:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
 #search {
 	background-color: transparent;
 	border: 1px solid transparent;
@@ -179,6 +166,16 @@ a {
 	background-color: black;
 	color: white;
 }
+
+@font-face {
+   font-family: 'S-CoreDream-4Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
 </style>
 <body>
 	<!-- 헤더 -->
@@ -223,17 +220,17 @@ a {
 				<c:forEach var="list" items="${list}">
 					<div class="card-body py-3">
 						<div class="row no-gutters w-100 align-items-center">
-							<div class="col ml-3">${list.seq }</div>
+							<div class="col ml-3" style="font-family: 'S-CoreDream-4Regular';">${list.seq }</div>
 							<div class="col ml-3">
 								<a href="/board/detail?cpage=${cpage}&seq=${list.seq}&select=${select}&keyword=${keyword}" class="text-big" data-abc="true"
-									style="color: black;">${list.title}</a>
+									style="color: black; font-family: 'S-CoreDream-4Regular';">${list.title}</a>
 							</div>
 							<div class="col-4 text-muted">
-								<div class="row no-gutters align-items-center">
-									<img src="/image/board?nickname=${list.nickname}" alt="" class="d-block ui-w-30 rounded-circle" style="width: 50px; height: 40px;">
+								<div class="row no-gutters align-items-center" style="font-family: 'S-CoreDream-4Regular';">
+									<img src="/image/board?nickname=${list.nickname}" alt="" class="d-block ui-w-30 rounded-circle" style="width: 50px; height: 30px;">
 									<div class="d-none d-md-block col-4">${list.nickname}</div>
 									<div class="d-md-none col-12">${list.nickname}</div>
-									<div class="d-none d-md-block col-4">${list.write_date}</div>
+									<div class="d-none d-md-block col-4">${list.detailDate}</div>
 									<div class="d-none d-md-block col-2">${list.view_count}</div>
 								</div>
 							</div>
@@ -249,8 +246,8 @@ a {
 			<div class="col-10"
 				style="float: none; margin: 0 auto; border: 0px; background-color: transparent;">
 				<div class="row">
-					<div class="col">
-						<table class="table-sm mb-0" align=right>
+					<div class="col" style="padding: 0px;">
+						<table class="table-sm mb-0" align=right style="font-family: 'S-CoreDream-4Regular';">
 							<tr>
 								<td><select class="selectpicker" id="select">
 										<option value="title">제목</option>
@@ -261,12 +258,12 @@ a {
 									placeholder="내용을 입력하세요" id="searchContents"
 									name="searchContents" /></td>
 								<td>
-									<button id="search">
+									<button id="search" style="padding: 0px;">
 										<i class="fas fa-search"></i>
 									</button>
 								</td>
 								<td>
-									<button id="writeBtn">글쓰기</button>
+									<button id="writeBtn" class="btn btn-danger" style="font-family: 'yg-jalnan'; padding-left: 6px; padding-right: 6px;">글쓰기</button>
 								</td>
 							</tr>
 						</table>
@@ -282,11 +279,14 @@ a {
 	<script>
 		// 글쓰기 버튼 클릭 시.
 		$("#writeBtn").on("click", function() {
-			if(${loginId != null}){
+			if(${loginId != null && blackList == 'N'}){
 				location.href = "/board/write?cpage=${cpage}&select=${select}&keyword=${keyword}";	
-			}else{
+			}else if(${loginId == null}){
 				alert("로그인 후 이용 가능합니다.");
-				location.href = "/user/login";
+				location.href = "/user/loginform";
+			}else if(${blackList == 'Y'}){
+				alert("사용이 제한된 계정입니다.");
+				location.href = "/";
 			}
 		})
 
