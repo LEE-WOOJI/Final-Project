@@ -212,6 +212,7 @@ public class MypageController {
         	ChalDTO rs = hservice.selectByChalSeq(chalSeq);
         	list.add(rs);
         }
+        model.addAttribute("nickname",nickname);
         model.addAttribute("list",list);
         model.addAttribute("nickname",nickname);
 
