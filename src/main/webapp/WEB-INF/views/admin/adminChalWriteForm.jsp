@@ -238,32 +238,6 @@ body {
 	cursor: pointer
 }
 
-#chalList {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#chalList:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#complete {
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
-#complete:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
 @font-face {
 	font-family: 'yg-jalnan';
 	src:
@@ -380,8 +354,8 @@ label:hover {
 						type="hidden" value="진행중" name="chalStat"> <br>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="chalList">목록으로</button>
-							<button id="complete">작성완료</button>
+							<button type="button" id="chalList" class="btn btn-danger" style="font-family: 'yg-jalnan';">목록으로</button>
+							<button id="complete" class="btn btn-danger" style="font-family: 'yg-jalnan';">작성완료</button>
 						</div>
 					</div>
 				</div>

@@ -5,16 +5,17 @@
 
 <mapper namespace="Chal">
 	<select id="listBound" resultType="kh.spring.dto.ChalLikeDTO">
-		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal) join chalimg using(chalSeq) where rn between #{start} and #{end}
+		select * from(select chal.*, row_number() over(order by startDate asc)rn from chal) join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
 	<select id="searchK" resultType="kh.spring.dto.ChalLikeDTO">
-		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where chalName like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
+		select * from(select chal.*, row_number() over(order by startDate asc)rn from chal where chalName like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
+	
 	<select id="searchT" resultType="kh.spring.dto.ChalLikeDTO">
-		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where tag like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
+		select * from(select chal.*, row_number() over(order by startDate asc)rn from chal where tag like '%'||#{keyword}||'%') join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
 	<select id="searchD" resultType="kh.spring.dto.ChalLikeDTO">
-		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal where day = #{keyword}) join chalimg using(chalSeq) where rn between #{start} and #{end}
+		select * from(select chal.*, row_number() over(order by startDate asc)rn from chal where day = #{keyword}) join chalimg using(chalSeq) where rn between #{start} and #{end}
 	</select>
 
 	<select id = "listCategory" resultType="kh.spring.dto.ChalLikeDTO">
@@ -26,7 +27,7 @@
 
 	<!-- 챌린지 정보 조회(대표이미지, 내용, 참여자 수, 날짜 등등) -->
 	<select id="selectBySeq" resultType="kh.spring.dto.ChalLikeDTO">
-		select * from(select chal.*, row_number() over(order by chalSeq asc)rn from chal) join chalimg using(chalSeq) where chalseq = #{value}
+		select * from(select chal.*, row_number() over(order by startDate asc)rn from chal) join chalimg using(chalSeq) where chalseq = #{value}
 	</select>
 	
 	<!-- 인증샷 조회 -->

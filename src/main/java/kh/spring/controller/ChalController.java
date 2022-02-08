@@ -41,6 +41,7 @@ public class ChalController {
 	@RequestMapping("list")
 	public String chalList(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		int start = 1;
 		int end = start + 5;
 		List<ChalLikeDTO> list = cservice.listBound(start, end);
@@ -67,8 +68,10 @@ public class ChalController {
 	@RequestMapping(value = "more", produces = "text/html;charset=utf8")
 	public String chalMore(int moreNum) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		int start = moreNum;
 		int end = start + 5;
+		System.out.println(start + ":" + end);
 		System.out.println(end);
 		List<ChalLikeDTO> list = cservice.listBound(start, end); //7~12까지의 챌린지 정보를 dto리스트로 담아 list에 저장
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -92,6 +95,7 @@ public class ChalController {
 	@RequestMapping("search")
 	public String chalSearch(String option, String searchText, Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		System.out.println(option + ":" + searchText);
 		int start = 1;
 		int end = start + 2;
@@ -112,6 +116,7 @@ public class ChalController {
 			model.addAttribute("option",option);
 			model.addAttribute("searchText",searchText);
 			model.addAttribute("list",heartlist);
+			
 		}else if(option.equals("tag")) {
 			List<ChalLikeDTO> tlist = cservice.searchT(start, end, searchText);
 			List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -129,6 +134,7 @@ public class ChalController {
 			model.addAttribute("option",option);
 			model.addAttribute("searchText",searchText);
 			model.addAttribute("list",heartlist);
+			
 		}else if(option.equals("day")) {
 			List<ChalLikeDTO> dlist = cservice.searchD(start, end, searchText);
 			List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -155,8 +161,10 @@ public class ChalController {
 	@RequestMapping(value = "searchMore", produces = "text/html;charset=utf8")
 	public String searchMore(String opt, String key,int moreNum) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		int start = moreNum;
-		int end = start + 2;
+		int end = moreNum + 2;
+		System.out.println(start + ":" + end);
 		Gson glist = new Gson();
 		String result = null;
 		System.out.println(end);
@@ -167,7 +175,6 @@ public class ChalController {
 			List<ChalLikeDTO> heartlist = new ArrayList<>();
 			for(ChalLikeDTO c : klist) {
 				HeartDTO input = new HeartDTO(0,c.getChalSeq(),nickname,0);
-				System.out.println("더보기라네" + nickname + ":" + input.getRefChalSeq());
 				int check = hService.findHeart(input);
 				if(check==1) {
 					heartlist.add(new ChalLikeDTO(c.getChalSeq(),c.getChalName(),c.getStartDate(),c.getEndDate(),c.getPersonnel(),c.getChalInfo(),c.getTag(),c.getPrice(),c.getDay(),c.getCategory(),c.getSeq(),c.getOriName(),c.getSysName(),c.getHseq(),c.getRefChalSeq(),c.getRefNickname(),1));
@@ -215,6 +222,7 @@ public class ChalController {
 	@RequestMapping("health")
 	public String chalHealth(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "건강";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -237,6 +245,7 @@ public class ChalController {
 	@RequestMapping("hobby")
 	public String chalHobby(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "취미";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -259,6 +268,7 @@ public class ChalController {
 	@RequestMapping("finance")
 	public String chalFinance(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "금융";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -281,6 +291,7 @@ public class ChalController {
 	@RequestMapping("study")
 	public String chalStudy(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "공부";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -303,6 +314,7 @@ public class ChalController {
 	@RequestMapping("life")
 	public String chalLife(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "생활";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -325,6 +337,7 @@ public class ChalController {
 	@RequestMapping("pet")
 	public String chalPet(Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		String category = "펫/환경";
 		List<ChalLikeDTO> list = cservice.listCategory(category);
 		List<ChalLikeDTO> heartlist = new ArrayList<>();
@@ -349,6 +362,7 @@ public class ChalController {
 	@RequestMapping(value = "filter", produces = "text/html;charset=utf8")
 	public String filter(String category, String filter, Model model) {
 		String nickname = (String) session.getAttribute("writerNickname");
+		if(nickname == null) {nickname = "비회원009812436";}
 		System.out.println(category + ":" + filter);
 		Gson glist = new Gson();
 		List<ChalLikeDTO> list = cservice.categoryFilter(category, filter);
@@ -392,6 +406,7 @@ public class ChalController {
 		//블랙리스트 유무를 위하여 로그인 세션 받아옴
 		String id = (String) session.getAttribute("loginId");
 		String nickname = (String)session.getAttribute("writerNickname");
+		if(nickname == null) {return "redirect:/user/loginform";}
 
 		if(id != null) {
 			MemberDTO member = brService.searchInfoById(id);

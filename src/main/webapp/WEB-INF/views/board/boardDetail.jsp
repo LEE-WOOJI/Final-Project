@@ -236,13 +236,6 @@ body {
 	cursor: pointer
 }
 
-button:hover {
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 3px;
-}
-
 @font-face {
 	font-family: 'yg-jalnan';
 	src:
@@ -251,6 +244,16 @@ button:hover {
 	font-weight: normal;
 	font-style: normal;
 }
+
+@font-face {
+   font-family: 'S-CoreDream-4Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
 </style>
 </head>
 <body>
@@ -290,7 +293,7 @@ button:hover {
 									</ul>
 									<ul class="meta list list-unstyled profile-detail d-flex mb-0"
 										style="margin-left: auto; justify-content: flex-end;">
-										<li class="label" style="margin: 0; padding: 0">${bList.write_date }</li>
+										<li class="label" style="margin: 0; padding: 0; font-family: 'S-CoreDream-4Regular';">${bList.detailDate }</li>
 									</ul>
 								</div>
 							</div>
@@ -299,7 +302,7 @@ button:hover {
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<input type=text id=input-title name=title value="${bList.title}"
-								style="width: 100%;" readonly>
+								style="width: 100%; font-family: 'S-CoreDream-4Regular';" readonly>
 						</div>
 					</div>
 					<div class="row">
@@ -314,17 +317,14 @@ button:hover {
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
 							<c:if test="${writerNickname==bList.nickname or loginId=='admin1234'}">
-								<button type="button" id="mod"
-									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정하기</button>
-								<button type="button" id="del"
-									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제하기</button>
-								<button id="modDone"
-									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">수정완료</button>
-								<button type="button" id="cancel"
-									style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none;">취소</button>
+								<button type="button" id="mod" class="btn btn-danger" style="font-family: 'yg-jalnan';">수정하기</button>
+								<button type="button" id="del" class="btn btn-danger" style="font-family: 'yg-jalnan';">삭제하기</button>
+								<button id="modDone" class="btn btn-danger"
+									style="display: none; font-family: 'yg-jalnan';">수정완료</button>
+								<button type="button" id="cancel" class="btn btn-danger"
+									style="display: none; font-family: 'yg-jalnan';">취소</button>
 							</c:if>
-							<button type="button" id="boardList"
-								style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">목록으로</button>
+							<button type="button" id="boardList" class="btn btn-danger" style="font-family: 'yg-jalnan';">목록으로</button>
 						</div>
 					</div>
 				</div>
@@ -356,7 +356,7 @@ button:hover {
 												class="meta list list-unstyled profile-detail d-flex mb-0"
 												style="margin-left: auto; justify-content: flex-end;">
 												<li class="label" name="write_date"
-													style="margin: 0; padding: 0">${rList.write_date}</li>
+													style="margin: 0; padding: 0; font-family: 'S-CoreDream-4Regular';">${rList.detailDate}</li>
 											</ul>
 										</div>
 									</div>
@@ -365,20 +365,18 @@ button:hover {
 							<div class="row">
 								<div class="col-sm-12">
 									<textarea class="contents" name="repContents" readonly
-										style="height: auto;">${rList.repContents}</textarea>
+										style="height: auto; font-family: 'S-CoreDream-4Regular'; resize: none; overflow: hidden;">${rList.repContents}</textarea>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12" style="text-align: right">
 									<c:if test="${writerNickname==rList.writerNickname or loginId=='admin1234'}">
-										<button type="button" class="modRp"
-											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">수정</button>
-										<button class="modRpDone"
-											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none">완료</button>
-										<button type="button" class="modRpCancel"
-											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px; display: none">취소</button>
-										<button type="button" class="delRp"
-											style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">삭제</button>
+										<button type="button" class="modRp btn btn-danger" style="font-family: 'yg-jalnan';">수정</button>
+										<button class="modRpDone btn btn-danger"
+											style="display: none; font-family: 'yg-jalnan';">완료</button>
+										<button type="button" class="modRpCancel btn btn-danger"
+											style="display: none; font-family: 'yg-jalnan';">취소</button>
+										<button type="button" class="delRp btn btn-danger" style="font-family: 'yg-jalnan';">삭제</button>
 										<input id="rseq" name="rseq" type=hidden value="${rList.seq}">
 										<input name="refBoardSeq" type=hidden value="${bList.seq}">
 									</c:if>
@@ -417,13 +415,12 @@ button:hover {
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea id="rpContents" cols=170 rows=4 name="repContents"></textarea>
+							<textarea id="rpContents" cols=170 rows=4 name="repContents" style="resize: none;"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button id="writeRp"
-								style="background-color: background-color: transparent; border: 1px solid black; border-radius: 3px;">등록</button>
+							<button id="writeRp" class="btn btn-danger" style="font-family: 'yg-jalnan';">등록</button>
 						</div>
 					</div>
 				</div>
@@ -473,13 +470,8 @@ button:hover {
             focus: true,
             toolbar: [
 			    // [groupName, [list of button]]
-			    ['fontname', ['fontname']],
-			    ['fontsize', ['fontsize']],
 			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			    ['color', ['forecolor','color']],
-			    ['table', ['table']],
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    ['height', ['height']],
+			    ['para', ['ul', 'ol']],
 			    ['insert',['picture','link','video']],
 			    ['view', ['fullscreen', 'help']]
 			  ],
@@ -552,6 +544,38 @@ button:hover {
    			location.href="/board/delRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}&rseq="+rseq;
    		}
    	});
+	</script>
+	
+	<script type="text/javascript">
+	// 댓글 개행시 박스사이즈 자동조절.
+	autosize();
+	function autosize(){
+	    var text = $('.contents');
+
+	    text.each(function(){
+	        $(this).attr('rows',1);
+	        resize($(this));
+	    });
+
+	    text.on('input', function(){
+	        resize($(this));
+	    });
+	    
+	    function resize ($text) {
+	        $text.css('height', 'auto');
+	        $text.css('height', $text[0].scrollHeight+'px');
+	    }
+	}
+	</script>
+	
+	<script type="text/javascript">
+	// 댓글 내용없을시 작성불가.
+	$("#writeRp").on("click",function(){
+		if($("#writeRp").val()==''){
+			alert("내용을 입력해주세요.");
+			return false;
+		}
+	})
 	</script>
 </body>
 </html>
