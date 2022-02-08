@@ -1,5 +1,6 @@
 package kh.spring.service;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 
@@ -67,6 +68,12 @@ public class MypageService {
 	public List<CertiDTO> findCertiList(int chalSeq, String chalName, String refNickname) {
 		return mypageDAO.findCertiList(chalSeq,chalName,refNickname);
 	}
+	
+	// 인증 중복 검사.
+	public int certiCheck(Timestamp certiDate) {
+		return mypageDAO.certiCheck(certiDate);
+	}
+	
 	
 	//유저 정보 폼
 	public MemberDTO userInfo(String id) {

@@ -2,6 +2,7 @@ package kh.spring.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,6 +176,14 @@ public class MypageController {
 		String nickname = (String)session.getAttribute("writerNickname");
 		// 인증한 목록 출력.
 		List<CertiDTO> list = mService.findCertiList(chalSeq, chalName, nickname);
+		for(int i=0; i<list.size(); i++) {
+			Timestamp certiDate = list.get(i).getCertiDate();
+			// 인증 중복 검사.
+			int certiCheck = mService.certiCheck(certiDate);
+			if(certiCheck==1) {
+				model.addAttribute("certiCheck",certiCheck);
+			}
+		}
 		CertiDTO info = new CertiDTO();
 		info.setChalSeq(chalSeq);
 		info.setChalName(chalName);
