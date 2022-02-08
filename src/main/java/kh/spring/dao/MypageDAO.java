@@ -1,5 +1,6 @@
 package kh.spring.dao;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +81,11 @@ public class MypageDAO {
 		map.put("chalName", chalName);
 		map.put("refNickname", refNickname);
 		return mybatis.selectList("Mypage.findCertiList",map);
+	}
+	
+	// 인증 중복 검사.
+	public int certiCheck(Timestamp certiDate) {
+		return mybatis.selectOne("Mypage.certiCheck",certiDate);
 	}
 	
 	//유저 폼

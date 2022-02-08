@@ -31,6 +31,7 @@
 <script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script>
 <link rel="icon" href="/assets/img/favicon.ico" type="image/x-ico" />
 <style type="text/css">
+#id{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 body {
 	margin-top: 20px;
 	background-color: #f7f7ff;
@@ -237,8 +238,8 @@ a:hover {
 							리스트</h6>
 						<br>
 						<div class="row" style="text-align: center; line-height: 30px; border: none;">
-							<div class="col-2 list" style="padding: 0px;">아이디</div>
 							<div class="col-2 list" style="padding: 0px;">이름</div>
+							<div class="col-2 list" style="padding: 0px;">아이디</div>
 							<div class="col-2 list" style="padding: 0px;">닉네임</div>
 							<div class="col-2 list" style="padding: 0px;">등급</div>
 							<div class="col-2 list" style="padding: 0px;">블랙여부</div>
@@ -248,8 +249,8 @@ a:hover {
 						<c:forEach var="list" items="${list}">
 							<br>
 							<div class="row" style="text-align: center; line-height: 30px; border: none;">
-								<div class="col-2" style="padding: 0px;">${list.id}</div>
 								<div class="col-2" style="padding: 0px;">${list.name}</div>
+								<div class="col-2" style="padding: 0px;" id = "id">${list.id}</div>
 								<div class="col-2" style="padding: 0px;">${list.nickname}</div>
 								<div class="col-2" style="padding: 0px;">${list.grade}</div>
 								<div class="col-2" style="padding: 0px;">${list.blacklist}</div>
@@ -318,8 +319,8 @@ a:hover {
    					console.log("회차 : " + i);
    					console.log(result[i].name);
    					content += `<br><div class="row" style="text-align: center; line-height: 30px; border: none;">
-						<div class="col-2" style="padding: 0px;">\${result[i].id}</div>
 						<div class="col-2" style="padding: 0px;">\${result[i].name}</div>
+						<div class="col-2" style="padding: 0px;">\${result[i].id}</div>
 						<div class="col-2" style="padding: 0px;">\${result[i].nickname}</div>
 						<div class="col-2" style="padding: 0px;">\${result[i].grade}</div>
 						<div class="col-2" style="padding: 0px;">\${result[i].blacklist}</div>

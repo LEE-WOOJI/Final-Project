@@ -71,6 +71,7 @@ public class ChalController {
 		if(nickname == null) {nickname = "비회원009812436";}
 		int start = moreNum;
 		int end = start + 5;
+		System.out.println(start + ":" + end);
 		System.out.println(end);
 		List<ChalLikeDTO> list = cservice.listBound(start, end); //7~12까지의 챌린지 정보를 dto리스트로 담아 list에 저장
 		List<ChalLikeDTO> heartlist = new ArrayList<>();

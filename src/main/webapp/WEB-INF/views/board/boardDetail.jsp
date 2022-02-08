@@ -547,6 +547,7 @@ body {
 	</script>
 	
 	<script type="text/javascript">
+	// 댓글 개행시 박스사이즈 자동조절.
 	autosize();
 	function autosize(){
 	    var text = $('.contents');
@@ -565,6 +566,16 @@ body {
 	        $text.css('height', $text[0].scrollHeight+'px');
 	    }
 	}
+	</script>
+	
+	<script type="text/javascript">
+	// 댓글 내용없을시 작성불가.
+	$("#writeRp").on("click",function(){
+		if($("#writeRp").val()==''){
+			alert("내용을 입력해주세요.");
+			return false;
+		}
+	})
 	</script>
 </body>
 </html>
