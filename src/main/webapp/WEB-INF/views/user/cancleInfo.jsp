@@ -114,15 +114,6 @@ td {
 }
 </style>
 <body>
-
-	<div class="container">
-		<div class="btnBox">
-			<a class="btn_popup" href="javascript:void(0);" onclick="window.open('../refundInfo', 'a', 
-                       'top=140, left=300, width=500, height=600, menubar=no, 
-                        toolbar=no, location=no, directories=no, status=no, 
-                        scrollbars=no, copyhistory=no, resizable=no');"> 팝업창 호출</a>
-		</div>
-	</div>
 	
 	<!-- 환급 버튼 누를 시 /user/refund 로 파라미터들 보내기  -->
 	<form action="/user/cancle" method="post" id="frm">
@@ -137,7 +128,7 @@ td {
 				<h2 class="tit" name="nickname" style="font-family: 'yg-jalnan', verdana, tahoma;">${dto.nickname}님의글피결과</h2>
 
 				<!-- 글피 트로피 이미지 -->
-				<img src="/src/main/webapp/resources/assets/img/about/trophy.png" style="width: 300px; margin-bottom: 10px;">
+				<img src="/assets/img/about/trophy.png" style="width: 300px; margin-bottom: 10px;">
 
 				<!-- 참여한 글피 관련 정보 테이블 -->
 				<table align="center" style="width: 300px;">
@@ -211,12 +202,14 @@ td {
 		$("#refundOk").on("click",function(){
 			if(confirm("입력하신 계좌로 취소 신청을 하시겠습니까?")==true){
 				frm.submit();
+			}else {
+				return false;
 			}
 		})
 		
 		$("#refundCancle").on("click",function(){
 			alert("결제취소신청이 취소됐습니다.");
-			location.href="/user/mypage"
+			location.href="/mypage/myChalList"
 		})
 		
 		
