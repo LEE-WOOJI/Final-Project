@@ -137,7 +137,7 @@ td {
 				<h2 class="tit" name="nickname" style="font-family: 'yg-jalnan', verdana, tahoma;">${dto.nickname}님의글피결과</h2>
 
 				<!-- 글피 트로피 이미지 -->
-				<img src="/src/main/webapp/resources/assets/img/about/trophy.png" style="width: 300px; margin-bottom: 10px;">
+				<img src="/resources/assets/img/about/trophy.png" style="width: 300px; margin-bottom: 10px;">
 
 				<!-- 참여한 글피 관련 정보 테이블 -->
 				<table align="center" style="width: 300px;">
