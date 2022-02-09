@@ -227,20 +227,21 @@ a:hover {
 										src="/image/board?nickname=${info.refNickname}"> <br>
 								</div>
 
-							<div class="list-group list-group-flush">
-								<a href="/mypage/updateForm" class="list-group-item py-1"><span
-									class="iconify" data-icon="icon-park-outline:people-search-one"
-									data-width="25"></span>&ensp;<span a
-									href=/mypage/updateUserInfo>내 정보 </span></a> <a
-									href="/mypage/myChalList" class="list-group-item py-1"><span
-									class="iconify" data-icon="icon-park-outline:gold-medal"
-									data-width="25"></span>&ensp;<span>도전중인 글피</span></a> <a
-									href="/mypage/myBoardAndReply" class="list-group-item py-1"><span
-									class="iconify" data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>작성한
-										글 / 댓글</span></a> <a href="/mypage/like" class="list-group-item py-1"><span
-									class="iconify" data-icon="bi:balloon-heart-fill"
-									data-width="25"></span>&ensp;<span>내가 찜한 글피 </span></a>
-							</div>
+								<div class="list-group list-group-flush">
+									<a href="/mypage/updateForm" class="list-group-item py-1"><span
+										class="iconify"
+										data-icon="icon-park-outline:people-search-one"
+										data-width="25"></span>&ensp;<span a
+										href=/mypage/updateUserInfo>내 정보 </span></a> <a
+										href="/mypage/myChalList" class="list-group-item py-1"><span
+										class="iconify" data-icon="icon-park-outline:gold-medal"
+										data-width="25"></span>&ensp;<span>도전중인 글피</span></a> <a
+										href="/mypage/myBoardAndReply" class="list-group-item py-1"><span
+										class="iconify" data-icon="clarity:note-line" data-width="25"></span>&ensp;<span>작성한
+											글 / 댓글</span></a> <a href="/mypage/like" class="list-group-item py-1"><span
+										class="iconify" data-icon="bi:balloon-heart-fill"
+										data-width="25"></span>&ensp;<span>내가 찜한 글피 </span></a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -256,7 +257,7 @@ a:hover {
 									<input type="hidden" name="chalName" value="${info.chalName}">
 									<input type="hidden" name="refNickname"
 										value="${info.refNickname}">
-									<button class="btn btn-danger"
+									<button class="btn btn-danger" id="certiWrite"
 										style="font-family: 'yg-jalnan', verdana, tahoma; float: right;">
 										<i class="fa fa-plus"></i> 인증하기
 									</button>
@@ -302,4 +303,12 @@ a:hover {
 	<!-- 풋터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>
+<script type="text/javascript">
+$("#certiWrite").on("click",function(){
+	if(${certiCheck == 1}){
+		alert("오늘 이미 인증을 완료하셨습니다.");
+		return false;
+	}
+})
+</script>
 </html>

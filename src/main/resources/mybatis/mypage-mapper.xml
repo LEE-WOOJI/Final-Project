@@ -83,6 +83,11 @@
 		chalSeq = #{chalSeq} and chalName =#{chalName} and refNickname =
 		#{refNickname}
 	</select>
+	
+	<!-- 인증 중복 검사 -->
+	<select id="certiCheck" resultType="int">
+		select count(*) from certi where to_char(#{value},'YY/MM/DD') = to_char(sysdate,'YY/MM/DD')
+	</select>
 
 	<!-- 회원 삭제 -->
 	<delete id="delete">
