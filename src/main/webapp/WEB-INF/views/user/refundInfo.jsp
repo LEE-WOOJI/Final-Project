@@ -222,21 +222,21 @@ td {
 	</main>
 	</div>
 	<script>
-	$("#refundOk").on("click",function(){
-		if(confirm("입력하신 계좌로 취소 신청을 하시겠습니까?")==true){
-			frm.submit();
-		}else {
-			return false;
-		}
-	})
-	
-	$("#refundCancle").on("click",function(){
-		alert("결제취소신청이 취소됐습니다.");
-		location.href="/mypage/myChalList"
-	})
-		
-		
-	</script>
+   $("#refundOk").on("click",function(){
+      if(confirm("환급 신청을 하시겠습니까?")==true){
+         frm.submit();
+      }else {
+         return false;
+      }
+   })
+   
+   $("#refundCancle").on("click",function(){
+      alert("환급 신청이 취소됐습니다.");
+      location.href="/mypage/myChalList"
+   })
+      
+      
+   </script>
 
 </body>
 </html>

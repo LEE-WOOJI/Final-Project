@@ -182,6 +182,7 @@ public class MypageController {
 			int certiCheck = mService.certiCheck(certiDate);
 			if(certiCheck==1) {
 				model.addAttribute("certiCheck",certiCheck);
+				System.out.println("중복검사 : " + certiCheck);
 			}
 		}
 		CertiDTO info = new CertiDTO();
