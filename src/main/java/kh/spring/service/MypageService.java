@@ -70,8 +70,8 @@ public class MypageService {
 	}
 	
 	// 인증 중복 검사.
-	public int certiCheck(Timestamp certiDate) {
-		return mypageDAO.certiCheck(certiDate);
+	public int certiCheck(Timestamp certiDate,String chalName) {
+		return mypageDAO.certiCheck(certiDate,chalName);
 	}
 	
 	
