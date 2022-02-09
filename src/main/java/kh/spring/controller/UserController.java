@@ -322,7 +322,7 @@ public class UserController {
 		model.addAttribute("blist",blist);
 		model.addAttribute("plist",plist);
 		model.addAttribute("flist",flist);
-		return "/user/myChalList ";
+		return "/user/myChalList";
 	}
 	
 	//유저 환급 신청
