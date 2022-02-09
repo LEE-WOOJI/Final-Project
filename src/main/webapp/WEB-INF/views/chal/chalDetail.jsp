@@ -41,6 +41,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: 'S-CoreDream-4Regular';
 	src:
@@ -49,31 +50,44 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 #countdown, #HourCountdown, #countExpire {
 	display: inline;
 	color: rgb(0, 0, 0);
 	font-weight: bold;
 }
+
 h1 {
 	font-size: 2rem;
 	font-weight: 500;
 }
+
 @
 keyframes open { 0% {
 	opacity: 0;
 }
+
 100
+
+
 %
 {
 opacity
+
+
 :
+
+
 1
+
+
 ;
 }
 }
 .detail summary::-webkit-details-marker {
 	display: none;
 }
+
 .detail summary {
 	width: 100%;
 	padding: 0.5rem 0;
@@ -84,6 +98,7 @@ opacity
 	font-weight: 300;
 	list-style: none;
 }
+
 .detail summary:after {
 	content: "+";
 	color: black;
@@ -96,18 +111,22 @@ opacity
 	transform-origin: center;
 	transition: 200ms linear;
 }
+
 .detail[open] summary:after {
 	transform: rotate(45deg);
 	font-size: 2rem;
 }
+
 .detail summary {
 	outline: 0;
 }
+
 .detail p {
 	font-size: 0.95rem;
 	margin: 0 0 1rem;
 	padding-top: 1rem;
 }
+
 .certiImg {
 	width: 100%;
 	height: 400px;
@@ -130,6 +149,7 @@ opacity
 .blog .carousel-indicators .active {
 	background: #b61717;
 }
+
 .thumbnail img {
 	width: 250px;
 	height: 200px;
@@ -165,31 +185,31 @@ opacity
 				<div class="col-md-6">
 
 					<input type=hidden value="${dto.chalSeq}" id="seq">
-					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="" style = "width:100%;height:100%;s">
+					<img src="/image/chalModifyLoad?chalSeq=${dto.chalSeq}" alt="" style="width: 100%; height: 100%;">
 				</div>
 				<div class="col-md-6">
 					<div class="chalTag" style="margin: 20px 0px 20px;">
 						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag1} </span>
 						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag2}</span>
-						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag3}</span> 
+						<span class="badge bg-warning text-dark" style="font-family: 'S-CoreDream-4Regular'; font-size: 18px;">${tag3}</span>
 					</div>
 					<h1 class="display-5 fw-bolder" style="font-family: 'yg-jalnan', verdana, tahoma; margin-bottom: 20px;">${dto.chalName}
-					&nbsp;&nbsp;
-					<c:choose>
+						&nbsp;&nbsp;
+						<c:choose>
 							<c:when test="${dto.heart == 1}">
 								<a href='javascript:void(0);' onclick="like(${dto.chalSeq})">
-								<img src="/assets/img/heartOn.png" alt="" id=heart>
+									<img src="/assets/img/heartOn.png" alt="" id=heart>
 								</a>
 							</c:when>
 							<c:when test="${dto.heart != 1}">
 								<a href='javascript:void(0);' onclick="like(${dto.chalSeq})">
-								<img src="/assets/img/heart.png" alt="" id=heart>
+									<img src="/assets/img/heart.png" alt="" id=heart>
 								</a>
 							</c:when>
 						</c:choose>
 					</h1>
-					
-					
+
+
 					<i class="bi bi-people-fill"></i>
 					<!-- 사람 아이콘 -->
 					<span style="font-family: 'S-CoreDream-4Regular'">&nbsp;&nbsp;현재 ${dto.personnel}명 참여중</span>
@@ -220,7 +240,7 @@ opacity
 						<c:if test="${member.blacklist ne 'Y'}">
 							<button type="button" id="joinBtn" class="btn btn-warning btn-lg" style="font-family: 'S-CoreDream-4Regular';">참여하기</button>
 						</c:if>
-						
+
 					</div>
 				</div>
 			</div>
@@ -267,22 +287,22 @@ opacity
 									<div class="row">
 										<div class="thumbnail col-md-3 col-sm-12">
 											<c:forEach var="i" items="${list}" begin="1" end="1" varStatus="status">
-													<img src="/image/certiWriteLoad?seq=${dto.chalSeq} " style="max-width: 100%;">							
+													<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="2" end="2" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=${dto.chalSeq}" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="3" end="3" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=${dto.chalSeq}" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="4" end="4" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=${dto.chalSeq}" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 									</div>
@@ -292,22 +312,22 @@ opacity
 									<div class="row">
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="5" end="5" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="6" end="6" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="7" end="7" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="8" end="8" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${i.seq }" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 									</div>
@@ -360,7 +380,7 @@ opacity
 	</section>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
-	
+
 	<script>
 	let seq =  $("#seq").val();	
 	
