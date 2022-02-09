@@ -265,8 +265,10 @@ public class ImageController {
 
    @RequestMapping("certiWriteLoad") // 인증 파일 이미지를 불러오기.
    public void certiWriteLoad(int seq, HttpServletResponse response) throws Exception {
+	   System.out.println("이미지 시퀀스" + seq);
       // seq로 CertiImg테이블의 imgName 찾기.
       CertiImgDTO dto = mService.findCertiImgName(seq);
+  
       String oriName = dto.getOriName();
       String sysName = dto.getSysName();
       String realPath = session.getServletContext().getRealPath("files");

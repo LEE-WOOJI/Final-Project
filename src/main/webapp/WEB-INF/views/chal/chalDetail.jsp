@@ -267,22 +267,22 @@ opacity
 									<div class="row">
 										<div class="thumbnail col-md-3 col-sm-12">
 											<c:forEach var="i" items="${list}" begin="1" end="1" varStatus="status">
-													<img src="/image/certiWriteLoad?seq=1" style="max-width: 100%;">
+													<img src="/image/certiWriteLoad?seq=${dto.chalSeq} " style="max-width: 100%;">							
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="2" end="2" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=2" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${dto.chalSeq}" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="3" end="3" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=3" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${dto.chalSeq}" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 										<div class="thumbnail col-md-3">
 											<c:forEach var="i" items="${list}" begin="4" end="4" varStatus="status">
-												<img src="/image/certiWriteLoad?seq=4" style="max-width: 100%;">
+												<img src="/image/certiWriteLoad?seq=${dto.chalSeq}" style="max-width: 100%;">
 											</c:forEach>
 										</div>
 									</div>
