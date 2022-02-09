@@ -179,7 +179,7 @@ public class MypageController {
 		for(int i=0; i<list.size(); i++) {
 			Timestamp certiDate = list.get(i).getCertiDate();
 			// 인증 중복 검사.
-			int certiCheck = mService.certiCheck(certiDate);
+			int certiCheck = mService.certiCheck(certiDate,chalName);
 			if(certiCheck==1) {
 				model.addAttribute("certiCheck",certiCheck);
 				System.out.println("중복검사 : " + certiCheck);

@@ -86,7 +86,7 @@
 	
 	<!-- 인증 중복 검사 -->
 	<select id="certiCheck" resultType="int">
-		select count(*) from certi where to_char(#{value},'YY/MM/DD') = to_char(sysdate,'YY/MM/DD')
+		select count(*) from certi where to_char(#{certiDate},'YY/MM/DD') = to_char(sysdate,'YY/MM/DD') and chalName = #{chalName}
 	</select>
 
 	<!-- 회원 삭제 -->
